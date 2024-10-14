@@ -1,0 +1,97 @@
+{
+  "root_branch": {
+    "branch_name": "root",
+    "description": "The player is making a sandwich.",
+    "text": "You are making a sandwich. {% for fragment in fragments %}{{ fragment }}{% endfor %}",
+    "fragments": [
+      {
+        "text": "You choose {{fragment}} bread.",
+        "description": "Choose bread type",
+        "options": [
+          "White",
+          "Wheat"
+        ]
+      },
+      {
+        "text": "You add {{fragment}} to your sandwich.",
+        "description": "Add fillings",
+        "options": [
+          "Ham",
+          "Cheese"
+        ]
+      }
+    ],
+    "decisions": [
+      {
+        "text": "Eat the sandwich",
+        "boring_text": "The player eats the sandwich.",
+        "priority": 1,
+        "condition": null,
+        "consequences": [
+          {
+            "description": "The player has eaten the sandwich."
+          }
+        ],
+        "check": null,
+        "applied_attributes": [
+          {
+            "target": "player",
+            "name": "Eaten",
+            "value": "True"
+          }
+        ],
+        "success_branch": {
+          "branch_name": "Player eats the sandwich",
+          "description": "{{player_name}} eats the sandwich.",
+          "text": "The player eats the sandwich.",
+          "fragments": [],
+          "decisions": [],
+          "parent": null,
+          "children": []
+        },
+        "failure_branch": null
+      },
+      {
+        "text": "Throw the sandwich away",
+        "boring_text": "The player throws the sandwich away.",
+        "priority": 2,
+        "condition": null,
+        "consequences": [
+          {
+            "description": "The player throws the sandwich away."
+          }
+        ],
+        "check": null,
+        "applied_attributes": [
+          {
+            "target": "sandwich",
+            "name": "ThrownAway",
+            "value": "True"
+          }
+        ],
+        "success_branch": {
+          "branch_name": "Player throws the sandwich away",
+          "description": "{{player_name}} throws the sandwich away.",
+          "text": "The player throws the sandwich away.",
+          "fragments": [],
+          "decisions": [],
+          "parent": null,
+          "children": []
+        },
+        "failure_branch": null
+      }
+    ],
+    "parent": null,
+    "children": []
+  },
+  "attributes": [
+    {
+      "target": "sandwich",
+      "name": "sandwich_type",
+      "value": "Ham and Cheese"
+    }
+  ],
+  "current_branch": "root",
+  "current_turn": 1,
+  "turns": 10
+}
