@@ -17,6 +17,7 @@ class Arc {
 class Situation {
   id string
   description string
+  player_perspective_description string @description("Description from the player's perspective with direct dialogue and 'show don't tell' approach")
   choices Choice[]
   requirements map<string, int>  // stat_name -> minimum_value
   consequences map<string, string>  // choice_id -> next_situation_id
@@ -29,6 +30,8 @@ class Situation {
 class Choice {
   id string
   text string
+  dialogue_response string? @description("If this is a dialogue choice, the actual words the player says")
+  choice_type string @description("Type of choice: dialogue, action, investigation, etc.")
   requirements map<string, int>  // stat_name -> minimum_value
   attributes_gained PlayerAttribute[]
   attributes_lost string[]  // IDs of attributes to remove
@@ -145,10 +148,21 @@ function GenerateRootSituation(world_context: WorldContext, player_state: Player
     {{ arc_seed }}
     
     The root situation should:
-    1. Introduce the core conflict
-    2. Set up the initial stakes
-    3. Provide meaningful choices that align with player stats
-    4. Lead naturally into potential branching paths
+    1. Introduce the core conflict through dialogue and direct interaction
+    2. Use "show don't tell" - include direct dialogue from NPCs speaking to the player
+    3. Provide lots of small, granular choices including dialogue responses
+    4. Create a story beat rather than just "investigate this" or "explore that"
+    5. Include both a narrative description and a player-perspective description
+    6. The player_perspective_description should be immersive and include NPCs talking directly to the player character
+    
+    Create choices that are:
+    - Dialogue responses to NPCs
+    - Small character actions and reactions
+    - Emotional responses and attitudes
+    - Investigation micro-choices
+    - Social interactions and relationships
+    
+    Avoid generic "investigate" or "explore" choices. Instead focus on specific character moments and interactions.
     
     {{ ctx.output_format }}
   "#
@@ -170,10 +184,115 @@ function ExpandArcSituations(world_context: WorldContext, player_state: PlayerSt
     {{ arc }}
     
     New situations should:
-    1. Build on previous choices and consequences
-    2. Maintain narrative coherence
-    3. Provide meaningful progression
-    4. Include appropriate stat requirements and consequences
+    1. Build on previous choices and consequences with detailed character interactions
+    2. Focus on dialogue and direct character-to-character moments
+    3. Include lots of small, granular choices within each situation
+    4. Create story beats that feel like scenes in a story, not exploration nodes
+    5. Each situation should include both narrative and player-perspective descriptions
+    6. NPCs should speak directly to the player character
+    
+    Generate multiple small situations for each story beat, with choices like:
+    - How to respond to specific lines of dialogue
+    - Small character actions during conversations
+    - Emotional reactions to reveals
+    - Body language and non-verbal communication
+    - Interrupting, agreeing, or challenging statements
+    - Social maneuvering and relationship building
+    
+    Avoid large "investigate the mystery" situations. Instead create granular moments like:
+    - "The informant leans closer and whispers..."
+    - "She stops mid-sentence and stares at you..."
+    - "His hand moves toward his weapon as he says..."
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to augment existing situations with more dialogue choices
+function AugmentSituationChoices(world_context: WorldContext, player_state: PlayerState, situation: Situation) -> Situation {
+  client "openai/gpt-4o"
+  prompt #"
+    Augment the given situation with additional granular dialogue choices and micro-interactions.
+    
+    World Context:
+    {{ world_context }}
+    
+    Player State:
+    {{ player_state }}
+    
+    Current Situation:
+    {{ situation }}
+    
+    Add more choices that focus on:
+    1. Specific dialogue responses with different tones/approaches
+    2. Non-verbal communication (body language, facial expressions)
+    3. Interruptions and conversation steering
+    4. Emotional reactions and internal responses
+    5. Micro-social dynamics and relationship building
+    6. Small investigative actions during dialogue
+    
+    Ensure each new choice has:
+    - Clear dialogue_response if it's a speaking choice
+    - Appropriate choice_type (dialogue, action, reaction, etc.)
+    - Meaningful consequences for character relationships
+    
+    Return the situation with enhanced choices added to the existing ones.
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to identify missing connections between situations
+function IdentifyMissingSituations(world_context: WorldContext, arcs: Arc[]) -> string[] {
+  client "openai/gpt-4o"
+  prompt #"
+    Analyze the arcs and identify missing situation types that would enhance the narrative.
+    
+    World Context:
+    {{ world_context }}
+    
+    Current Arcs:
+    {{ arcs }}
+    
+    Look for gaps in:
+    1. Character development moments
+    2. Relationship building scenes
+    3. Emotional beats and reactions
+    4. Dialogue-heavy encounters
+    5. Small investigative moments
+    6. Social dynamics and politics
+    7. Bridge opportunities between arcs
+    
+    Return a list of situation descriptions that should be created to fill these narrative gaps.
+    Focus on character-driven moments rather than plot advancement.
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to generate bridge situations to connect arcs
+function GenerateBridgeSituations(world_context: WorldContext, player_state: PlayerState, bridge_nodes: BridgeNode[]) -> Situation[] {
+  client "openai/gpt-4o"
+  prompt #"
+    Generate bridging situations based on the identified bridge nodes.
+    
+    World Context:
+    {{ world_context }}
+    
+    Player State:
+    {{ player_state }}
+    
+    Bridge Nodes:
+    {{ bridge_nodes }}
+    
+    For each bridge node, create a situation that:
+    1. Naturally connects the two situations through dialogue or character interaction
+    2. Includes player-perspective description with direct NPC dialogue
+    3. Provides multiple small dialogue choices for how to navigate the transition
+    4. Maintains narrative coherence between the connected story beats
+    5. Uses shared context elements (themes, factions, locations) to justify the connection
+    
+    Each bridge situation should feel like a natural story beat, not a mechanical transition.
     
     {{ ctx.output_format }}
   "#

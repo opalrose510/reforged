@@ -37,6 +37,32 @@ class LlmResponseParser:
       self.__ctx_manager = ctx_manager
 
     
+    def AugmentSituationChoices(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> types.Situation:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "AugmentSituationChoices",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(types.Situation, parsed)
+    
     def CheckBridgeAttributeNeeds(
         self,
         llm_response: str,
@@ -296,6 +322,32 @@ class LlmResponseParser:
       )
 
       return cast(types.PlayerAttribute, parsed)
+    
+    def GenerateBridgeSituations(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[types.Situation]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "GenerateBridgeSituations",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(List[types.Situation], parsed)
     
     def GenerateChoiceAttribute(
         self,
@@ -609,6 +661,58 @@ class LlmResponseParser:
 
       return cast(types.Technology, parsed)
     
+    def GetDefaultStatDescriptors(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> types.StatDescriptors:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "GetDefaultStatDescriptors",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(types.StatDescriptors, parsed)
+    
+    def GetStatNarrative(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> str:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "GetStatNarrative",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(str, parsed)
+    
     def IdentifyBridgeableSituations(
         self,
         llm_response: str,
@@ -634,6 +738,32 @@ class LlmResponseParser:
       )
 
       return cast(List[types.BridgeableSituation], parsed)
+    
+    def IdentifyMissingSituations(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[str]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "IdentifyMissingSituations",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(List[str], parsed)
     
     def InitializePlayerStats(
         self,
@@ -697,6 +827,32 @@ class LlmStreamParser:
       self.__runtime = runtime
       self.__ctx_manager = ctx_manager
 
+    
+    def AugmentSituationChoices(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> partial_types.Situation:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "AugmentSituationChoices",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(partial_types.Situation, parsed)
     
     def CheckBridgeAttributeNeeds(
         self,
@@ -957,6 +1113,32 @@ class LlmStreamParser:
       )
 
       return cast(partial_types.PlayerAttribute, parsed)
+    
+    def GenerateBridgeSituations(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[partial_types.Situation]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "GenerateBridgeSituations",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(List[partial_types.Situation], parsed)
     
     def GenerateChoiceAttribute(
         self,
@@ -1270,6 +1452,58 @@ class LlmStreamParser:
 
       return cast(partial_types.Technology, parsed)
     
+    def GetDefaultStatDescriptors(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> partial_types.StatDescriptors:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "GetDefaultStatDescriptors",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(partial_types.StatDescriptors, parsed)
+    
+    def GetStatNarrative(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> Optional[str]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "GetStatNarrative",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(Optional[str], parsed)
+    
     def IdentifyBridgeableSituations(
         self,
         llm_response: str,
@@ -1295,6 +1529,32 @@ class LlmStreamParser:
       )
 
       return cast(List[partial_types.BridgeableSituation], parsed)
+    
+    def IdentifyMissingSituations(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[Optional[str]]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "IdentifyMissingSituations",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(List[Optional[str]], parsed)
     
     def InitializePlayerStats(
         self,

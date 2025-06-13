@@ -98,6 +98,33 @@ class BamlSyncClient:
       return BamlSyncClient(self.__runtime, self.__ctx_manager, new_options)
 
     
+    def AugmentSituationChoices(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,situation: types.Situation,
+        baml_options: BamlCallOptions = {},
+    ) -> types.Situation:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+
+      raw = self.__runtime.call_function_sync(
+        "AugmentSituationChoices",
+        {
+          "world_context": world_context,"player_state": player_state,"situation": situation,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+      return cast(types.Situation, raw.cast_to(types, types, partial_types, False))
+    
     def CheckBridgeAttributeNeeds(
         self,
         bridge_node: types.BridgeNode,world_context: types.WorldContext,
@@ -367,6 +394,33 @@ class BamlSyncClient:
         collectors,
       )
       return cast(types.PlayerAttribute, raw.cast_to(types, types, partial_types, False))
+    
+    def GenerateBridgeSituations(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,bridge_nodes: List[types.BridgeNode],
+        baml_options: BamlCallOptions = {},
+    ) -> List[types.Situation]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+
+      raw = self.__runtime.call_function_sync(
+        "GenerateBridgeSituations",
+        {
+          "world_context": world_context,"player_state": player_state,"bridge_nodes": bridge_nodes,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+      return cast(List[types.Situation], raw.cast_to(types, types, partial_types, False))
     
     def GenerateChoiceAttribute(
         self,
@@ -692,6 +746,60 @@ class BamlSyncClient:
       )
       return cast(types.Technology, raw.cast_to(types, types, partial_types, False))
     
+    def GetDefaultStatDescriptors(
+        self,
+        
+        baml_options: BamlCallOptions = {},
+    ) -> types.StatDescriptors:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+
+      raw = self.__runtime.call_function_sync(
+        "GetDefaultStatDescriptors",
+        {
+          
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+      return cast(types.StatDescriptors, raw.cast_to(types, types, partial_types, False))
+    
+    def GetStatNarrative(
+        self,
+        stat_name: str,stat_value: int,descriptors: types.StatDescriptors,
+        baml_options: BamlCallOptions = {},
+    ) -> str:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+
+      raw = self.__runtime.call_function_sync(
+        "GetStatNarrative",
+        {
+          "stat_name": stat_name,"stat_value": stat_value,"descriptors": descriptors,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+      return cast(str, raw.cast_to(types, types, partial_types, False))
+    
     def IdentifyBridgeableSituations(
         self,
         arcs: List[types.Arc],
@@ -718,6 +826,33 @@ class BamlSyncClient:
         collectors,
       )
       return cast(List[types.BridgeableSituation], raw.cast_to(types, types, partial_types, False))
+    
+    def IdentifyMissingSituations(
+        self,
+        world_context: types.WorldContext,arcs: List[types.Arc],
+        baml_options: BamlCallOptions = {},
+    ) -> List[str]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+
+      raw = self.__runtime.call_function_sync(
+        "IdentifyMissingSituations",
+        {
+          "world_context": world_context,"arcs": arcs,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+      return cast(List[str], raw.cast_to(types, types, partial_types, False))
     
     def InitializePlayerStats(
         self,
@@ -785,6 +920,42 @@ class BamlStreamClient:
       self.__ctx_manager = ctx_manager
       self.__baml_options = baml_options or {}
 
+    
+    def AugmentSituationChoices(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,situation: types.Situation,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[partial_types.Situation, types.Situation]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+
+      raw = self.__runtime.stream_function_sync(
+        "AugmentSituationChoices",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "situation": situation,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+
+      return baml_py.BamlSyncStream[partial_types.Situation, types.Situation](
+        raw,
+        lambda x: cast(partial_types.Situation, x.cast_to(types, types, partial_types, True)),
+        lambda x: cast(types.Situation, x.cast_to(types, types, partial_types, False)),
+        self.__ctx_manager.get(),
+      )
     
     def CheckBridgeAttributeNeeds(
         self,
@@ -1133,6 +1304,42 @@ class BamlStreamClient:
         raw,
         lambda x: cast(partial_types.PlayerAttribute, x.cast_to(types, types, partial_types, True)),
         lambda x: cast(types.PlayerAttribute, x.cast_to(types, types, partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
+    def GenerateBridgeSituations(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,bridge_nodes: List[types.BridgeNode],
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[List[partial_types.Situation], List[types.Situation]]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+
+      raw = self.__runtime.stream_function_sync(
+        "GenerateBridgeSituations",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "bridge_nodes": bridge_nodes,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+
+      return baml_py.BamlSyncStream[List[partial_types.Situation], List[types.Situation]](
+        raw,
+        lambda x: cast(List[partial_types.Situation], x.cast_to(types, types, partial_types, True)),
+        lambda x: cast(List[types.Situation], x.cast_to(types, types, partial_types, False)),
         self.__ctx_manager.get(),
       )
     
@@ -1556,6 +1763,75 @@ class BamlStreamClient:
         self.__ctx_manager.get(),
       )
     
+    def GetDefaultStatDescriptors(
+        self,
+        
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[partial_types.StatDescriptors, types.StatDescriptors]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+
+      raw = self.__runtime.stream_function_sync(
+        "GetDefaultStatDescriptors",
+        {
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+
+      return baml_py.BamlSyncStream[partial_types.StatDescriptors, types.StatDescriptors](
+        raw,
+        lambda x: cast(partial_types.StatDescriptors, x.cast_to(types, types, partial_types, True)),
+        lambda x: cast(types.StatDescriptors, x.cast_to(types, types, partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
+    def GetStatNarrative(
+        self,
+        stat_name: str,stat_value: int,descriptors: types.StatDescriptors,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[Optional[str], str]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+
+      raw = self.__runtime.stream_function_sync(
+        "GetStatNarrative",
+        {
+          "stat_name": stat_name,
+          "stat_value": stat_value,
+          "descriptors": descriptors,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+
+      return baml_py.BamlSyncStream[Optional[str], str](
+        raw,
+        lambda x: cast(Optional[str], x.cast_to(types, types, partial_types, True)),
+        lambda x: cast(str, x.cast_to(types, types, partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
     def IdentifyBridgeableSituations(
         self,
         arcs: List[types.Arc],
@@ -1587,6 +1863,41 @@ class BamlStreamClient:
         raw,
         lambda x: cast(List[partial_types.BridgeableSituation], x.cast_to(types, types, partial_types, True)),
         lambda x: cast(List[types.BridgeableSituation], x.cast_to(types, types, partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
+    def IdentifyMissingSituations(
+        self,
+        world_context: types.WorldContext,arcs: List[types.Arc],
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[List[Optional[str]], List[str]]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+
+      raw = self.__runtime.stream_function_sync(
+        "IdentifyMissingSituations",
+        {
+          "world_context": world_context,
+          "arcs": arcs,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+
+      return baml_py.BamlSyncStream[List[Optional[str]], List[str]](
+        raw,
+        lambda x: cast(List[Optional[str]], x.cast_to(types, types, partial_types, True)),
+        lambda x: cast(List[str], x.cast_to(types, types, partial_types, False)),
         self.__ctx_manager.get(),
       )
     

@@ -72,6 +72,8 @@ class BridgeableSituation(BaseModel):
 class Choice(BaseModel):
     id: Optional[str] = None
     text: Optional[str] = None
+    dialogue_response: Optional[str] = None
+    choice_type: Optional[str] = None
     requirements: Dict[str, Optional[int]]
     attributes_gained: List["PlayerAttribute"]
     attributes_lost: List[str]
@@ -200,6 +202,7 @@ class Resume(BaseModel):
 class Situation(BaseModel):
     id: Optional[str] = None
     description: Optional[str] = None
+    player_perspective_description: Optional[str] = None
     choices: List["Choice"]
     requirements: Dict[str, Optional[int]]
     consequences: Dict[str, Optional[str]]
@@ -207,6 +210,21 @@ class Situation(BaseModel):
     context_tags: List[str]
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class StatDescriptors(BaseModel):
+    might_descriptors: Dict[str, Optional[str]]
+    insight_descriptors: Dict[str, Optional[str]]
+    nimbleness_descriptors: Dict[str, Optional[str]]
+    destiny_descriptors: Dict[str, Optional[str]]
+    savvy_descriptors: Dict[str, Optional[str]]
+    expertise_descriptors: Dict[str, Optional[str]]
+    tenacity_descriptors: Dict[str, Optional[str]]
+    station_descriptors: Dict[str, Optional[str]]
+    opulence_descriptors: Dict[str, Optional[str]]
+    celebrity_descriptors: Dict[str, Optional[str]]
+    integrity_descriptors: Dict[str, Optional[str]]
+    allure_descriptors: Dict[str, Optional[str]]
+    lineage_descriptors: Dict[str, Optional[str]]
 
 class Technology(BaseModel):
     name: Optional[str] = None

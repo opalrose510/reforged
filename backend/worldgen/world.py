@@ -417,9 +417,10 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
            - Maintain narrative coherence
            - Provide meaningful progression
            - Include appropriate stat requirements
-        5. Identify bridge nodes - Find situations that can connect different arcs
-        6. Validate graph integrity - Ensure all choices and consequences are valid
-        7. Export package - Package the complete narrative structure
+        5. Augment situation choices with more dialogue options
+        6. Identify missing situations
+        7. Identify and generate bridge nodes
+        8. Final validation and export
         """
         logger.info(f"Starting generation process for world {self.seed.name}")
         logger.info("=" * 80)
@@ -497,26 +498,65 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
             arc.situations.extend(new_situations)
         logger.info("-" * 80)
         
-        # Step 5: Identify bridge nodes
-        logger.info("Step 5: Identifying bridge nodes")
+        # Step 5: Augment situation choices with more dialogue options
+        logger.info("Step 5: Augmenting situation choices")
         self._generation_step = 5
-        self._save_world_state("bridge_nodes")
-        logger.info("Finding situations that can connect different arcs")
-        # TODO: Add progress bar when implementing bridge node identification
+        self._save_world_state("augmented_choices")
+        logger.info("Adding more granular dialogue choices and micro-interactions")
+        for arc in tqdm(self.arcs, desc="Augmenting choices", unit="arc"):
+            for i, situation in enumerate(arc.situations):
+                logger.info(f"Augmenting choices for situation: {situation.id}")
+                augmented_situation = await b.AugmentSituationChoices(
+                    world_context=self.world_context,
+                    player_state=self.player_state,
+                    situation=situation
+                )
+                arc.situations[i] = augmented_situation
         logger.info("-" * 80)
         
-        # Step 6: Validate graph integrity
-        logger.info("Step 6: Validating graph integrity")
+        # Step 6: Identify missing situations
+        logger.info("Step 6: Identifying missing situations")
         self._generation_step = 6
-        self._save_world_state("validated_graph")
-        logger.info("Ensuring all choices and consequences are valid")
-        # TODO: Add progress bar when implementing graph validation
+        self._save_world_state("missing_situations")
+        logger.info("Finding narrative gaps that need additional situations")
+        missing_situation_descriptions = await b.IdentifyMissingSituations(
+            world_context=self.world_context,
+            arcs=self.arcs
+        )
+        logger.info(f"Identified {len(missing_situation_descriptions)} missing situation types:")
+        for desc in missing_situation_descriptions[:5]:  # Log first 5
+            logger.info(f"- {desc}")
         logger.info("-" * 80)
         
-        # Step 7: Export final package
-        logger.info("Step 7: Exporting final package")
+        # Step 7: Identify and generate bridge nodes
+        logger.info("Step 7: Generating bridge connections")
         self._generation_step = 7
+        self._save_world_state("bridge_generation")
+        logger.info("Finding and creating bridge connections between arcs")
+        bridgeable_situations = await b.IdentifyBridgeableSituations(arcs=self.arcs)
+        bridge_nodes = await b.FindBridgeConnections(bridgeable_situations=bridgeable_situations)
+        validated_bridges = await b.ValidateBridgeConnections(
+            bridge_nodes=bridge_nodes,
+            arcs=self.arcs,
+            world_context=self.world_context
+        )
+        # Generate bridge situations
+        if validated_bridges:
+            bridge_situations = await b.GenerateBridgeSituations(
+                world_context=self.world_context,
+                player_state=self.player_state,
+                bridge_nodes=validated_bridges
+            )
+            logger.info(f"Generated {len(bridge_situations)} bridge situations")
+        logger.info("-" * 80)
+        
+        # Step 8: Final validation and export
+        logger.info("Step 8: Final validation and export")
+        self._generation_step = 8
         self._save_world_state("final_export")
         logger.info("Generation complete!")
+        logger.info(f"Generated {len(self.arcs)} arcs with enhanced dialogue and choices")
+        total_situations = sum(len(arc.situations) for arc in self.arcs)
+        logger.info(f"Total situations created: {total_situations}")
         logger.info("=" * 80)
 

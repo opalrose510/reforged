@@ -22,7 +22,7 @@ from .globals import DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIM
 class TypeBuilder(_TypeBuilder):
     def __init__(self):
         super().__init__(classes=set(
-          ["Arc","ArcSeed","BridgeNode","BridgeableSituation","Choice","District","Event","Faction","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","Technology","WorldContext","WorldSeed",]
+          ["Arc","ArcSeed","BridgeNode","BridgeableSituation","Choice","District","Event","Faction","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","StatDescriptors","Technology","WorldContext","WorldSeed",]
         ), enums=set(
           []
         ), runtime=DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME)
@@ -99,6 +99,10 @@ class TypeBuilder(_TypeBuilder):
     @property
     def Situation(self) -> "SituationAst":
         return SituationAst(self)
+
+    @property
+    def StatDescriptors(self) -> "StatDescriptorsAst":
+        return StatDescriptorsAst(self)
 
     @property
     def Technology(self) -> "TechnologyAst":
@@ -352,7 +356,7 @@ class ChoiceAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Choice")
-        self._properties: typing.Set[str] = set([ "id",  "text",  "requirements",  "attributes_gained",  "attributes_lost",  "stat_changes",  "next_situation_id",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "id",  "text",  "dialogue_response",  "choice_type",  "requirements",  "attributes_gained",  "attributes_lost",  "stat_changes",  "next_situation_id",  "internal_hint",  "internal_justification", ])
         self._props = ChoiceProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -387,6 +391,14 @@ class ChoiceProperties:
     @property
     def text(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("text"))
+
+    @property
+    def dialogue_response(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("dialogue_response"))
+
+    @property
+    def choice_type(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("choice_type"))
 
     @property
     def requirements(self) -> ClassPropertyViewer:
@@ -1202,7 +1214,7 @@ class SituationAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Situation")
-        self._properties: typing.Set[str] = set([ "id",  "description",  "choices",  "requirements",  "consequences",  "bridgeable",  "context_tags",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "id",  "description",  "player_perspective_description",  "choices",  "requirements",  "consequences",  "bridgeable",  "context_tags",  "internal_hint",  "internal_justification", ])
         self._props = SituationProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -1239,6 +1251,10 @@ class SituationProperties:
         return ClassPropertyViewer(self.__bldr.property("description"))
 
     @property
+    def player_perspective_description(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("player_perspective_description"))
+
+    @property
     def choices(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("choices"))
 
@@ -1265,6 +1281,92 @@ class SituationProperties:
     @property
     def internal_justification(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("internal_justification"))
+
+    
+
+class StatDescriptorsAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("StatDescriptors")
+        self._properties: typing.Set[str] = set([ "might_descriptors",  "insight_descriptors",  "nimbleness_descriptors",  "destiny_descriptors",  "savvy_descriptors",  "expertise_descriptors",  "tenacity_descriptors",  "station_descriptors",  "opulence_descriptors",  "celebrity_descriptors",  "integrity_descriptors",  "allure_descriptors",  "lineage_descriptors", ])
+        self._props = StatDescriptorsProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "StatDescriptorsProperties":
+        return self._props
+
+
+class StatDescriptorsViewer(StatDescriptorsAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class StatDescriptorsProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def might_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("might_descriptors"))
+
+    @property
+    def insight_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("insight_descriptors"))
+
+    @property
+    def nimbleness_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("nimbleness_descriptors"))
+
+    @property
+    def destiny_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("destiny_descriptors"))
+
+    @property
+    def savvy_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("savvy_descriptors"))
+
+    @property
+    def expertise_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("expertise_descriptors"))
+
+    @property
+    def tenacity_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tenacity_descriptors"))
+
+    @property
+    def station_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("station_descriptors"))
+
+    @property
+    def opulence_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("opulence_descriptors"))
+
+    @property
+    def celebrity_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("celebrity_descriptors"))
+
+    @property
+    def integrity_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("integrity_descriptors"))
+
+    @property
+    def allure_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("allure_descriptors"))
+
+    @property
+    def lineage_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("lineage_descriptors"))
 
     
 
