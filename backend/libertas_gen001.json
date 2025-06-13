@@ -1,0 +1,1303 @@
+{
+  "world_context": {
+    "name": "Libertas",
+    "themes": [
+      "cyberpunk",
+      "surveillance",
+      "biotech",
+      "memory"
+    ],
+    "districts": [
+      "Chrome Alley",
+      "Ember Spine",
+      "Dust Spires"
+    ],
+    "factions": [
+      "Red Branch",
+      "Mirrormind",
+      "Spindle Corps"
+    ],
+    "tech_rules": [
+      "clone shells",
+      "neural ink",
+      "AI whispers"
+    ]
+  },
+  "player_initial_state": {
+    "stats": {
+      "might": 10.614403478992514,
+      "insight": 12.163852844695208,
+      "agility": 7.10957926769928,
+      "presence": 11.66354164677281,
+      "tech": 10.947969029698783
+    },
+    "attributes": [
+      {
+        "name": "forgotten_identity",
+        "description": "Starting attribute: forgotten_identity",
+        "effects": {}
+      },
+      {
+        "name": "wounded_leg",
+        "description": "Starting attribute: wounded_leg",
+        "effects": {}
+      }
+    ],
+    "profile": "A complex character shaped by their attributes and stats."
+  },
+  "arcs": [
+    {
+      "id": "71efd00e-0f77-49b7-a436-b623fc6d873a",
+      "title": "Arc: Cyberpunk",
+      "themes": [
+        "cyberpunk"
+      ],
+      "faction_involvement": [
+        "Red Branch"
+      ],
+      "tone": "gritty",
+      "situations": {
+        "b8d0b0b0-30ee-41fc-b3c3-2f74f88c3a5e": {
+          "id": "b8d0b0b0-30ee-41fc-b3c3-2f74f88c3a5e",
+          "title": "Root Situation: Arc: Cyberpunk",
+          "description": "The beginning of your journey in this arc.",
+          "choices": [
+            {
+              "text": "Investigate",
+              "next": null
+            },
+            {
+              "text": "Confront",
+              "next": null
+            },
+            {
+              "text": "Observe",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "da640e04-a36c-4cbc-929a-10dba6e102a6",
+            "bf0f038c-4cdc-47dc-b804-eb8e9e170248",
+            "c93ac9ce-7000-49f6-ac2a-da0bbb257d34",
+            "64ee4ca3-47ec-4a85-b0ed-f96248adf639",
+            "fa6910c7-455b-48c9-bb8d-b586c0872335",
+            "95b8d3f9-58ee-45d8-9dc8-3a742881df8e",
+            "c44559d0-3823-4a6e-a15e-16e0f15a83f3",
+            "abcc29c6-d50c-4619-b170-e0c33922bb58",
+            "ffa75688-4d41-4dbd-a377-6a4aa7e00bba",
+            "71fbabc5-4f56-4f46-84f8-805b4c697cfe",
+            "84696c3f-94b4-4908-a39e-bde4db0300e3",
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "da640e04-a36c-4cbc-929a-10dba6e102a6": {
+          "id": "da640e04-a36c-4cbc-929a-10dba6e102a6",
+          "title": "Situation at depth 2",
+          "description": "A situation that follows from Root Situation: Arc: Cyberpunk",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "eb23883e-1bd4-4aeb-8143-e0bf9c8cf815",
+            "43ba54f1-423f-4fc5-8687-1dc559fa38a2",
+            "06fca40d-80b4-4594-a6ba-72328e70d95f"
+          ]
+        },
+        "bf0f038c-4cdc-47dc-b804-eb8e9e170248": {
+          "id": "bf0f038c-4cdc-47dc-b804-eb8e9e170248",
+          "title": "Situation at depth 3",
+          "description": "A situation that follows from Root Situation: Arc: Cyberpunk",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "e94eaff9-1f01-4ef9-807b-733ab4e185e8",
+            "edc65a4a-11a2-49b6-bf23-312188ca64ec"
+          ]
+        },
+        "eb23883e-1bd4-4aeb-8143-e0bf9c8cf815": {
+          "id": "eb23883e-1bd4-4aeb-8143-e0bf9c8cf815",
+          "title": "Situation at depth 3",
+          "description": "A situation that follows from Situation at depth 2",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "437691ab-79e7-4748-a53f-124005d36cd9",
+            "56373a2f-bcd1-4c79-b4d5-e58bb90ffabb"
+          ]
+        },
+        "c93ac9ce-7000-49f6-ac2a-da0bbb257d34": {
+          "id": "c93ac9ce-7000-49f6-ac2a-da0bbb257d34",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Root Situation: Arc: Cyberpunk",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "1dafebb4-1f9a-494f-8f39-e7ea9c39666a"
+          ]
+        },
+        "43ba54f1-423f-4fc5-8687-1dc559fa38a2": {
+          "id": "43ba54f1-423f-4fc5-8687-1dc559fa38a2",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Situation at depth 2",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "22996859-41f8-4803-87d6-ec8a578617c8"
+          ]
+        },
+        "e94eaff9-1f01-4ef9-807b-733ab4e185e8": {
+          "id": "e94eaff9-1f01-4ef9-807b-733ab4e185e8",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "475cfda2-6b4c-4779-9ddb-01b7b19aedb4"
+          ]
+        },
+        "437691ab-79e7-4748-a53f-124005d36cd9": {
+          "id": "437691ab-79e7-4748-a53f-124005d36cd9",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "e00547f6-66cc-4a9f-97c7-adf3cf560fba"
+          ]
+        },
+        "06fca40d-80b4-4594-a6ba-72328e70d95f": {
+          "id": "06fca40d-80b4-4594-a6ba-72328e70d95f",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 2",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "64ee4ca3-47ec-4a85-b0ed-f96248adf639",
+            "fa6910c7-455b-48c9-bb8d-b586c0872335",
+            "95b8d3f9-58ee-45d8-9dc8-3a742881df8e",
+            "c44559d0-3823-4a6e-a15e-16e0f15a83f3",
+            "abcc29c6-d50c-4619-b170-e0c33922bb58",
+            "ffa75688-4d41-4dbd-a377-6a4aa7e00bba",
+            "71fbabc5-4f56-4f46-84f8-805b4c697cfe",
+            "84696c3f-94b4-4908-a39e-bde4db0300e3",
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "edc65a4a-11a2-49b6-bf23-312188ca64ec": {
+          "id": "edc65a4a-11a2-49b6-bf23-312188ca64ec",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "64ee4ca3-47ec-4a85-b0ed-f96248adf639",
+            "fa6910c7-455b-48c9-bb8d-b586c0872335",
+            "95b8d3f9-58ee-45d8-9dc8-3a742881df8e",
+            "c44559d0-3823-4a6e-a15e-16e0f15a83f3",
+            "abcc29c6-d50c-4619-b170-e0c33922bb58",
+            "ffa75688-4d41-4dbd-a377-6a4aa7e00bba",
+            "71fbabc5-4f56-4f46-84f8-805b4c697cfe",
+            "84696c3f-94b4-4908-a39e-bde4db0300e3",
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "56373a2f-bcd1-4c79-b4d5-e58bb90ffabb": {
+          "id": "56373a2f-bcd1-4c79-b4d5-e58bb90ffabb",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "64ee4ca3-47ec-4a85-b0ed-f96248adf639",
+            "fa6910c7-455b-48c9-bb8d-b586c0872335",
+            "95b8d3f9-58ee-45d8-9dc8-3a742881df8e",
+            "c44559d0-3823-4a6e-a15e-16e0f15a83f3",
+            "abcc29c6-d50c-4619-b170-e0c33922bb58",
+            "ffa75688-4d41-4dbd-a377-6a4aa7e00bba",
+            "71fbabc5-4f56-4f46-84f8-805b4c697cfe",
+            "84696c3f-94b4-4908-a39e-bde4db0300e3",
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "1dafebb4-1f9a-494f-8f39-e7ea9c39666a": {
+          "id": "1dafebb4-1f9a-494f-8f39-e7ea9c39666a",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "64ee4ca3-47ec-4a85-b0ed-f96248adf639",
+            "fa6910c7-455b-48c9-bb8d-b586c0872335",
+            "95b8d3f9-58ee-45d8-9dc8-3a742881df8e",
+            "c44559d0-3823-4a6e-a15e-16e0f15a83f3",
+            "abcc29c6-d50c-4619-b170-e0c33922bb58",
+            "ffa75688-4d41-4dbd-a377-6a4aa7e00bba",
+            "71fbabc5-4f56-4f46-84f8-805b4c697cfe",
+            "84696c3f-94b4-4908-a39e-bde4db0300e3",
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "22996859-41f8-4803-87d6-ec8a578617c8": {
+          "id": "22996859-41f8-4803-87d6-ec8a578617c8",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "64ee4ca3-47ec-4a85-b0ed-f96248adf639",
+            "fa6910c7-455b-48c9-bb8d-b586c0872335",
+            "95b8d3f9-58ee-45d8-9dc8-3a742881df8e",
+            "c44559d0-3823-4a6e-a15e-16e0f15a83f3",
+            "abcc29c6-d50c-4619-b170-e0c33922bb58",
+            "ffa75688-4d41-4dbd-a377-6a4aa7e00bba",
+            "71fbabc5-4f56-4f46-84f8-805b4c697cfe",
+            "84696c3f-94b4-4908-a39e-bde4db0300e3",
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "475cfda2-6b4c-4779-9ddb-01b7b19aedb4": {
+          "id": "475cfda2-6b4c-4779-9ddb-01b7b19aedb4",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "64ee4ca3-47ec-4a85-b0ed-f96248adf639",
+            "fa6910c7-455b-48c9-bb8d-b586c0872335",
+            "95b8d3f9-58ee-45d8-9dc8-3a742881df8e",
+            "c44559d0-3823-4a6e-a15e-16e0f15a83f3",
+            "abcc29c6-d50c-4619-b170-e0c33922bb58",
+            "ffa75688-4d41-4dbd-a377-6a4aa7e00bba",
+            "71fbabc5-4f56-4f46-84f8-805b4c697cfe",
+            "84696c3f-94b4-4908-a39e-bde4db0300e3",
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "e00547f6-66cc-4a9f-97c7-adf3cf560fba": {
+          "id": "e00547f6-66cc-4a9f-97c7-adf3cf560fba",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "64ee4ca3-47ec-4a85-b0ed-f96248adf639",
+            "fa6910c7-455b-48c9-bb8d-b586c0872335",
+            "95b8d3f9-58ee-45d8-9dc8-3a742881df8e",
+            "c44559d0-3823-4a6e-a15e-16e0f15a83f3",
+            "abcc29c6-d50c-4619-b170-e0c33922bb58",
+            "ffa75688-4d41-4dbd-a377-6a4aa7e00bba",
+            "71fbabc5-4f56-4f46-84f8-805b4c697cfe",
+            "84696c3f-94b4-4908-a39e-bde4db0300e3",
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        }
+      },
+      "bridge_nodes": [
+        "b8d0b0b0-30ee-41fc-b3c3-2f74f88c3a5e",
+        "06fca40d-80b4-4594-a6ba-72328e70d95f",
+        "edc65a4a-11a2-49b6-bf23-312188ca64ec",
+        "56373a2f-bcd1-4c79-b4d5-e58bb90ffabb",
+        "1dafebb4-1f9a-494f-8f39-e7ea9c39666a",
+        "22996859-41f8-4803-87d6-ec8a578617c8",
+        "475cfda2-6b4c-4779-9ddb-01b7b19aedb4",
+        "e00547f6-66cc-4a9f-97c7-adf3cf560fba"
+      ]
+    },
+    {
+      "id": "cb5e6efb-a9a8-4684-86fc-7fc1c404c27c",
+      "title": "Arc: Cyberpunk",
+      "themes": [
+        "cyberpunk"
+      ],
+      "faction_involvement": [
+        "Red Branch"
+      ],
+      "tone": "gritty",
+      "situations": {
+        "64ee4ca3-47ec-4a85-b0ed-f96248adf639": {
+          "id": "64ee4ca3-47ec-4a85-b0ed-f96248adf639",
+          "title": "Root Situation: Arc: Cyberpunk",
+          "description": "The beginning of your journey in this arc.",
+          "choices": [
+            {
+              "text": "Investigate",
+              "next": null
+            },
+            {
+              "text": "Confront",
+              "next": null
+            },
+            {
+              "text": "Observe",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "c023302f-26a2-4cb9-8fe6-0883b5ffd3e3",
+            "61525e4b-864a-475b-b24c-4a8db20aae3d",
+            "68f49a12-33bb-40ad-ab5a-a0f401f7d72b",
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "c023302f-26a2-4cb9-8fe6-0883b5ffd3e3": {
+          "id": "c023302f-26a2-4cb9-8fe6-0883b5ffd3e3",
+          "title": "Situation at depth 2",
+          "description": "A situation that follows from Root Situation: Arc: Cyberpunk",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "3f26ff5a-e2ae-44b0-baa9-7c64cb747486",
+            "c0fe9f4f-a422-4d21-aa4e-72323793e30d",
+            "fa6910c7-455b-48c9-bb8d-b586c0872335"
+          ]
+        },
+        "61525e4b-864a-475b-b24c-4a8db20aae3d": {
+          "id": "61525e4b-864a-475b-b24c-4a8db20aae3d",
+          "title": "Situation at depth 3",
+          "description": "A situation that follows from Root Situation: Arc: Cyberpunk",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "775d6f97-13b5-44dd-a000-8ec58525dee8",
+            "95b8d3f9-58ee-45d8-9dc8-3a742881df8e"
+          ]
+        },
+        "3f26ff5a-e2ae-44b0-baa9-7c64cb747486": {
+          "id": "3f26ff5a-e2ae-44b0-baa9-7c64cb747486",
+          "title": "Situation at depth 3",
+          "description": "A situation that follows from Situation at depth 2",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "21f2ef90-1fd9-4c84-988c-9405ad627d2f",
+            "c44559d0-3823-4a6e-a15e-16e0f15a83f3"
+          ]
+        },
+        "68f49a12-33bb-40ad-ab5a-a0f401f7d72b": {
+          "id": "68f49a12-33bb-40ad-ab5a-a0f401f7d72b",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Root Situation: Arc: Cyberpunk",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "abcc29c6-d50c-4619-b170-e0c33922bb58"
+          ]
+        },
+        "c0fe9f4f-a422-4d21-aa4e-72323793e30d": {
+          "id": "c0fe9f4f-a422-4d21-aa4e-72323793e30d",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Situation at depth 2",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "ffa75688-4d41-4dbd-a377-6a4aa7e00bba"
+          ]
+        },
+        "775d6f97-13b5-44dd-a000-8ec58525dee8": {
+          "id": "775d6f97-13b5-44dd-a000-8ec58525dee8",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "71fbabc5-4f56-4f46-84f8-805b4c697cfe"
+          ]
+        },
+        "21f2ef90-1fd9-4c84-988c-9405ad627d2f": {
+          "id": "21f2ef90-1fd9-4c84-988c-9405ad627d2f",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "84696c3f-94b4-4908-a39e-bde4db0300e3"
+          ]
+        },
+        "fa6910c7-455b-48c9-bb8d-b586c0872335": {
+          "id": "fa6910c7-455b-48c9-bb8d-b586c0872335",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 2",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "95b8d3f9-58ee-45d8-9dc8-3a742881df8e": {
+          "id": "95b8d3f9-58ee-45d8-9dc8-3a742881df8e",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "c44559d0-3823-4a6e-a15e-16e0f15a83f3": {
+          "id": "c44559d0-3823-4a6e-a15e-16e0f15a83f3",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "abcc29c6-d50c-4619-b170-e0c33922bb58": {
+          "id": "abcc29c6-d50c-4619-b170-e0c33922bb58",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "ffa75688-4d41-4dbd-a377-6a4aa7e00bba": {
+          "id": "ffa75688-4d41-4dbd-a377-6a4aa7e00bba",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "71fbabc5-4f56-4f46-84f8-805b4c697cfe": {
+          "id": "71fbabc5-4f56-4f46-84f8-805b4c697cfe",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "84696c3f-94b4-4908-a39e-bde4db0300e3": {
+          "id": "84696c3f-94b4-4908-a39e-bde4db0300e3",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787",
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+            "85c86549-d8d3-4959-9ca3-094d03036044",
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        }
+      },
+      "bridge_nodes": [
+        "64ee4ca3-47ec-4a85-b0ed-f96248adf639",
+        "fa6910c7-455b-48c9-bb8d-b586c0872335",
+        "95b8d3f9-58ee-45d8-9dc8-3a742881df8e",
+        "c44559d0-3823-4a6e-a15e-16e0f15a83f3",
+        "abcc29c6-d50c-4619-b170-e0c33922bb58",
+        "ffa75688-4d41-4dbd-a377-6a4aa7e00bba",
+        "71fbabc5-4f56-4f46-84f8-805b4c697cfe",
+        "84696c3f-94b4-4908-a39e-bde4db0300e3"
+      ]
+    },
+    {
+      "id": "e0c0ab45-7087-42e5-9038-1a4f24cd51a5",
+      "title": "Arc: Cyberpunk",
+      "themes": [
+        "cyberpunk"
+      ],
+      "faction_involvement": [
+        "Red Branch"
+      ],
+      "tone": "gritty",
+      "situations": {
+        "c3993ea4-2a0c-4446-a5ba-08953659fdfe": {
+          "id": "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+          "title": "Root Situation: Arc: Cyberpunk",
+          "description": "The beginning of your journey in this arc.",
+          "choices": [
+            {
+              "text": "Investigate",
+              "next": null
+            },
+            {
+              "text": "Confront",
+              "next": null
+            },
+            {
+              "text": "Observe",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": [
+            "613735bb-4a8c-43ed-9078-19cc571cf392",
+            "dc9c1443-a137-4dcc-92f9-a322cfd2b965",
+            "21a30a7c-1f6d-4f5e-ab3d-ac820c7bf831"
+          ]
+        },
+        "613735bb-4a8c-43ed-9078-19cc571cf392": {
+          "id": "613735bb-4a8c-43ed-9078-19cc571cf392",
+          "title": "Situation at depth 2",
+          "description": "A situation that follows from Root Situation: Arc: Cyberpunk",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "7eadcf53-6aeb-482f-bbd0-cffc235e4c32",
+            "5d03f681-9ff2-4c34-ad51-2171d3163039",
+            "631becdb-a37e-4b6b-808e-a5b91048d1a5"
+          ]
+        },
+        "dc9c1443-a137-4dcc-92f9-a322cfd2b965": {
+          "id": "dc9c1443-a137-4dcc-92f9-a322cfd2b965",
+          "title": "Situation at depth 3",
+          "description": "A situation that follows from Root Situation: Arc: Cyberpunk",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "3556a0bb-85dc-464d-854e-1b9d6492d582",
+            "b7ee5c38-9b1d-4956-9b71-97c16cb764e7"
+          ]
+        },
+        "7eadcf53-6aeb-482f-bbd0-cffc235e4c32": {
+          "id": "7eadcf53-6aeb-482f-bbd0-cffc235e4c32",
+          "title": "Situation at depth 3",
+          "description": "A situation that follows from Situation at depth 2",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "d339af7e-852a-49a2-be50-c6010e2da393",
+            "0d7cb13d-36f7-4199-9d02-b9589719b787"
+          ]
+        },
+        "21a30a7c-1f6d-4f5e-ab3d-ac820c7bf831": {
+          "id": "21a30a7c-1f6d-4f5e-ab3d-ac820c7bf831",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Root Situation: Arc: Cyberpunk",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "3f582a8a-3ffa-45f0-b09e-6e2ae804111e"
+          ]
+        },
+        "5d03f681-9ff2-4c34-ad51-2171d3163039": {
+          "id": "5d03f681-9ff2-4c34-ad51-2171d3163039",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Situation at depth 2",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "962bd4e4-81f2-4d07-ad4c-1396b0606d54"
+          ]
+        },
+        "3556a0bb-85dc-464d-854e-1b9d6492d582": {
+          "id": "3556a0bb-85dc-464d-854e-1b9d6492d582",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "85c86549-d8d3-4959-9ca3-094d03036044"
+          ]
+        },
+        "d339af7e-852a-49a2-be50-c6010e2da393": {
+          "id": "d339af7e-852a-49a2-be50-c6010e2da393",
+          "title": "Situation at depth 4",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": false,
+          "next_situations": [
+            "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+          ]
+        },
+        "631becdb-a37e-4b6b-808e-a5b91048d1a5": {
+          "id": "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 2",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        },
+        "b7ee5c38-9b1d-4956-9b71-97c16cb764e7": {
+          "id": "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        },
+        "0d7cb13d-36f7-4199-9d02-b9589719b787": {
+          "id": "0d7cb13d-36f7-4199-9d02-b9589719b787",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 3",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        },
+        "3f582a8a-3ffa-45f0-b09e-6e2ae804111e": {
+          "id": "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        },
+        "962bd4e4-81f2-4d07-ad4c-1396b0606d54": {
+          "id": "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        },
+        "85c86549-d8d3-4959-9ca3-094d03036044": {
+          "id": "85c86549-d8d3-4959-9ca3-094d03036044",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        },
+        "33e4587d-40cc-42a5-88d8-50e695f5ec8e": {
+          "id": "33e4587d-40cc-42a5-88d8-50e695f5ec8e",
+          "title": "Situation at depth 5",
+          "description": "A situation that follows from Situation at depth 4",
+          "choices": [
+            {
+              "text": "Continue",
+              "next": null
+            },
+            {
+              "text": "Branch",
+              "next": null
+            }
+          ],
+          "stat_requirements": null,
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        }
+      },
+      "bridge_nodes": [
+        "c3993ea4-2a0c-4446-a5ba-08953659fdfe",
+        "631becdb-a37e-4b6b-808e-a5b91048d1a5",
+        "b7ee5c38-9b1d-4956-9b71-97c16cb764e7",
+        "0d7cb13d-36f7-4199-9d02-b9589719b787",
+        "3f582a8a-3ffa-45f0-b09e-6e2ae804111e",
+        "962bd4e4-81f2-4d07-ad4c-1396b0606d54",
+        "85c86549-d8d3-4959-9ca3-094d03036044",
+        "33e4587d-40cc-42a5-88d8-50e695f5ec8e"
+      ]
+    }
+  ]
+}

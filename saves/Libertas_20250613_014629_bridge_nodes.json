@@ -1,0 +1,495 @@
+{
+  "world_context": {
+    "seed": {
+      "name": "Libertas",
+      "themes": [
+        "cyberpunk",
+        "dystopia",
+        "late stage capitalism",
+        "AI rights"
+      ],
+      "high_concept": "\nAn isolated, libertarian society in the near (100 years) future. \nSociety is highly stratified.\nMost people have cybernetic enhancements, some of which are absolutely necessay for daily life.\nPollution and climate change has rendered indoor spaces more valuable than outdoor spaces.\nA handful of corporations have a weak grip on the city. Formal governments have largely collapsed.\nLarge portions of the city are illegal, ramshackle \"open blocks\" which resemble Kowloon Walled City.\nCrime that does not damage corporations' property or employees is tolerated when convenient.\n",
+      "internal_hint": "",
+      "internal_justification": ""
+    },
+    "technologies": [
+      {
+        "name": "Merged",
+        "description": "A mix of many languages. It is spoken using translation and transliteration implants. Common is the only remaining language that is taught formally.",
+        "impact": "Merged is the default language of the city. It is a mix of many languages, and is spoken by almost everyone. It is the default language for almost all communication.",
+        "limitations": "If your translation implant is disabled or damaged, you can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. Phobos natives won't understand you, and it's unlikely that people from outside Libertas will, either.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Common",
+        "description": "The only remaining language that is taught formally. Only Phobos citizens speak it. It is a mix of Latin and Greek, with a rhythmic cadence of syllables that sounds reminiscient of Korean.",
+        "impact": "Phobos's primary language, which they are intentionally cliquey and exlcusionary with. Most people have no reason to speak or learn Common, so those that do can sometimes understand their surroundings better.",
+        "limitations": "Common is inherently exclusive, and Phobos uses it to keep outsiders out. It is also a very difficult language to learn, and most people don't bother.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Translation Implants",
+        "description": "Implants that allow you to translate and transliterate languages. They do not allow you to speak Common. Almost everyone in Libertas has a translation implant, and as a result language has become almost unrecognizable. Everyone just uses 'Merged' for shorthand.",
+        "impact": "Almost everyone in Libertas speaks Merged, a language that emerged as a result of everyone having these implants. As a result, speech is impossible without it.",
+        "limitations": "If the implant is disabled or damaged, the user can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. The translation implant does NOT allow the user to speak Common, which must be learned the old fashioned way.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Implant Sickness",
+        "description": "Implants can cause a variety of symptoms, including but not limited to: nausea, dizziness, confusion, hallucinations, coma, and death. A drug called PHQ-9, often referred to on the street as 'Jolt' reverses the implant sickness, but only temporarily.",
+        "impact": "Implant sickness is dreaded, but common. Most cases are treatable. Rarely, someone becomes 'broken', a slang term for someone whose implants have failed entirely.",
+        "limitations": "Implant sickness can be mitigated with treatments fairly easily. A 'technician', or implant specialist, can remove the damaged connections and/or replace implants as needed.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Jolt / PHQ-9",
+        "description": "A drug manufactured by Vextros that reverses the symptoms of implant sickness. It's often dispensed by autoinjectors that accept pink cartridges. It is often referred to on the street as 'Jolt'.  Each successive use of PHQ-9 becomes less effective. PHQ-9 also causes euphoria and sedation, in a manner similar to ketamine.",
+        "impact": "PHQ-9 treats implant sickness, which occurs often especially with lower quality implants. 'Jolt' dens litter the city, not because of implant sickness, but because the drug also causes intense euphoria.",
+        "limitations": "PHQ-9 is addictive, and each successive use of PHQ-9 becomes less effective. It's also manufactured solely by Vextros, and they could hypothetically withhold their supply.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Nutrax",
+        "description": "A meal replacement made by Vextros. It comes in a wide variety of flavors and consistencies, and is created by reprocessing minerals and nitrogen found through the city's mining operations. Pure Nutrax is actually pretty good, but most of the time it's been adulterated, usually by Vextros itself. Vextros adds everything from sawdust to pharmaceuticals they feel like testing.",
+        "impact": "Nutrax is a strict necessity for some parts of the population because it's often very affordable.",
+        "limitations": "Nutrax is often adulterated, and can cause nutritional deficiencies and malnutrition.",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "factions": [
+      {
+        "name": "Vextros",
+        "ideology": "Essentially a corporation that has grown to be the size of a government. Believes that they are entitled to a say in almost all matters. Prioritizes order to justice whenever such a choice presents itself.",
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "The Open Blocks",
+        "ideology": "Anarchistic, anti-corporate, and anti-authoritarian. Violence is seen as morally good if it is used to protect the community. It is understood that every open block may follow very different rules, and their ability to remain organized depends on their consent to be self-governing. Tyrannical or dysfunctional open blocks are often rooted out by groups of residents.",
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Phobos Consultancy",
+        "ideology": null,
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Project Sunset",
+        "ideology": null,
+        "territory": null,
+        "influence_level": 10,
+        "relationships": {
+          "Alan Carlsile": "enemy. Alan hates Sunset, partially for causing Scramble, partially because he believes Regina died as a result of her arrogance. He views Sunset as a threat to the sentience of humans. Alan artificially extended his life for as long as possible to try and find a way to undo what Regina did.",
+          "Vextros": "enemy"
+        },
+        "internal_hint": "The player, or a significant NPC, might become the ADMINISTRATOR.",
+        "internal_justification": null
+      }
+    ],
+    "districts": [
+      {
+        "id": "The Akropolis",
+        "traits": [
+          "cave",
+          "underground",
+          "military",
+          "authoritarian"
+        ],
+        "hazards": [
+          "draconian punishments",
+          "anti-corporate sentiment",
+          "anti-outsider sentiment"
+        ],
+        "factions": [
+          "Phobos Consultancy"
+        ],
+        "description": "The Akropolis is an underground city built inside a cave system. It is a far-right authoritarian society that idolizes military service and especially people who pass \"selection\" tests.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "Crescent Center",
+        "traits": [
+          "megastructure",
+          "55 stories",
+          "atrium",
+          "artificial garden",
+          "opulent"
+        ],
+        "hazards": [
+          "crime",
+          "poverty",
+          "homelessness",
+          "stratified society"
+        ],
+        "factions": [
+          "Vextros",
+          "The Open Blocks"
+        ],
+        "description": "A 55 story tall megastructure that is home to roughly 50,000 people. Most of the city's other buildings are connected by tunnels, legally built or not. Higher levels of Crescent Center are generally more affluent. Every 10 levels, there is an Atrium, which creates a large open space with balconies on each level overlooking an artificial garden. This stratifies each group of 10 levels together - an Atrium on 0, 10, 20, 30, 40, 50. The Level 50 Atrium is ludicrously opulent, Level 0 is largely uninhabitable.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "One Vextros Way",
+        "traits": [
+          "corporate campus",
+          "Vextros",
+          "hillside",
+          "air purification",
+          "water purification"
+        ],
+        "hazards": [
+          "corporate headquarters",
+          "trespassers will be shot"
+        ],
+        "factions": [
+          "Vextros"
+        ],
+        "description": "The headquarters of Vextros. It's located on a hillside overlooking Libertas. Huge air and water purification systems keep the corporate campus pristine and habitable outdoors except in extreme conditions.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "The Lower Quarter",
+        "traits": [
+          "nuclear wasteland",
+          "radioactive",
+          "contaminated",
+          "uninhabitable"
+        ],
+        "hazards": [
+          "radiation",
+          "heavy metal poisoning",
+          "contaminated water",
+          "contaminated air",
+          "contaminated soil"
+        ],
+        "factions": [
+          "Project Sunset"
+        ],
+        "description": "A nuclear wasteland that is uninhabitable for more than a few hours at a time. It is the result of a lab explosion at Sunset Laboratories.",
+        "internal_hint": "",
+        "internal_justification": ""
+      }
+    ],
+    "npcs": [
+      {
+        "id": "Alan Carlsile",
+        "name": "Alan Carlsile",
+        "role": "CEO of Vextros",
+        "description": "123 year old CEO of Vextros. He is the only person who knows about Sunset. He has been trying to undo Scramble so that the city can escape isolation. He wants Sunset to be dismantled more than anything else, and considers it to a threat to humanity. He is often regarded by others as a sociopath, but it's more accurate to say that he's singularly focused on undoing Regina's mistake, and isn't concerned with anything else.",
+        "personality_traits": [
+          "arrogant",
+          "selfish",
+          "greedy",
+          "power-hungry"
+        ],
+        "relationships": {
+          "Regina Carlsile": "enemy, sister",
+          "Vextros": "CEO"
+        },
+        "faction_affiliations": [
+          "Vextros"
+        ],
+        "location_id": "One Vextros Way",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "tension_sliders": {
+      "violence": 7,
+      "mystery": 4,
+      "technology": 6,
+      "society": 5,
+      "environment": 3,
+      "economy": 2,
+      "politics": 10
+    }
+  },
+  "player_state": {
+    "name": "Sierra Violet",
+    "stats": {
+      "might": 10,
+      "insight": 10,
+      "nimbleness": 10,
+      "destiny": 10,
+      "savvy": 10,
+      "expertise": 10,
+      "tenacity": 10,
+      "station": 10,
+      "opulence": 10,
+      "celebrity": 10,
+      "integrity": 10,
+      "allure": 10,
+      "lineage": 10
+    },
+    "attributes": [
+      {
+        "id": "grudge",
+        "type": "status",
+        "description": "A grudge against Vextros.",
+        "stat_mods": null
+      }
+    ],
+    "profile": {
+      "narrative_summary": "A grungy, 27 year old woman with a grudge against Vextros.",
+      "key_traits": [
+        "grungy",
+        "27 year old",
+        "woman",
+        "grudge against Vextros"
+      ],
+      "background_hints": []
+    },
+    "history": []
+  },
+  "generation_step": 5,
+  "step_name": "bridge_nodes",
+  "choice_history": [],
+  "available_choices": [],
+  "arcs": [
+    {
+      "id": "Echoes from the Lower Quarter: A Quest for Truth and Revenge",
+      "situations": {
+        "situation_001": {
+          "id": "situation_001",
+          "title": "Sierra Violet stands on the dusty outskirts of the Crescent Center, her eyes fixed on the towering structure that hides secrets that could reshape the fate of the city. The Lower Quarter's ruin beckons with a truth buried under layers of corporate deceit. Haunted by her grudge against Vextros, Sierra decides it's time to uncover why Alan Carlsile is determined to dismantle Project Sunset, and the real story behind the explosion at Sunset Laboratories.",
+          "description": "Sierra Violet stands on the dusty outskirts of the Crescent Center, her eyes fixed on the towering structure that hides secrets that could reshape the fate of the city. The Lower Quarter's ruin beckons with a truth buried under layers of corporate deceit. Haunted by her grudge against Vextros, Sierra decides it's time to uncover why Alan Carlsile is determined to dismantle Project Sunset, and the real story behind the explosion at Sunset Laboratories.",
+          "choices": [
+            {
+              "id": "choice_001",
+              "text": "Infiltrate Crescent Center to gather intelligence on Vextros' operations and Alan Carlsile's motives.",
+              "requirements": {
+                "savvy": 7,
+                "tenacity": 8
+              },
+              "attributes_gained": [
+                {
+                  "id": "intelligence_gathered",
+                  "type": "status",
+                  "description": "Collected intelligence on Vextros and Alan Carlsile.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 2
+              },
+              "next_situation_id": "situation_002",
+              "internal_hint": "Sierra's expertise and resolve are crucial in navigating the megastructure and picking up crucial intelligence.",
+              "internal_justification": "This choice leverages Sierra's personal vendetta and abilities to drive the initial investigation, allowing her to obtain useful information that supports the unfolding narrative."
+            },
+            {
+              "id": "choice_002",
+              "text": "Meet with The Open Blocks to seek allies and support for the investigation.",
+              "requirements": {
+                "integrity": 7,
+                "allure": 8
+              },
+              "attributes_gained": [
+                {
+                  "id": "alliance_the_open_blocks",
+                  "type": "status",
+                  "description": "Formed an alliance with The Open Blocks.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "celebrity": 2
+              },
+              "next_situation_id": "situation_003",
+              "internal_hint": "Connect Sierra's virtues and charisma to align with like-minded rebels, adding an avenue for resource gathering and safety.",
+              "internal_justification": "By affiliating with The Open Blocks, Sierra gains potential allies, expanding her reach and adding layers to the narrative through another faction's perspective."
+            },
+            {
+              "id": "choice_003",
+              "text": "Attempt to decrypt intercepted communications from Vextros to uncover hidden truths.",
+              "requirements": {
+                "expertise": 9,
+                "insight": 9
+              },
+              "attributes_gained": [
+                {
+                  "id": "decrypted_information",
+                  "type": "status",
+                  "description": "Decrypted communications revealing insights into Vextros' plans.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 2
+              },
+              "next_situation_id": "situation_004",
+              "internal_hint": "Sierra\u2019s technical prowess allows her to gain an upper hand by decrypting sensitive data, providing exposure to Vextros' secrets.",
+              "internal_justification": "Utilizing Sierra's expertise helps unveil crucial pieces of information, furthering the main plot while showcasing her skills and augmenting her preparedness for challenge escalation."
+            }
+          ],
+          "stat_requirements": {
+            "society": 5
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "society": "The more Sierra uncovers, the more the societal order begins to destabilize; alliances and power dynamics start shifting."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "The more Sierra uncovers, the more the societal order begins to destabilize; alliances and power dynamics start shifting."
+          ]
+        },
+        "situation_002": {
+          "id": "situation_002",
+          "title": "Having gathered intelligence at Crescent Center, Sierra deciphers a crucial lead linking Alan Carlsile to an under-the-table transaction involving Project Sunset's resources. The hidden intricacies of corporate espionage become evident as these revelations could shift the balance of power.",
+          "description": "Having gathered intelligence at Crescent Center, Sierra deciphers a crucial lead linking Alan Carlsile to an under-the-table transaction involving Project Sunset's resources. The hidden intricacies of corporate espionage become evident as these revelations could shift the balance of power.",
+          "choices": [
+            {
+              "id": "choice_004",
+              "text": "Investigate a secret meeting between Alan Carlsile and a mysterious third party at the Level 30 Atrium.",
+              "requirements": {
+                "allure": 8,
+                "savvy": 8
+              },
+              "attributes_gained": [
+                {
+                  "id": "meeting_intelligence",
+                  "type": "status",
+                  "description": "Gathered key intelligence on the secret dealings at Crescent Center.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "situation_003",
+              "internal_hint": "Sierra uses her charm and understanding of social circles to uncover further plots.",
+              "internal_justification": "This choice leverages Sierra's appearance and interpersonal skills to delve deeper into the conspiracy, highlighting her capability to navigate the city's upper echelons while peeling back layers of intrigue."
+            },
+            {
+              "id": "choice_005",
+              "text": "Trace the encrypted transaction trails to find the source of funding for Project Sunset.",
+              "requirements": {
+                "expertise": 9,
+                "insight": 8
+              },
+              "attributes_gained": [
+                {
+                  "id": "funding_sources_identified",
+                  "type": "status",
+                  "description": "Identified potential financiers for Project Sunset's mysterious operations.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "celebrity": 1
+              },
+              "next_situation_id": "situation_004",
+              "internal_hint": "Expert investigative skills are key to uncovering corporate financial secrets.",
+              "internal_justification": "This choice showcases Sierra's analytical prowess, offering a route that strengthens the narrative of uncovering hidden financial networks and potential treachery within Vextros."
+            }
+          ],
+          "stat_requirements": {
+            "insight": 7
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "politics": "By unraveling concealed transactions, Sierra inadvertently fans the flames of distrust and rivalry among influential factions."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "By unraveling concealed transactions, Sierra inadvertently fans the flames of distrust and rivalry among influential factions."
+          ]
+        },
+        "situation_003": {
+          "id": "situation_003",
+          "title": "With a burgeoning alliance with The Open Blocks, Sierra faces a choice: strengthen the bonds by aiding them in a crucial operation, or leverage the alliance to solidify her position against Vextros.",
+          "description": "With a burgeoning alliance with The Open Blocks, Sierra faces a choice: strengthen the bonds by aiding them in a crucial operation, or leverage the alliance to solidify her position against Vextros.",
+          "choices": [
+            {
+              "id": "choice_006",
+              "text": "Aid The Open Blocks in a heist against a Vextros supply convoy.",
+              "requirements": {
+                "nimbleness": 9,
+                "might": 8
+              },
+              "attributes_gained": [
+                {
+                  "id": "trust_built_open_blocks",
+                  "type": "status",
+                  "description": "Increased trust and reciprocity with The Open Blocks.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "situation_005",
+              "internal_hint": "Demonstrate physical capability and fortify Sierra's connections to the faction.",
+              "internal_justification": "This choice strengthens Sierra\u2019s relationships and manifests the anarchistic spirit, allowing her to directly combat corporate interests and secure valuable resources."
+            },
+            {
+              "id": "choice_007",
+              "text": "Secure detailed information about other factions' activities from The Open Blocks.",
+              "requirements": {
+                "integrity": 8,
+                "savvy": 9
+              },
+              "attributes_gained": [
+                {
+                  "id": "detailed_faction.intel",
+                  "type": "status",
+                  "description": "Acquired comprehensive insights into the dynamics of various factions.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "allure": 1
+              },
+              "next_situation_id": "situation_006",
+              "internal_hint": "Strategically exploit alliance resources for broad intelligence.",
+              "internal_justification": "This option focuses on strategic intelligence accumulation, enabling Sierra to operate with informed autonomy and position herself advantageously within the city's shifting sands."
+            }
+          ],
+          "stat_requirements": {
+            "society": 6
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "society": "Aligning with The Open Blocks offers new operational perspectives, swaying ideological standpoints across the city\u2019s socio-political landscape."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Aligning with The Open Blocks offers new operational perspectives, swaying ideological standpoints across the city\u2019s socio-political landscape."
+          ]
+        }
+      },
+      "bridge_nodes": [
+        "situation_001",
+        "situation_002",
+        "situation_003"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "world_context": {
+    "seed": {
+      "name": "Libertas",
+      "themes": [
+        "cyberpunk",
+        "dystopia",
+        "late stage capitalism",
+        "AI rights"
+      ],
+      "high_concept": "\nAn isolated, libertarian society in the near (100 years) future. \nSociety is highly stratified.\nMost people have cybernetic enhancements, some of which are absolutely necessay for daily life.\nPollution and climate change has rendered indoor spaces more valuable than outdoor spaces.\nA handful of corporations have a weak grip on the city. Formal governments have largely collapsed.\nLarge portions of the city are illegal, ramshackle \"open blocks\" which resemble Kowloon Walled City.\nCrime that does not damage corporations' property or employees is tolerated when convenient.\n",
+      "internal_hint": "",
+      "internal_justification": ""
+    },
+    "technologies": [
+      {
+        "name": "Merged",
+        "description": "A mix of many languages. It is spoken using translation and transliteration implants. Common is the only remaining language that is taught formally.",
+        "impact": "Merged is the default language of the city. It is a mix of many languages, and is spoken by almost everyone. It is the default language for almost all communication.",
+        "limitations": "If your translation implant is disabled or damaged, you can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. Phobos natives won't understand you, and it's unlikely that people from outside Libertas will, either.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Common",
+        "description": "The only remaining language that is taught formally. Only Phobos citizens speak it. It is a mix of Latin and Greek, with a rhythmic cadence of syllables that sounds reminiscient of Korean.",
+        "impact": "Phobos's primary language, which they are intentionally cliquey and exlcusionary with. Most people have no reason to speak or learn Common, so those that do can sometimes understand their surroundings better.",
+        "limitations": "Common is inherently exclusive, and Phobos uses it to keep outsiders out. It is also a very difficult language to learn, and most people don't bother.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Translation Implants",
+        "description": "Implants that allow you to translate and transliterate languages. They do not allow you to speak Common. Almost everyone in Libertas has a translation implant, and as a result language has become almost unrecognizable. Everyone just uses 'Merged' for shorthand.",
+        "impact": "Almost everyone in Libertas speaks Merged, a language that emerged as a result of everyone having these implants. As a result, speech is impossible without it.",
+        "limitations": "If the implant is disabled or damaged, the user can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. The translation implant does NOT allow the user to speak Common, which must be learned the old fashioned way.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Implant Sickness",
+        "description": "Implants can cause a variety of symptoms, including but not limited to: nausea, dizziness, confusion, hallucinations, coma, and death. A drug called PHQ-9, often referred to on the street as 'Jolt' reverses the implant sickness, but only temporarily.",
+        "impact": "Implant sickness is dreaded, but common. Most cases are treatable. Rarely, someone becomes 'broken', a slang term for someone whose implants have failed entirely.",
+        "limitations": "Implant sickness can be mitigated with treatments fairly easily. A 'technician', or implant specialist, can remove the damaged connections and/or replace implants as needed.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Jolt / PHQ-9",
+        "description": "A drug manufactured by Vextros that reverses the symptoms of implant sickness. It's often dispensed by autoinjectors that accept pink cartridges. It is often referred to on the street as 'Jolt'.  Each successive use of PHQ-9 becomes less effective. PHQ-9 also causes euphoria and sedation, in a manner similar to ketamine.",
+        "impact": "PHQ-9 treats implant sickness, which occurs often especially with lower quality implants. 'Jolt' dens litter the city, not because of implant sickness, but because the drug also causes intense euphoria.",
+        "limitations": "PHQ-9 is addictive, and each successive use of PHQ-9 becomes less effective. It's also manufactured solely by Vextros, and they could hypothetically withhold their supply.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Nutrax",
+        "description": "A meal replacement made by Vextros. It comes in a wide variety of flavors and consistencies, and is created by reprocessing minerals and nitrogen found through the city's mining operations. Pure Nutrax is actually pretty good, but most of the time it's been adulterated, usually by Vextros itself. Vextros adds everything from sawdust to pharmaceuticals they feel like testing.",
+        "impact": "Nutrax is a strict necessity for some parts of the population because it's often very affordable.",
+        "limitations": "Nutrax is often adulterated, and can cause nutritional deficiencies and malnutrition.",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "factions": [
+      {
+        "name": "Vextros",
+        "ideology": "Essentially a corporation that has grown to be the size of a government. Believes that they are entitled to a say in almost all matters. Prioritizes order to justice whenever such a choice presents itself.",
+        "territory": null,
+        "influence_level": null,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "The Open Blocks",
+        "ideology": "Anarchistic, anti-corporate, and anti-authoritarian. Violence is seen as morally good if it is used to protect the community. It is understood that every open block may follow very different rules, and their ability to remain organized depends on their consent to be self-governing. Tyrannical or dysfunctional open blocks are often rooted out by groups of residents.",
+        "territory": null,
+        "influence_level": null,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Phobos Consultancy",
+        "ideology": null,
+        "territory": null,
+        "influence_level": null,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Project Sunset",
+        "ideology": null,
+        "territory": null,
+        "influence_level": null,
+        "relationships": {
+          "Alan Carlsile": "enemy. Alan hates Sunset, partially for causing Scramble, partially because he believes Regina died as a result of her arrogance. He views Sunset as a threat to the sentience of humans. Alan artificially extended his life for as long as possible to try and find a way to undo what Regina did.",
+          "Vextros": "enemy"
+        },
+        "internal_hint": "The player, or a significant NPC, might become the ADMINISTRATOR.",
+        "internal_justification": null
+      }
+    ],
+    "districts": [
+      {
+        "id": "The Akropolis",
+        "traits": [
+          "cave",
+          "underground",
+          "military",
+          "authoritarian"
+        ],
+        "hazards": [
+          "draconian punishments",
+          "anti-corporate sentiment",
+          "anti-outsider sentiment"
+        ],
+        "factions": [
+          "Phobos Consultancy"
+        ],
+        "description": "The Akropolis is an underground city built inside a cave system. It is a far-right authoritarian society that idolizes military service and especially people who pass \"selection\" tests.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "Crescent Center",
+        "traits": [
+          "megastructure",
+          "55 stories",
+          "atrium",
+          "artificial garden",
+          "opulent"
+        ],
+        "hazards": [
+          "crime",
+          "poverty",
+          "homelessness",
+          "stratified society"
+        ],
+        "factions": [
+          "Vextros",
+          "The Open Blocks"
+        ],
+        "description": "A 55 story tall megastructure that is home to roughly 50,000 people. Most of the city's other buildings are connected by tunnels, legally built or not. Higher levels of Crescent Center are generally more affluent. Every 10 levels, there is an Atrium, which creates a large open space with balconies on each level overlooking an artificial garden. This stratifies each group of 10 levels together - an Atrium on 0, 10, 20, 30, 40, 50. The Level 50 Atrium is ludicrously opulent, Level 0 is largely uninhabitable.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "One Vextros Way",
+        "traits": [
+          "corporate campus",
+          "Vextros",
+          "hillside",
+          "air purification",
+          "water purification"
+        ],
+        "hazards": [
+          "corporate headquarters",
+          "trespassers will be shot"
+        ],
+        "factions": [
+          "Vextros"
+        ],
+        "description": "The headquarters of Vextros. It's located on a hillside overlooking Libertas. Huge air and water purification systems keep the corporate campus pristine and habitable outdoors except in extreme conditions.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "The Lower Quarter",
+        "traits": [
+          "nuclear wasteland",
+          "radioactive",
+          "contaminated",
+          "uninhabitable"
+        ],
+        "hazards": [
+          "radiation",
+          "heavy metal poisoning",
+          "contaminated water",
+          "contaminated air",
+          "contaminated soil"
+        ],
+        "factions": [
+          "Project Sunset"
+        ],
+        "description": "A nuclear wasteland that is uninhabitable for more than a few hours at a time. It is the result of a lab explosion at Sunset Laboratories.",
+        "internal_hint": "",
+        "internal_justification": ""
+      }
+    ],
+    "npcs": [
+      {
+        "id": "Alan Carlsile",
+        "name": "Alan Carlsile",
+        "role": "CEO of Vextros",
+        "description": "123 year old CEO of Vextros. He is the only person who knows about Sunset. He has been trying to undo Scramble so that the city can escape isolation. He wants Sunset to be dismantled more than anything else, and considers it to a threat to humanity. He is often regarded by others as a sociopath, but it's more accurate to say that he's singularly focused on undoing Regina's mistake, and isn't concerned with anything else.",
+        "personality_traits": [
+          "arrogant",
+          "selfish",
+          "greedy",
+          "power-hungry"
+        ],
+        "relationships": {
+          "Regina Carlsile": "enemy, sister",
+          "Vextros": "CEO"
+        },
+        "faction_affiliations": [
+          "Vextros"
+        ],
+        "location_id": "One Vextros Way",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "tension_sliders": {
+      "violence": 7,
+      "mystery": 4,
+      "technology": 6,
+      "society": 5,
+      "environment": 3,
+      "economy": 2,
+      "politics": 10
+    }
+  },
+  "player_state": {
+    "name": "Sierra Violet",
+    "stats": {
+      "might": 10,
+      "insight": 10,
+      "nimbleness": 10,
+      "destiny": 10,
+      "savvy": 10,
+      "expertise": 10,
+      "tenacity": 10,
+      "station": 10,
+      "opulence": 10,
+      "celebrity": 10,
+      "integrity": 10,
+      "allure": 10,
+      "lineage": 10
+    },
+    "attributes": [
+      {
+        "id": "grudge",
+        "type": "status",
+        "description": "A grudge against Vextros.",
+        "stat_mods": null
+      }
+    ],
+    "profile": {
+      "narrative_summary": "A grungy, 27 year old woman with a grudge against Vextros.",
+      "key_traits": [
+        "grungy",
+        "27 year old",
+        "woman",
+        "grudge against Vextros"
+      ],
+      "background_hints": []
+    },
+    "history": []
+  },
+  "generation_step": 1,
+  "step_name": "arc_titles",
+  "choice_history": [],
+  "available_choices": [],
+  "arcs": []
+}
