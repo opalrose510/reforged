@@ -1,0 +1,1031 @@
+{
+  "world_context": {
+    "seed": {
+      "name": "Libertas",
+      "themes": [
+        "cyberpunk",
+        "dystopia",
+        "late stage capitalism",
+        "AI rights"
+      ],
+      "high_concept": "\nAn isolated, libertarian society in the near (100 years) future. \nSociety is highly stratified.\nMost people have cybernetic enhancements, some of which are absolutely necessay for daily life.\nPollution and climate change has rendered indoor spaces more valuable than outdoor spaces.\nA handful of corporations have a weak grip on the city. Formal governments have largely collapsed.\nLarge portions of the city are illegal, ramshackle \"open blocks\" which resemble Kowloon Walled City.\nCrime that does not damage corporations' property or employees is tolerated when convenient.\n",
+      "internal_hint": "",
+      "internal_justification": ""
+    },
+    "technologies": [
+      {
+        "name": "Merged",
+        "description": "A mix of many languages. It is spoken using translation and transliteration implants. Common is the only remaining language that is taught formally.",
+        "impact": "Merged is the default language of the city. It is a mix of many languages, and is spoken by almost everyone. It is the default language for almost all communication.",
+        "limitations": "If your translation implant is disabled or damaged, you can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. Phobos natives won't understand you, and it's unlikely that people from outside Libertas will, either.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Common",
+        "description": "The only remaining language that is taught formally. Only Phobos citizens speak it. It is a mix of Latin and Greek, with a rhythmic cadence of syllables that sounds reminiscient of Korean.",
+        "impact": "Phobos's primary language, which they are intentionally cliquey and exlcusionary with. Most people have no reason to speak or learn Common, so those that do can sometimes understand their surroundings better.",
+        "limitations": "Common is inherently exclusive, and Phobos uses it to keep outsiders out. It is also a very difficult language to learn, and most people don't bother.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Translation Implants",
+        "description": "Implants that allow you to translate and transliterate languages. They do not allow you to speak Common. Almost everyone in Libertas has a translation implant, and as a result language has become almost unrecognizable. Everyone just uses 'Merged' for shorthand.",
+        "impact": "Almost everyone in Libertas speaks Merged, a language that emerged as a result of everyone having these implants. As a result, speech is impossible without it.",
+        "limitations": "If the implant is disabled or damaged, the user can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. The translation implant does NOT allow the user to speak Common, which must be learned the old fashioned way.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Implant Sickness",
+        "description": "Implants can cause a variety of symptoms, including but not limited to: nausea, dizziness, confusion, hallucinations, coma, and death. A drug called PHQ-9, often referred to on the street as 'Jolt' reverses the implant sickness, but only temporarily.",
+        "impact": "Implant sickness is dreaded, but common. Most cases are treatable. Rarely, someone becomes 'broken', a slang term for someone whose implants have failed entirely.",
+        "limitations": "Implant sickness can be mitigated with treatments fairly easily. A 'technician', or implant specialist, can remove the damaged connections and/or replace implants as needed.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Jolt / PHQ-9",
+        "description": "A drug manufactured by Vextros that reverses the symptoms of implant sickness. It's often dispensed by autoinjectors that accept pink cartridges. It is often referred to on the street as 'Jolt'.  Each successive use of PHQ-9 becomes less effective. PHQ-9 also causes euphoria and sedation, in a manner similar to ketamine.",
+        "impact": "PHQ-9 treats implant sickness, which occurs often especially with lower quality implants. 'Jolt' dens litter the city, not because of implant sickness, but because the drug also causes intense euphoria.",
+        "limitations": "PHQ-9 is addictive, and each successive use of PHQ-9 becomes less effective. It's also manufactured solely by Vextros, and they could hypothetically withhold their supply.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Nutrax",
+        "description": "A meal replacement made by Vextros. It comes in a wide variety of flavors and consistencies, and is created by reprocessing minerals and nitrogen found through the city's mining operations. Pure Nutrax is actually pretty good, but most of the time it's been adulterated, usually by Vextros itself. Vextros adds everything from sawdust to pharmaceuticals they feel like testing.",
+        "impact": "Nutrax is a strict necessity for some parts of the population because it's often very affordable.",
+        "limitations": "Nutrax is often adulterated, and can cause nutritional deficiencies and malnutrition.",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "factions": [
+      {
+        "name": "Vextros",
+        "ideology": "Essentially a corporation that has grown to be the size of a government. Believes that they are entitled to a say in almost all matters. Prioritizes order to justice whenever such a choice presents itself.",
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "The Open Blocks",
+        "ideology": "Anarchistic, anti-corporate, and anti-authoritarian. Violence is seen as morally good if it is used to protect the community. It is understood that every open block may follow very different rules, and their ability to remain organized depends on their consent to be self-governing. Tyrannical or dysfunctional open blocks are often rooted out by groups of residents.",
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Phobos Consultancy",
+        "ideology": null,
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Project Sunset",
+        "ideology": null,
+        "territory": null,
+        "influence_level": 10,
+        "relationships": {
+          "Alan Carlsile": "enemy. Alan hates Sunset, partially for causing Scramble, partially because he believes Regina died as a result of her arrogance. He views Sunset as a threat to the sentience of humans. Alan artificially extended his life for as long as possible to try and find a way to undo what Regina did.",
+          "Vextros": "enemy"
+        },
+        "internal_hint": "The player, or a significant NPC, might become the ADMINISTRATOR.",
+        "internal_justification": null
+      }
+    ],
+    "districts": [
+      {
+        "id": "The Akropolis",
+        "traits": [
+          "cave",
+          "underground",
+          "military",
+          "authoritarian"
+        ],
+        "hazards": [
+          "draconian punishments",
+          "anti-corporate sentiment",
+          "anti-outsider sentiment"
+        ],
+        "factions": [
+          "Phobos Consultancy"
+        ],
+        "description": "The Akropolis is an underground city built inside a cave system. It is a far-right authoritarian society that idolizes military service and especially people who pass \"selection\" tests.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "Crescent Center",
+        "traits": [
+          "megastructure",
+          "55 stories",
+          "atrium",
+          "artificial garden",
+          "opulent"
+        ],
+        "hazards": [
+          "crime",
+          "poverty",
+          "homelessness",
+          "stratified society"
+        ],
+        "factions": [
+          "Vextros",
+          "The Open Blocks"
+        ],
+        "description": "A 55 story tall megastructure that is home to roughly 50,000 people. Most of the city's other buildings are connected by tunnels, legally built or not. Higher levels of Crescent Center are generally more affluent. Every 10 levels, there is an Atrium, which creates a large open space with balconies on each level overlooking an artificial garden. This stratifies each group of 10 levels together - an Atrium on 0, 10, 20, 30, 40, 50. The Level 50 Atrium is ludicrously opulent, Level 0 is largely uninhabitable.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "One Vextros Way",
+        "traits": [
+          "corporate campus",
+          "Vextros",
+          "hillside",
+          "air purification",
+          "water purification"
+        ],
+        "hazards": [
+          "corporate headquarters",
+          "trespassers will be shot"
+        ],
+        "factions": [
+          "Vextros"
+        ],
+        "description": "The headquarters of Vextros. It's located on a hillside overlooking Libertas. Huge air and water purification systems keep the corporate campus pristine and habitable outdoors except in extreme conditions.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "The Lower Quarter",
+        "traits": [
+          "nuclear wasteland",
+          "radioactive",
+          "contaminated",
+          "uninhabitable"
+        ],
+        "hazards": [
+          "radiation",
+          "heavy metal poisoning",
+          "contaminated water",
+          "contaminated air",
+          "contaminated soil"
+        ],
+        "factions": [
+          "Project Sunset"
+        ],
+        "description": "A nuclear wasteland that is uninhabitable for more than a few hours at a time. It is the result of a lab explosion at Sunset Laboratories.",
+        "internal_hint": "",
+        "internal_justification": ""
+      }
+    ],
+    "npcs": [
+      {
+        "id": "Alan Carlsile",
+        "name": "Alan Carlsile",
+        "role": "CEO of Vextros",
+        "description": "123 year old CEO of Vextros. He is the only person who knows about Sunset. He has been trying to undo Scramble so that the city can escape isolation. He wants Sunset to be dismantled more than anything else, and considers it to a threat to humanity. He is often regarded by others as a sociopath, but it's more accurate to say that he's singularly focused on undoing Regina's mistake, and isn't concerned with anything else.",
+        "personality_traits": [
+          "arrogant",
+          "selfish",
+          "greedy",
+          "power-hungry"
+        ],
+        "relationships": {
+          "Regina Carlsile": "enemy, sister",
+          "Vextros": "CEO"
+        },
+        "faction_affiliations": [
+          "Vextros"
+        ],
+        "location_id": "One Vextros Way",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "tension_sliders": {
+      "violence": 7,
+      "mystery": 4,
+      "technology": 6,
+      "society": 5,
+      "environment": 3,
+      "economy": 2,
+      "politics": 10
+    }
+  },
+  "player_state": {
+    "name": "Sierra Violet",
+    "stats": {
+      "might": 10,
+      "insight": 10,
+      "nimbleness": 10,
+      "destiny": 10,
+      "savvy": 10,
+      "expertise": 10,
+      "tenacity": 10,
+      "station": 10,
+      "opulence": 10,
+      "celebrity": 10,
+      "integrity": 10,
+      "allure": 10,
+      "lineage": 10
+    },
+    "attributes": [
+      {
+        "id": "grudge",
+        "type": "status",
+        "description": "A grudge against Vextros.",
+        "stat_mods": null
+      }
+    ],
+    "profile": {
+      "narrative_summary": "A grungy, 27 year old woman with a grudge against Vextros.",
+      "key_traits": [
+        "grungy",
+        "27 year old",
+        "woman",
+        "grudge against Vextros"
+      ],
+      "background_hints": []
+    },
+    "history": []
+  },
+  "generation_step": 7,
+  "step_name": "final_export",
+  "choice_history": [],
+  "available_choices": [],
+  "arcs": [
+    {
+      "id": "Beneath the Iron Stronghold: Sierra's Rebellion",
+      "situations": {
+        "root_situation_001": {
+          "id": "root_situation_001",
+          "title": "Sierra Violet, standing on a balcony overlooking the Level 20 Atrium in Crescent Center, considers her next move in her rebellion against Vextros. The lush artificial garden below is a stark contrast to her internal turmoil. Her grudge fuels her determination, but the path ahead is fraught with danger. As she contemplates the challenge of dismantling Vextros's authority, a representative from The Open Blocks approaches, offering their support. Sierra must decide whether to accept their help, pursue her own plan, or attempt a diplomatic engagement with Vextros despite her grudge.",
+          "description": "Sierra Violet, standing on a balcony overlooking the Level 20 Atrium in Crescent Center, considers her next move in her rebellion against Vextros. The lush artificial garden below is a stark contrast to her internal turmoil. Her grudge fuels her determination, but the path ahead is fraught with danger. As she contemplates the challenge of dismantling Vextros's authority, a representative from The Open Blocks approaches, offering their support. Sierra must decide whether to accept their help, pursue her own plan, or attempt a diplomatic engagement with Vextros despite her grudge.",
+          "choices": [
+            {
+              "id": "choice_001",
+              "text": "Accept The Open Blocks' offer and solidify an alliance against Vextros.",
+              "requirements": {
+                "insight": 5
+              },
+              "attributes_gained": [
+                {
+                  "id": "alliance_with_open_blocks",
+                  "type": "status",
+                  "description": "Formed an alliance with The Open Blocks to strengthen the rebellion.",
+                  "stat_mods": {
+                    "influence_level": 3
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "alliances": 3,
+                "influence": 5
+              },
+              "next_situation_id": "situation_002",
+              "internal_hint": "Explore how Sierra's alliance with The Open Blocks affects the power dynamics in Libertas.",
+              "internal_justification": "This choice emphasizes the importance of strategic alliances in undermining Vextros, aligning with Sierra's high insight and leadership potential."
+            },
+            {
+              "id": "choice_002",
+              "text": "Reject The Open Blocks' offer and pursue a solo strategy.",
+              "requirements": {
+                "tenacity": 6
+              },
+              "attributes_gained": [
+                {
+                  "id": "independent_rebellion",
+                  "type": "status",
+                  "description": "Chose to lead the rebellion independently, prioritizing personal control over strategy.",
+                  "stat_mods": {
+                    "independence_level": 4
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "independence": 5,
+                "personal_control": 2
+              },
+              "next_situation_id": "situation_003",
+              "internal_hint": "Explore the consequences of rejecting potential allies in favor of autonomy.",
+              "internal_justification": "This choice caters to Sierra's tenacity and determination, highlighting the potential risks and rewards of a solo rebellion."
+            },
+            {
+              "id": "choice_003",
+              "text": "Attempt a diplomatic engagement with Vextros to undermine them from within.",
+              "requirements": {
+                "allure": 7,
+                "celebrity": 5
+              },
+              "attributes_gained": [
+                {
+                  "id": "diplomatic_engagement",
+                  "type": "status",
+                  "description": "Engages diplomatically with Vextros in hopes of finding weaknesses.",
+                  "stat_mods": {
+                    "diplomacy_level": 3
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "diplomacy": 5,
+                "strategic_maneuvering": 3
+              },
+              "next_situation_id": "situation_004",
+              "internal_hint": "Explore the complexities of attempting to bring down Vextros through diplomacy.",
+              "internal_justification": "This choice utilizes Sierra's high allure and celebrity, posing the challenge of negotiating from a seemingly weak position."
+            }
+          ],
+          "stat_requirements": {
+            "integrity": 4
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "success": "The rebellion gains traction and support.",
+            "failure": "Sierra faces increased resistance from Vextros."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "The rebellion gains traction and support.",
+            "Sierra faces increased resistance from Vextros."
+          ]
+        },
+        "situation_002": {
+          "id": "situation_002",
+          "title": "Having solidified an alliance with The Open Blocks, Sierra undertakes a covert operation to gather intelligence on Vextros's vulnerabilities. The mission takes place in the dimly lit tunnels connecting various buildings of Crescent Center, where The Open Blocks have set up temporary surveillance points. Sierra must decide on her approach: lead the operation directly, send a trusted lieutenant, or divert attention by staging a public protest.",
+          "description": "Having solidified an alliance with The Open Blocks, Sierra undertakes a covert operation to gather intelligence on Vextros's vulnerabilities. The mission takes place in the dimly lit tunnels connecting various buildings of Crescent Center, where The Open Blocks have set up temporary surveillance points. Sierra must decide on her approach: lead the operation directly, send a trusted lieutenant, or divert attention by staging a public protest.",
+          "choices": [
+            {
+              "id": "choice_004",
+              "text": "Personally lead the covert operation to ensure its success.",
+              "requirements": {
+                "expertise": 7,
+                "leadership": 5
+              },
+              "attributes_gained": [
+                {
+                  "id": "direct_leader",
+                  "type": "status",
+                  "description": "Personally led the successful intelligence operation.",
+                  "stat_mods": {
+                    "leadership_level": 5
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "intelligence_gathering": 4
+              },
+              "next_situation_id": "situation_005",
+              "internal_hint": "Explore Sierra's direct involvement and the risks associated with hands-on leadership.",
+              "internal_justification": "This choice underscores Sierra's dedication and hands-on approach, enhancing her credibility and leadership reputation."
+            },
+            {
+              "id": "choice_005",
+              "text": "Delegate the operation to a trusted lieutenant.",
+              "requirements": {
+                "strategic_maneuvering": 6
+              },
+              "attributes_gained": [
+                {
+                  "id": "delegation_skill",
+                  "type": "status",
+                  "description": "Demonstrated ability to delegate effectively.",
+                  "stat_mods": {
+                    "trustworthiness_level": 4
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "support_network": 3
+              },
+              "next_situation_id": "situation_006",
+              "internal_hint": "Examine the strength and loyalty of Sierra's inner circle through delegation.",
+              "internal_justification": "This choice allows exploration of Sierra's ability to build and rely on a network of support, emphasizing strategic leadership."
+            },
+            {
+              "id": "choice_006",
+              "text": "Organize a public protest to divert Vextros's attention.",
+              "requirements": {
+                "celebrity": 6,
+                "diplomacy": 5
+              },
+              "attributes_gained": [
+                {
+                  "id": "public_figure",
+                  "type": "status",
+                  "description": "Became the face of the rebellion's public efforts.",
+                  "stat_mods": {
+                    "public_influence": 5
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "public_support": 4
+              },
+              "next_situation_id": "situation_007",
+              "internal_hint": "Analyze the impact of public visibility and its effects on the rebellion's perceived legitimacy.",
+              "internal_justification": "This choice amplifies Sierra's public presence, crucial for rallying public support and adding pressure to Vextros."
+            }
+          ],
+          "stat_requirements": {
+            "alliances": 5
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "success": "Gathered valuable intelligence on Vextros's operations.",
+            "failure": "The operation is compromised, leading to increased scrutiny by Vextros."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Gathered valuable intelligence on Vextros's operations.",
+            "The operation is compromised, leading to increased scrutiny by Vextros."
+          ]
+        },
+        "situation_003": {
+          "id": "situation_003",
+          "title": "Having decided to lead her rebellion independently, Sierra becomes aware of a critical supply of PHQ-9 that Vextros is distributing to maintain its control over the population. Sierra must decide whether to disrupt the supply chain, hoard supplies for the rebellion, or negotiate with black market dealers for access.",
+          "description": "Having decided to lead her rebellion independently, Sierra becomes aware of a critical supply of PHQ-9 that Vextros is distributing to maintain its control over the population. Sierra must decide whether to disrupt the supply chain, hoard supplies for the rebellion, or negotiate with black market dealers for access.",
+          "choices": [
+            {
+              "id": "choice_007",
+              "text": "Plan a raid to disrupt the supply chain and cripple Vextros's control.",
+              "requirements": {
+                "tenacity": 8,
+                "might": 7
+              },
+              "attributes_gained": [
+                {
+                  "id": "supply_disruption",
+                  "type": "status",
+                  "description": "Successfully disrupted Vextros's supply chain.",
+                  "stat_mods": {
+                    "oppression_level": -3
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "rebellion_strength": 5
+              },
+              "next_situation_id": "situation_008",
+              "internal_hint": "Explore the impact of direct action against Vextros's resources.",
+              "internal_justification": "This choice empowers Sierra to take bold, direct action, underlining her rebellious spirit and strategic prowess."
+            },
+            {
+              "id": "choice_008",
+              "text": "Hoard PHQ-9 to sustain the rebellion's forces.",
+              "requirements": {
+                "savvy": 7
+              },
+              "attributes_gained": [
+                {
+                  "id": "resource_management",
+                  "type": "status",
+                  "description": "Secured vital resources for the rebellion.",
+                  "stat_mods": {
+                    "sustainability_level": 4
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "resource_reserve": 4
+              },
+              "next_situation_id": "situation_009",
+              "internal_hint": "Examine the ethical complexities of hoarding resources during a rebellion.",
+              "internal_justification": "This choice highlights the fine line Sierra walks between ensuring survival and moral dilemmas."
+            },
+            {
+              "id": "choice_009",
+              "text": "Negotiate with black market dealers for PHQ-9 access.",
+              "requirements": {
+                "diplomacy": 6,
+                "allure": 5
+              },
+              "attributes_gained": [
+                {
+                  "id": "underground_deal",
+                  "type": "status",
+                  "description": "Made a successful deal with black market dealers.",
+                  "stat_mods": {
+                    "resource_acquisition": 3
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "black_market_support": 3
+              },
+              "next_situation_id": "situation_010",
+              "internal_hint": "Graft the moral and strategic implications of dealing with underground networks.",
+              "internal_justification": "This option explores leveraging connections with clandestine networks, enhancing the narrative's complexity."
+            }
+          ],
+          "stat_requirements": {
+            "personal_control": 5
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "success": "Vextros's hold is weakened, opening up new opportunities for the rebellion.",
+            "failure": "Increased scarcity of PHQ-9 leads to civil unrest, challenging Sierra's leadership."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Vextros's hold is weakened, opening up new opportunities for the rebellion.",
+            "Increased scarcity of PHQ-9 leads to civil unrest, challenging Sierra's leadership."
+          ]
+        }
+      },
+      "bridge_nodes": [
+        "root_situation_001",
+        "situation_002",
+        "situation_003"
+      ]
+    },
+    {
+      "id": "Crescent Shadows: Unveiling the Tower's Secrets",
+      "situations": {
+        "crescent_shadows_intro": {
+          "id": "crescent_shadows_intro",
+          "title": "As Sierra Violet stands at the base of Crescent Center, the towering megastructure casts a long shadow over the city. An urgent message flickers on her comms implant from an anonymous source within The Open Blocks: 'The secrets of Crescent Center must be unveiled. Power lies on level 50, hidden in the opulent halls. Proceed with caution; Vextros has eyes everywhere.' Driven by her grudge against Vextros, Sierra knows this is her opportunity to disrupt their control. The task is clear, but the path to the top is fraught with danger.",
+          "description": "As Sierra Violet stands at the base of Crescent Center, the towering megastructure casts a long shadow over the city. An urgent message flickers on her comms implant from an anonymous source within The Open Blocks: 'The secrets of Crescent Center must be unveiled. Power lies on level 50, hidden in the opulent halls. Proceed with caution; Vextros has eyes everywhere.' Driven by her grudge against Vextros, Sierra knows this is her opportunity to disrupt their control. The task is clear, but the path to the top is fraught with danger.",
+          "choices": [
+            {
+              "id": "infiltration_plan",
+              "text": "Use your allure and celebrity to gain access to the higher levels by masquerading as a high-profile socialite.",
+              "requirements": {
+                "allure": 10,
+                "celebrity": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "masquerade_invite",
+                  "type": "temporary",
+                  "description": "An invitation to a gala on level 50.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {},
+              "next_situation_id": "high_society_event",
+              "internal_hint": "Develop scenes focusing on the contrast between Sierra's true self and the persona she adopts.",
+              "internal_justification": "This choice plays to Sierra's strengths in allure and celebrity, giving her an entry into the higher echelons of society, which are critical to uncovering secrets."
+            },
+            {
+              "id": "open_blocks_route",
+              "text": "Contact The Open Blocks for a backdoor path through the illegal tunnels to reach the upper levels.",
+              "requirements": {
+                "savvy": 10,
+                "insight": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "tunnel_map",
+                  "type": "temporary",
+                  "description": "A secret map of the illegal tunnels within Crescent Center.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {},
+              "next_situation_id": "tunnel_navigation",
+              "internal_hint": "Create scenarios that involve environmental hazards and encounters with other tunnel users.",
+              "internal_justification": "This choice highlights Sierra's connections and her knack for insightful navigation, providing an alternative path that aligns with the anarchistic themes of the arc."
+            },
+            {
+              "id": "direct_confrontation",
+              "text": "Confront a Vextros lackey to force information out of them about the tower's secrets.",
+              "requirements": {
+                "might": 10,
+                "tenacity": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "captured_information",
+                  "type": "temporary",
+                  "description": "Information extracted from a Vextros lackey.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {},
+              "next_situation_id": "information_interrogation",
+              "internal_hint": "Set up intense interrogation scenes with potential moral dilemmas.",
+              "internal_justification": "Leverages Sierra's physical capabilities and tenacity to provide a more direct approach, aligning with her grudge against Vextros."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {
+            "failure": "Sierra's infiltration efforts are thwarted, drawing unwanted attention from Vextros.",
+            "success": "Sierra successfully gains access to crucial information about the Crescent Center."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Sierra's infiltration efforts are thwarted, drawing unwanted attention from Vextros.",
+            "Sierra successfully gains access to crucial information about the Crescent Center."
+          ]
+        },
+        "high_society_event": {
+          "id": "high_society_event",
+          "title": "Sierra finds herself at the opulent gala on Level 50, where the elite mingle. The air is thick with secrecy and ulterior motives, as well-dressed guests whisper about hidden agendas and opportunities to seize power. Sierra must navigate this environment carefully, using her invite as a cover to uncover the secrets of Vextros' upper echelons.",
+          "description": "Sierra finds herself at the opulent gala on Level 50, where the elite mingle. The air is thick with secrecy and ulterior motives, as well-dressed guests whisper about hidden agendas and opportunities to seize power. Sierra must navigate this environment carefully, using her invite as a cover to uncover the secrets of Vextros' upper echelons.",
+          "choices": [
+            {
+              "id": "eavesdrop_on_ceo",
+              "text": "Eavesdrop on Alan Carlsile, the CEO of Vextros, to gather critical information.",
+              "requirements": {
+                "insight": 10,
+                "allure": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "ceo_insight",
+                  "type": "temporary",
+                  "description": "Insights overheard from Alan Carlsile about Vextros' plans.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {},
+              "next_situation_id": "unveiling_secrets",
+              "internal_hint": "Create a tense atmosphere where Sierra must remain unnoticed while gathering valuable information.",
+              "internal_justification": "This choice capitalizes on Sierra's skills and her grudge against Vextros to obtain valuable intel, driving the narrative forward by unveiling crucial secrets."
+            },
+            {
+              "id": "ally_with_rogue",
+              "text": "Ally with a rogue operative at the gala to access restricted areas.",
+              "requirements": {
+                "savvy": 10,
+                "celebrity": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "rogue_alliance",
+                  "type": "temporary",
+                  "description": "Temporary alliance with a rogue operative who knows the ins and outs of the venue.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {},
+              "next_situation_id": "restricted_areas",
+              "internal_hint": "Introduce a dynamic interplay where Sierra and the rogue share common interests but differing views.",
+              "internal_justification": "This choice provides a partnership with potential for betrayal or success, adding layers to the power struggle and contrasting Sierra's motives with another character's."
+            }
+          ],
+          "stat_requirements": {
+            "allure": 10
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "success": "Sierra gains access to classified information that could destabilize Vextros' hold.",
+            "failure": "Sierra's presence draws suspicion, risking exposure to Vextros agents."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Sierra gains access to classified information that could destabilize Vextros' hold.",
+            "Sierra's presence draws suspicion, risking exposure to Vextros agents."
+          ]
+        },
+        "tunnel_navigation": {
+          "id": "tunnel_navigation",
+          "title": "Using the secret map from The Open Blocks, Sierra navigates the labyrinthine network of illegal tunnels connecting the districts. As she delves deeper beneath Crescent Center, she encounters other tunnel users and dangerous environmental conditions that test her resolve and resourcefulness.",
+          "description": "Using the secret map from The Open Blocks, Sierra navigates the labyrinthine network of illegal tunnels connecting the districts. As she delves deeper beneath Crescent Center, she encounters other tunnel users and dangerous environmental conditions that test her resolve and resourcefulness.",
+          "choices": [
+            {
+              "id": "survival_in_tunnels",
+              "text": "Utilize your resourcefulness to survive the harsh tunnel conditions and avoid confrontations.",
+              "requirements": {
+                "tenacity": 10,
+                "savvy": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "survival_knowledge",
+                  "type": "temporary",
+                  "description": "Practical knowledge gained from surviving the underground tunnels.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {},
+              "next_situation_id": "underground_encounter",
+              "internal_hint": "Highlight the environmental challenges and Sierra's adaptability as key components.",
+              "internal_justification": "This choice amplifies Sierra's strengths in endurance and adaptability, furthering the narrative by showcasing her skills in overcoming obstacles in unconventional ways."
+            },
+            {
+              "id": "make_allies_with_traders",
+              "text": "Form alliances with black-market traders you encounter in the tunnels.",
+              "requirements": {
+                "savvy": 10,
+                "insight": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "trader_contacts",
+                  "type": "temporary",
+                  "description": "Contacts among the black-market traders, who provide you with valuable support.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {},
+              "next_situation_id": "support_from_traders",
+              "internal_hint": "Develop interactions that provide both mutual benefit and potential conflict.",
+              "internal_justification": "This choice allows Sierra to maximize her social savvy and insights, broadening her support network while navigating the class-divided underbelly of the city."
+            }
+          ],
+          "stat_requirements": {
+            "savvy": 10
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "success": "Sierra bypasses significant barriers and gains crucial allies within the city\u2019s shadow network.",
+            "failure": "Sierra is intercepted by hostile forces, necessitating a hasty retreat with possibly severe consequences."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Sierra bypasses significant barriers and gains crucial allies within the city\u2019s shadow network.",
+            "Sierra is intercepted by hostile forces, necessitating a hasty retreat with possibly severe consequences."
+          ]
+        }
+      },
+      "bridge_nodes": [
+        "crescent_shadows_intro",
+        "high_society_event",
+        "tunnel_navigation"
+      ]
+    },
+    {
+      "id": "Wasteland Echoes: Sierra's Battle Against Vextros",
+      "situations": {
+        "situation_vex_intro": {
+          "id": "situation_vex_intro",
+          "title": "Sierra Violet stands among the shadows of Crescent Center's lower levels, a place where the divide between the corporate elite and the struggling masses is stark. Her heart is set on a mission: dismantle the stranglehold Vextros Corporation has over Libertas, propelled by a burning grudge. With rumors that Vextros is behind the city's isolation after the Sunset Laboratories disaster, Sierra must decide her first move in a battle against a monolithic giant.",
+          "description": "Sierra Violet stands among the shadows of Crescent Center's lower levels, a place where the divide between the corporate elite and the struggling masses is stark. Her heart is set on a mission: dismantle the stranglehold Vextros Corporation has over Libertas, propelled by a burning grudge. With rumors that Vextros is behind the city's isolation after the Sunset Laboratories disaster, Sierra must decide her first move in a battle against a monolithic giant.",
+          "choices": [
+            {
+              "id": "choice_gather_info",
+              "text": "Use your savvy and allure to gather intel from local contacts about Vextros's operations.",
+              "requirements": {
+                "savvy": 7,
+                "allure": 5
+              },
+              "attributes_gained": [
+                {
+                  "id": "intel_on_vextros",
+                  "type": "intelligence",
+                  "description": "Information on Vextros's secret operations and its role in the Sunset disaster.",
+                  "stat_mods": {
+                    "insight": 2
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1,
+                "insight": 1
+              },
+              "next_situation_id": "situation_infiltrate_vextros",
+              "internal_hint": "Set up initial alliance with The Open Blocks by sharing gathered intel.",
+              "internal_justification": "This choice leverages Sierra's high savvy and allure to introduce an information network that will aid in the subsequent infiltration of Vextros, establishing her as a resourceful figure within local resistance."
+            },
+            {
+              "id": "choice_direct_attack",
+              "text": "Launch a direct attack on a minor Vextros facility to create chaos and draw attention.",
+              "requirements": {
+                "might": 8,
+                "tenacity": 6
+              },
+              "attributes_gained": [
+                {
+                  "id": "bold_reputation",
+                  "type": "reputation",
+                  "description": "A new reputation for boldness and decisive action among anti-corporate factions.",
+                  "stat_mods": {
+                    "celebrity": 3
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "might": -1,
+                "tenacity": 1
+              },
+              "next_situation_id": "situation_escape_police",
+              "internal_hint": "Lead into increased conflict and potential alliance with Project Sunset.",
+              "internal_justification": "This choice drives immediate conflict and escalation, reinforcing Sierra's reputation as a direct and aggressive adversary to Vextros, and possibly drawing the attention of other influential factions like Project Sunset."
+            },
+            {
+              "id": "choice_secret_meeting",
+              "text": "Arrange a secret meeting with The Open Blocks to discuss potential alliances.",
+              "requirements": {
+                "integrity": 6,
+                "celebrity": 4
+              },
+              "attributes_gained": [
+                {
+                  "id": "open_blocks_ally",
+                  "type": "relationship",
+                  "description": "An alliance with The Open Blocks, who share Sierra's anti-corporate views.",
+                  "stat_mods": {
+                    "station": 2
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1,
+                "station": 1
+              },
+              "next_situation_id": "situation_alliance_strategy",
+              "internal_hint": "Strategize an immediate plan involving allied resources against Vextros.",
+              "internal_justification": "Creates a narrative path where Sierra builds strategic relationships, emphasizing her potential as a unifying leader against corporate oppression."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {
+            "new_ally": "Potential alliances with The Open Blocks and Project Sunset increase leverage against Vextros.",
+            "increased_tension": "Direct attacks heighten the city's tension, drawing more attention from all factions."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Potential alliances with The Open Blocks and Project Sunset increase leverage against Vextros.",
+            "Direct attacks heighten the city's tension, drawing more attention from all factions."
+          ]
+        },
+        "situation_infiltrate_vextros": {
+          "id": "situation_infiltrate_vextros",
+          "title": "Armed with the intel gathered from local contacts and newfound allies, Sierra plans an infiltration operation into one of Vextros's high-security facilities. This operation is crucial to uncovering the deeper workings of Vextros's isolation of Libertas.",
+          "description": "Armed with the intel gathered from local contacts and newfound allies, Sierra plans an infiltration operation into one of Vextros's high-security facilities. This operation is crucial to uncovering the deeper workings of Vextros's isolation of Libertas.",
+          "choices": [
+            {
+              "id": "choice_stealth_hack",
+              "text": "Utilize your technical expertise to hack into Vextros's mainframe undetected.",
+              "requirements": {
+                "expertise": 7,
+                "nimbleness": 5
+              },
+              "attributes_gained": [
+                {
+                  "id": "hacked_data",
+                  "type": "intelligence",
+                  "description": "Crucial files and data regarding Vextros's strategies and weaknesses.",
+                  "stat_mods": {
+                    "insight": 3
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "expertise": 1,
+                "insight": 1
+              },
+              "next_situation_id": "situation_reveal_vextros_plans",
+              "internal_hint": "Lead towards revealing critical Vextros strategies and their implications.",
+              "internal_justification": "Focuses on Sierra's intelligence and technical skills, emphasizing her ability to gather important information independently and silently, without alerting Vextros to her presence."
+            },
+            {
+              "id": "choice_covert_ops",
+              "text": "Work with an Open Blocks ally to plant surveillance devices within the facility.",
+              "requirements": {
+                "station": 5,
+                "celebrity": 4
+              },
+              "attributes_gained": [
+                {
+                  "id": "surveillance_feed",
+                  "type": "resource",
+                  "description": "Real-time surveillance access to Vextros operations.",
+                  "stat_mods": {
+                    "insight": 2
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "celebrity": 1,
+                "integrity": 1
+              },
+              "next_situation_id": "situation_monitor_vextros",
+              "internal_hint": "Direct towards ongoing monitoring of Vextros's activities.",
+              "internal_justification": "Solidifies Sierra's alliance with The Open Blocks, highlighting cooperation and strategic surveillance as a means to maintain pressure on Vextros."
+            }
+          ],
+          "stat_requirements": {
+            "savvy": 8,
+            "insight": 7
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "increased_awareness": "Vextros becomes slightly more aware of potential threats within their ranks.",
+            "resource_allocation": "New resources and allies become available through successful infiltration."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Vextros becomes slightly more aware of potential threats within their ranks.",
+            "New resources and allies become available through successful infiltration."
+          ]
+        },
+        "situation_escape_police": {
+          "id": "situation_escape_police",
+          "title": "Following the bold attack on a Vextros facility, Sierra finds herself in immediate danger. The corporate-controlled police are closing in, and she must find a way to escape or outmaneuver them.",
+          "description": "Following the bold attack on a Vextros facility, Sierra finds herself in immediate danger. The corporate-controlled police are closing in, and she must find a way to escape or outmaneuver them.",
+          "choices": [
+            {
+              "id": "choice_evade",
+              "text": "Use your nimbleness to evade the pursuing police through the network of tunnels in Crescent Center.",
+              "requirements": {
+                "nimbleness": 7,
+                "tenacity": 6
+              },
+              "attributes_gained": [
+                {
+                  "id": "evaders_stories",
+                  "type": "legend",
+                  "description": "Stories of your daring escape spread through the megastructure.",
+                  "stat_mods": {
+                    "celebrity": 2
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "nimbleness": 1,
+                "celebrity": 1
+              },
+              "next_situation_id": "situation_recover_in_safehouse",
+              "internal_hint": "Transition to a safe harbor where Sierra can strategize with allies.",
+              "internal_justification": "Highlights Sierra's agility and adaptability, increases her legend within anti-corporate circles, and maintains tension and realism as police pursuit risks exposure and danger."
+            },
+            {
+              "id": "choice_disguise",
+              "text": "Utilize a disguise to mislead the police and blend into Crescent Center's upper levels.",
+              "requirements": {
+                "allure": 8,
+                "savvy": 5
+              },
+              "attributes_gained": [
+                {
+                  "id": "master_of_disguise",
+                  "type": "skill",
+                  "description": "Proven ability to craft deceptive identities swiftly.",
+                  "stat_mods": {
+                    "opulence": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "allure": 1,
+                "savvy": 1
+              },
+              "next_situation_id": "situation_recover_in_safehouse",
+              "internal_hint": "Shift focus to an escape plan, reinforcing resourcefulness.",
+              "internal_justification": "Showcases Sierra's quick thinking and resourcefulness in high-pressure situations, while emphasizing the social and hierarchical dynamics of Crescent Center."
+            }
+          ],
+          "stat_requirements": {
+            "might": 6,
+            "tenacity": 5
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "police_alert": "Increased police presence and vigilance within the megastructure.",
+            "leverage_gained": "Sierra's growing reputation as a defender of freedom gains her additional support from anti-corporate sympathizers."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Increased police presence and vigilance within the megastructure.",
+            "Sierra's growing reputation as a defender of freedom gains her additional support from anti-corporate sympathizers."
+          ]
+        }
+      },
+      "bridge_nodes": [
+        "situation_vex_intro",
+        "situation_infiltrate_vextros",
+        "situation_escape_police"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "reforged-agent",
+  "dockerfile": "Dockerfile",
+  "workspaceFolder": "/home/ubuntu",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/ubuntu,type=bind,consistency=cached",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
+    }
+  },
+  "forwardPorts": [],
+  "postCreateCommand": "git config --global --add safe.directory /home/ubuntu",
+  "remoteUser": "ubuntu",
+  "runArgs": [
+    "--init"
+  ],
+  "terminals": []
+}

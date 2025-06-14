@@ -34,6 +34,7 @@ class World():
         logger.info(f"High concept: {seed.high_concept}")
         
         self.seed = seed
+        self.generation_run_started_at = datetime.now()
         self.initial_world_context: WorldContext = WorldContext(
             seed=self.seed,
             technologies=[
@@ -358,8 +359,14 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
         Args:
             step_name: Name of the generation step (e.g., "arc_titles", "arc_seeds")
         """
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"saves/{self.seed.name}_{timestamp}_{step_name}.json"
+        # Use the timestamp from when the generation run started
+        timestamp = self.generation_run_started_at.strftime("%Y%m%d_%H%M%S")
+        # Create a dedicated folder for this generation run
+        run_folder = f"saves/{self.seed.name}_{timestamp}"
+        os.makedirs(run_folder, exist_ok=True)
+        
+        # Use numerical step label instead of timestamp
+        filename = f"{run_folder}/step_{self._generation_step:02d}_{step_name}.json"
         
         # Create the export package
         export_data = {
@@ -396,6 +403,37 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
             json.dump(export_data, f, indent=2)
         logger.info(f"Saved world state to {filename}")
         logger.debug(f"Export data: {json.dumps(export_data, indent=2)}")
+
+        # If we have arcs, also save a situations-only file
+        if hasattr(self, 'arcs'):
+            situations_data = {
+                "situations": {
+                    situation.id: {
+                        "id": situation.id,
+                        "title": situation.description,
+                        "description": situation.description,
+                        "choices": [choice.dict() for choice in situation.choices],
+                        "stat_requirements": situation.requirements,
+                        "attribute_requirements": None,  # TODO: Add attribute requirements
+                        "consequences": situation.consequences,
+                        "is_bridge_node": situation.bridgeable,
+                        "next_situations": list(situation.consequences.values())
+                    }
+                    for arc in self.arcs
+                    for situation in arc.situations
+                },
+                "bridge_nodes": [
+                    situation.id
+                    for arc in self.arcs
+                    for situation in arc.situations
+                    if situation.bridgeable
+                ]
+            }
+            
+            situations_file = f"{run_folder}/situations.json"
+            with open(situations_file, 'w') as f:
+                json.dump(situations_data, f, indent=2)
+            logger.info(f"Saved situations data to {situations_file}")
 
     async def generate(self):
         """Generate a new narrative arc for the world.

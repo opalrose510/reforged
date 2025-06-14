@@ -67,7 +67,7 @@
         "name": "Vextros",
         "ideology": "Essentially a corporation that has grown to be the size of a government. Believes that they are entitled to a say in almost all matters. Prioritizes order to justice whenever such a choice presents itself.",
         "territory": null,
-        "influence_level": null,
+        "influence_level": 10,
         "relationships": null,
         "internal_hint": null,
         "internal_justification": null
@@ -76,7 +76,7 @@
         "name": "The Open Blocks",
         "ideology": "Anarchistic, anti-corporate, and anti-authoritarian. Violence is seen as morally good if it is used to protect the community. It is understood that every open block may follow very different rules, and their ability to remain organized depends on their consent to be self-governing. Tyrannical or dysfunctional open blocks are often rooted out by groups of residents.",
         "territory": null,
-        "influence_level": null,
+        "influence_level": 10,
         "relationships": null,
         "internal_hint": null,
         "internal_justification": null
@@ -85,7 +85,7 @@
         "name": "Phobos Consultancy",
         "ideology": null,
         "territory": null,
-        "influence_level": null,
+        "influence_level": 10,
         "relationships": null,
         "internal_hint": null,
         "internal_justification": null
@@ -94,7 +94,7 @@
         "name": "Project Sunset",
         "ideology": null,
         "territory": null,
-        "influence_level": null,
+        "influence_level": 10,
         "relationships": {
           "Alan Carlsile": "enemy. Alan hates Sunset, partially for causing Scramble, partially because he believes Regina died as a result of her arrogance. He views Sunset as a threat to the sentience of humans. Alan artificially extended his life for as long as possible to try and find a way to undo what Regina did.",
           "Vextros": "enemy"
@@ -261,8 +261,8 @@
     },
     "history": []
   },
-  "generation_step": 1,
-  "step_name": "arc_titles",
+  "generation_step": 3,
+  "step_name": "root_situations",
   "choice_history": [],
   "available_choices": [],
   "arcs": []
