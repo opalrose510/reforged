@@ -70,8 +70,8 @@ class BridgeSituation(BaseModel):
     choices: List["Choice"]
     requirements: Dict[str, int]
     consequences: Dict[str, str]
-    source_situation_id: str
-    target_situation_id: str
+    source_situation_ids: List[str]
+    target_situation_ids: List[str]
     shared_context_tags: List[str]
     bridge_type: str
     internal_hint: str
@@ -241,6 +241,7 @@ class WorldContext(BaseModel):
     districts: List["District"]
     npcs: List["NPC"]
     tension_sliders: Dict[str, int]
+    world_root: "Situation"
 
 class WorldSeed(BaseModel):
     name: str

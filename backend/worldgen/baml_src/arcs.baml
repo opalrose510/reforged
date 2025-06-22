@@ -45,10 +45,10 @@ class BridgeSituation {
   choices Choice[]
   requirements map<string, int>  // stat_name -> minimum_value
   consequences map<string, string>  // choice_id -> next_situation_id
-  source_situation_id string @description("The situation this bridge connects from")
-  target_situation_id string @description("The situation this bridge connects to")
+  source_situation_ids string[] @description("The situations this bridge can connect from")
+  target_situation_ids string[] @description("The situations this bridge can connect to")
   shared_context_tags string[] @description("Context tags that justify this bridge connection")
-  bridge_type string @description("Type of bridge: 'mid_arc', 'arc_entry', or 'arc_exit'")
+  bridge_type string @description("Type of bridge: 'multi_source', 'multi_target', or 'connector'")
   internal_hint string @description("Clue for future model calls to guide generation")
   internal_justification string @description("Reasoning for this bridge's creation and its narrative purpose")
 }
@@ -279,10 +279,10 @@ function CheckIfLeafNode(situation: Situation, world_context: WorldContext) -> b
 }
 
 // Function to generate bridge situations between existing situations
-function GenerateBridgeSituation(world_context: WorldContext, player_state: PlayerState, source_situation: Situation, target_situation: Situation, all_situations: Situation[]) -> BridgeSituation {
+function GenerateBridgeSituation(world_context: WorldContext, player_state: PlayerState, source_situations: Situation[], target_situations: Situation[], all_situations: Situation[]) -> BridgeSituation {
   client "openai/gpt-4o"
   prompt #"
-    Generate a bridge situation that connects two existing situations.
+    Generate a bridge situation that can connect multiple source situations to multiple target situations.
     
     World Context:
     {{ world_context }}
@@ -290,33 +290,67 @@ function GenerateBridgeSituation(world_context: WorldContext, player_state: Play
     Player State:
     {{ player_state }}
     
-    Source Situation:
-    {{ source_situation }}
+    Source Situations:
+    {{ source_situations }}
     
-    Target Situation:
-    {{ target_situation }}
+    Target Situations:
+    {{ target_situations }}
     
     All Existing Situations (for context):
     {{ all_situations }}
     
     The bridge situation should:
-    1. Provide a logical narrative connection between source and target
-    2. Have meaningful choices that can lead to the target situation
-    3. Respect the context and themes of both situations
-    4. Include shared context tags that justify the connection
-    5. Specify the appropriate bridge_type ('mid_arc', 'arc_entry', or 'arc_exit')
+    1. Provide logical narrative connections between sources and targets
+    2. Have meaningful choices that can lead to different target situations
+    3. Respect the context and themes of all connected situations
+    4. Include shared context tags that justify the connections
+    5. Specify the appropriate bridge_type ('multi_source', 'multi_target', or 'connector')
     6. Create interesting narrative opportunities without soft-locking the player
+    7. Allow the player to abandon one storyline for another naturally
     
     {{ ctx.output_format }}
   "#
 }
 
-// Function to identify potential bridge connections
-function IdentifyBridgeConnections(world_context: WorldContext, all_situations: Situation[]) -> map<string, string[]> {
+// Function to add a bridge choice to an existing situation
+function AddBridgeChoiceToSituation(world_context: WorldContext, player_state: PlayerState, source_situation: Situation, target_situation: Situation, all_situations: Situation[]) -> Choice {
   client "openai/gpt-4o"
   prompt #"
-    Analyze all situations and identify potential bridge connections between them.
-    Return a map where keys are source situation IDs and values are arrays of target situation IDs that could be connected.
+    Generate a new choice for an existing situation that creates a bridge to another situation.
+    
+    World Context:
+    {{ world_context }}
+    
+    Player State:
+    {{ player_state }}
+    
+    Source Situation (to add choice to):
+    {{ source_situation }}
+    
+    Target Situation (choice leads to):
+    {{ target_situation }}
+    
+    All Existing Situations (for context):
+    {{ all_situations }}
+    
+    The bridge choice should:
+    1. Fit naturally within the source situation's context
+    2. Provide a plausible explanation for transitioning to the target situation
+    3. Respect the narrative flow and player agency
+    4. Have appropriate stat requirements
+    5. Include meaningful consequences (stat changes, attributes)
+    6. Not feel forced or artificial
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to identify potential bridge connections (situation to situation mapping)
+function IdentifyDirectBridgeConnections(world_context: WorldContext, all_situations: Situation[]) -> map<string, string[]> {
+  client "openai/gpt-4o"
+  prompt #"
+    Analyze all situations and identify potential direct bridge connections where one situation can have a choice added that leads to another.
+    Return a map where keys are source situation IDs and values are arrays of target situation IDs.
     
     World Context:
     {{ world_context }}
@@ -330,6 +364,86 @@ function IdentifyBridgeConnections(world_context: WorldContext, all_situations: 
     3. Narrative opportunities for transitions
     4. Player agency and meaningful choices
     5. Avoiding soft-lock situations (cycles with no escape)
+    6. Natural story flow and logical transitions
+    
+    Focus on connections that would enhance the story and provide meaningful player choice.
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to identify groups of related situations for multi-target bridges
+function IdentifyBridgeGroups(world_context: WorldContext, all_situations: Situation[]) -> string[][] {
+  client "openai/gpt-4o"
+  prompt #"
+    Analyze all situations and identify groups of related situations that could be reached from the same bridge situation.
+    Return a list of lists, where each inner list contains situation IDs that are thematically related and could be accessed from a common bridge.
+    
+    World Context:
+    {{ world_context }}
+    
+    All Situations:
+    {{ all_situations }}
+    
+    Group situations that:
+    1. Share similar themes or contexts
+    2. Could be accessed through a common narrative setup
+    3. Represent different paths within the same general storyline
+    4. Would benefit from a shared entry point
+    5. Are not already directly connected
+    
+    Each group should contain 2-4 situations maximum.
+    Focus on groups that would create meaningful narrative choice points.
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to check if all situations are reachable from world root
+function CheckReachabilityFromRoot(world_root: Situation, all_situations: Situation[], all_bridges: BridgeSituation[]) -> string[] {
+  client "openai/gpt-4o"
+  prompt #"
+    Analyze the situation graph and return a list of situation IDs that are NOT reachable from the world root.
+    
+    World Root:
+    {{ world_root }}
+    
+    All Situations:
+    {{ all_situations }}
+    
+    All Bridge Situations:
+    {{ all_bridges }}
+    
+    Trace paths from the world root through all choices and consequences to determine reachability.
+    Consider both direct situation connections and bridge situation connections.
+    
+    Return only the IDs of situations that cannot be reached from the world root.
+    If all situations are reachable, return an empty array.
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to detect soft-lock cycles in bridge connections
+function DetectSoftLockCycles(all_situations: Situation[], all_bridges: BridgeSituation[]) -> string[][] {
+  client "openai/gpt-4o"
+  prompt #"
+    Analyze the situation and bridge graph to detect potential soft-lock cycles where players could get trapped.
+    Return a list of cycles, where each cycle is a list of situation IDs that form a closed loop with no escape.
+    
+    All Situations:
+    {{ all_situations }}
+    
+    All Bridge Situations:
+    {{ all_bridges }}
+    
+    A soft-lock cycle exists when:
+    1. A group of situations only connect to each other
+    2. No situation in the group has choices leading outside the group
+    3. No situation in the group has an arc_outcome (leaf node)
+    4. Players entering the cycle cannot progress or exit
+    
+    Return cycles as arrays of situation IDs. If no cycles exist, return an empty array.
     
     {{ ctx.output_format }}
   "#

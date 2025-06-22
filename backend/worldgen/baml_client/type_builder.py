@@ -294,7 +294,7 @@ class BridgeSituationAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("BridgeSituation")
-        self._properties: typing.Set[str] = set([ "id",  "description",  "choices",  "requirements",  "consequences",  "source_situation_id",  "target_situation_id",  "shared_context_tags",  "bridge_type",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "id",  "description",  "choices",  "requirements",  "consequences",  "source_situation_ids",  "target_situation_ids",  "shared_context_tags",  "bridge_type",  "internal_hint",  "internal_justification", ])
         self._props = BridgeSituationProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -343,12 +343,12 @@ class BridgeSituationProperties:
         return ClassPropertyViewer(self.__bldr.property("consequences"))
 
     @property
-    def source_situation_id(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("source_situation_id"))
+    def source_situation_ids(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("source_situation_ids"))
 
     @property
-    def target_situation_id(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("target_situation_id"))
+    def target_situation_ids(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("target_situation_ids"))
 
     @property
     def shared_context_tags(self) -> ClassPropertyViewer:
@@ -1416,7 +1416,7 @@ class WorldContextAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("WorldContext")
-        self._properties: typing.Set[str] = set([ "seed",  "technologies",  "factions",  "districts",  "npcs",  "tension_sliders", ])
+        self._properties: typing.Set[str] = set([ "seed",  "technologies",  "factions",  "districts",  "npcs",  "tension_sliders",  "world_root", ])
         self._props = WorldContextProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -1467,6 +1467,10 @@ class WorldContextProperties:
     @property
     def tension_sliders(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("tension_sliders"))
+
+    @property
+    def world_root(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("world_root"))
 
     
 

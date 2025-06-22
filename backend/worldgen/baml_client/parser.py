@@ -37,6 +37,32 @@ class LlmResponseParser:
       self.__ctx_manager = ctx_manager
 
     
+    def AddBridgeChoiceToSituation(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> types.Choice:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "AddBridgeChoiceToSituation",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(types.Choice, parsed)
+    
     def AugmentSituationWithChoices(
         self,
         llm_response: str,
@@ -167,6 +193,32 @@ class LlmResponseParser:
 
       return cast(bool, parsed)
     
+    def CheckReachabilityFromRoot(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[str]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "CheckReachabilityFromRoot",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(List[str], parsed)
+    
     def CheckTechnologyNeeds(
         self,
         llm_response: str,
@@ -192,6 +244,32 @@ class LlmResponseParser:
       )
 
       return cast(bool, parsed)
+    
+    def DetectSoftLockCycles(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[List[str]]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "DetectSoftLockCycles",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(List[List[str]], parsed)
     
     def ExpandArcSituations(
         self,
@@ -713,11 +791,11 @@ class LlmResponseParser:
 
       return cast(types.Technology, parsed)
     
-    def IdentifyBridgeConnections(
+    def GenerateWorldRootSituation(
         self,
         llm_response: str,
         baml_options: BamlCallOptions = {},
-    ) -> Dict[str, List[str]]:
+    ) -> types.Situation:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -726,7 +804,7 @@ class LlmResponseParser:
       __cr__ = baml_options.get("client_registry", None)
 
       parsed = self.__runtime.parse_llm_response(
-        "IdentifyBridgeConnections",
+        "GenerateWorldRootSituation",
         llm_response,
         types,
         types,
@@ -737,7 +815,33 @@ class LlmResponseParser:
         __cr__,
       )
 
-      return cast(Dict[str, List[str]], parsed)
+      return cast(types.Situation, parsed)
+    
+    def IdentifyBridgeGroups(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[List[str]]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "IdentifyBridgeGroups",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(List[List[str]], parsed)
     
     def IdentifyBridgeableSituations(
         self,
@@ -764,6 +868,32 @@ class LlmResponseParser:
       )
 
       return cast(List[types.BridgeableSituation], parsed)
+    
+    def IdentifyDirectBridgeConnections(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> Dict[str, List[str]]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "IdentifyDirectBridgeConnections",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(Dict[str, List[str]], parsed)
     
     def InitializePlayerStats(
         self,
@@ -827,6 +957,32 @@ class LlmStreamParser:
       self.__runtime = runtime
       self.__ctx_manager = ctx_manager
 
+    
+    def AddBridgeChoiceToSituation(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> partial_types.Choice:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "AddBridgeChoiceToSituation",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(partial_types.Choice, parsed)
     
     def AugmentSituationWithChoices(
         self,
@@ -958,6 +1114,32 @@ class LlmStreamParser:
 
       return cast(Optional[bool], parsed)
     
+    def CheckReachabilityFromRoot(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[Optional[str]]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "CheckReachabilityFromRoot",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(List[Optional[str]], parsed)
+    
     def CheckTechnologyNeeds(
         self,
         llm_response: str,
@@ -983,6 +1165,32 @@ class LlmStreamParser:
       )
 
       return cast(Optional[bool], parsed)
+    
+    def DetectSoftLockCycles(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[List[Optional[str]]]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "DetectSoftLockCycles",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(List[List[Optional[str]]], parsed)
     
     def ExpandArcSituations(
         self,
@@ -1504,11 +1712,11 @@ class LlmStreamParser:
 
       return cast(partial_types.Technology, parsed)
     
-    def IdentifyBridgeConnections(
+    def GenerateWorldRootSituation(
         self,
         llm_response: str,
         baml_options: BamlCallOptions = {},
-    ) -> Dict[str, List[Optional[str]]]:
+    ) -> partial_types.Situation:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1517,7 +1725,7 @@ class LlmStreamParser:
       __cr__ = baml_options.get("client_registry", None)
 
       parsed = self.__runtime.parse_llm_response(
-        "IdentifyBridgeConnections",
+        "GenerateWorldRootSituation",
         llm_response,
         types,
         types,
@@ -1528,7 +1736,33 @@ class LlmStreamParser:
         __cr__,
       )
 
-      return cast(Dict[str, List[Optional[str]]], parsed)
+      return cast(partial_types.Situation, parsed)
+    
+    def IdentifyBridgeGroups(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[List[Optional[str]]]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "IdentifyBridgeGroups",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(List[List[Optional[str]]], parsed)
     
     def IdentifyBridgeableSituations(
         self,
@@ -1555,6 +1789,32 @@ class LlmStreamParser:
       )
 
       return cast(List[partial_types.BridgeableSituation], parsed)
+    
+    def IdentifyDirectBridgeConnections(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> Dict[str, List[Optional[str]]]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "IdentifyDirectBridgeConnections",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(Dict[str, List[Optional[str]]], parsed)
     
     def InitializePlayerStats(
         self,

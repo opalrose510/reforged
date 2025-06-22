@@ -1,3 +1,5 @@
+// Core narrative elements are imported from other BAML files
+
 // Core data models for world generation
 class WorldSeed {
   name string
@@ -43,6 +45,7 @@ class WorldContext {
   districts District[]
   npcs NPC[]
   tension_sliders map<string, int>  // e.g. {"violence": 7, "mystery": 4}
+  world_root Situation @description("The root situation from which all other situations must be reachable")
 }
 
 // Function to analyze if new technology needs to be created
@@ -142,6 +145,30 @@ function GenerateDistricts(context: WorldContext) -> District[] {
     1. Have distinct traits and hazards
     2. Include relevant factions
     3. Support the world's themes
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to generate the world root situation
+function GenerateWorldRootSituation(world_context: WorldContext, player_state: PlayerState) -> Situation {
+  client "openai/gpt-4o"
+  prompt #"
+    Generate the world root situation that serves as the starting point for all narrative paths.
+    
+    World Context:
+    {{ world_context }}
+    
+    Player State:
+    {{ player_state }}
+    
+    The world root situation should:
+    1. Introduce the player to the world setting
+    2. Provide meaningful initial choices that can lead to different arcs
+    3. Set the tone and atmosphere of the world
+    4. Be broad enough to connect to various storylines
+    5. Include context tags that facilitate bridging to other situations
+    6. NOT have an arc_outcome (this is never a leaf node)
     
     {{ ctx.output_format }}
   "#
