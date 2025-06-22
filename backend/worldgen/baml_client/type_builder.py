@@ -22,7 +22,7 @@ from .globals import DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIM
 class TypeBuilder(_TypeBuilder):
     def __init__(self):
         super().__init__(classes=set(
-          ["Arc","ArcSeed","BridgeNode","BridgeableSituation","Choice","District","Event","Faction","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","Technology","WorldContext","WorldSeed",]
+          ["Arc","ArcSeed","BridgeNode","BridgeSituation","BridgeableSituation","Choice","District","Event","Faction","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","Technology","WorldContext","WorldSeed",]
         ), enums=set(
           []
         ), runtime=DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME)
@@ -39,6 +39,10 @@ class TypeBuilder(_TypeBuilder):
     @property
     def BridgeNode(self) -> "BridgeNodeAst":
         return BridgeNodeAst(self)
+
+    @property
+    def BridgeSituation(self) -> "BridgeSituationAst":
+        return BridgeSituationAst(self)
 
     @property
     def BridgeableSituation(self) -> "BridgeableSituationAst":
@@ -275,6 +279,84 @@ class BridgeNodeProperties:
     @property
     def shared_themes(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("shared_themes"))
+
+    @property
+    def internal_hint(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("internal_hint"))
+
+    @property
+    def internal_justification(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("internal_justification"))
+
+    
+
+class BridgeSituationAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("BridgeSituation")
+        self._properties: typing.Set[str] = set([ "id",  "description",  "choices",  "requirements",  "consequences",  "source_situation_id",  "target_situation_id",  "shared_context_tags",  "bridge_type",  "internal_hint",  "internal_justification", ])
+        self._props = BridgeSituationProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "BridgeSituationProperties":
+        return self._props
+
+
+class BridgeSituationViewer(BridgeSituationAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class BridgeSituationProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def id(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("id"))
+
+    @property
+    def description(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("description"))
+
+    @property
+    def choices(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("choices"))
+
+    @property
+    def requirements(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("requirements"))
+
+    @property
+    def consequences(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("consequences"))
+
+    @property
+    def source_situation_id(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("source_situation_id"))
+
+    @property
+    def target_situation_id(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("target_situation_id"))
+
+    @property
+    def shared_context_tags(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("shared_context_tags"))
+
+    @property
+    def bridge_type(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("bridge_type"))
 
     @property
     def internal_hint(self) -> ClassPropertyViewer:
@@ -1202,7 +1284,7 @@ class SituationAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Situation")
-        self._properties: typing.Set[str] = set([ "id",  "description",  "choices",  "requirements",  "consequences",  "bridgeable",  "context_tags",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "id",  "description",  "choices",  "requirements",  "consequences",  "bridgeable",  "context_tags",  "arc_outcome",  "internal_hint",  "internal_justification", ])
         self._props = SituationProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -1257,6 +1339,10 @@ class SituationProperties:
     @property
     def context_tags(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("context_tags"))
+
+    @property
+    def arc_outcome(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("arc_outcome"))
 
     @property
     def internal_hint(self) -> ClassPropertyViewer:

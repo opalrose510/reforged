@@ -22,6 +22,7 @@ class Situation {
   consequences map<string, string>  // choice_id -> next_situation_id
   bridgeable bool
   context_tags string[]
+  arc_outcome string? @description("Set when this situation represents the end of an arc storyline")
   internal_hint string @description("Clue for future model calls to guide generation")
   internal_justification string @description("Reasoning for this situation's creation and its narrative purpose")
 }
@@ -36,6 +37,20 @@ class Choice {
   next_situation_id string
   internal_hint string @description("Clue for future model calls to guide generation")
   internal_justification string @description("Reasoning for this choice's creation and its narrative purpose")
+}
+
+class BridgeSituation {
+  id string
+  description string
+  choices Choice[]
+  requirements map<string, int>  // stat_name -> minimum_value
+  consequences map<string, string>  // choice_id -> next_situation_id
+  source_situation_id string @description("The situation this bridge connects from")
+  target_situation_id string @description("The situation this bridge connects to")
+  shared_context_tags string[] @description("Context tags that justify this bridge connection")
+  bridge_type string @description("Type of bridge: 'mid_arc', 'arc_entry', or 'arc_exit'")
+  internal_hint string @description("Clue for future model calls to guide generation")
+  internal_justification string @description("Reasoning for this bridge's creation and its narrative purpose")
 }
 
 // Function to check if choice needs new attribute
@@ -174,6 +189,147 @@ function ExpandArcSituations(world_context: WorldContext, player_state: PlayerSt
     2. Maintain narrative coherence
     3. Provide meaningful progression
     4. Include appropriate stat requirements and consequences
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to augment a situation with new choices
+function AugmentSituationWithChoices(world_context: WorldContext, player_state: PlayerState, situation: Situation, existing_situations: Situation[]) -> Choice[] {
+  client "openai/gpt-4o"
+  prompt #"
+    Generate new choices for an existing situation based on the world context and player state.
+    
+    World Context:
+    {{ world_context }}
+    
+    Player State:
+    {{ player_state }}
+    
+    Target Situation:
+    {{ situation }}
+    
+    Existing Situations (for reference):
+    {{ existing_situations }}
+    
+    New choices should:
+    1. Expand meaningful narrative branches
+    2. Provide different paths through the story
+    3. Respect player stats and existing context
+    4. Create interesting consequences and next situations
+    5. Not duplicate existing choice functionality
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to generate a situation for a specific choice
+function GenerateSituationForChoice(world_context: WorldContext, player_state: PlayerState, choice: Choice, parent_situation: Situation, existing_situations: Situation[]) -> Situation {
+  client "openai/gpt-4o"
+  prompt #"
+    Generate a new situation that follows from a specific choice.
+    
+    World Context:
+    {{ world_context }}
+    
+    Player State:
+    {{ player_state }}
+    
+    Choice That Leads Here:
+    {{ choice }}
+    
+    Parent Situation:
+    {{ parent_situation }}
+    
+    Existing Situations (for reference):
+    {{ existing_situations }}
+    
+    The new situation should:
+    1. Logically follow from the choice made
+    2. Reflect the consequences of that choice
+    3. Provide meaningful new choices or be a leaf node
+    4. Have appropriate stat requirements
+    5. Include relevant context tags for potential bridging
+    6. Set arc_outcome if this represents the end of a storyline
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to check if a situation is a leaf node
+function CheckIfLeafNode(situation: Situation, world_context: WorldContext) -> bool {
+  client "openai/gpt-4o"
+  prompt #"
+    Determine if this situation should be a leaf node (end of storyline). Answer ONLY with 'true' or 'false'.
+    
+    Situation:
+    {{ situation }}
+    
+    World Context:
+    {{ world_context }}
+    
+    A situation is a leaf node if:
+    1. It has an arc_outcome field set
+    2. It represents a natural conclusion to the storyline
+    3. It has no meaningful choices to add
+    4. The narrative has reached a satisfying resolution or endpoint
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to generate bridge situations between existing situations
+function GenerateBridgeSituation(world_context: WorldContext, player_state: PlayerState, source_situation: Situation, target_situation: Situation, all_situations: Situation[]) -> BridgeSituation {
+  client "openai/gpt-4o"
+  prompt #"
+    Generate a bridge situation that connects two existing situations.
+    
+    World Context:
+    {{ world_context }}
+    
+    Player State:
+    {{ player_state }}
+    
+    Source Situation:
+    {{ source_situation }}
+    
+    Target Situation:
+    {{ target_situation }}
+    
+    All Existing Situations (for context):
+    {{ all_situations }}
+    
+    The bridge situation should:
+    1. Provide a logical narrative connection between source and target
+    2. Have meaningful choices that can lead to the target situation
+    3. Respect the context and themes of both situations
+    4. Include shared context tags that justify the connection
+    5. Specify the appropriate bridge_type ('mid_arc', 'arc_entry', or 'arc_exit')
+    6. Create interesting narrative opportunities without soft-locking the player
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to identify potential bridge connections
+function IdentifyBridgeConnections(world_context: WorldContext, all_situations: Situation[]) -> map<string, string[]> {
+  client "openai/gpt-4o"
+  prompt #"
+    Analyze all situations and identify potential bridge connections between them.
+    Return a map where keys are source situation IDs and values are arrays of target situation IDs that could be connected.
+    
+    World Context:
+    {{ world_context }}
+    
+    All Situations:
+    {{ all_situations }}
+    
+    Consider connections based on:
+    1. Shared context tags
+    2. Similar themes or factions
+    3. Narrative opportunities for transitions
+    4. Player agency and meaningful choices
+    5. Avoiding soft-lock situations (cycles with no escape)
     
     {{ ctx.output_format }}
   "#

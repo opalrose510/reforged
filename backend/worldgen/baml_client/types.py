@@ -64,6 +64,19 @@ class BridgeNode(BaseModel):
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
 
+class BridgeSituation(BaseModel):
+    id: str
+    description: str
+    choices: List["Choice"]
+    requirements: Dict[str, int]
+    consequences: Dict[str, str]
+    source_situation_id: str
+    target_situation_id: str
+    shared_context_tags: List[str]
+    bridge_type: str
+    internal_hint: str
+    internal_justification: str
+
 class BridgeableSituation(BaseModel):
     id: str
     context_tags: List[str]
@@ -209,6 +222,7 @@ class Situation(BaseModel):
     consequences: Dict[str, str]
     bridgeable: bool
     context_tags: List[str]
+    arc_outcome: Optional[str] = None
     internal_hint: str
     internal_justification: str
 
