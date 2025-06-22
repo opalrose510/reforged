@@ -1,0 +1,1547 @@
+{
+  "world_context": {
+    "seed": {
+      "name": "Libertas",
+      "themes": [
+        "cyberpunk",
+        "dystopia",
+        "late stage capitalism",
+        "AI rights"
+      ],
+      "high_concept": "\nAn isolated, libertarian society in the near (100 years) future. \nSociety is highly stratified.\nMost people have cybernetic enhancements, some of which are absolutely necessay for daily life.\nPollution and climate change has rendered indoor spaces more valuable than outdoor spaces.\nA handful of corporations have a weak grip on the city. Formal governments have largely collapsed.\nLarge portions of the city are illegal, ramshackle \"open blocks\" which resemble Kowloon Walled City.\nCrime that does not damage corporations' property or employees is tolerated when convenient.\n",
+      "internal_hint": "",
+      "internal_justification": ""
+    },
+    "technologies": [
+      {
+        "name": "Merged",
+        "description": "A mix of many languages. It is spoken using translation and transliteration implants. Common is the only remaining language that is taught formally.",
+        "impact": "Merged is the default language of the city. It is a mix of many languages, and is spoken by almost everyone. It is the default language for almost all communication.",
+        "limitations": "If your translation implant is disabled or damaged, you can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. Phobos natives won't understand you, and it's unlikely that people from outside Libertas will, either.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Common",
+        "description": "The only remaining language that is taught formally. Only Phobos citizens speak it. It is a mix of Latin and Greek, with a rhythmic cadence of syllables that sounds reminiscient of Korean.",
+        "impact": "Phobos's primary language, which they are intentionally cliquey and exlcusionary with. Most people have no reason to speak or learn Common, so those that do can sometimes understand their surroundings better.",
+        "limitations": "Common is inherently exclusive, and Phobos uses it to keep outsiders out. It is also a very difficult language to learn, and most people don't bother.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Translation Implants",
+        "description": "Implants that allow you to translate and transliterate languages. They do not allow you to speak Common. Almost everyone in Libertas has a translation implant, and as a result language has become almost unrecognizable. Everyone just uses 'Merged' for shorthand.",
+        "impact": "Almost everyone in Libertas speaks Merged, a language that emerged as a result of everyone having these implants. As a result, speech is impossible without it.",
+        "limitations": "If the implant is disabled or damaged, the user can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. The translation implant does NOT allow the user to speak Common, which must be learned the old fashioned way.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Implant Sickness",
+        "description": "Implants can cause a variety of symptoms, including but not limited to: nausea, dizziness, confusion, hallucinations, coma, and death. A drug called PHQ-9, often referred to on the street as 'Jolt' reverses the implant sickness, but only temporarily.",
+        "impact": "Implant sickness is dreaded, but common. Most cases are treatable. Rarely, someone becomes 'broken', a slang term for someone whose implants have failed entirely.",
+        "limitations": "Implant sickness can be mitigated with treatments fairly easily. A 'technician', or implant specialist, can remove the damaged connections and/or replace implants as needed.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Jolt / PHQ-9",
+        "description": "A drug manufactured by Vextros that reverses the symptoms of implant sickness. It's often dispensed by autoinjectors that accept pink cartridges. It is often referred to on the street as 'Jolt'.  Each successive use of PHQ-9 becomes less effective. PHQ-9 also causes euphoria and sedation, in a manner similar to ketamine.",
+        "impact": "PHQ-9 treats implant sickness, which occurs often especially with lower quality implants. 'Jolt' dens litter the city, not because of implant sickness, but because the drug also causes intense euphoria.",
+        "limitations": "PHQ-9 is addictive, and each successive use of PHQ-9 becomes less effective. It's also manufactured solely by Vextros, and they could hypothetically withhold their supply.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Nutrax",
+        "description": "A meal replacement made by Vextros. It comes in a wide variety of flavors and consistencies, and is created by reprocessing minerals and nitrogen found through the city's mining operations. Pure Nutrax is actually pretty good, but most of the time it's been adulterated, usually by Vextros itself. Vextros adds everything from sawdust to pharmaceuticals they feel like testing.",
+        "impact": "Nutrax is a strict necessity for some parts of the population because it's often very affordable.",
+        "limitations": "Nutrax is often adulterated, and can cause nutritional deficiencies and malnutrition.",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "factions": [
+      {
+        "name": "Vextros",
+        "ideology": "Essentially a corporation that has grown to be the size of a government. Believes that they are entitled to a say in almost all matters. Prioritizes order to justice whenever such a choice presents itself.",
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "The Open Blocks",
+        "ideology": "Anarchistic, anti-corporate, and anti-authoritarian. Violence is seen as morally good if it is used to protect the community. It is understood that every open block may follow very different rules, and their ability to remain organized depends on their consent to be self-governing. Tyrannical or dysfunctional open blocks are often rooted out by groups of residents.",
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Phobos Consultancy",
+        "ideology": null,
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Project Sunset",
+        "ideology": null,
+        "territory": null,
+        "influence_level": 10,
+        "relationships": {
+          "Alan Carlsile": "enemy. Alan hates Sunset, partially for causing Scramble, partially because he believes Regina died as a result of her arrogance. He views Sunset as a threat to the sentience of humans. Alan artificially extended his life for as long as possible to try and find a way to undo what Regina did.",
+          "Vextros": "enemy"
+        },
+        "internal_hint": "The player, or a significant NPC, might become the ADMINISTRATOR.",
+        "internal_justification": null
+      }
+    ],
+    "districts": [
+      {
+        "id": "The Akropolis",
+        "traits": [
+          "cave",
+          "underground",
+          "military",
+          "authoritarian"
+        ],
+        "hazards": [
+          "draconian punishments",
+          "anti-corporate sentiment",
+          "anti-outsider sentiment"
+        ],
+        "factions": [
+          "Phobos Consultancy"
+        ],
+        "description": "The Akropolis is an underground city built inside a cave system. It is a far-right authoritarian society that idolizes military service and especially people who pass \"selection\" tests.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "Crescent Center",
+        "traits": [
+          "megastructure",
+          "55 stories",
+          "atrium",
+          "artificial garden",
+          "opulent"
+        ],
+        "hazards": [
+          "crime",
+          "poverty",
+          "homelessness",
+          "stratified society"
+        ],
+        "factions": [
+          "Vextros",
+          "The Open Blocks"
+        ],
+        "description": "A 55 story tall megastructure that is home to roughly 50,000 people. Most of the city's other buildings are connected by tunnels, legally built or not. Higher levels of Crescent Center are generally more affluent. Every 10 levels, there is an Atrium, which creates a large open space with balconies on each level overlooking an artificial garden. This stratifies each group of 10 levels together - an Atrium on 0, 10, 20, 30, 40, 50. The Level 50 Atrium is ludicrously opulent, Level 0 is largely uninhabitable.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "One Vextros Way",
+        "traits": [
+          "corporate campus",
+          "Vextros",
+          "hillside",
+          "air purification",
+          "water purification"
+        ],
+        "hazards": [
+          "corporate headquarters",
+          "trespassers will be shot"
+        ],
+        "factions": [
+          "Vextros"
+        ],
+        "description": "The headquarters of Vextros. It's located on a hillside overlooking Libertas. Huge air and water purification systems keep the corporate campus pristine and habitable outdoors except in extreme conditions.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "The Lower Quarter",
+        "traits": [
+          "nuclear wasteland",
+          "radioactive",
+          "contaminated",
+          "uninhabitable"
+        ],
+        "hazards": [
+          "radiation",
+          "heavy metal poisoning",
+          "contaminated water",
+          "contaminated air",
+          "contaminated soil"
+        ],
+        "factions": [
+          "Project Sunset"
+        ],
+        "description": "A nuclear wasteland that is uninhabitable for more than a few hours at a time. It is the result of a lab explosion at Sunset Laboratories.",
+        "internal_hint": "",
+        "internal_justification": ""
+      }
+    ],
+    "npcs": [
+      {
+        "id": "Alan Carlsile",
+        "name": "Alan Carlsile",
+        "role": "CEO of Vextros",
+        "description": "123 year old CEO of Vextros. He is the only person who knows about Sunset. He has been trying to undo Scramble so that the city can escape isolation. He wants Sunset to be dismantled more than anything else, and considers it to a threat to humanity. He is often regarded by others as a sociopath, but it's more accurate to say that he's singularly focused on undoing Regina's mistake, and isn't concerned with anything else.",
+        "personality_traits": [
+          "arrogant",
+          "selfish",
+          "greedy",
+          "power-hungry"
+        ],
+        "relationships": {
+          "Regina Carlsile": "enemy, sister",
+          "Vextros": "CEO"
+        },
+        "faction_affiliations": [
+          "Vextros"
+        ],
+        "location_id": "One Vextros Way",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "tension_sliders": {
+      "violence": 7,
+      "mystery": 4,
+      "technology": 6,
+      "society": 5,
+      "environment": 3,
+      "economy": 2,
+      "politics": 10
+    }
+  },
+  "player_state": {
+    "name": "Sierra Violet",
+    "stats": {
+      "might": 10,
+      "insight": 10,
+      "nimbleness": 10,
+      "destiny": 10,
+      "savvy": 10,
+      "expertise": 10,
+      "tenacity": 10,
+      "station": 10,
+      "opulence": 10,
+      "celebrity": 10,
+      "integrity": 10,
+      "allure": 10,
+      "lineage": 10
+    },
+    "attributes": [
+      {
+        "id": "grudge",
+        "type": "status",
+        "description": "A grudge against Vextros.",
+        "stat_mods": null
+      }
+    ],
+    "profile": {
+      "narrative_summary": "A grungy, 27 year old woman with a grudge against Vextros.",
+      "key_traits": [
+        "grungy",
+        "27 year old",
+        "woman",
+        "grudge against Vextros"
+      ],
+      "background_hints": []
+    },
+    "history": []
+  },
+  "generation_step": 42,
+  "step_name": "missing_situations_42",
+  "choice_history": [],
+  "available_choices": [],
+  "arcs": [
+    {
+      "id": "Echoes of the Shattered Tower",
+      "situations": {
+        "arc-root-echoes-shattered-tower": {
+          "id": "arc-root-echoes-shattered-tower",
+          "title": "Within the shadowed expanse of Crescent Center's 20th Atrium, Sierra Violet confronts a distraught community leader whose urgent words reveal the destabilization of the vital communication tower. A tense crowd murmurs anxiously as faction representatives exchange wary glances. Sierra\u2019s grudge against Vextros sharpens her resolve as she learns beneath the fragile surface of diplomatic talks lurk corporate sabotage and forbidden experiments. The strained alliances teeter on collapse unless she deftly navigates this dangerous web.",
+          "description": "Within the shadowed expanse of Crescent Center's 20th Atrium, Sierra Violet confronts a distraught community leader whose urgent words reveal the destabilization of the vital communication tower. A tense crowd murmurs anxiously as faction representatives exchange wary glances. Sierra\u2019s grudge against Vextros sharpens her resolve as she learns beneath the fragile surface of diplomatic talks lurk corporate sabotage and forbidden experiments. The strained alliances teeter on collapse unless she deftly navigates this dangerous web.",
+          "choices": [
+            {
+              "id": "accept-investigation",
+              "text": "Agree to investigate the tower\u2019s failure, requesting more details about recent events.",
+              "dialogue_response": "You have my attention. Tell me everything you know about this failure\u2014who found it first, and what evidence points to sabotage?",
+              "choice_type": "dialogue",
+              "player_perspective": "Leena nods, her face tense but relieved. \"Patrols noticed unusual data spikes three nights ago. Then the system went dark hours later. No one\u2019s had full access to the logs since\u2014Vextros locked them tight. I managed to snag a partial report before the lockdown.\"",
+              "emotional_tone": "focused, determined",
+              "body_language": "You lean in slightly, eyes fixed steadily, signaling serious intent.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {},
+              "next_situation_id": "arc-investigation-shattered-tower-logs",
+              "internal_hint": "Begin the investigation by engaging a faction insider to learn initial intel.",
+              "internal_justification": "Starting player's involvement through a trusted faction member enables exposition and sets the investigation path."
+            },
+            {
+              "id": "express-distrust-vextros",
+              "text": "Call out the Vextros envoy directly, accusing them of sabotage given your grudge.",
+              "dialogue_response": "Cut the lies. With my history, I know this stinks of Vextros' dirty tricks. What are you hiding?",
+              "choice_type": "dialogue",
+              "player_perspective": "The envoy\u2019s smirk fades into a controlled sneer. \"Bold words, Sierra. Remember who holds the city\u2019s pulse. Your grudge blinds you\u2014be careful where you point those accusations.\"",
+              "emotional_tone": "confrontational, skeptical",
+              "body_language": "You glare steadily, fists clenched subtly at your sides, voice edged with scorn.",
+              "requirements": {
+                "grudge": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "might": 0,
+                "savvy": 1
+              },
+              "next_situation_id": "arc-root-after-confrontation",
+              "internal_hint": "Increase tension with Vextros and reveal faction hostility.",
+              "internal_justification": "Utilizing player\u2019s grudge enables personal stakes and heightens faction conflict early on."
+            },
+            {
+              "id": "seek-open-blocks-support",
+              "text": "Appeal to Leena for Open Blocks\u2019 resources to access restricted tower areas.",
+              "dialogue_response": "If I\u2019m going in blind, I\u2019ll need more than intuition. Can the Open Blocks cover my back in these tunnels?",
+              "choice_type": "dialogue",
+              "player_perspective": "Leena\u2019s eyes narrow thoughtfully. \"We can send a liaison team\u2014but you\u2019ll have to earn their trust. Many suspect spies everywhere.\" She slides you a discreet data shard. \"This has partial schematics; it\u2019ll help you navigate the lower levels.\"",
+              "emotional_tone": "calm, collaborative",
+              "body_language": "You accept the shard with a nod, fingers tightening slightly in a silent promise.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "arc-investigation-open-blocks-support",
+              "internal_hint": "Establish alliance with Open Blocks for support within their territory.",
+              "internal_justification": "Allowing player to gain faction allies encourages complex social dynamics and varied gameplay approaches."
+            },
+            {
+              "id": "observe-vextros-envoy-silently",
+              "text": "Remain silent and watch the Vextros envoy closely, probing for hints of deception.",
+              "dialogue_response": null,
+              "choice_type": "investigation",
+              "player_perspective": "You narrow your eyes, reading every twitch of the envoy\u2019s lips and subtle shifts in posture. His polished demeanor barely masks the faint twitch on his left hand, a telltale sign of stress or a concealed implant signal. Something\u2019s off.",
+              "emotional_tone": "cautious, analytical",
+              "body_language": "You keep your posture relaxed but alert, occasionally tilting your head in subtle inquiry.",
+              "requirements": {
+                "expertise": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "envoy-stress-detection",
+                  "type": "status",
+                  "description": "Recognized nervous microexpressions on the Vextros envoy, indicating possible deception.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc-root-envoy-confrontation-option",
+              "internal_hint": "Enable discovery of Vextros envoy\u2019s subtle signs of stress to open new dialogue paths.",
+              "internal_justification": "Building narrative depth by noticing NPC behavior allows diversified player strategies."
+            },
+            {
+              "id": "express-resigned-frustration",
+              "text": "Show weary frustration at the imploding situation and risk of all-out conflict.",
+              "dialogue_response": "Every thread I pull just tangles the city tighter. How do we stop this before it all collapses?",
+              "choice_type": "dialogue",
+              "player_perspective": "Leena\u2019s expression softens slightly, mirroring your exhaustion. \"We hold the fragile line\u2014barely. But someone with your fire might tip the balance. Just don\u2019t lose yourself in the shadows.\"",
+              "emotional_tone": "weary, reflective",
+              "body_language": "You lower your gaze briefly, voice dropping before steeling with renewed focus.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "arc-root-take-the-lead",
+              "internal_hint": "Introduce emotional stakes and motivate player determination.",
+              "internal_justification": "Conveys high personal risk and narrative weight, deepening immersion and player commitment."
+            },
+            {
+              "id": "interrupt-envoy-mocking",
+              "text": "Interrupt the envoy with a sharp, mocking challenge to undermine his confidence.",
+              "dialogue_response": "You play the puppet master well, but your strings are fraying under inspection. What game is Vextros really playing here?",
+              "choice_type": "dialogue",
+              "player_perspective": "You cut in swiftly, your voice dripping with irony as the envoy's smirk falters imperceptibly. The crowd shifts uneasily, sensing the tension spike.",
+              "emotional_tone": "mocking, provocative",
+              "body_language": "You lean forward suddenly, eyes gleaming with a mix of amusement and sharp challenge.",
+              "requirements": {
+                "allure": 8
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Use player's charisma to unnerve NPC and shift conversation control.",
+              "internal_justification": "Enables player to use personality to influence NPC responses and shape discourse."
+            },
+            {
+              "id": "offer-reassurance-to-leena",
+              "text": "Offer a quiet word of reassurance to Leena, building trust and solidarity.",
+              "dialogue_response": "I\u2019m with you, Leena. We'll find the truth\u2014together. This city's fate depends on it.",
+              "choice_type": "dialogue",
+              "player_perspective": "You lower your voice, meeting Leena's eyes with steady resolve. A faint smile breaks through her tension, a flicker of hope igniting amidst the gathering storm.",
+              "emotional_tone": "supportive, uniting",
+              "body_language": "You place a hand near your heart before gesturing subtly toward her, conveying sincere commitment.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Foster faction alliance and deepen social bonds.",
+              "internal_justification": "Encourages relationship development with Open Blocks, setting future cooperative opportunities."
+            },
+            {
+              "id": "scan-crowd-for-allies",
+              "text": "Subtly scan the crowd for potential allies or suspicious figures during the tense exchange.",
+              "dialogue_response": null,
+              "choice_type": "investigation",
+              "player_perspective": "You let your gaze drift carefully over the crowd\u2014caught eyes, nervous shuffles, carefully concealed implants. Hidden loyalties flicker like shadows in peripheral vision.",
+              "emotional_tone": "quiet, observant",
+              "body_language": "You keep your gestures minimal, posture relaxed but attentive, nodding briefly to yourself at each clue.",
+              "requirements": {
+                "insight": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "crowd-ally-identified",
+                  "type": "status",
+                  "description": "Identified a possible sympathizer in the crowd who could provide assistance later.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Allow player to gather social intel during dialogue for future leverage.",
+              "internal_justification": "Adds depth by integrating ongoing investigation with social awareness mechanics."
+            },
+            {
+              "id": "show-subtle-doubt-to-envoy",
+              "text": "Let a flicker of doubt cross your face while maintaining a calm facade toward the Vextros envoy.",
+              "dialogue_response": "I\u2019m not convinced. The pieces don\u2019t fit as neatly as they\u2019re telling us.",
+              "choice_type": "dialogue",
+              "player_perspective": "You arch an eyebrow, voice low but steady, eyes briefly clouded before clearing. The envoy eyes you keenly, uncertainty flickering in his composure.",
+              "emotional_tone": "calculated, skeptical",
+              "body_language": "You pause mid-sentence, tilting your head slightly, lips pressed in a subtle smirk of reservation.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc-root-envoy-alerted",
+              "internal_hint": "Signal to NPC your skepticism without outright confrontation, maintaining political balance.",
+              "internal_justification": "Creates tension and uncertainty in the dialogue, providing nuanced narrative options."
+            },
+            {
+              "id": "gesture-to-calm-crowd",
+              "text": "Make a calming gesture to the anxious crowd, asserting control of the scene.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "You raise a hand in a slow, open motion. The crowd\u2019s murmurs quiet just enough for voices to regain clarity. Eyes turn toward you, waiting.",
+              "emotional_tone": "commanding, composed",
+              "body_language": "Your posture straightens, shoulders back, with palms open and facing upward in an inviting manner.",
+              "requirements": {
+                "station": 8
+              },
+              "attributes_gained": [
+                {
+                  "id": "crowd-calmed",
+                  "type": "status",
+                  "description": "Successfully calmed the crowd, making it easier to direct the conversation.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "allure": 1,
+                "tenacity": 1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Enhance player control of social dynamics through nonverbal cues.",
+              "internal_justification": "Demonstrates leadership and command in tense social situations, affecting crowd mood."
+            }
+          ],
+          "stat_requirements": [
+            {
+              "attribute_name": "expertise",
+              "min_value": 10
+            },
+            {
+              "attribute_name": "savvy",
+              "min_value": 10
+            },
+            {
+              "attribute_name": "tenacity",
+              "min_value": 10
+            }
+          ],
+          "attribute_requirements": null,
+          "consequences": {
+            "express-resigned-frustration": "Player\u2019s emotional vulnerability creates trust with Leena but risks reduced morale.",
+            "observe-vextros-envoy-silently": "Player gains insight into envoy\u2019s nervousness, opening new dialogue routes.",
+            "accept-investigation": "Player gains initial intelligence on the tower failure and access to faction data.",
+            "express-distrust-vextros": "Tensions with Vextros escalate, increasing faction scrutiny on the player.",
+            "seek-open-blocks-support": "Player secures limited access and aides from Open Blocks, increasing faction cooperation."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Player\u2019s emotional vulnerability creates trust with Leena but risks reduced morale.",
+            "Player gains insight into envoy\u2019s nervousness, opening new dialogue routes.",
+            "Player gains initial intelligence on the tower failure and access to faction data.",
+            "Tensions with Vextros escalate, increasing faction scrutiny on the player.",
+            "Player secures limited access and aides from Open Blocks, increasing faction cooperation."
+          ]
+        },
+        "arc-shadowed-huddle-whispers": {
+          "id": "arc-shadowed-huddle-whispers",
+          "title": "In a dim corner of the 20th Atrium, Sierra and Leena draw away from the crowd. Leena lowers her voice, eyes darting nervously while glancing over her shoulder. She pulls a shimmer-thin data shard from her coat and offers it to you with a grave expression.",
+          "description": "In a dim corner of the 20th Atrium, Sierra and Leena draw away from the crowd. Leena lowers her voice, eyes darting nervously while glancing over her shoulder. She pulls a shimmer-thin data shard from her coat and offers it to you with a grave expression.",
+          "choices": [
+            {
+              "id": "accept-shard-gratefully",
+              "text": "Accept the data shard with gratitude, tucking it away carefully.",
+              "dialogue_response": "\\\"Thank you, Leena. I\u2019ll keep this as close as I keep my own skin.\\\" ",
+              "choice_type": "dialogue",
+              "player_perspective": "You palm the shard carefully, a sharp intake of breath from shared danger. Leena\u2019s relieved nod hints at hesitant trust forming.",
+              "emotional_tone": "appreciative, cautious",
+              "body_language": "You take the shard gently, fingers brushing hers briefly in silent gratitude.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "arc-shattered-tower-data-shard-next",
+              "internal_hint": "Player accepts secret data shard, signaling trust with Open Blocks.",
+              "internal_justification": "Allows player access to secret communications, advancing the plot and faction relations."
+            },
+            {
+              "id": "question-leena-cautiously",
+              "text": "Lower your voice too and press Leena cautiously about the shard's origin and risk.",
+              "dialogue_response": "\"Who\u2019s behind the chatter? And why risk your neck with this?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Leena\u2019s eyes narrow, weighing how much to reveal. \"Open Blocks have rumors, whispers of deeper Project Sunset ties. But even among us, no one\u2019s sure yet. We fear the worse.\"",
+              "emotional_tone": "inquisitive, wary",
+              "body_language": "You lean forward slightly, voice low, gaze steady and searching.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "arc-shattered-tower-data-shard-next",
+              "internal_hint": "Press NPC for deeper information about data shard.",
+              "internal_justification": "Builds player's insight into the stakes and tailors next steps."
+            },
+            {
+              "id": "decline-shard-politely",
+              "text": "Step back politely, expressing reluctance to carry such dangerous proof right now.",
+              "dialogue_response": "\"I can\u2019t take this on at the moment. Too risky, too much heat.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Leena\u2019s mouth tightens for a moment before she nods. \"Understood. Just know the city\u2019s fraying. This shard might be the thread or the fuse.\"",
+              "emotional_tone": "guarded, pragmatic",
+              "body_language": "You hold your hands open briefly, palms outward in a gentle refusal.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": -1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Allow player to opt out of immediate burden of secret data.",
+              "internal_justification": "Preserves player agency and allows narrative breathing room."
+            },
+            {
+              "id": "interrupt-with-skepticism",
+              "text": "Interrupt Leena with a skeptical challenge about possible traps or double agents.",
+              "dialogue_response": "\"Are you sure this isn\u2019t a trap? How do we know it\u2019s not Vextros playing us?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Leena\u2019s lips press tight, a flicker of defensiveness crossing her face before she steadies herself. \"We\u2019re all walking on knives, but this came from trusted couriers. Still, caution is everything.\"\nYou see the flicker of tension between fear and resolve in her eyes.",
+              "emotional_tone": "skeptical, probing",
+              "body_language": "You raise a brow, cutting in quietly but firmly.",
+              "requirements": {
+                "savvy": 10
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc-shattered-tower-data-shard-next",
+              "internal_hint": "Player challenges NPC's trustworthiness of shard to gauge reliability.",
+              "internal_justification": "Creates tension and tests NPC's confidence, adding depth to trust dynamics."
+            },
+            {
+              "id": "silent-nod-and-watch",
+              "text": "Stay silent, nod subtly, and observe Leena\u2019s reactions closely.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "You keep your face neutral, letting Leena talk while your eyes narrow slightly, studying the twitch of her fingers and rapid breath. You catch a glimmer of fear, but also fierce determination.",
+              "emotional_tone": "quietly attentive, measured",
+              "body_language": "You lean slightly back, arms relaxed but eyes fixed carefully on her movements.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc-shattered-tower-data-shard-next",
+              "internal_hint": "Player focuses on nonverbal cues to gather intelligence.",
+              "internal_justification": "Encourages observational skill development and enriches micro-social interaction."
+            },
+            {
+              "id": "reach-out-to-reassure",
+              "text": "Reach out, briefly clasping her hand to reassure her of your shared commitment.",
+              "dialogue_response": "\"We\u2019re in this together, Leena. You\u2019re not alone.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Leena\u2019s eyes soften, a faint tremor of relief crossing her stance. Her grip tightens briefly on the shard before relaxing into your touch. The tension in the air eases just a fraction.",
+              "emotional_tone": "supportive, empathetic",
+              "body_language": "You touch her hand gently but firmly, locking eyes with warm sincerity.",
+              "requirements": {
+                "allure": 10
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "arc-shattered-tower-data-shard-next",
+              "internal_hint": "Player builds emotional alliance through physical reassurance.",
+              "internal_justification": "Develops trust bond and encourages relational depth with NPC."
+            },
+            {
+              "id": "micro-investigate-shard",
+              "text": "Subtly scan the shard with your implant interface for hidden codes or traps.",
+              "dialogue_response": null,
+              "choice_type": "investigation",
+              "player_perspective": "You casually activate your implant, fingers lightly brushing the shard\u2019s surface. A faint glow reveals encrypted layers beneath the data\u2019s surface security. Nothing immediately harmful, but layered enough to suggest serious risk.",
+              "emotional_tone": "focused, cautious",
+              "body_language": "You tilt the shard under soft neon light, brows furrowed in concentration.",
+              "requirements": {
+                "expertise": 10
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "expertise": 1
+              },
+              "next_situation_id": "arc-shattered-tower-data-shard-next",
+              "internal_hint": "Player performs subtle technological check for hidden threats.",
+              "internal_justification": "Adds investigative depth and opportunity for foreshadowing within dialogue."
+            },
+            {
+              "id": "shift-topic-to-implications",
+              "text": "Deflect and redirect conversation toward what actions to take next with this data.",
+              "dialogue_response": "\"If we have this shard, what's the plan? How do we use it without blowing our cover?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Leena\u2019s eyes sharpen, relief spreading that you\u2019re thinking forward. \"That\u2019s the question. There are factions within factions. We need allies who can act quietly, or this ends in blood. You\u2019ll have to decide who to trust.\"",
+              "emotional_tone": "strategic, forward-looking",
+              "body_language": "You lean in slightly, pointing softly with a finger as you speak.",
+              "requirements": {
+                "savvy": 10,
+                "tenacity": 10
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1,
+                "tenacity": 1
+              },
+              "next_situation_id": "arc-shattered-tower-data-shard-next",
+              "internal_hint": "Player steers dialogue toward planning and alliance strategizing.",
+              "internal_justification": "Emphasizes player agency and promotes deeper role in resistance plotting."
+            }
+          ],
+          "stat_requirements": [
+            {
+              "attribute_name": "savvy",
+              "min_value": 10
+            },
+            {
+              "attribute_name": "tenacity",
+              "min_value": 10
+            }
+          ],
+          "attribute_requirements": null,
+          "consequences": {
+            "question-leena-cautiously": "Player gains nuanced intel on Project Sunset rumors.",
+            "decline-shard-politely": "Player avoids immediate risk, but loses chance to advance secret intel.",
+            "accept-shard-gratefully": "Player trusts Open Blocks, gaining access to covert communications.",
+            "interrupt-with-skepticism": "Player probes depth of trust, may strain or solidify alliance.",
+            "silent-nod-and-watch": "Player gains insight by careful observation, building better situational understanding.",
+            "reach-out-to-reassure": "Player strengthens personal bond, increasing NPC trust and cooperation.",
+            "micro-investigate-shard": "Player discovers encrypted complexity, forewarned of risks.",
+            "shift-topic-to-implications": "Player shifts focus to strategic planning, driving plot forward."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Player gains nuanced intel on Project Sunset rumors.",
+            "Player avoids immediate risk, but loses chance to advance secret intel.",
+            "Player trusts Open Blocks, gaining access to covert communications.",
+            "Player probes depth of trust, may strain or solidify alliance.",
+            "Player gains insight by careful observation, building better situational understanding.",
+            "Player strengthens personal bond, increasing NPC trust and cooperation.",
+            "Player discovers encrypted complexity, forewarned of risks.",
+            "Player shifts focus to strategic planning, driving plot forward."
+          ]
+        },
+        "arc-envoy-subtle-challenge": {
+          "id": "arc-envoy-subtle-challenge",
+          "title": "The Vextros envoy shifts his weight, gaze icy but attempting casual charm as he steps closer. His words drip with thinly veiled threat wrapped in seeming diplomacy.",
+          "description": "The Vextros envoy shifts his weight, gaze icy but attempting casual charm as he steps closer. His words drip with thinly veiled threat wrapped in seeming diplomacy.",
+          "choices": [
+            {
+              "id": "reply-with-calm-defiance",
+              "text": "Meet his gaze steadily. \"I\u2019m prepared to pay any price if it means exposing Vextros\u2019 corruption.\"",
+              "dialogue_response": "\"I\u2019m prepared to pay any price if it means exposing Vextros\u2019 corruption.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "His smile tightens, a flicker of respect or annoyance sparking in his eyes. \"Bold words, but dangerous. Choose carefully.\"",
+              "emotional_tone": "defiant, resolute",
+              "body_language": "You hold your posture firm, chin raised, eyes locked on his.",
+              "requirements": {
+                "grudge": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "might": 1
+              },
+              "next_situation_id": "arc-envoy-watchful",
+              "internal_hint": "Player asserts defiance fueling faction tension.",
+              "internal_justification": "Reflects player\u2019s grudge and heightens interpersonal conflict."
+            },
+            {
+              "id": "feign-caution-and-cooperation",
+              "text": "Lower your voice, sliding a hint of caution into your tone. \"Maybe there\u2019s common ground to stabilize the city, if we act together.\"",
+              "dialogue_response": "\"Maybe there\u2019s common ground to stabilize the city, if we act together.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "The envoy\u2019s eyes narrow briefly, calculating. \"I\u2019ll take that as a start, Sierra. Just don\u2019t cross the line.\"",
+              "emotional_tone": "measured, diplomatic",
+              "body_language": "You relax your stance slightly, offering a subtle nod.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "arc-envoy-watchful",
+              "internal_hint": "Player attempts diplomatic engagement to manage tensions.",
+              "internal_justification": "Allows varied player approaches through social nuance."
+            },
+            {
+              "id": "sharp-retort-question-his-loyalty",
+              "text": "Eyes narrowing, respond with a cutting question: \"Are you so certain Vextros *wants* stability, or only control?\"",
+              "dialogue_response": "\"Are you so certain Vextros *wants* stability, or only control?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "His grin twists into a mocking sneer. \"Careful, Sierra, or you\u2019ll find out how deep loyalty runs with consequences hard to face.\"",
+              "emotional_tone": "sharp, confrontational",
+              "body_language": "You lean in slightly, voice low and challenging.",
+              "requirements": {
+                "grudge": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc-envoy-watchful",
+              "internal_hint": "Player pushes envoy with statements that question Vextros\u2019 motives.",
+              "internal_justification": "Deepens factional distrust and dramatic tension."
+            },
+            {
+              "id": "smile-slightly-and-scan-his-face",
+              "text": "Smile faintly, studying his microexpressions carefully as you respond without fully committing. \"Your words suggest a hidden agenda. What aren't you telling me?\"",
+              "dialogue_response": "\"Your words suggest a hidden agenda. What aren't you telling me?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "His eyes flicker for a split-second with a shadow of discomfort before masking it with an easy smile. \"That's a dangerous game, Sierra. But perhaps a useful one.\"",
+              "emotional_tone": "probing, subtle",
+              "body_language": "You offer a slight, inscrutable smile, eyes scanning his face for tells.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc-envoy-watchful",
+              "internal_hint": "Player attempts to read and destabilize envoy with subtle psychological tactics.",
+              "internal_justification": "Adds investigative layer and tension with microexpressions."
+            },
+            {
+              "id": "fold-arms-slightly-and-frown",
+              "text": "Cross your arms, frowning as you say nothing for a moment, forcing him to fill the silence. \"You talk of chaos, but control breeds that too.\"",
+              "dialogue_response": "\"You talk of chaos, but control breeds that too.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "He looks momentarily unsettled by your silence before replying, voice low, \"Perhaps control is just another form of chaos, Sierra.\"",
+              "emotional_tone": "confrontational, contemplative",
+              "body_language": "You let your arms cross and your frown deepen, inviting tension.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "arc-envoy-watchful",
+              "internal_hint": "Player uses silence and body language as subtle pressure.",
+              "internal_justification": "Incorporates non-verbal communication to influence dialogue flow."
+            },
+            {
+              "id": "interrupt-with-a-sharp-question",
+              "text": "Cut in quickly, voice sharper than before: \"Is it true Vextros manipulates PHQ-9 supplies to tighten control?\"",
+              "dialogue_response": "\"Is it true Vextros manipulates PHQ-9 supplies to tighten control?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "His jaw tightens as he recovers, \"Accusations as usual, Sierra. But the truth is often more complex than street rumors.\"",
+              "emotional_tone": "accusatory, forceful",
+              "body_language": "You lean forward abruptly, eyes narrowing with pointed assertiveness.",
+              "requirements": {
+                "grudge": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "arc-envoy-watchful",
+              "internal_hint": "Player interrupts to expose controversial corporate practice.",
+              "internal_justification": "Raises stakes by invoking known corporate manipulations."
+            },
+            {
+              "id": "quietly-check-data-shard",
+              "text": "Glance discreetly at the data shard clutched in your hand, swiping the screen to reveal encrypted files while maintaining eye contact.",
+              "dialogue_response": null,
+              "choice_type": "investigation",
+              "player_perspective": "He notices the subtle movement and narrows his eyes suspiciously but says nothing as you scan for anything useful.",
+              "emotional_tone": "calm, focused",
+              "body_language": "Your fingers lightly tap and swipe the small screen, eyes flicking between it and his face.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "expertise": 1
+              },
+              "next_situation_id": "arc-envoy-watchful",
+              "internal_hint": "Player performs small investigative action mid-dialogue.",
+              "internal_justification": "Adds micro-investigation to enrich conversation pacing and info gathering."
+            },
+            {
+              "id": "show-subtle-irritation",
+              "text": "Roll your eyes subtly and bite back a sarcastic retort, showing your impatience without speaking.",
+              "dialogue_response": null,
+              "choice_type": "reaction",
+              "player_perspective": "He catches your fleeting irritation, smirking as if scoring a small victory in the exchange.",
+              "emotional_tone": "impatient, sardonic",
+              "body_language": "Your eyes roll briefly while your mouth tightens in silent sarcasm.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {},
+              "next_situation_id": "arc-envoy-watchful",
+              "internal_hint": "Player expresses emotion through non-verbal reaction to provoke.",
+              "internal_justification": "Injects emotional subtext that affects social dynamic subtly."
+            },
+            {
+              "id": "lean-back-and-smile-appeasingly",
+              "text": "Lean back slowly, giving a small, warm smile to lower the temperature. \"We both want the city to survive. Let\u2019s not forget that.\"",
+              "dialogue_response": "\"We both want the city to survive. Let\u2019s not forget that.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "His posture relaxes fractionally, eyes softened. \"For once, a shared goal.\"",
+              "emotional_tone": "appeasing, conciliatory",
+              "body_language": "You lean back with a gentle smile, open palms visible in a gesture of peace.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "arc-envoy-watchful",
+              "internal_hint": "Player chooses conciliatory tone to build rapport.",
+              "internal_justification": "Offers a softer approach to shift social dynamic towards cooperation."
+            }
+          ],
+          "stat_requirements": [
+            {
+              "attribute_name": "savvy",
+              "min_value": 10
+            },
+            {
+              "attribute_name": "insight",
+              "min_value": 10
+            }
+          ],
+          "attribute_requirements": null,
+          "consequences": {
+            "feign-caution-and-cooperation": "Envoy cautiously reconsiders, opening narrow window for truce.",
+            "sharp-retort-question-his-loyalty": "Envoy escalates tension and issues subtle threat.",
+            "reply-with-calm-defiance": "Envoy becomes wary and more watchful; personal stakes rise."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Envoy cautiously reconsiders, opening narrow window for truce.",
+            "Envoy escalates tension and issues subtle threat.",
+            "Envoy becomes wary and more watchful; personal stakes rise."
+          ]
+        },
+        "arc-open-blocks-liaison-doubt": {
+          "id": "arc-open-blocks-liaison-doubt",
+          "title": "Your request for Open Blocks\u2019 support is met with cautious skepticism by Lia, the liaison officer assigned to you. She studies your face closely, voice laced with suspicion and weary experience.",
+          "description": "Your request for Open Blocks\u2019 support is met with cautious skepticism by Lia, the liaison officer assigned to you. She studies your face closely, voice laced with suspicion and weary experience.",
+          "choices": [
+            {
+              "id": "reassure-loyalty-steadily",
+              "text": "Look her directly in the eye. \"My grudge against Vextros drives me to protect what\u2019s left. I have no interest in harm to Open Blocks.\"",
+              "dialogue_response": "\"My grudge against Vextros drives me to protect what\u2019s left. I have no interest in harm to Open Blocks.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lia\u2019s gaze softens just a little, a flicker of respect passing through. \"Good. Actions speak louder, Sierra. Let's hope yours shout louder than words.\"",
+              "emotional_tone": "earnest, steady",
+              "body_language": "Your stance relaxes, shoulders squared and unyielding.",
+              "requirements": {
+                "grudge": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "arc-open-blocks-trust-test",
+              "internal_hint": "Build initial trust with Open Blocks via alignment of motivations.",
+              "internal_justification": "Leverages player\u2019s grudge to build faction relationships."
+            },
+            {
+              "id": "deflect-with-humor",
+              "text": "Flash a quick, dry smile. \"If I were trustworthy, I wouldn\u2019t be standing in this warren right now, would I?\"",
+              "dialogue_response": "\"If I were trustworthy, I wouldn\u2019t be standing in this warren right now, would I?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lia\u2019s lips twitch into the hint of a smirk, but her guard remains. \"Funny, but funny may not be enough. Keep talking.\"",
+              "emotional_tone": "wry, guarded",
+              "body_language": "You lean lightly against the wall, arms loosely crossed.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "allure": 1
+              },
+              "next_situation_id": "arc-open-blocks-trust-test",
+              "internal_hint": "Diffuse tension with humor to open dialogue.",
+              "internal_justification": "Varied player style encourages social dynamics."
+            },
+            {
+              "id": "challenge-her-skepticism-directly",
+              "text": "Narrow eyes and bite back: \"Better an outsider with a grudge than a traitor with a badge. We both know who bleeds the city dry.\"",
+              "dialogue_response": "\"Better an outsider with a grudge than a traitor with a badge. We both know who bleeds the city dry.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lia\u2019s jaw tightens, but respect flashes beneath the surface. \"Point taken. But talk is cheap here\u2014prove it.\"",
+              "emotional_tone": "defiant, challenging",
+              "body_language": "You lean forward, voice low and steady.",
+              "requirements": {
+                "grudge": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "arc-open-blocks-trust-test",
+              "internal_hint": "Escalate tension with faction by owning player\u2019s attitude.",
+              "internal_justification": "Highlights gritty, anarchistic faction dynamics."
+            },
+            {
+              "id": "silent-steady-nod",
+              "text": "Offer a firm nod, holding Lia\u2019s gaze without words.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "Lia eyes you carefully, interpreting your silence as calm confidence. \"Sometimes silence speaks volumes. What\u2019s your next move?\"",
+              "emotional_tone": "calm, composed",
+              "body_language": "You hold eye contact steadily, nodding slowly but firmly.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1,
+                "tenacity": 1
+              },
+              "next_situation_id": "arc-open-blocks-trust-test",
+              "internal_hint": "Use non-verbal communication to build quiet trust.",
+              "internal_justification": "Showcases player\u2019s ability to influence through presence."
+            },
+            {
+              "id": "interrupt-with-question",
+              "text": "Raise a finger slightly, interrupting. \"Before you doubt me, what makes you think I want chaos?\"",
+              "dialogue_response": "\"Before you doubt me, what makes you think I want chaos?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lia blinks, caught slightly off guard. \"Because history's taught us to be cautious. But I\u2019m listening\u2014go on.\"",
+              "emotional_tone": "assertive, strategic",
+              "body_language": "You raise a finger calmly, leaning in a little.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "arc-open-blocks-trust-test",
+              "internal_hint": "Steer conversation by interrupting and asking a pointed question.",
+              "internal_justification": "Demonstrates social initiative and control of dialogue flow."
+            },
+            {
+              "id": "scrutinize-her-expression",
+              "text": "Briefly study Lia\u2019s features for signs of weariness or hidden agendas.",
+              "dialogue_response": null,
+              "choice_type": "investigation",
+              "player_perspective": "You pick up on a tightness around Lia\u2019s eyes \u2014 exhaustion and maybe old scars. She\u2019s been through much, softening your impression just slightly.",
+              "emotional_tone": "observant, empathetic",
+              "body_language": "Your gaze flickers to the lines around her eyes and mouth as you listen.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc-open-blocks-liaison-doubt",
+              "internal_hint": "Use investigative action to gather emotional detail about ally.",
+              "internal_justification": "Deepens player understanding and connection to Lia."
+            },
+            {
+              "id": "offer-quiet-assurance",
+              "text": "Exhale slowly and say softly, \"I know what it\u2019s like to be distrusted.\"",
+              "dialogue_response": "\"I know what it\u2019s like to be distrusted.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lia\u2019s eyes soften, as if your words struck a chord. \"Maybe there\u2019s room for more understanding than I thought.\"",
+              "emotional_tone": "gentle, self-aware",
+              "body_language": "You relax your shoulders and meet her gaze gently.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1,
+                "allure": 1
+              },
+              "next_situation_id": "arc-open-blocks-trust-test",
+              "internal_hint": "Use empathy to bridge a wary relationship.",
+              "internal_justification": "Builds rapport through shared human experience."
+            },
+            {
+              "id": "shift-discussion-to-common-interest",
+              "text": "Say sharply, \"We both want the same thing \u2014 survival and freedom.\"",
+              "dialogue_response": "\"We both want the same thing \u2014 survival and freedom.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lia\u2019s posture relaxes marginally, considering the common ground. \"Don\u2019t make me regret this, Sierra.\"",
+              "emotional_tone": "pragmatic, unifying",
+              "body_language": "You sit upright, voice calm but firm.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1,
+                "tenacity": 1
+              },
+              "next_situation_id": "arc-open-blocks-trust-test",
+              "internal_hint": "Refocus conversation on shared goals to reduce suspicion.",
+              "internal_justification": "Channels alliance through pragmatic reasoning."
+            },
+            {
+              "id": "small-gesture-contact",
+              "text": "Briefly tap Lia\u2019s hand lightly, signaling trust and connection.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "Lia\u2019s eyes widen just briefly before she nods slightly, a small spark of trust igniting.",
+              "emotional_tone": "warm, reassuring",
+              "body_language": "You reach forward and lightly touch her hand, holding her gaze.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "allure": 1,
+                "integrity": 1
+              },
+              "next_situation_id": "arc-open-blocks-trust-test",
+              "internal_hint": "Use nonverbal tactile signal to build intimate trust.",
+              "internal_justification": "Highlights player\u2019s charisma and interpersonal skill."
+            }
+          ],
+          "stat_requirements": [
+            {
+              "attribute_name": "integrity",
+              "min_value": 10
+            },
+            {
+              "attribute_name": "tenacity",
+              "min_value": 10
+            },
+            {
+              "attribute_name": "allure",
+              "min_value": 10
+            }
+          ],
+          "attribute_requirements": null,
+          "consequences": {
+            "deflect-with-humor": "Breaks initial ice, keeps door open for alliance.",
+            "challenge-her-skepticism-directly": "Raises tension, requiring proof of loyalty.",
+            "reassure-loyalty-steadily": "Open Blocks show tentative trust, offer aid cautiously.",
+            "silent-steady-nod": "Demonstrates calm confidence, building subtle trust.",
+            "interrupt-with-question": "Steers conversation, gaining control and curiosity.",
+            "scrutinize-her-expression": "Reveals emotional depth, fostering empathy.",
+            "offer-quiet-assurance": "Builds rapport via shared vulnerability.",
+            "shift-discussion-to-common-interest": "Focuses on mutual goals, lowering defenses.",
+            "small-gesture-contact": "Creates brief physical connection, strengthening bond."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Breaks initial ice, keeps door open for alliance.",
+            "Raises tension, requiring proof of loyalty.",
+            "Open Blocks show tentative trust, offer aid cautiously.",
+            "Demonstrates calm confidence, building subtle trust.",
+            "Steers conversation, gaining control and curiosity.",
+            "Reveals emotional depth, fostering empathy.",
+            "Builds rapport via shared vulnerability.",
+            "Focuses on mutual goals, lowering defenses.",
+            "Creates brief physical connection, strengthening bond."
+          ]
+        },
+        "arc-envoy-silence-tension": {
+          "id": "arc-envoy-silence-tension",
+          "title": "During the fraught conversation, the Vextros envoy suddenly pauses, his gaze locking with yours. The ambient noise dims as he weighs his next words carefully.",
+          "description": "During the fraught conversation, the Vextros envoy suddenly pauses, his gaze locking with yours. The ambient noise dims as he weighs his next words carefully.",
+          "choices": [
+            {
+              "id": "steady-assurance",
+              "text": "Meet his challenge unabashedly. \"I\u2019ve carried heavier burdens. Let the city burn, but I won\u2019t let silence bury the truth.\"",
+              "dialogue_response": "\"I\u2019ve carried heavier burdens. Let the city burn, but I won\u2019t let silence bury the truth.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "His eyes flare briefly, the faintest hint of grudging respect. \"Bold. Careful you don\u2019t drown in that fire you light.\"",
+              "emotional_tone": "bold, resolute",
+              "body_language": "You keep your stance firm, unwavering eye contact.",
+              "requirements": {
+                "grudge": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Player embraces risks to confront faction power.",
+              "internal_justification": "Elevates tension and personal stakes."
+            },
+            {
+              "id": "choose-caution-tempered",
+              "text": "Exhale slowly, lowering your tone. \"I don\u2019t seek needless destruction. But if truths die, so does hope.\"",
+              "dialogue_response": "\"I don\u2019t seek needless destruction. But if truths die, so does hope.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "His gaze softens just enough to hint at a complicated understanding. \"Words of a fool or a prophet\u2014I hope you\u2019re the latter.\"",
+              "emotional_tone": "reflective, cautious",
+              "body_language": "You soften your expression, brief pause in stance.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Player tempers willingness for conflict with caution.",
+              "internal_justification": "Adds complexity to player character and faction interaction."
+            },
+            {
+              "id": "silence-and-stare-down",
+              "text": "Hold his gaze silently, withholding words but letting conviction speak.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "The envoy\u2019s brow furrows beneath his practiced facade, uncertainty flickering. The moment taut, heavy with unspoken threats and challenges.",
+              "emotional_tone": "intense, confrontational",
+              "body_language": "You lean forward, eyes unblinking and steady in silent defiance.",
+              "requirements": {
+                "insight": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "envoy-intimidated",
+                  "type": "status",
+                  "description": "Envoy hesitates visibly after player\u2019s silent stare; increased leverage.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1,
+                "might": 1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Player uses silence as a tool to unsettle the envoy.",
+              "internal_justification": "Demonstrates alternative power plays beyond words."
+            },
+            {
+              "id": "dry-wit-interrupt",
+              "text": "Interrupt with a dry smirk: \"Burning bridges suits some just fine. But smoke chokes the innocent too.\"",
+              "dialogue_response": "\"Burning bridges suits some just fine. But smoke chokes the innocent too.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You cut in smoothly, the smirk on your lips twitching with sarcasm. His eyes flicker, caught off-guard by your biting retort.",
+              "emotional_tone": "sarcastic, sharp",
+              "body_language": "You raise an eyebrow, leaning casually but deliberately invading his space.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1,
+                "might": 0
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Player uses sarcasm to steer dialogue and unsettle envoy.",
+              "internal_justification": "Adds humor and cutting edge to dialogue, revealing player confidence."
+            },
+            {
+              "id": "brief-glance-study",
+              "text": "Quickly scan his subtle body language and concealed weaponry while maintaining partial eye contact.",
+              "dialogue_response": null,
+              "choice_type": "investigation",
+              "player_perspective": "Your eyes flicker subtly to the edge of his coat, noting the faint outline of a weapon. You note the tension in his fingers near the concealed grip.",
+              "emotional_tone": "alert, calculated",
+              "body_language": "Your head tilts just slightly and your gaze briefly halves focus between his eyes and his hands.",
+              "requirements": {
+                "insight": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "weapon-spotter",
+                  "type": "status",
+                  "description": "Identified location of envoy's concealed weapon; tactical advantage.",
+                  "stat_mods": {
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Player uses observational skills to gain tactical knowledge.",
+              "internal_justification": "Introduces investigative micro-interaction to dialogue."
+            },
+            {
+              "id": "calm-gesture-appease",
+              "text": "Raise your hands slowly with open palms, voice calm: \"I\u2019m not here to escalate\u2014just to be heard.\"",
+              "dialogue_response": "\"I\u2019m not here to escalate\u2014just to be heard.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You soften your stance and show your palms in a peaceful gesture. His eyes narrow, but the tension eases somewhat.",
+              "emotional_tone": "peaceful, conciliatory",
+              "body_language": "You lean back slightly, breathing steady, hands visible to show no threat.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Player seeks to de-escalate tension with calm openness.",
+              "internal_justification": "Introduces a non-aggressive alternative to the confrontation."
+            },
+            {
+              "id": "internal-steeling",
+              "text": "Inwardly brace yourself, tightening your jaw as you prepare for any outcome.",
+              "dialogue_response": null,
+              "choice_type": "reaction",
+              "player_perspective": "You feel a sharp twist inside, a flame kindling your resolve. Your breath steadies; there is no turning back.",
+              "emotional_tone": "determined, guarded",
+              "body_language": "Your jaw clenches, eyes narrow slightly as if steeling against incoming blows.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "focused-resolve",
+                  "type": "status",
+                  "description": "Mental fortitude increased in face of pressure.",
+                  "stat_mods": {
+                    "tenacity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Player steeling internally strengthens resolve.",
+              "internal_justification": "Adds depth and emotional realism to player state."
+            },
+            {
+              "id": "soft-smile-foster-trust",
+              "text": "Offer a slow, soft smile and say, \"We want the same end\u2014a better city. Let\u2019s find a way forward.\"",
+              "dialogue_response": "\"We want the same end\u2014a better city. Let\u2019s find a way forward.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your smile is deliberate but genuine, a subtle invitation. His shoulders ease fractionally, lips twitching as if reconsidering.",
+              "emotional_tone": "hopeful, diplomatic",
+              "body_language": "You relax your posture, open your hands slightly as a sign of collaboration.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1,
+                "savvy": 1
+              },
+              "next_situation_id": "arc-root-echoes-shattered-tower",
+              "internal_hint": "Player attempts to build rapport and trust.",
+              "internal_justification": "Introduces small step toward alliance or easing hostility."
+            }
+          ],
+          "stat_requirements": [
+            {
+              "attribute_name": "insight",
+              "min_value": 10
+            },
+            {
+              "attribute_name": "tenacity",
+              "min_value": 10
+            }
+          ],
+          "attribute_requirements": null,
+          "consequences": {
+            "silence-and-stare-down": "Envoy becomes unsettled, player gains leverage.",
+            "steady-assurance": "Envoy\u2019s respect grows but tension heightens.",
+            "choose-caution-tempered": "Dialogue opens nuanced possibility of cooperation.",
+            "dry-wit-interrupt": "Temporarily disrupts envoy\u2019s composure.",
+            "brief-glance-study": "Player gains tactical insight on envoy\u2019s concealed weapon.",
+            "calm-gesture-appease": "Tension slightly de-escalates.",
+            "internal-steeling": "Player mentally braces, enhancing resolve.",
+            "soft-smile-foster-trust": "Potential for opening cooperative dialogue."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Envoy becomes unsettled, player gains leverage.",
+            "Envoy\u2019s respect grows but tension heightens.",
+            "Dialogue opens nuanced possibility of cooperation.",
+            "Temporarily disrupts envoy\u2019s composure.",
+            "Player gains tactical insight on envoy\u2019s concealed weapon.",
+            "Tension slightly de-escalates.",
+            "Player mentally braces, enhancing resolve.",
+            "Potential for opening cooperative dialogue."
+          ]
+        },
+        "arc-open-blocks-trust-test": {
+          "id": "arc-open-blocks-trust-test",
+          "title": "Lia leans forward casually but eyes you with sharp intent, producing a battered holo-sidearm from her jacket and setting it on the table. \"Trust here isn\u2019t given, it\u2019s earned. Before we send you with our people, I need to know\u2014can you handle yourself when the city\u2019s darkest comes knocking?\"",
+          "description": "Lia leans forward casually but eyes you with sharp intent, producing a battered holo-sidearm from her jacket and setting it on the table. \"Trust here isn\u2019t given, it\u2019s earned. Before we send you with our people, I need to know\u2014can you handle yourself when the city\u2019s darkest comes knocking?\"",
+          "choices": [
+            {
+              "id": "confident-assurance",
+              "text": "\"Try me. I\u2019m no stranger to shadows or scars.\"",
+              "dialogue_response": "\"Try me. I\u2019m no stranger to shadows or scars.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "A dry smile cracks Lia\u2019s face. \"Good. The city\u2019s no place for the faint-hearted. Welcome to the front lines.\"",
+              "emotional_tone": "confident, gritty",
+              "body_language": "You square your shoulders, voice even and steady.",
+              "requirements": {
+                "might": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "open-blocks-ally",
+                  "type": "status",
+                  "description": "Gained tentative ally status with the Open Blocks liaison.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "might": 1
+              },
+              "next_situation_id": "arc-open-blocks-support-mission",
+              "internal_hint": "Player demonstrates readiness and toughness to earn trust.",
+              "internal_justification": "Ties narrative progress to player\u2019s grit and prowess."
+            },
+            {
+              "id": "honest-admission",
+              "text": "\"I\u2019m not invincible, Lia. But my cause is worth the risk.\"",
+              "dialogue_response": "\"I\u2019m not invincible, Lia. But my cause is worth the risk.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lia\u2019s eyes soften with the weight of experience. \"That kind of honesty might save you yet. We\u2019ll watch your back.\"",
+              "emotional_tone": "vulnerable, determined",
+              "body_language": "You lower your gaze briefly before meeting hers anew.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "open-blocks-wary-ally",
+                  "type": "status",
+                  "description": "Open Blocks watch you cautiously, willing to lend some support.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "arc-open-blocks-support-mission",
+              "internal_hint": "Player\u2019s vulnerability yields cautious faction support.",
+              "internal_justification": "Offers alternate social approach to alliance-building."
+            },
+            {
+              "id": "deflect-with-anger",
+              "text": "\"If the city\u2019s darkness scares you, maybe you\u2019re in the wrong fight.\"",
+              "dialogue_response": "\"If the city\u2019s darkness scares you, maybe you\u2019re in the wrong fight.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lia studies you with a flicker of something like respect\u2014and a warning. \"Sharp tongue can cut both ways, Sierra. Don\u2019t cut the wrong one.\"",
+              "emotional_tone": "angry, defiant",
+              "body_language": "You cross your arms tightly, jaw clenched.",
+              "requirements": {
+                "might": 10
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "might": 1
+              },
+              "next_situation_id": "arc-open-blocks-support-mission",
+              "internal_hint": "Escalate tension through assertive aggression.",
+              "internal_justification": "Fits grungy, confrontational player style and persists alliance with cost."
+            },
+            {
+              "id": "calm-and-calculating",
+              "text": "\"I don\u2019t just survive the dark, I map it. Tell me what\u2019s lurking out there.\"",
+              "dialogue_response": "\"I don\u2019t just survive the dark, I map it. Tell me what\u2019s lurking out there.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lia\u2019s lips twitch into a cautious smile. \"That\u2019s a rare breed. We could use someone with your eyes and smarts.\"",
+              "emotional_tone": "cold, analytical",
+              "body_language": "Your eyes narrow slightly, scanning the room as you speak with deliberate calm.",
+              "requirements": {
+                "savvy": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "open-blocks-analyst",
+                  "type": "status",
+                  "description": "Open Blocks respect your analytic approach and sharp insight.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1,
+                "insight": 1
+              },
+              "next_situation_id": "arc-open-blocks-support-mission",
+              "internal_hint": "Player uses intellect to gain faction respect.",
+              "internal_justification": "Shows alternate intellectual approach to alliance-building."
+            },
+            {
+              "id": "interrupt-to-question-holo-sidearm",
+              "text": "\"That sidearm\u2019s seen better days. Where\u2019d you come by it?\"",
+              "dialogue_response": "\"That sidearm\u2019s seen better days. Where\u2019d you come by it?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lia glances down at the battered weapon, then smirks. \"Street salvage. Just like us\u2014proven in the dirt. You're not the only one who\u2019s been through hell.\"",
+              "emotional_tone": "curious, probing",
+              "body_language": "You lean forward, eyes locked on the weapon, curiosity flickering.",
+              "requirements": {
+                "insight": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "open-blocks-trust-via-probing",
+                  "type": "status",
+                  "description": "Your curiosity sharpens Lia's openness to you.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc-open-blocks-support-mission",
+              "internal_hint": "Player steers conversation with tactical inquiry.",
+              "internal_justification": "Encourages investigative social interaction to build alliance."
+            },
+            {
+              "id": "smirk-and-defy",
+              "text": "\"Darkness is where I thrive. Don\u2019t expect me to flinch.\"",
+              "dialogue_response": "\"Darkness is where I thrive. Don\u2019t expect me to flinch.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lia chuckles darkly, impressed despite herself. \"You\u2019ve got grit, Sierra. Let\u2019s see if that grit saves you.\"",
+              "emotional_tone": "cocky, fearless",
+              "body_language": "A smirk plays on your lips as you lean back with relaxed defiance.",
+              "requirements": {
+                "tenacity": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "open-blocks-bold-ally",
+                  "type": "status",
+                  "description": "Lia respects your fearless bravado.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "might": 1,
+                "tenacity": 1
+              },
+              "next_situation_id": "arc-open-blocks-support-mission",
+              "internal_hint": "Player displays bold confidence to impress liaison.",
+              "internal_justification": "Supports a bravado-driven player style in alliance-building."
+            }
+          ],
+          "stat_requirements": [
+            {
+              "attribute_name": "might",
+              "min_value": 10
+            },
+            {
+              "attribute_name": "integrity",
+              "min_value": 10
+            }
+          ],
+          "attribute_requirements": null,
+          "consequences": {
+            "confident-assurance": "Player gains strong Open Blocks ally status.",
+            "honest-admission": "Player gains cautious but genuine support from faction.",
+            "deflect-with-anger": "Alliance formed under tense circumstances; future mistrust possible.",
+            "calm-and-calculating": "Earns esteem through analytical clarity, boosts faction trust.",
+            "nod-instead-of-speaking": "Nonverbal show of strength earns quiet respect.",
+            "interrupt-to-question-holo-sidearm": "Sharp questioning loosens faction\u2019s guarded stance.",
+            "internal-thought-questioning-loyalty": "Player weighs risks, gains slight savvy insight.",
+            "smirk-and-defy": "Bold attitude impresses but may escalate challenges."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Player gains strong Open Blocks ally status.",
+            "Player gains cautious but genuine support from faction.",
+            "Alliance formed under tense circumstances; future mistrust possible.",
+            "Earns esteem through analytical clarity, boosts faction trust.",
+            "Nonverbal show of strength earns quiet respect.",
+            "Sharp questioning loosens faction\u2019s guarded stance.",
+            "Player weighs risks, gains slight savvy insight.",
+            "Bold attitude impresses but may escalate challenges."
+          ]
+        }
+      },
+      "bridge_nodes": [
+        "arc-root-echoes-shattered-tower",
+        "arc-shadowed-huddle-whispers",
+        "arc-envoy-subtle-challenge",
+        "arc-open-blocks-liaison-doubt",
+        "arc-envoy-silence-tension",
+        "arc-open-blocks-trust-test"
+      ]
+    }
+  ]
+}

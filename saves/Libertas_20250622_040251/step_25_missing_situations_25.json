@@ -1,0 +1,1843 @@
+{
+  "world_context": {
+    "seed": {
+      "name": "Libertas",
+      "themes": [
+        "cyberpunk",
+        "dystopia",
+        "late stage capitalism",
+        "AI rights"
+      ],
+      "high_concept": "\nAn isolated, libertarian society in the near (100 years) future. \nSociety is highly stratified.\nMost people have cybernetic enhancements, some of which are absolutely necessay for daily life.\nPollution and climate change has rendered indoor spaces more valuable than outdoor spaces.\nA handful of corporations have a weak grip on the city. Formal governments have largely collapsed.\nLarge portions of the city are illegal, ramshackle \"open blocks\" which resemble Kowloon Walled City.\nCrime that does not damage corporations' property or employees is tolerated when convenient.\n",
+      "internal_hint": "",
+      "internal_justification": ""
+    },
+    "technologies": [
+      {
+        "name": "Merged",
+        "description": "A mix of many languages. It is spoken using translation and transliteration implants. Common is the only remaining language that is taught formally.",
+        "impact": "Merged is the default language of the city. It is a mix of many languages, and is spoken by almost everyone. It is the default language for almost all communication.",
+        "limitations": "If your translation implant is disabled or damaged, you can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. Phobos natives won't understand you, and it's unlikely that people from outside Libertas will, either.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Common",
+        "description": "The only remaining language that is taught formally. Only Phobos citizens speak it. It is a mix of Latin and Greek, with a rhythmic cadence of syllables that sounds reminiscient of Korean.",
+        "impact": "Phobos's primary language, which they are intentionally cliquey and exlcusionary with. Most people have no reason to speak or learn Common, so those that do can sometimes understand their surroundings better.",
+        "limitations": "Common is inherently exclusive, and Phobos uses it to keep outsiders out. It is also a very difficult language to learn, and most people don't bother.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Translation Implants",
+        "description": "Implants that allow you to translate and transliterate languages. They do not allow you to speak Common. Almost everyone in Libertas has a translation implant, and as a result language has become almost unrecognizable. Everyone just uses 'Merged' for shorthand.",
+        "impact": "Almost everyone in Libertas speaks Merged, a language that emerged as a result of everyone having these implants. As a result, speech is impossible without it.",
+        "limitations": "If the implant is disabled or damaged, the user can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. The translation implant does NOT allow the user to speak Common, which must be learned the old fashioned way.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Implant Sickness",
+        "description": "Implants can cause a variety of symptoms, including but not limited to: nausea, dizziness, confusion, hallucinations, coma, and death. A drug called PHQ-9, often referred to on the street as 'Jolt' reverses the implant sickness, but only temporarily.",
+        "impact": "Implant sickness is dreaded, but common. Most cases are treatable. Rarely, someone becomes 'broken', a slang term for someone whose implants have failed entirely.",
+        "limitations": "Implant sickness can be mitigated with treatments fairly easily. A 'technician', or implant specialist, can remove the damaged connections and/or replace implants as needed.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Jolt / PHQ-9",
+        "description": "A drug manufactured by Vextros that reverses the symptoms of implant sickness. It's often dispensed by autoinjectors that accept pink cartridges. It is often referred to on the street as 'Jolt'.  Each successive use of PHQ-9 becomes less effective. PHQ-9 also causes euphoria and sedation, in a manner similar to ketamine.",
+        "impact": "PHQ-9 treats implant sickness, which occurs often especially with lower quality implants. 'Jolt' dens litter the city, not because of implant sickness, but because the drug also causes intense euphoria.",
+        "limitations": "PHQ-9 is addictive, and each successive use of PHQ-9 becomes less effective. It's also manufactured solely by Vextros, and they could hypothetically withhold their supply.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Nutrax",
+        "description": "A meal replacement made by Vextros. It comes in a wide variety of flavors and consistencies, and is created by reprocessing minerals and nitrogen found through the city's mining operations. Pure Nutrax is actually pretty good, but most of the time it's been adulterated, usually by Vextros itself. Vextros adds everything from sawdust to pharmaceuticals they feel like testing.",
+        "impact": "Nutrax is a strict necessity for some parts of the population because it's often very affordable.",
+        "limitations": "Nutrax is often adulterated, and can cause nutritional deficiencies and malnutrition.",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "factions": [
+      {
+        "name": "Vextros",
+        "ideology": "Essentially a corporation that has grown to be the size of a government. Believes that they are entitled to a say in almost all matters. Prioritizes order to justice whenever such a choice presents itself.",
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "The Open Blocks",
+        "ideology": "Anarchistic, anti-corporate, and anti-authoritarian. Violence is seen as morally good if it is used to protect the community. It is understood that every open block may follow very different rules, and their ability to remain organized depends on their consent to be self-governing. Tyrannical or dysfunctional open blocks are often rooted out by groups of residents.",
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Phobos Consultancy",
+        "ideology": null,
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Project Sunset",
+        "ideology": null,
+        "territory": null,
+        "influence_level": 10,
+        "relationships": {
+          "Alan Carlsile": "enemy. Alan hates Sunset, partially for causing Scramble, partially because he believes Regina died as a result of her arrogance. He views Sunset as a threat to the sentience of humans. Alan artificially extended his life for as long as possible to try and find a way to undo what Regina did.",
+          "Vextros": "enemy"
+        },
+        "internal_hint": "The player, or a significant NPC, might become the ADMINISTRATOR.",
+        "internal_justification": null
+      }
+    ],
+    "districts": [
+      {
+        "id": "The Akropolis",
+        "traits": [
+          "cave",
+          "underground",
+          "military",
+          "authoritarian"
+        ],
+        "hazards": [
+          "draconian punishments",
+          "anti-corporate sentiment",
+          "anti-outsider sentiment"
+        ],
+        "factions": [
+          "Phobos Consultancy"
+        ],
+        "description": "The Akropolis is an underground city built inside a cave system. It is a far-right authoritarian society that idolizes military service and especially people who pass \"selection\" tests.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "Crescent Center",
+        "traits": [
+          "megastructure",
+          "55 stories",
+          "atrium",
+          "artificial garden",
+          "opulent"
+        ],
+        "hazards": [
+          "crime",
+          "poverty",
+          "homelessness",
+          "stratified society"
+        ],
+        "factions": [
+          "Vextros",
+          "The Open Blocks"
+        ],
+        "description": "A 55 story tall megastructure that is home to roughly 50,000 people. Most of the city's other buildings are connected by tunnels, legally built or not. Higher levels of Crescent Center are generally more affluent. Every 10 levels, there is an Atrium, which creates a large open space with balconies on each level overlooking an artificial garden. This stratifies each group of 10 levels together - an Atrium on 0, 10, 20, 30, 40, 50. The Level 50 Atrium is ludicrously opulent, Level 0 is largely uninhabitable.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "One Vextros Way",
+        "traits": [
+          "corporate campus",
+          "Vextros",
+          "hillside",
+          "air purification",
+          "water purification"
+        ],
+        "hazards": [
+          "corporate headquarters",
+          "trespassers will be shot"
+        ],
+        "factions": [
+          "Vextros"
+        ],
+        "description": "The headquarters of Vextros. It's located on a hillside overlooking Libertas. Huge air and water purification systems keep the corporate campus pristine and habitable outdoors except in extreme conditions.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "The Lower Quarter",
+        "traits": [
+          "nuclear wasteland",
+          "radioactive",
+          "contaminated",
+          "uninhabitable"
+        ],
+        "hazards": [
+          "radiation",
+          "heavy metal poisoning",
+          "contaminated water",
+          "contaminated air",
+          "contaminated soil"
+        ],
+        "factions": [
+          "Project Sunset"
+        ],
+        "description": "A nuclear wasteland that is uninhabitable for more than a few hours at a time. It is the result of a lab explosion at Sunset Laboratories.",
+        "internal_hint": "",
+        "internal_justification": ""
+      }
+    ],
+    "npcs": [
+      {
+        "id": "Alan Carlsile",
+        "name": "Alan Carlsile",
+        "role": "CEO of Vextros",
+        "description": "123 year old CEO of Vextros. He is the only person who knows about Sunset. He has been trying to undo Scramble so that the city can escape isolation. He wants Sunset to be dismantled more than anything else, and considers it to a threat to humanity. He is often regarded by others as a sociopath, but it's more accurate to say that he's singularly focused on undoing Regina's mistake, and isn't concerned with anything else.",
+        "personality_traits": [
+          "arrogant",
+          "selfish",
+          "greedy",
+          "power-hungry"
+        ],
+        "relationships": {
+          "Regina Carlsile": "enemy, sister",
+          "Vextros": "CEO"
+        },
+        "faction_affiliations": [
+          "Vextros"
+        ],
+        "location_id": "One Vextros Way",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "tension_sliders": {
+      "violence": 7,
+      "mystery": 4,
+      "technology": 6,
+      "society": 5,
+      "environment": 3,
+      "economy": 2,
+      "politics": 10
+    }
+  },
+  "player_state": {
+    "name": "Sierra Violet",
+    "stats": {
+      "might": 10,
+      "insight": 10,
+      "nimbleness": 10,
+      "destiny": 10,
+      "savvy": 10,
+      "expertise": 10,
+      "tenacity": 10,
+      "station": 10,
+      "opulence": 10,
+      "celebrity": 10,
+      "integrity": 10,
+      "allure": 10,
+      "lineage": 10
+    },
+    "attributes": [
+      {
+        "id": "grudge",
+        "type": "status",
+        "description": "A grudge against Vextros.",
+        "stat_mods": null
+      }
+    ],
+    "profile": {
+      "narrative_summary": "A grungy, 27 year old woman with a grudge against Vextros.",
+      "key_traits": [
+        "grungy",
+        "27 year old",
+        "woman",
+        "grudge against Vextros"
+      ],
+      "background_hints": []
+    },
+    "history": []
+  },
+  "generation_step": 25,
+  "step_name": "missing_situations_25",
+  "choice_history": [],
+  "available_choices": [],
+  "arcs": [
+    {
+      "id": "Shadows Over Crescent Center: The Rise Against Vextros",
+      "situations": {
+        "root_situation_shadows_over_crescent_center": {
+          "id": "root_situation_shadows_over_crescent_center",
+          "title": "Sierra arrives in Crescent Center's Level 10 Atrium, confronted by Open Blocks' leaders rallying against Vextros' resource control.",
+          "description": "Sierra arrives in Crescent Center's Level 10 Atrium, confronted by Open Blocks' leaders rallying against Vextros' resource control.",
+          "choices": [
+            {
+              "id": "choice_accept_leadership",
+              "text": "Accept the call to lead the resistance, ready to challenge Vextros head-on.",
+              "dialogue_response": "I've held this grudge for too long. It's time to turn it into action\u2014I'm with you.",
+              "choice_type": "dialogue",
+              "player_perspective": "You feel a surge of resolve as you nod. Around you, eyes light up with cautious hope, the first spark in gathering darkness.",
+              "emotional_tone": "determined",
+              "body_language": "Your jaw tightens, shoulders square as you meet their gaze unwaveringly.",
+              "requirements": {
+                "tenacity": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "resistance_leadership",
+                  "type": "status",
+                  "description": "Recognized leader of Open Blocks' uprising against Vextros.",
+                  "stat_mods": {
+                    "tenacity": 1,
+                    "savvy": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "savvy": 1
+              },
+              "next_situation_id": "uprising_planning_meeting",
+              "internal_hint": "Initiate player as a resistance leader, setting up strategic opposition to Vextros in Crescent Center.",
+              "internal_justification": "Facilitates direct player engagement in rebellion and maximizes use of player's grudge and tenacity."
+            },
+            {
+              "id": "choice_question_opportunism",
+              "text": "Question the leaders about possible hidden motives before committing.",
+              "dialogue_response": "What guarantees do I have this isn\u2019t just another power grab? What\u2019s in it for the people?",
+              "choice_type": "dialogue",
+              "player_perspective": "The leader\u2019s expression tightens for a moment but then softens. \"Trust must be earned, Sierra. But know this: Vextros won\u2019t negotiate, and survival here depends on unity, not division.\"",
+              "emotional_tone": "cautious",
+              "body_language": "You fold your arms, leaning slightly back, signaling healthy skepticism.",
+              "requirements": {
+                "insight": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "cautious_resistance_member",
+                  "type": "status",
+                  "description": "Cautious but involved member of the opposition, weighing options carefully.",
+                  "stat_mods": {
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "uprising_planning_meeting",
+              "internal_hint": "Allows player to express skepticism, influencing resistance dynamics with more nuance.",
+              "internal_justification": "Supports roleplaying cautious but engaged persona, enriching narrative complexity."
+            },
+            {
+              "id": "choice_infiltrate_vextros",
+              "text": "Suggest infiltrating Vextros to gather intel instead of open rebellion now.",
+              "dialogue_response": "Blunt force won\u2019t win. We need eyes inside Vextros\u2014intel is our sharpest weapon.",
+              "choice_type": "dialogue",
+              "player_perspective": "The crowd murmurs, wary but intrigued. \"That\u2019s risky\u2014and poisonous territory,\" someone warns. You sense wary respect for your tactical mind.",
+              "emotional_tone": "strategic",
+              "body_language": "You tap your temple thoughtfully, eyes scanning faces for signs of agreement.",
+              "requirements": {
+                "savvy": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "intel_strategist",
+                  "type": "status",
+                  "description": "Strategic mind recognized for proposing covert operations.",
+                  "stat_mods": {
+                    "savvy": 2
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 2
+              },
+              "next_situation_id": "vextros_infiltration_prep",
+              "internal_hint": "Sets up sub-arc involving infiltration and espionage within Vextros corporate dominance.",
+              "internal_justification": "Introduces alternative non-direct confrontation path utilizing player's savvy and strategic thinking."
+            },
+            {
+              "id": "choice_replay_grudge",
+              "text": "Vocalize your personal grudge against Vextros as fuel for revolt.",
+              "dialogue_response": "Vextros took everything from me. This grudge isn\u2019t just personal\u2014it\u2019s our battle cry.",
+              "choice_type": "dialogue",
+              "player_perspective": "The group shifts, semblance of respect mixed with cautious uncertainty. \"Personal fires can light big flames, Sierra. Let\u2019s make sure it doesn't burn us all,\" a voice advises.",
+              "emotional_tone": "fiery",
+              "body_language": "You clench your fists, voice firm and passionate.",
+              "requirements": {
+                "integrity": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "personal_drive",
+                  "type": "status",
+                  "description": "Your grudge against Vextros fuels your passion and resolve.",
+                  "stat_mods": {
+                    "integrity": 1,
+                    "tenacity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1,
+                "tenacity": 1
+              },
+              "next_situation_id": "uprising_planning_meeting",
+              "internal_hint": "Emphasizes player\u2019s personal motivations, deepening emotional narrative thread.",
+              "internal_justification": "Leverages player\u2019s backstory to increase narrative engagement and player agency."
+            },
+            {
+              "id": "choice_interrupt_with_personal_story",
+              "text": "Interrupt the leaders to share a brief, personal story highlighting the stakes of the fight.",
+              "dialogue_response": "\"Before we decide, you need to know what Vextros took from me\u2014and what it could take from all of us if we don\u2019t act.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your voice cuts through the room; faces turn, some soften as they absorb your vulnerability.",
+              "emotional_tone": "emphatic",
+              "body_language": "You step forward, tone rising with raw emotion, eyes glistening but resolute.",
+              "requirements": {
+                "integrity": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "emotional_inspiration",
+                  "type": "status",
+                  "description": "Inspires others through personal sacrifice and emotional courage.",
+                  "stat_mods": {
+                    "integrity": 1,
+                    "tenacity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1,
+                "tenacity": 1
+              },
+              "next_situation_id": "uprising_planning_meeting",
+              "internal_hint": "Use personal backstory to deepen emotional connection with Open Blocks leaders.",
+              "internal_justification": "Strengthens player\u2019s emotional authority and motivates faction with personal stakes."
+            },
+            {
+              "id": "choice_probe_for_loyalty",
+              "text": "Carefully question a skeptical leader about their loyalty to the movement.",
+              "dialogue_response": "\"I hear doubts. Tell me, whose side are you really on? This fight needs clear allies.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "The group stiffens as your tone turns sharp; eyes dart nervously but respect your directness.",
+              "emotional_tone": "confrontational",
+              "body_language": "You lean in sharply, voice low but intense.",
+              "requirements": {
+                "savvy": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "faction_tactician",
+                  "type": "status",
+                  "description": "Skilled at parsing allies from adversaries within volatile groups.",
+                  "stat_mods": {
+                    "savvy": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "uprising_planning_meeting",
+              "internal_hint": "Encourage player to assert control and test faction loyalty early.",
+              "internal_justification": "Deepens faction dynamics by letting player reveal potential dissent."
+            },
+            {
+              "id": "choice_glance_at_surveillance",
+              "text": "Cast a quick glance upward toward the hovering surveillance drones before speaking.",
+              "dialogue_response": "\"They watch us. Every move counts now.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your eyes flick upward, drawing attention to the oppressive corporate watchfulness, sharpening the room\u2019s focus.",
+              "emotional_tone": "alert",
+              "body_language": "A brief sharp look skyward, face taut with wariness.",
+              "requirements": {
+                "insight": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "aware_of_surveillance",
+                  "type": "status",
+                  "description": "Recognized as vigilant to corporate monitoring and dangers.",
+                  "stat_mods": {
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "uprising_planning_meeting",
+              "internal_hint": "Inject realism and atmosphere, building tension with environment awareness.",
+              "internal_justification": "Combines player investigation with social leadership, reinforcing tension themes."
+            }
+          ],
+          "stat_requirements": [],
+          "attribute_requirements": null,
+          "consequences": {
+            "accept_leadership": "Positions player as key rebel leader, influencing faction dynamics and conflict escalation.",
+            "question_opportunism": "Maintains nuanced relationship with resistance, opening opportunities for diplomacy or doubt.",
+            "infiltrate_vextros": "Leads to covert missions, gathering intel to undermine Vextros from inside.",
+            "replay_grudge": "Heightens emotional stakes, risks impulsiveness but boosts morale among rebels."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Positions player as key rebel leader, influencing faction dynamics and conflict escalation.",
+            "Maintains nuanced relationship with resistance, opening opportunities for diplomacy or doubt.",
+            "Leads to covert missions, gathering intel to undermine Vextros from inside.",
+            "Heightens emotional stakes, risks impulsiveness but boosts morale among rebels."
+          ]
+        },
+        "uprising_planning_meeting": {
+          "id": "uprising_planning_meeting",
+          "title": "Open Blocks leaders gather to discuss resistance strategy; Sierra must define her role and approach to mobilizing Crescent Center.",
+          "description": "Open Blocks leaders gather to discuss resistance strategy; Sierra must define her role and approach to mobilizing Crescent Center.",
+          "choices": [
+            {
+              "id": "choice_plan_direct_action",
+              "text": "Propose coordinated sabotage on Nutrax and PHQ-9 distribution centers.",
+              "dialogue_response": "\"We hit their supply chains hard\u2014cut off Nutrax and Jolt shipments. That\u2019ll hit Vextros where it hurts.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Eyes narrow approvingly. \"Sabotage is dangerous, but desperate times call for desperate measures,\" the wiry man murmurs.",
+              "emotional_tone": "resolute",
+              "body_language": "You set your palms flat on the table, leaning forward with intensity.",
+              "requirements": {
+                "tenacity": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "direct_action_planner",
+                  "type": "status",
+                  "description": "Recognized for bold direct action plans against Vextros' facilities.",
+                  "stat_mods": {
+                    "tenacity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "reaction_to_sabotage_plan",
+              "internal_hint": "Establishes direct aggressive tactical approach with high risk/reward tensions.",
+              "internal_justification": "Builds player\u2019s leadership and tenacity; solidifies faction support or dissent."
+            },
+            {
+              "id": "choice_plan_information_warfare",
+              "text": "Suggest spreading counter-propaganda to expose Vextros's corruption.",
+              "dialogue_response": "\"We undermine them by turning the public eye\u2014spread the truth about Nutrax and Jolt, and E.V.E.N.T.s' deeds.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Murmurs ripple; one leader strokes his chin thoughtfully. \"Information can be poison, but also medicine,\" he says.",
+              "emotional_tone": "strategic",
+              "body_language": "You fold your arms, measuring the room's reactions carefully.",
+              "requirements": {
+                "savvy": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "propaganda_mastermind",
+                  "type": "status",
+                  "description": "Skilled in information warfare to expose corporate abuses.",
+                  "stat_mods": {
+                    "savvy": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "reaction_to_info_warfare_plan",
+              "internal_hint": "Introduces nonviolent resistance angle with media and information manipulation.",
+              "internal_justification": "Expands player options beyond violence; plays to savvy stat and faction ideological diversity."
+            },
+            {
+              "id": "choice_plan_negotiation_attempt",
+              "text": "Propose attempting backchannel talks with moderate Vextros officials.",
+              "dialogue_response": "\"Maybe there\u2019s a way to find cracks in their armor. I say we try a subtle negotiation with those who might be pliable.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "A tense silence follows. \"Some say the corporate beast has no heart. But maybe we pry open a window,\" a grizzled leader murmurs.",
+              "emotional_tone": "cautious",
+              "body_language": "You shrug slightly, uncomfortable but hopeful.",
+              "requirements": {
+                "insight": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "diplomatic_initiator",
+                  "type": "status",
+                  "description": "Known for opening risky dialogues with corporate opposition.",
+                  "stat_mods": {
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "reaction_to_negotiation_plan",
+              "internal_hint": "Adds tension between idealism and pragmatism; tests player\u2019s insight and faction trust.",
+              "internal_justification": "Reflects realistic complexity in revolutionary movements; enriches faction conflict."
+            },
+            {
+              "id": "choice_express_doubts",
+              "text": "Voice concerns about potential rebellion fallout on innocent Open Blocks residents.",
+              "dialogue_response": "\"We risk innocent lives if this escalates. Are we sure the cause justifies the price?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Several faces flash hard looks; a younger woman bites her lip but nods solemnly. \"Sometimes, sacrifice is the currency of change,\" she replies.",
+              "emotional_tone": "worried",
+              "body_language": "You look down, avoiding eye contact briefly.",
+              "requirements": {
+                "integrity": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "conscientious_rebel",
+                  "type": "status",
+                  "description": "Known for caution and empathy toward vulnerable civilians.",
+                  "stat_mods": {
+                    "integrity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "reaction_to_concern",
+              "internal_hint": "Highlights internal ethical conflict within revolt; challenges aggressive momentum.",
+              "internal_justification": "Adds depth, emotional resonance; invokes player\u2019s integrity trait and thematic tension."
+            },
+            {
+              "id": "choice_interrupt_with_direct_question",
+              "text": "Cut in sharply to demand, \u201cWho among you has a trusted informant inside Vextros?\u201d",
+              "dialogue_response": "Enough talk\u2014who here can get us real intel from inside Vextros? We need allies, not just plans.",
+              "choice_type": "dialogue",
+              "player_perspective": "The room grows quieter as eyes flick nervously and some shift uncomfortably, caught off-guard but acknowledging urgency.",
+              "emotional_tone": "demanding",
+              "body_language": "You lean forward abruptly, voice firm, brow furrowed as you challenge the group.",
+              "requirements": {
+                "tenacity": 12
+              },
+              "attributes_gained": [
+                {
+                  "id": "pressure_leader",
+                  "type": "status",
+                  "description": "Known for aggressive steering of group discourse to expose hidden assets.",
+                  "stat_mods": {
+                    "tenacity": 1,
+                    "savvy": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "savvy": 1
+              },
+              "next_situation_id": "uprising_planning_meeting",
+              "internal_hint": "Choice to forcefully probe faction capabilities, testing trust and loyalty bonds.",
+              "internal_justification": "Creates tension and potential reveals, emphasizing player\u2019s no-nonsense leadership style."
+            },
+            {
+              "id": "choice_sharpen_tone_with_firm_hand_gesture",
+              "text": "With a sharp gesture, say firmly, \u201cWe either act or we perish under their yoke. Indecision is death.\u201d",
+              "dialogue_response": "We either act or we perish under their yoke. Indecision is death.",
+              "choice_type": "dialogue",
+              "player_perspective": "The group stiffens, some nodding reluctantly, others casting anxious glances; the mood hardens.",
+              "emotional_tone": "intense",
+              "body_language": "You slam your palm down decisively on the table, eyes blazing with resolve.",
+              "requirements": {
+                "tenacity": 12
+              },
+              "attributes_gained": [
+                {
+                  "id": "unyielding_will",
+                  "type": "status",
+                  "description": "Feared and respected for uncompromising leadership.",
+                  "stat_mods": {
+                    "tenacity": 2
+                  }
+                }
+              ],
+              "attributes_lost": [
+                "conscientious_rebel"
+              ],
+              "stat_changes": {
+                "tenacity": 2
+              },
+              "next_situation_id": "reaction_to_sabotage_plan",
+              "internal_hint": "Heightens stakes with firm ultimatum, pushing faction toward decisive action.",
+              "internal_justification": "Intensifies conflict and tests player\u2019s influence, at cost of alienating cautious allies."
+            },
+            {
+              "id": "choice_whisper_to_a_trusted_ally",
+              "text": "Lean in and quietly suggest to a known ally, \u201cWe should watch who edges too close to Vextros sympathizers.\u201d",
+              "dialogue_response": "We should watch who edges too close to Vextros sympathizers.",
+              "choice_type": "dialogue",
+              "player_perspective": "Your whispered caution draws a subtle nod; a silent alliance forms amid tension.",
+              "emotional_tone": "conspiratorial",
+              "body_language": "You lean close, voice low and steady, eyes flicking to the room\u2019s edges.",
+              "requirements": {
+                "savvy": 12
+              },
+              "attributes_gained": [
+                {
+                  "id": "faction_watchdog",
+                  "type": "status",
+                  "description": "Trusted for vigilance against hidden corporate agents within resistance.",
+                  "stat_mods": {
+                    "savvy": 1,
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1,
+                "insight": 1
+              },
+              "next_situation_id": "uprising_planning_meeting",
+              "internal_hint": "Adds methods for faction internal security and subtle trust building.",
+              "internal_justification": "Facilitates tension and paranoia themes, enriching faction interplay."
+            }
+          ],
+          "stat_requirements": [],
+          "attribute_requirements": null,
+          "consequences": {
+            "direct_action_planner": "Sets path toward overt conflict and high stakes sabotage missions.",
+            "propaganda_mastermind": "Opens avenues for information campaigns and social sabotage.",
+            "diplomatic_initiator": "Creates potential for uneasy truce or betrayal plots.",
+            "conscientious_rebel": "May slow revolt pace but preserves civilian goodwill."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Sets path toward overt conflict and high stakes sabotage missions.",
+            "Opens avenues for information campaigns and social sabotage.",
+            "Creates potential for uneasy truce or betrayal plots.",
+            "May slow revolt pace but preserves civilian goodwill."
+          ]
+        },
+        "reaction_to_sabotage_plan": {
+          "id": "reaction_to_sabotage_plan",
+          "title": "Mixed reactions from Open Blocks leaders to Sierra\u2019s sabotage proposal, debating risks versus the desperate need to act.",
+          "description": "Mixed reactions from Open Blocks leaders to Sierra\u2019s sabotage proposal, debating risks versus the desperate need to act.",
+          "choices": [
+            {
+              "id": "choice_reassure_risk",
+              "text": "Assure the group you have contingencies to minimize civilian harm and exposure.",
+              "dialogue_response": "\"We\u2019ll plan meticulously. No collateral damage. Precision and stealth will be our allies.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Rhea nods slowly, conflict still etched on her face but tempered with cautious hope.",
+              "emotional_tone": "calming",
+              "body_language": "You offer a slight, steadying smile and open palms.",
+              "requirements": {
+                "savvy": 10
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "planning_sabotage_details",
+              "internal_hint": "Build player reputation for careful planning amidst dangerous choices.",
+              "internal_justification": "Reinforces player\u2019s savvy and tact; balances tension between urgency and caution."
+            },
+            {
+              "id": "choice_push_for_immediate_action",
+              "text": "Argue that any delay gives Vextros more time to strengthen defenses.",
+              "dialogue_response": "\"Time is our enemy. Every hour we wait, Vextros tightens its grip. We must strike now.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Burly man slaps the table in agreement, \"Enough talk. I\u2019m ready to burn it all down.\"",
+              "emotional_tone": "urgent",
+              "body_language": "You lean forward, voice firm, eyes blazing with resolve.",
+              "requirements": {
+                "tenacity": 11
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "planning_sabotage_details",
+              "internal_hint": "Escalates the plot toward immediate, high-risk conflict.",
+              "internal_justification": "Reflects player\u2019s tenacity and leadership drive; escalates stakes."
+            },
+            {
+              "id": "choice_cautionary_tone",
+              "text": "Suggest more reconnaissance before finalizing the sabotage operation.",
+              "dialogue_response": "\"We need eyes on the ground first. Gather intel so we don\u2019t stumble into a deathtrap.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "\"Fine,\" Rhea says grudgingly, \"but we don\u2019t wait forever.\"",
+              "emotional_tone": "cautious",
+              "body_language": "You fold your arms, tapping a finger thoughtfully.",
+              "requirements": {
+                "insight": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "cautious_planner",
+                  "type": "status",
+                  "description": "Known for insisting on prudent intelligence gathering.",
+                  "stat_mods": {
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "intel_gathering_step",
+              "internal_hint": "Creates shift toward espionage and less direct conflict.",
+              "internal_justification": "Balances militant and strategic approaches; enriches narrative pathways."
+            },
+            {
+              "id": "choice_silently_scan_for_spies",
+              "text": "Quietly observe the group, eyes flicking to nervous glances and fabricating alliances.",
+              "dialogue_response": null,
+              "choice_type": "investigation",
+              "player_perspective": "You catch subtle eye shifts and tense posture from a few members, sensing there may be hidden agendas at play.",
+              "emotional_tone": "alert",
+              "body_language": "You narrow your eyes and tilt your head slightly, lips pressed in a thin line.",
+              "requirements": {
+                "insight": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "silent_watchdog",
+                  "type": "status",
+                  "description": "Recognized for keen perception and identifying potential infiltrators within the faction.",
+                  "stat_mods": {
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "reaction_to_sabotage_plan",
+              "internal_hint": "Incorporate player subtle social investigation to heighten faction trust issues.",
+              "internal_justification": "Adds micro-level social dynamics and sets groundwork for future faction intrigue."
+            },
+            {
+              "id": "choice_raise_firm_finger_in_warning",
+              "text": "Silently raise a finger and shake your head when others speak recklessly.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "The subtle gesture halts a fiery speech mid-sentence, drawing respectful murmurs as the room refocuses.",
+              "emotional_tone": "stern",
+              "body_language": "You lift a finger slowly, gaze sharp and unyielding.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "commanding_presence",
+                  "type": "status",
+                  "description": "Earned reputation for imposing discipline through quiet yet firm non-verbal cues.",
+                  "stat_mods": {
+                    "tenacity": 1,
+                    "savvy": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "savvy": 1
+              },
+              "next_situation_id": "reaction_to_sabotage_plan",
+              "internal_hint": "Enable player to shape discussions through body language, signaling strategic restraint.",
+              "internal_justification": "Highlights player leadership style and influences faction dynamics without overt speech."
+            },
+            {
+              "id": "choice_softly_quip_to_break_fatigue",
+              "text": "Lightly joke about the endless meetings, easing fatigue in the room.",
+              "dialogue_response": "\"At this rate, we\u2019ll need a Nutrax IV just to survive planning.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "The room releases a few weary smiles, some heads nodding in reluctant agreement, breaking overwhelming tension momentarily.",
+              "emotional_tone": "lighthearted",
+              "body_language": "You grin, shrugging with an easygoing tilt of the head.",
+              "requirements": {
+                "allure": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "morale_booster",
+                  "type": "status",
+                  "description": "Known for lifting spirits during grim deliberations with timely humor.",
+                  "stat_mods": {
+                    "allure": 1,
+                    "integrity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "allure": 1,
+                "integrity": 1
+              },
+              "next_situation_id": "reaction_to_sabotage_plan",
+              "internal_hint": "Devise choice for lowering social tension with humor and charm.",
+              "internal_justification": "Adds trusted interpersonal tool for the player, balancing tension with human moments."
+            }
+          ],
+          "stat_requirements": [],
+          "attribute_requirements": null,
+          "consequences": {
+            "planning_sabotage_details": "Prepares player for operational planning scenes in arc.",
+            "intel_gathering_step": "Opens infiltration and intel missions later.",
+            "cautious_planner": "Builds cautious player reputation; may slow revolt progress."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Prepares player for operational planning scenes in arc.",
+            "Opens infiltration and intel missions later.",
+            "Builds cautious player reputation; may slow revolt progress."
+          ]
+        },
+        "reaction_to_info_warfare_plan": {
+          "id": "reaction_to_info_warfare_plan",
+          "title": "Open Blocks debate the effectiveness of spreading counter-propaganda under heavy surveillance.",
+          "description": "Open Blocks debate the effectiveness of spreading counter-propaganda under heavy surveillance.",
+          "choices": [
+            {
+              "id": "choice_emphasize_stealth",
+              "text": "Insist that anonymity and distributed nodes protect the message\u2019s spread.",
+              "dialogue_response": "\"We use encrypted networks, dark channels, and trusted couriers. It\u2019s a whisper that grows louder with every ear.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lira nods, a spark of belief crossing her pragmatic features.",
+              "emotional_tone": "hopeful",
+              "body_language": "You tap your temple and then gesture widely as if expanding the network.",
+              "requirements": {
+                "savvy": 11
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "info_warfare_planning",
+              "internal_hint": "Develops player\u2019s mastery of tech-based resistance under scrutiny.",
+              "internal_justification": "Plays to player\u2019s savvy; advances narrative in information warfare sub-arc."
+            },
+            {
+              "id": "choice_warn_of_repercussions",
+              "text": "Caution about likely brutal corporate retaliation through surveillance and crackdown.",
+              "dialogue_response": "\"Vextros won\u2019t sit quietly. They\u2019ll trace leaks, punish entire neighborhoods.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "The group stiffens. Fear mixes with resolve. You see fresh scars on many faces.",
+              "emotional_tone": "somber",
+              "body_language": "You lower your gaze briefly, voice slow and steady.",
+              "requirements": {
+                "integrity": 11
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "info_warfare_risk_discussion",
+              "internal_hint": "Highlights dangers of high-tech resistance under authoritarian watch.",
+              "internal_justification": "Adds emotional weight and realism; reflects player\u2019s integrity."
+            },
+            {
+              "id": "choice_propose_alliance_with_phobos",
+              "text": "Suggest seeking covert assistance from Phobos Consultancy specialists familiar with corporate tech.",
+              "dialogue_response": "\"Phobos mercs know the corridors Vextros fears. We could use their tech skills\u2014at a price.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Whispers ripple, some suspicious, others intrigued. \"A dangerous gamble,\" Lira warns. \"But maybe that edge we need.\"",
+              "emotional_tone": "calculated",
+              "body_language": "You glance around cautiously, hinting at secrecy.",
+              "requirements": {
+                "savvy": 12
+              },
+              "attributes_gained": [
+                {
+                  "id": "phobos_contact",
+                  "type": "status",
+                  "description": "Has contacts or leverage with Phobos Consultancy operatives.",
+                  "stat_mods": {
+                    "savvy": 1,
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1,
+                "insight": 1
+              },
+              "next_situation_id": "phobos_alliance_negotiation",
+              "internal_hint": "Weaves Phobos Consultancy into resistance tech subplots.",
+              "internal_justification": "Introduces complex faction dynamics and potential moral greys."
+            },
+            {
+              "id": "choice_interrupt_with_firm_concern",
+              "text": "Interrupt the meeting sharply to highlight the risk of surveillance leaks.",
+              "dialogue_response": "\"Wait! We can\u2019t ignore how near Vextros\u2019 eyes are. Every word here could be their weapon.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your voice cuts through the chatter, drawing wary glances but securing attention. The room tenses, realizing the stakes are higher than assumed.",
+              "emotional_tone": "urgent",
+              "body_language": "You snap your fingers sharply, eyes scanning the group with intensity.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "heightened_vigilance",
+                  "type": "status",
+                  "description": "Known for raising awareness about immediate dangers of surveillance and leaks.",
+                  "stat_mods": {
+                    "insight": 1,
+                    "tenacity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1,
+                "tenacity": 1
+              },
+              "next_situation_id": "info_warfare_risk_discussion",
+              "internal_hint": "Demonstrate player\u2019s proactive leadership interrupting group to focus on surveillance risks.",
+              "internal_justification": "Models player as decisive and aware, steering conversation toward caution and urgency."
+            },
+            {
+              "id": "choice_softly_encourage_hacker",
+              "text": "Offer a quiet nod and encouraging smile to the faction\u2019s tech specialist.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "Your subtle encouragement lifts the hacker\u2019s spirits, hinting at trust and camaraderie without words.",
+              "emotional_tone": "supportive",
+              "body_language": "You lean in slightly and nod with warmth, eyes gleaming with quiet confidence.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "trusted_supporter",
+                  "type": "status",
+                  "description": "Recognized as a subtle motivator who builds key faction relationships.",
+                  "stat_mods": {
+                    "allure": 1,
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "allure": 1,
+                "insight": 1
+              },
+              "next_situation_id": "info_warfare_planning",
+              "internal_hint": "Use nonverbal communication to strengthen faction bonds and player\u2019s social influence.",
+              "internal_justification": "Adds depth through micro-social leadership, emphasizing subtle interpersonal skills."
+            },
+            {
+              "id": "choice_raise_eyebrow_skeptically",
+              "text": "Raise an eyebrow skeptically without speaking, signaling doubt at the plan\u2019s feasibility.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "The room notices your doubtful expression; murmurs ripple as some reconsider their assumptions.",
+              "emotional_tone": "skeptical",
+              "body_language": "You slowly raise one eyebrow while crossing your arms, lips pressed in a thin line.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "critical_thinker",
+                  "type": "status",
+                  "description": "Known for skepticism that sharpens planning and decision-making.",
+                  "stat_mods": {
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "info_warfare_risk_discussion",
+              "internal_hint": "Convey player\u2019s distrust or critical stance using silent body language.",
+              "internal_justification": "Demonstrates that nonverbal cues can impact faction perception and dialogue tone."
+            },
+            {
+              "id": "choice_probe_lira_for_doubts",
+              "text": "Directly ask Lira if she has reservations about the plan, fostering openness.",
+              "dialogue_response": "\"Lira, you\u2019ve seemed hesitant. What\u2019s your real take on this? We need honesty here.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Lira stiffens before exhaling, opening up about her fears and skepticism, deepening the group\u2019s understanding.",
+              "emotional_tone": "inquiring",
+              "body_language": "You lean forward, voice calm but direct, hands unclenched and open.",
+              "requirements": {
+                "insight": 12
+              },
+              "attributes_gained": [
+                {
+                  "id": "trusted_confidante",
+                  "type": "status",
+                  "description": "Respected for encouraging transparency in tense faction discussions.",
+                  "stat_mods": {
+                    "insight": 2,
+                    "integrity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 2,
+                "integrity": 1
+              },
+              "next_situation_id": "info_warfare_risk_discussion",
+              "internal_hint": "Use questioning to build bonds and reveal hidden faction concerns.",
+              "internal_justification": "Encourages emotional depth and faction cohesion through dialogue."
+            },
+            {
+              "id": "choice_scan_room_for_suspected_infiltrators",
+              "text": "Discreetly observe the group to detect potential corporate spies.",
+              "dialogue_response": null,
+              "choice_type": "investigation",
+              "player_perspective": "Your eyes flicker over guarded faces and nervous gestures, the shadows of distrust thickening.",
+              "emotional_tone": "alert",
+              "body_language": "You narrow your eyes, casually angling your gaze to catch errant glances or fidgeting.",
+              "requirements": {
+                "insight": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "infiltrator_spotter",
+                  "type": "status",
+                  "description": "Reputed for skillfully noting suspicious behavior to alert the faction.",
+                  "stat_mods": {
+                    "insight": 2
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 2
+              },
+              "next_situation_id": "info_warfare_risk_discussion",
+              "internal_hint": "Use investigation to add paranoia and complexity to faction trust dynamics.",
+              "internal_justification": "Increases social tension and player agency in faction relationships."
+            },
+            {
+              "id": "choice_share_quiet_personal_anecdote",
+              "text": "Quietly share a brief personal story illustrating the stakes of the information warfare.",
+              "dialogue_response": "\"Once, a neighbor vanished after a leak. The cost of silence is survival\u2014the cost of truth, death.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "The room falls quieter, faces a mix of sorrow and determination, connecting emotionally with your words.",
+              "emotional_tone": "somber",
+              "body_language": "You lower your eyes briefly, voice hushed but steady, hands loosely clasped.",
+              "requirements": {
+                "integrity": 12
+              },
+              "attributes_gained": [
+                {
+                  "id": "emotional_storyteller",
+                  "type": "status",
+                  "description": "Known for strengthening resolve through personal vulnerability.",
+                  "stat_mods": {
+                    "integrity": 2,
+                    "allure": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 2,
+                "allure": 1
+              },
+              "next_situation_id": "info_warfare_risk_discussion",
+              "internal_hint": "Use personal story to deepen emotional resonance and faction morale.",
+              "internal_justification": "Builds emotional connection and player credibility among allies."
+            }
+          ],
+          "stat_requirements": [],
+          "attribute_requirements": null,
+          "consequences": {
+            "info_warfare_planning": "Solidify a stealth-driven propaganda campaign.",
+            "info_warfare_risk_discussion": "Raises stakes and emotional tension.",
+            "phobos_contact": "Links player to controversial allies and tech intrigue."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Solidify a stealth-driven propaganda campaign.",
+            "Raises stakes and emotional tension.",
+            "Links player to controversial allies and tech intrigue."
+          ]
+        },
+        "reaction_to_negotiation_plan": {
+          "id": "reaction_to_negotiation_plan",
+          "title": "Open Blocks leaders debate trust and practicality of negotiating with Vextros officials.",
+          "description": "Open Blocks leaders debate trust and practicality of negotiating with Vextros officials.",
+          "choices": [
+            {
+              "id": "choice_reaffirm_willingness",
+              "text": "Emphasize diplomacy as a tool alongside other tactics, not a surrender.",
+              "dialogue_response": "\"Negotiation doesn\u2019t mean capitulation. It\u2019s another weapon in our arsenal.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Some faces soften, seeing balance in your approach.",
+              "emotional_tone": "diplomatic",
+              "body_language": "You hold palms open, tone even and steady.",
+              "requirements": {
+                "insight": 11
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "negotiation_attempt_prep",
+              "internal_hint": "Maintains nuance in player strategy, blending pragmatism and rebellion.",
+              "internal_justification": "Supports multilayered uprising; deepens faction relations."
+            },
+            {
+              "id": "choice_challenge_cynics",
+              "text": "Call out cynics for risking wholesale destruction by refusing dialogue.",
+              "dialogue_response": "\"Blind dismissals lead to waste and death. Are we so sure revolution is the only path?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "The hardened man sneers but remains silent; tension thickens.",
+              "emotional_tone": "provocative",
+              "body_language": "You lean back slightly, arms crossed, eyebrows raised.",
+              "requirements": {
+                "tenacity": 11
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "heated_debate",
+              "internal_hint": "Generates faction friction and tests player composure.",
+              "internal_justification": "Builds dramatic tension; highlights risks of inflexibility."
+            },
+            {
+              "id": "choice_suggest_spying_on_negotiators",
+              "text": "Propose planting moles to monitor Vextros officials for leverage in talks.",
+              "dialogue_response": "\"Any talks we have must be watched closely\u2014plant eyes and ears.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "\"A clever move,\" says a quiet voice. \"Trust none, watch all.\"",
+              "emotional_tone": "pragmatic",
+              "body_language": "You rake fingers through your hair, thinking through tactics.",
+              "requirements": {
+                "savvy": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "negotiation_molemaster",
+                  "type": "status",
+                  "description": "Expert at espionage to inform negotiations.",
+                  "stat_mods": {
+                    "savvy": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "intel_gathering_step",
+              "internal_hint": "Bridges diplomacy and espionage narrative threads.",
+              "internal_justification": "Enriches plot complexity and player role versatility."
+            },
+            {
+              "id": "choice_raise_hand_to_pause_discussion",
+              "text": "Raise a hand calmly to pause the heated arguments and refocus the group.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "Your calm gesture slows the room\u2019s rising tensions as heated voices lower and attention flickers your way, acknowledging your control.",
+              "emotional_tone": "calm",
+              "body_language": "You raise a steady hand, palm outward, signaling for silence.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "commanding_presence",
+                  "type": "status",
+                  "description": "Known for imposing calm and authority to steer faction dialogue.",
+                  "stat_mods": {
+                    "tenacity": 1,
+                    "savvy": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "savvy": 1
+              },
+              "next_situation_id": "negotiation_attempt_prep",
+              "internal_hint": "Use nonverbal cues to calm heated faction debates and regain control.",
+              "internal_justification": "Allows player to demonstrate leadership subtly, affecting group morale and direction without verbal confrontation."
+            },
+            {
+              "id": "choice_give_firm_nod_of_agreement",
+              "text": "Give a firm nod to show your support for cautious diplomacy without speaking.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "Your firm nod conveys agreement and steady resolve, reassuring doubtful members and subtly endorsing negotiation efforts.",
+              "emotional_tone": "supportive",
+              "body_language": "You incline your head slightly forward with a steady gaze.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "silent_endorser",
+                  "type": "status",
+                  "description": "Trusted for silently showing support to moderate faction voices.",
+                  "stat_mods": {
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "negotiation_attempt_prep",
+              "internal_hint": "Use subtle nonverbal agreement to strengthen alliance with moderates.",
+              "internal_justification": "Enables nuanced faction bonding and reflects player\u2019s diplomatic tact."
+            },
+            {
+              "id": "choice_interrupt_with_question_on_consequences",
+              "text": "Interrupt with a sharp question about the potential fallout of failed negotiations.",
+              "dialogue_response": "\"What happens if these talks fall apart? Are we prepared for the backlash?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your pointed question cuts through the chatter, inciting sober reflection as worried glances spread.",
+              "emotional_tone": "urgent",
+              "body_language": "You lean forward abruptly, eyes sharp and voice clear.",
+              "requirements": {
+                "insight": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "urgent_warning",
+                  "type": "status",
+                  "description": "Known for timely interjections that provoke realistic risk assessments.",
+                  "stat_mods": {
+                    "insight": 1,
+                    "tenacity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1,
+                "tenacity": 1
+              },
+              "next_situation_id": "heated_debate",
+              "internal_hint": "Introduce tension by highlighting negotiation risks through interruption.",
+              "internal_justification": "Fuels faction tension and grounds player\u2019s leadership in pragmatic risk awareness."
+            },
+            {
+              "id": "choice_raise_eyebrow_dismissively",
+              "text": "Raise an eyebrow dismissively without a word to signal skepticism about negotiation.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "Your raised eyebrow and tight lips convey doubt, sowing uncertainty among the more optimistic members.",
+              "emotional_tone": "skeptical",
+              "body_language": "You slowly arch an eyebrow while pursing your lips in silent judgment.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "hard_to_please",
+                  "type": "status",
+                  "description": "Gained reputation for critical and wary perspective on faction plans.",
+                  "stat_mods": {
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "heated_debate",
+              "internal_hint": "Use nonverbal skepticism to challenge optimism in faction dialogue.",
+              "internal_justification": "Adds a social dynamic that deepens faction complexity without overt confrontation."
+            },
+            {
+              "id": "choice_softly_place_hand_on_ally_shoulder",
+              "text": "Softly place a hand on a trusted ally's shoulder to reinforce solidarity.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "Your quiet gesture strengthens bonds, calming nerves and building silent trust within the group.",
+              "emotional_tone": "supportive",
+              "body_language": "You reach out gently, hand resting reassuringly on a nearby shoulder.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "trusted_empathetic_leader",
+                  "type": "status",
+                  "description": "Known for subtle gestures that build faction cohesion and morale.",
+                  "stat_mods": {
+                    "insight": 1,
+                    "allure": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1,
+                "allure": 1
+              },
+              "next_situation_id": "negotiation_attempt_prep",
+              "internal_hint": "Use physical reassurance to deepen faction alliance and player likability.",
+              "internal_justification": "Promotes emotional resonance and social trust-building gameplay."
+            },
+            {
+              "id": "choice_glance_sharply_at_suspected_mole",
+              "text": "Sharply glance at a suspicious group member, signaling your awareness.",
+              "dialogue_response": null,
+              "choice_type": "investigation",
+              "player_perspective": "A flicker of recognition crosses your eyes, catching a tense reaction from the suspected mole and raising others\u2019 awareness.",
+              "emotional_tone": "alert",
+              "body_language": "Your eyes narrow and dart briefly toward one individual, lips pressed tight.",
+              "requirements": {
+                "insight": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "spy_spotter",
+                  "type": "status",
+                  "description": "Recognized for spotting hidden agendas and possible infiltrators in factions.",
+                  "stat_mods": {
+                    "insight": 2
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 2
+              },
+              "next_situation_id": "heated_debate",
+              "internal_hint": "Encourage subtle investigation during tense faction discussions.",
+              "internal_justification": "Adds paranoia and complexity to internal faction dynamics enhancing player agency."
+            },
+            {
+              "id": "choice_raise_voice_to_cut_tension",
+              "text": "Raise your voice to cut through rising tension, demanding order.",
+              "dialogue_response": "\"Enough! We need to remember why we're here before tearing each other apart.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your raised voice silences the room momentarily as members reel from the abrupt interruption.",
+              "emotional_tone": "authority",
+              "body_language": "You slam a fist lightly on the table, eyes blazing with controlled fury.",
+              "requirements": {
+                "tenacity": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "forceful_leader",
+                  "type": "status",
+                  "description": "Known for assertive interventions that restore focus to fractious groups.",
+                  "stat_mods": {
+                    "tenacity": 1,
+                    "savvy": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "savvy": 1
+              },
+              "next_situation_id": "negotiation_attempt_prep",
+              "internal_hint": "Use vocal assertion to restore order and focus in faction dialogue.",
+              "internal_justification": "Shows player leadership and decisiveness, influencing group cohesion."
+            },
+            {
+              "id": "choice_murmur_support_just_outside_hearing",
+              "text": "Murmur brief words of encouragement just outside the group's immediate hearing.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "Your hushed encouragement reaches only a select few nearby, strengthening private bonds and mutual resolve.",
+              "emotional_tone": "secretive",
+              "body_language": "You lower your voice and lean in close, speaking softly to a trusted few.",
+              "requirements": {
+                "allure": 10,
+                "insight": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "covert_morale_support",
+                  "type": "status",
+                  "description": "Skilled at lifting faction spirits through subtle interactions.",
+                  "stat_mods": {
+                    "allure": 1,
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "allure": 1,
+                "insight": 1
+              },
+              "next_situation_id": "negotiation_attempt_prep",
+              "internal_hint": "Use quiet private encouragements to strengthen faction alliances.",
+              "internal_justification": "Adds a layer of micro-social diplomacy and interpersonal nuance."
+            },
+            {
+              "id": "choice_tilting_head_in_quizzical_silence",
+              "text": "Tilt your head quizzically during discussion, inviting more explanation or clarity.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "Your curious tilt quietly prompts speakers to clarify their positions, revealing hidden doubts and motivations.",
+              "emotional_tone": "inquiring",
+              "body_language": "You tilt your head slightly, eyebrows raised in silent question.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "subtle_interrogator",
+                  "type": "status",
+                  "description": "Known for using body language to gain information and influence talk flow.",
+                  "stat_mods": {
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "negotiation_attempt_prep",
+              "internal_hint": "Use nonverbal questioning to steer dialogue subtly and gather more insight.",
+              "internal_justification": "Promotes player agency via body language, enriching scene tension and information flow."
+            }
+          ],
+          "stat_requirements": [],
+          "attribute_requirements": null,
+          "consequences": {
+            "negotiation_attempt_prep": "Prepares diplomatic missions and faction trust checks.",
+            "heated_debate": "Intensifies internal faction conflict and trust issues.",
+            "negotiation_molemaster": "Links diplomacy sub-arc with espionage gameplay."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Prepares diplomatic missions and faction trust checks.",
+            "Intensifies internal faction conflict and trust issues.",
+            "Links diplomacy sub-arc with espionage gameplay."
+          ]
+        },
+        "reaction_to_concern": {
+          "id": "reaction_to_concern",
+          "title": "Responses to Sierra\u2019s plea to consider civilian costs bring emotional and ideological debate.",
+          "description": "Responses to Sierra\u2019s plea to consider civilian costs bring emotional and ideological debate.",
+          "choices": [
+            {
+              "id": "choice_reassure_commitment_to_protection",
+              "text": "Pledge to prioritize minimizing civilian harm in all plans.",
+              "dialogue_response": "\"Our fight must never lose sight of the people\u2014protecting them is as vital as toppling Vextros.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "The elder nods approvingly, \"Words with weight. We\u2019ll hold you to them.\"",
+              "emotional_tone": "earnest",
+              "body_language": "You meet eyes earnestly, voice lowered but steady.",
+              "requirements": {
+                "integrity": 11
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "planning_continues",
+              "internal_hint": "Deepens player\u2019s role as a moral compass within rebellion.",
+              "internal_justification": "Allows player to maintain integrity while balancing pressure for action."
+            },
+            {
+              "id": "choice_admit_fear_and_seek_support",
+              "text": "Confess worries to the group and ask for collective guidance.",
+              "dialogue_response": "\"I won\u2019t pretend I\u2019m not scared. How do we keep hope alive without losing ourselves?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "A younger woman steps forward, squeezing your arm, \"We carry this burden together, Sierra. You\u2019re not alone.\"",
+              "emotional_tone": "vulnerable",
+              "body_language": "You lower your gaze, voice faltering but sincere.",
+              "requirements": {
+                "integrity": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "empathic_leader",
+                  "type": "status",
+                  "description": "Recognized for emotional openness building group cohesion.",
+                  "stat_mods": {
+                    "integrity": 1,
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1,
+                "insight": 1
+              },
+              "next_situation_id": "planning_continues",
+              "internal_hint": "Builds player\u2019s emotional connection with faction members.",
+              "internal_justification": "Humanizes player and group dynamics, deepening narrative."
+            },
+            {
+              "id": "choice_reject_tough_necessities",
+              "text": "\"Sometimes harsh decisions are necessary. We can\u2019t let sentiment blind us.\"",
+              "dialogue_response": "\"We\u2019re all expendable in this game. Focus on winning.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "The elder\u2019s face hardens, \"Careful, Sierra. That path burns more than bridges.\"",
+              "emotional_tone": "cold",
+              "body_language": "You cross arms firmly, jaw set.",
+              "requirements": {
+                "tenacity": 12
+              },
+              "attributes_gained": [],
+              "attributes_lost": [
+                "conscientious_rebel"
+              ],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "planning_continues",
+              "internal_hint": "Signals hardening of player resolve, may alienate compassionate allies.",
+              "internal_justification": "Shifts player alignment toward pragmatic or ruthless rebellion."
+            },
+            {
+              "id": "choice_silently_frown_at_hardline_talk",
+              "text": "Silently frown as hardliners push for ruthless tactics, signaling your misgivings.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "Your furrowed brow and tightened lips register unease, sowing a quiet doubt among the most militant members.",
+              "emotional_tone": "disapproving",
+              "body_language": "You tighten your jaw, brows drawing together in silent objection.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "quiet_dissenter",
+                  "type": "status",
+                  "description": "Known for expressing disagreement through subtle body language.",
+                  "stat_mods": {
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "planning_continues",
+              "internal_hint": "Use silent disapproval to influence faction's militant rhetoric and build player nuance.",
+              "internal_justification": "Creates a path for low-conflict expression of disagreement and fosters faction tension without direct confrontation."
+            },
+            {
+              "id": "choice_raise_voice_to_urge_patience",
+              "text": "Raise your voice to urge patience, reminding the group of the importance of measured action.",
+              "dialogue_response": "\"Hold steady! A reckless charge will only doom us all. We must be precise and patient.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your sharp tone cuts through the heated room, earning a few nods of reluctant agreement and tempered tempers.",
+              "emotional_tone": "authoritative",
+              "body_language": "You stand straighter, voice firm and steady, eyes wide with urgency.",
+              "requirements": {
+                "tenacity": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "voice_of_reason",
+                  "type": "status",
+                  "description": "Respected for bringing calm and focus amid faction impatience.",
+                  "stat_mods": {
+                    "tenacity": 1,
+                    "integrity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "integrity": 1
+              },
+              "next_situation_id": "planning_continues",
+              "internal_hint": "Promote player as tempering fiery rebellion impulses with strategic patience.",
+              "internal_justification": "Provides balance to the heated debate and allows player to influence group tone positively."
+            },
+            {
+              "id": "choice_glance_around_for_support",
+              "text": "Glance around the group seeking silent support from hesitant members.",
+              "dialogue_response": null,
+              "choice_type": "investigation",
+              "player_perspective": "Your quick but deliberate glances find a few subtle nods and unsure faces beneath guarded expressions, hinting at possible allies.",
+              "emotional_tone": "subtle",
+              "body_language": "You cast brief, meaningful looks at individuals, lips pressed slightly.",
+              "requirements": {
+                "insight": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "connector",
+                  "type": "status",
+                  "description": "Skilled at reading room and building unspoken alliances.",
+                  "stat_mods": {
+                    "insight": 1,
+                    "allure": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1,
+                "allure": 1
+              },
+              "next_situation_id": "planning_continues",
+              "internal_hint": "Encourages internal faction bonding and social navigation without words.",
+              "internal_justification": "Adds depth by letting player gauge and influence faction mood covertly."
+            },
+            {
+              "id": "choice_interrupt_with_whisper_of_warnings",
+              "text": "Interrupt softly with a whispered warning about possible corporate infiltrators nearby.",
+              "dialogue_response": "\"We can\u2019t ignore the shadows in our midst\u2014Vextros has eyes everywhere. Trust no one lightly.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your hushed caution draws a shadow over the room as murmurs of unease spread; several exchange wary glances.",
+              "emotional_tone": "cautious",
+              "body_language": "You lean in, voice lowered to near silence but eyes flashing warning.",
+              "requirements": {
+                "insight": 11
+              },
+              "attributes_gained": [
+                {
+                  "id": "paranoia_seeded",
+                  "type": "status",
+                  "description": "Instills caution and suspicion within the group about loyalty.",
+                  "stat_mods": {
+                    "insight": 2
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 2
+              },
+              "next_situation_id": "planning_continues",
+              "internal_hint": "Introduce faction paranoia and distrust through subtle interruption.",
+              "internal_justification": "Heightens tension and player\u2019s role in faction security and trust dynamics."
+            },
+            {
+              "id": "choice_clench_fists_in_silent_anger",
+              "text": "Clench your fists tightly and breathe through a silent surge of anger at the cost of the fight.",
+              "dialogue_response": null,
+              "choice_type": "reaction",
+              "player_perspective": "Your fists curl tightly; the room senses your silent rage, lending weight to the emotional stakes without words.",
+              "emotional_tone": "intense",
+              "body_language": "Hands flex tightly at your sides, jaw clenched.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "silent_fury",
+                  "type": "status",
+                  "description": "Known for powerful nonverbal expression of resolve and passion.",
+                  "stat_mods": {
+                    "tenacity": 1,
+                    "integrity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "integrity": 1
+              },
+              "next_situation_id": "planning_continues",
+              "internal_hint": "Use silent emotional reactions to deepen faction emotional landscape.",
+              "internal_justification": "Adds variety in emotional expression for player roleplay and tension."
+            },
+            {
+              "id": "choice_offer_quick_reassuring_nod",
+              "text": "Offer a quick, reassuring nod to a nervous recruit to build their confidence.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "Your subtle nod and warm glance ease the recruit\u2019s tension, inspiring quiet confidence.",
+              "emotional_tone": "supportive",
+              "body_language": "You give a brief but steady nod, a flicker of a smile touching your lips.",
+              "requirements": {
+                "allure": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "quiet_morale_boost",
+                  "type": "status",
+                  "description": "Recognized for subtle encouragement that strengthens group morale.",
+                  "stat_mods": {
+                    "allure": 1,
+                    "integrity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "allure": 1,
+                "integrity": 1
+              },
+              "next_situation_id": "planning_continues",
+              "internal_hint": "Demonstrate micro-social leadership through small gestures to improve faction bonds.",
+              "internal_justification": "Enhances player\u2019s nonverbal influence and group dynamics subtly."
+            },
+            {
+              "id": "choice_softly_demur_with_a_shrug",
+              "text": "Softly demur with a small shrug when pressured about tough choices, conveying hesitation.",
+              "dialogue_response": "\"I wish the path was clearer, but I\u2019m struggling with the cost.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your quiet admission and resigned shrug invite empathy and reflective silence.",
+              "emotional_tone": "hesitant",
+              "body_language": "You relax shoulders slightly and offer a tentative shrug.",
+              "requirements": {
+                "integrity": 10
+              },
+              "attributes_gained": [
+                {
+                  "id": "reluctant_idealist",
+                  "type": "status",
+                  "description": "Known for hesitant but well-meaning struggle with rebellion\u2019s costs.",
+                  "stat_mods": {
+                    "integrity": 1,
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1,
+                "insight": 1
+              },
+              "next_situation_id": "planning_continues",
+              "internal_hint": "Add nuanced hesitation and vulnerability to player stance on harsh rebellion costs.",
+              "internal_justification": "Deepens emotional complexity and fosters faction sympathy for player."
+            }
+          ],
+          "stat_requirements": [],
+          "attribute_requirements": null,
+          "consequences": {
+            "planning_continues": "Rebellion planning proceeds with emotional tone influenced by player stance.",
+            "empathic_leader": "Increases group loyalty and morale.",
+            "rejection_of_compassion": "May fracture faction relations; accelerates conflict."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Rebellion planning proceeds with emotional tone influenced by player stance.",
+            "Increases group loyalty and morale.",
+            "May fracture faction relations; accelerates conflict."
+          ]
+        }
+      },
+      "bridge_nodes": [
+        "root_situation_shadows_over_crescent_center",
+        "uprising_planning_meeting",
+        "reaction_to_sabotage_plan",
+        "reaction_to_info_warfare_plan",
+        "reaction_to_negotiation_plan",
+        "reaction_to_concern"
+      ]
+    }
+  ]
+}

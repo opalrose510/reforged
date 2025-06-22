@@ -22,7 +22,7 @@ class BridgeableSituation {
 
 // Function to check if new attribute needed for bridge
 function CheckBridgeAttributeNeeds(bridge_node: BridgeNode, world_context: WorldContext) -> bool {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Determine if a new attribute needs to be created for this bridge connection. Answer ONLY with 'true' or 'false'.
     
@@ -43,7 +43,7 @@ function CheckBridgeAttributeNeeds(bridge_node: BridgeNode, world_context: World
 
 // Function to generate new attribute for bridge
 function GenerateBridgeAttribute(bridge_node: BridgeNode, world_context: WorldContext) -> PlayerAttribute {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Generate a new attribute based on the bridge connection and world context.
     
@@ -65,7 +65,7 @@ function GenerateBridgeAttribute(bridge_node: BridgeNode, world_context: WorldCo
 
 // Function to identify bridgeable situations
 function IdentifyBridgeableSituations(arcs: Arc[]) -> BridgeableSituation[] {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #" 
     Identify all bridgeable situations from the given arcs.
     Return ONLY situations that are marked as bridgeable.
@@ -85,7 +85,7 @@ function IdentifyBridgeableSituations(arcs: Arc[]) -> BridgeableSituation[] {
 
 // Function to find potential bridge connections
 function FindBridgeConnections(bridgeable_situations: BridgeableSituation[]) -> BridgeNode[] {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Find potential bridge connections between situations based on shared elements.
     
@@ -106,7 +106,7 @@ function FindBridgeConnections(bridgeable_situations: BridgeableSituation[]) -> 
 
 // Function to validate bridge connections
 function ValidateBridgeConnections(bridge_nodes: BridgeNode[], arcs: Arc[], world_context: WorldContext) -> BridgeNode[] {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Validate the proposed bridge connections to ensure they make narrative sense.
     

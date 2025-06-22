@@ -40,6 +40,15 @@ class StreamState(BaseModel, Generic[T]):
 class Arc(BaseModel):
     seed: Optional["ArcSeed"] = None
     situations: List["Situation"]
+    outcomes: List["ArcOutcome"]
+
+class ArcOutcome(BaseModel):
+    id: Optional[str] = None
+    description: Optional[str] = None
+    internal_hint: Optional[str] = None
+    internal_justification: Optional[str] = None
+    tags: List[str]
+    estimated_duration: Optional[int] = None
 
 class ArcSeed(BaseModel):
     title: Optional[str] = None
@@ -72,6 +81,11 @@ class BridgeableSituation(BaseModel):
 class Choice(BaseModel):
     id: Optional[str] = None
     text: Optional[str] = None
+    dialogue_response: Optional[str] = None
+    choice_type: Optional[str] = None
+    player_perspective: Optional[str] = None
+    emotional_tone: Optional[str] = None
+    body_language: Optional[str] = None
     requirements: Dict[str, Optional[int]]
     attributes_gained: List["PlayerAttribute"]
     attributes_lost: List[str]
@@ -79,6 +93,9 @@ class Choice(BaseModel):
     next_situation_id: Optional[str] = None
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+    new_npcs: List["NPC"]
+    new_factions: List["Faction"]
+    new_technologies: List["Technology"]
 
 class District(BaseModel):
     id: Optional[str] = None
@@ -200,13 +217,33 @@ class Resume(BaseModel):
 class Situation(BaseModel):
     id: Optional[str] = None
     description: Optional[str] = None
+    player_perspective_description: Optional[str] = None
     choices: List["Choice"]
-    requirements: Dict[str, Optional[int]]
+    stat_requirements: List["StatRequirement"]
     consequences: Dict[str, Optional[str]]
     bridgeable: Optional[bool] = None
     context_tags: List[str]
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class StatDescriptors(BaseModel):
+    might_descriptors: Dict[str, Optional[str]]
+    insight_descriptors: Dict[str, Optional[str]]
+    nimbleness_descriptors: Dict[str, Optional[str]]
+    destiny_descriptors: Dict[str, Optional[str]]
+    savvy_descriptors: Dict[str, Optional[str]]
+    expertise_descriptors: Dict[str, Optional[str]]
+    tenacity_descriptors: Dict[str, Optional[str]]
+    station_descriptors: Dict[str, Optional[str]]
+    opulence_descriptors: Dict[str, Optional[str]]
+    celebrity_descriptors: Dict[str, Optional[str]]
+    integrity_descriptors: Dict[str, Optional[str]]
+    allure_descriptors: Dict[str, Optional[str]]
+    lineage_descriptors: Dict[str, Optional[str]]
+
+class StatRequirement(BaseModel):
+    attribute_name: Optional[Union[Literal["might"], Literal["insight"], Literal["nimbleness"], Literal["destiny"], Literal["savvy"], Literal["expertise"], Literal["tenacity"], Literal["station"], Literal["opulence"], Literal["celebrity"], Literal["integrity"], Literal["allure"], Literal["lineage"]]] = None
+    min_value: Optional[int] = None
 
 class Technology(BaseModel):
     name: Optional[str] = None

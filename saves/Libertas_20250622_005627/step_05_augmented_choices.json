@@ -1,0 +1,1782 @@
+{
+  "world_context": {
+    "seed": {
+      "name": "Libertas",
+      "themes": [
+        "cyberpunk",
+        "dystopia",
+        "late stage capitalism",
+        "AI rights"
+      ],
+      "high_concept": "\nAn isolated, libertarian society in the near (100 years) future. \nSociety is highly stratified.\nMost people have cybernetic enhancements, some of which are absolutely necessay for daily life.\nPollution and climate change has rendered indoor spaces more valuable than outdoor spaces.\nA handful of corporations have a weak grip on the city. Formal governments have largely collapsed.\nLarge portions of the city are illegal, ramshackle \"open blocks\" which resemble Kowloon Walled City.\nCrime that does not damage corporations' property or employees is tolerated when convenient.\n",
+      "internal_hint": "",
+      "internal_justification": ""
+    },
+    "technologies": [
+      {
+        "name": "Merged",
+        "description": "A mix of many languages. It is spoken using translation and transliteration implants. Common is the only remaining language that is taught formally.",
+        "impact": "Merged is the default language of the city. It is a mix of many languages, and is spoken by almost everyone. It is the default language for almost all communication.",
+        "limitations": "If your translation implant is disabled or damaged, you can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. Phobos natives won't understand you, and it's unlikely that people from outside Libertas will, either.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Common",
+        "description": "The only remaining language that is taught formally. Only Phobos citizens speak it. It is a mix of Latin and Greek, with a rhythmic cadence of syllables that sounds reminiscient of Korean.",
+        "impact": "Phobos's primary language, which they are intentionally cliquey and exlcusionary with. Most people have no reason to speak or learn Common, so those that do can sometimes understand their surroundings better.",
+        "limitations": "Common is inherently exclusive, and Phobos uses it to keep outsiders out. It is also a very difficult language to learn, and most people don't bother.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "name": "Translation Implants",
+        "description": "Implants that allow you to translate and transliterate languages. They do not allow you to speak Common. Almost everyone in Libertas has a translation implant, and as a result language has become almost unrecognizable. Everyone just uses 'Merged' for shorthand.",
+        "impact": "Almost everyone in Libertas speaks Merged, a language that emerged as a result of everyone having these implants. As a result, speech is impossible without it.",
+        "limitations": "If the implant is disabled or damaged, the user can't speak or understand others. Because the implant is inside of the brain, this is rare, except in cases that would have already been fatal. The translation implant does NOT allow the user to speak Common, which must be learned the old fashioned way.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Implant Sickness",
+        "description": "Implants can cause a variety of symptoms, including but not limited to: nausea, dizziness, confusion, hallucinations, coma, and death. A drug called PHQ-9, often referred to on the street as 'Jolt' reverses the implant sickness, but only temporarily.",
+        "impact": "Implant sickness is dreaded, but common. Most cases are treatable. Rarely, someone becomes 'broken', a slang term for someone whose implants have failed entirely.",
+        "limitations": "Implant sickness can be mitigated with treatments fairly easily. A 'technician', or implant specialist, can remove the damaged connections and/or replace implants as needed.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Jolt / PHQ-9",
+        "description": "A drug manufactured by Vextros that reverses the symptoms of implant sickness. It's often dispensed by autoinjectors that accept pink cartridges. It is often referred to on the street as 'Jolt'.  Each successive use of PHQ-9 becomes less effective. PHQ-9 also causes euphoria and sedation, in a manner similar to ketamine.",
+        "impact": "PHQ-9 treats implant sickness, which occurs often especially with lower quality implants. 'Jolt' dens litter the city, not because of implant sickness, but because the drug also causes intense euphoria.",
+        "limitations": "PHQ-9 is addictive, and each successive use of PHQ-9 becomes less effective. It's also manufactured solely by Vextros, and they could hypothetically withhold their supply.",
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Nutrax",
+        "description": "A meal replacement made by Vextros. It comes in a wide variety of flavors and consistencies, and is created by reprocessing minerals and nitrogen found through the city's mining operations. Pure Nutrax is actually pretty good, but most of the time it's been adulterated, usually by Vextros itself. Vextros adds everything from sawdust to pharmaceuticals they feel like testing.",
+        "impact": "Nutrax is a strict necessity for some parts of the population because it's often very affordable.",
+        "limitations": "Nutrax is often adulterated, and can cause nutritional deficiencies and malnutrition.",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "factions": [
+      {
+        "name": "Vextros",
+        "ideology": "Essentially a corporation that has grown to be the size of a government. Believes that they are entitled to a say in almost all matters. Prioritizes order to justice whenever such a choice presents itself.",
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "The Open Blocks",
+        "ideology": "Anarchistic, anti-corporate, and anti-authoritarian. Violence is seen as morally good if it is used to protect the community. It is understood that every open block may follow very different rules, and their ability to remain organized depends on their consent to be self-governing. Tyrannical or dysfunctional open blocks are often rooted out by groups of residents.",
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Phobos Consultancy",
+        "ideology": null,
+        "territory": null,
+        "influence_level": 10,
+        "relationships": null,
+        "internal_hint": null,
+        "internal_justification": null
+      },
+      {
+        "name": "Project Sunset",
+        "ideology": null,
+        "territory": null,
+        "influence_level": 10,
+        "relationships": {
+          "Alan Carlsile": "enemy. Alan hates Sunset, partially for causing Scramble, partially because he believes Regina died as a result of her arrogance. He views Sunset as a threat to the sentience of humans. Alan artificially extended his life for as long as possible to try and find a way to undo what Regina did.",
+          "Vextros": "enemy"
+        },
+        "internal_hint": "The player, or a significant NPC, might become the ADMINISTRATOR.",
+        "internal_justification": null
+      }
+    ],
+    "districts": [
+      {
+        "id": "The Akropolis",
+        "traits": [
+          "cave",
+          "underground",
+          "military",
+          "authoritarian"
+        ],
+        "hazards": [
+          "draconian punishments",
+          "anti-corporate sentiment",
+          "anti-outsider sentiment"
+        ],
+        "factions": [
+          "Phobos Consultancy"
+        ],
+        "description": "The Akropolis is an underground city built inside a cave system. It is a far-right authoritarian society that idolizes military service and especially people who pass \"selection\" tests.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "Crescent Center",
+        "traits": [
+          "megastructure",
+          "55 stories",
+          "atrium",
+          "artificial garden",
+          "opulent"
+        ],
+        "hazards": [
+          "crime",
+          "poverty",
+          "homelessness",
+          "stratified society"
+        ],
+        "factions": [
+          "Vextros",
+          "The Open Blocks"
+        ],
+        "description": "A 55 story tall megastructure that is home to roughly 50,000 people. Most of the city's other buildings are connected by tunnels, legally built or not. Higher levels of Crescent Center are generally more affluent. Every 10 levels, there is an Atrium, which creates a large open space with balconies on each level overlooking an artificial garden. This stratifies each group of 10 levels together - an Atrium on 0, 10, 20, 30, 40, 50. The Level 50 Atrium is ludicrously opulent, Level 0 is largely uninhabitable.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "One Vextros Way",
+        "traits": [
+          "corporate campus",
+          "Vextros",
+          "hillside",
+          "air purification",
+          "water purification"
+        ],
+        "hazards": [
+          "corporate headquarters",
+          "trespassers will be shot"
+        ],
+        "factions": [
+          "Vextros"
+        ],
+        "description": "The headquarters of Vextros. It's located on a hillside overlooking Libertas. Huge air and water purification systems keep the corporate campus pristine and habitable outdoors except in extreme conditions.",
+        "internal_hint": "",
+        "internal_justification": ""
+      },
+      {
+        "id": "The Lower Quarter",
+        "traits": [
+          "nuclear wasteland",
+          "radioactive",
+          "contaminated",
+          "uninhabitable"
+        ],
+        "hazards": [
+          "radiation",
+          "heavy metal poisoning",
+          "contaminated water",
+          "contaminated air",
+          "contaminated soil"
+        ],
+        "factions": [
+          "Project Sunset"
+        ],
+        "description": "A nuclear wasteland that is uninhabitable for more than a few hours at a time. It is the result of a lab explosion at Sunset Laboratories.",
+        "internal_hint": "",
+        "internal_justification": ""
+      }
+    ],
+    "npcs": [
+      {
+        "id": "Alan Carlsile",
+        "name": "Alan Carlsile",
+        "role": "CEO of Vextros",
+        "description": "123 year old CEO of Vextros. He is the only person who knows about Sunset. He has been trying to undo Scramble so that the city can escape isolation. He wants Sunset to be dismantled more than anything else, and considers it to a threat to humanity. He is often regarded by others as a sociopath, but it's more accurate to say that he's singularly focused on undoing Regina's mistake, and isn't concerned with anything else.",
+        "personality_traits": [
+          "arrogant",
+          "selfish",
+          "greedy",
+          "power-hungry"
+        ],
+        "relationships": {
+          "Regina Carlsile": "enemy, sister",
+          "Vextros": "CEO"
+        },
+        "faction_affiliations": [
+          "Vextros"
+        ],
+        "location_id": "One Vextros Way",
+        "internal_hint": null,
+        "internal_justification": null
+      }
+    ],
+    "tension_sliders": {
+      "violence": 7,
+      "mystery": 4,
+      "technology": 6,
+      "society": 5,
+      "environment": 3,
+      "economy": 2,
+      "politics": 10
+    }
+  },
+  "player_state": {
+    "name": "Sierra Violet",
+    "stats": {
+      "might": 10,
+      "insight": 10,
+      "nimbleness": 10,
+      "destiny": 10,
+      "savvy": 10,
+      "expertise": 10,
+      "tenacity": 10,
+      "station": 10,
+      "opulence": 10,
+      "celebrity": 10,
+      "integrity": 10,
+      "allure": 10,
+      "lineage": 10
+    },
+    "attributes": [
+      {
+        "id": "grudge",
+        "type": "status",
+        "description": "A grudge against Vextros.",
+        "stat_mods": null
+      }
+    ],
+    "profile": {
+      "narrative_summary": "A grungy, 27 year old woman with a grudge against Vextros.",
+      "key_traits": [
+        "grungy",
+        "27 year old",
+        "woman",
+        "grudge against Vextros"
+      ],
+      "background_hints": []
+    },
+    "history": []
+  },
+  "generation_step": 5,
+  "step_name": "augmented_choices",
+  "choice_history": [],
+  "available_choices": [],
+  "arcs": [
+    {
+      "id": "Echoes Beneath the Akropolis: Shadows of Selection",
+      "situations": {
+        "root_echoes_beneath_akropolis_001": {
+          "id": "root_echoes_beneath_akropolis_001",
+          "title": "In the dimly lit underpass near one of The Akropolis' selection chambers, Sierra Violet encounters a jittery informant, a low-ranking member of Phobos Consultancy. The air reeks of damp stone and metallic tension as the informant beckons Sierra closer, whispering about the rigged nature of the brutal selection tests. Suddenly, footsteps echo\u2014military enforcers are patrolling the area, their gaze sharp and unforgiving. Sierra must navigate this precarious moment: engage the informant, evade the patrol, or seize an opportunity for a discreet questioning.",
+          "description": "In the dimly lit underpass near one of The Akropolis' selection chambers, Sierra Violet encounters a jittery informant, a low-ranking member of Phobos Consultancy. The air reeks of damp stone and metallic tension as the informant beckons Sierra closer, whispering about the rigged nature of the brutal selection tests. Suddenly, footsteps echo\u2014military enforcers are patrolling the area, their gaze sharp and unforgiving. Sierra must navigate this precarious moment: engage the informant, evade the patrol, or seize an opportunity for a discreet questioning.",
+          "choices": [
+            {
+              "id": "choice_ask_for_details",
+              "text": "Press the informant for specifics about the rigged selection tests.",
+              "dialogue_response": "I need to know exactly how they're manipulating the selection. Tell me everything, now.",
+              "choice_type": "dialogue",
+              "player_perspective": "You fix the informant with a hard stare, letting no room for evasion. Their eyes widen, and they begin divulging snippets of coded schedules and coercive tactics hidden beneath the surface trials.",
+              "emotional_tone": "urgent and interrogative",
+              "body_language": "Leaning in close, fists clenched at your sides, voice low but intense.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "info_selection_rigged",
+                  "type": "status",
+                  "description": "Gained knowledge about the rigged nature of the selection tests.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {},
+              "next_situation_id": "intel_debrief_akropolis_002",
+              "internal_hint": "Initiate detailed intel gathering to deepen understanding of Phobos Consultancy's manipulation.",
+              "internal_justification": "Directs player to uncover crucial plot details early, advancing the conspiracy narrative and enabling deeper immersion."
+            },
+            {
+              "id": "choice_silently_withdraw",
+              "text": "Disappear silently into the tunnels, avoiding confrontation and the approaching patrol.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "You gesture subtly at the informant to stay quiet and slip back into the maze of shadows. The patrol's heavy footsteps grow louder, but you melt into the darkness, heart pounding yet unseen.",
+              "emotional_tone": "cautious and evasive",
+              "body_language": "Eyes scanning exits, body pressed low against the damp walls, breathing shallow.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "nimbleness": 1
+              },
+              "next_situation_id": "tunnel_escape_akropolis_003",
+              "internal_hint": "Encourages stealth and survival tactics when confronted by immediate threats.",
+              "internal_justification": "Provides alternative approach emphasizing the player's urgency and prudence in a hostile environment."
+            },
+            {
+              "id": "choice_alert_patrol",
+              "text": "Deliberately distract or provoke the patrol to create chaos and cover the informant's escape.",
+              "dialogue_response": "Hey! Over here! You think you can hide secrets from us?",
+              "choice_type": "dialogue",
+              "player_perspective": "Your voice rings out, sharp and loud, drawing the patrol's attention away from the informant. They jerk weapons free, scanning for the source. The informant melts away in the confusion, but now you\u2019re in the spotlight.",
+              "emotional_tone": "bold and confrontational",
+              "body_language": "Stepping into the scant light, fists raised slightly, posture aggressive.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "spotlight",
+                  "type": "status",
+                  "description": "Marked by Akropolis enforcers as a person of interest.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "might": 1
+              },
+              "next_situation_id": "enforcer_confrontation_akropolis_004",
+              "internal_hint": "Creates immediate conflict and attention on the player, raising stakes.",
+              "internal_justification": "Drives tension and forces players into risky social confrontations, aligning with arc tone."
+            },
+            {
+              "id": "choice_question_informant_about_vextros",
+              "text": "Shift the questioning to how Vextros might be connected to these underground machinations.",
+              "dialogue_response": "What\u2019s Vextros got to do with this? I have a score to settle.",
+              "choice_type": "dialogue",
+              "player_perspective": "Your voice hardens mentioning Vextros. The informant shivers visibly. \"They pull strings too,\" they whisper, \"but that\u2019s a different beast. Dangerous to talk about.\"",
+              "emotional_tone": "determined and personal",
+              "body_language": "Narrowed eyes, jaw clenched, posture steadfast.",
+              "requirements": {
+                "grudge": 1
+              },
+              "attributes_gained": [
+                {
+                  "id": "info_vextros_shadow",
+                  "type": "status",
+                  "description": "Gained knowledge of Vextros' shadow influence in Akropolis.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "intel_vextros_connection_005",
+              "internal_hint": "Utilizes player's personal grudge to introduce deeper faction interplay.",
+              "internal_justification": "Weaves personal vendetta into broader plot, enriching character agency and faction complexity."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {
+            "intel_selection_rigged": "Unlocks deeper plot threads about Phobos Consultancy's manipulation of selection tests.",
+            "spotlight": "Raises difficulty for stealth, potential for enforcer confrontations.",
+            "info_vextros_shadow": "Complicates player's path with intertwined faction politics.",
+            "nimbleness": "Grants increased chance to evade patrols or navigate tunnels."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Unlocks deeper plot threads about Phobos Consultancy's manipulation of selection tests.",
+            "Raises difficulty for stealth, potential for enforcer confrontations.",
+            "Complicates player's path with intertwined faction politics.",
+            "Grants increased chance to evade patrols or navigate tunnels."
+          ]
+        },
+        "informant_whispers_rigged_001": {
+          "id": "informant_whispers_rigged_001",
+          "title": "The informant leans in, voice low and urgent. \"They don\u2019t just rig the results\u2014they set impossible traps to weed out anyone they don\u2019t want surviving. It\u2019s all about control, Sierra. Do you want the details?\" Their eyes flicker nervously toward the approaching patrol.",
+          "description": "The informant leans in, voice low and urgent. \"They don\u2019t just rig the results\u2014they set impossible traps to weed out anyone they don\u2019t want surviving. It\u2019s all about control, Sierra. Do you want the details?\" Their eyes flicker nervously toward the approaching patrol.",
+          "choices": [
+            {
+              "id": "choice_insist_more_details",
+              "text": "Press for specifics on the traps and how they manipulate outcomes.",
+              "dialogue_response": "\"What kind of traps? How exactly do they decide who fails?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your gaze sharpens as you demand clarity. The informant swallows, sweat gleaming on their brow before beginning a halting explanation of hidden sensors, false data, and impossible physical demands.",
+              "emotional_tone": "urgent and interrogative",
+              "body_language": "Leaning forward, fists clenched slightly, eyes locked on theirs.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "info_selection_traps",
+                  "type": "status",
+                  "description": "Learned about the brutal pitfalls engineered into the selection tests.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "informant_reacts_enforcers_002",
+              "internal_hint": "Follow up on informant\u2019s information about rigged traps to deepen plot.",
+              "internal_justification": "Focused dialogue choice emphasizes gathering complex intel to fuel later confrontations and player strategy."
+            },
+            {
+              "id": "choice_show_empathy",
+              "text": "Soften your tone and show understanding to build trust.",
+              "dialogue_response": "\"Sounds brutal... I get why you\u2019re scared. I\u2019m on your side.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You let your voice lower, aiming to calm their jittery nerves. The informant's eyes flicker with a mix of relief and confusion, hesitant but willing to share more.",
+              "emotional_tone": "empathetic and reassuring",
+              "body_language": "Relaxed shoulders, gentle nod, open palms glimpsed briefly.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "trust_informant",
+                  "type": "status",
+                  "description": "Gained initial trust from the informant, enabling deeper cooperation.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "informant_deepens_trust_003",
+              "internal_hint": "Emphasizes relationship building through empathy before extracting more info.",
+              "internal_justification": "Adds a softer narrative beat allowing alternative approaches to conflict and trust."
+            },
+            {
+              "id": "choice_finger_tap_foreigners",
+              "text": "Mention anti-outsider hostility to see if it affects the informant\u2019s willingness.",
+              "dialogue_response": "\"They hate us outsiders. Does that make your life harder?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You drop your voice to a conspiratorial whisper, gauging their response to the city\u2019s grim prejudices. They glance quickly over their shoulder, then nod stiffly.",
+              "emotional_tone": "probing and cautious",
+              "body_language": "Eyes darting, slight head tilt suggesting curiosity and concern.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "informant_responds_hostility_004",
+              "internal_hint": "Explores social tension layers influencing character loyalties and reveal biases.",
+              "internal_justification": "Incorporates world-building through character insight and potential faction friction."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {
+            "info_selection_traps": "Unfolds detailed rigging methods.",
+            "trust_informant": "Unlocks alternative dialogue later.",
+            "savvy": "Improves social calibration."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Unfolds detailed rigging methods.",
+            "Unlocks alternative dialogue later.",
+            "Improves social calibration."
+          ]
+        },
+        "informant_reacts_enforcers_002": {
+          "id": "informant_reacts_enforcers_002",
+          "title": "Suddenly, the jagged echo of military boots reverberates nearby. The informant's pupils dilate as they freeze, whispering, \"They\u2019re coming. What do we do?\" Their hand twitches toward a hidden pistol holster.",
+          "description": "Suddenly, the jagged echo of military boots reverberates nearby. The informant's pupils dilate as they freeze, whispering, \"They\u2019re coming. What do we do?\" Their hand twitches toward a hidden pistol holster.",
+          "choices": [
+            {
+              "id": "choice_silently_signal_escape",
+              "text": "Signal the informant to follow as you slip into the dark side tunnel.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "You clutch at their sleeve with quick fingers, pulling them into the shadowed maw of an unlit tunnel. Your heart hammers as boots thunder past your hiding spot like monsters in a storm.",
+              "emotional_tone": "urgent and stealthy",
+              "body_language": "Swift hand gestures, tense crouch, quick shuffling steps.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "nimbleness": 1
+              },
+              "next_situation_id": "tunnel_escape_akropolis_003",
+              "internal_hint": "Leads to stealth escape emphasizing agility and caution.",
+              "internal_justification": "Offers a non-combat escape reinforcing player\u2019s nimbleness and prudence."
+            },
+            {
+              "id": "choice_draw_weapon_to_fight",
+              "text": "Pull your weapon and prepare to defend the informant aggressively.",
+              "dialogue_response": "\"Let them try. I\u2019m not going down quietly.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You flick your fingers to ready your sidearm, muscles coiling. \"Stay behind me,\" you bark. The informant blinks rapidly, surprised, but backs away into the shadows cautiously.",
+              "emotional_tone": "defiant and protective",
+              "body_language": "Steely gaze, squared shoulders, weapon subtly drawn but ready.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "spotlight",
+                  "type": "status",
+                  "description": "Marked by Akropolis enforcers as a person of interest.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "might": 1
+              },
+              "next_situation_id": "enforcer_confrontation_akropolis_004",
+              "internal_hint": "Triggers direct confrontation with enforcers raising tension.",
+              "internal_justification": "Places player into immediate conflict to heighten stakes and test resolve."
+            },
+            {
+              "id": "choice_hold_informant_back",
+              "text": "Quietly hush the informant and gesture to stay hidden against the wall.",
+              "dialogue_response": "\"Stay quiet. Let them pass. No sudden moves.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You grip their arm, pressing them against the stone wall, breath slow and controlled. The harsh light of flashlights scrapes past, missing your shadow by inches.",
+              "emotional_tone": "cautious and protective",
+              "body_language": "Finger pressed to lips, steady hands holding tightly but gently.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "nimbleness": 1
+              },
+              "next_situation_id": "tunnel_hideout_akropolis_005",
+              "internal_hint": "Encourages stealth through freeze and hide mechanics.",
+              "internal_justification": "Enables player to avoid confrontation through calm presence."
+            }
+          ],
+          "stat_requirements": {
+            "info_selection_traps": 1
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "nimbleness": "Increased stealth effectiveness.",
+            "spotlight": "Elevated danger from patrols."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Increased stealth effectiveness.",
+            "Elevated danger from patrols."
+          ]
+        },
+        "intel_vextros_connection_005": {
+          "id": "intel_vextros_connection_005",
+          "title": "The informant shivers as you mention Vextros. \"They\u2019re the puppetmasters behind the curtain, but the Akropolis won\u2019t admit it openly. Vextros uses the selection to keep their hands clean, but profits from both winners and losers\u2014feeding on the desperation underground.\" Their voice cracks with fear and accusation.",
+          "description": "The informant shivers as you mention Vextros. \"They\u2019re the puppetmasters behind the curtain, but the Akropolis won\u2019t admit it openly. Vextros uses the selection to keep their hands clean, but profits from both winners and losers\u2014feeding on the desperation underground.\" Their voice cracks with fear and accusation.",
+          "choices": [
+            {
+              "id": "choice_probe_vextros_lust_potency",
+              "text": "Press the informant on Vextros\u2019 profits and motivations.",
+              "dialogue_response": "\"How exactly does Vextros profit from the selection? What do they gain?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your questions cut through the tension, seeking facts to bolster your vendetta. The informant exhales heavily, revealing how Vextros controls medical supplies, tech, and information trafficking tied to the selection survivors.",
+              "emotional_tone": "investigative and determined",
+              "body_language": "Steady eye contact, hands folded in front, thoughtful expression.",
+              "requirements": {
+                "grudge": 1
+              },
+              "attributes_gained": [
+                {
+                  "id": "info_vextros_motives",
+                  "type": "status",
+                  "description": "Gained concrete knowledge of Vextros' corrupt exploitation of the selection process.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "informant_warning_vextros_006",
+              "internal_hint": "Deepen player\u2019s understanding of Vextros' exploitation connecting to grudge.",
+              "internal_justification": "Creates overlap between player personal stakes and wider conspiracy."
+            },
+            {
+              "id": "choice_challenge_informant_fear",
+              "text": "Question the informant's fear \u2014 is it paranoia or truth?",
+              "dialogue_response": "\"Are you sure this isn't just paranoia? What proof do you have?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You press firmly, studying their reaction. Their eyes flash angrily, then weary resignation. \"Proof\u2019s hard to come by in here,\" they spit, voice bitter. \"But look around\u2014do you see anyone walking free who\u2019s not bought or broken?\"",
+              "emotional_tone": "skeptical and challenging",
+              "body_language": "Arms crossed, head tilted slightly, brow furrowed.",
+              "requirements": {
+                "grudge": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1
+              },
+              "next_situation_id": "informant_gives_partial_proof_007",
+              "internal_hint": "Tests reliability of informant and player's critical thinking.",
+              "internal_justification": "Introduces narrative tension over trustworthiness and paranoia in conspiracies."
+            },
+            {
+              "id": "choice_show_solidarity_vextros",
+              "text": "Express your personal grudge openly to rally the informant's support.",
+              "dialogue_response": "\"I\u2019ve got a grudge against them too. Let\u2019s bring their lies into the light, together.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You meet their eyes with raw conviction, feeling a bond forged in shared injustice. The informant\u2019s posture relaxes, a spark of hope flickering through their wary gaze.",
+              "emotional_tone": "passionate and unifying",
+              "body_language": "Straight posture, steady gaze, voice firm yet warm.",
+              "requirements": {
+                "grudge": 1
+              },
+              "attributes_gained": [
+                {
+                  "id": "informant_alliance",
+                  "type": "status",
+                  "description": "Informant commits to supporting Sierra, strengthening resistance.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "informant_shares_secret_plans_008",
+              "internal_hint": "Calls on shared hostility to build alliance and advance plot.",
+              "internal_justification": "Creates a character relationship tied to player\u2019s emotional motivation enhancing depth and stakes."
+            }
+          ],
+          "stat_requirements": {
+            "grudge": 1
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "info_vextros_motives": "Advances knowledge of faction corruption.",
+            "informant_alliance": "Gains NPC support."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Advances knowledge of faction corruption.",
+            "Gains NPC support."
+          ]
+        },
+        "informant_deepens_trust_003": {
+          "id": "informant_deepens_trust_003",
+          "title": "The informant\u2019s shoulders relax slightly. \"Okay, you seem like the real deal,\" they whisper. \"I can tell you about how the test controls the candidates\u2019 implants during the trial\u2014turning our own cybernetics against us. It\u2019s all to break the weak-willed. And Vextros provides the control tech... a cold business in human suffering.\"",
+          "description": "The informant\u2019s shoulders relax slightly. \"Okay, you seem like the real deal,\" they whisper. \"I can tell you about how the test controls the candidates\u2019 implants during the trial\u2014turning our own cybernetics against us. It\u2019s all to break the weak-willed. And Vextros provides the control tech... a cold business in human suffering.\"",
+          "choices": [
+            {
+              "id": "choice_express_outrage",
+              "text": "Voice your disgust clearly, showing resolve to fight the system.",
+              "dialogue_response": "\"That\u2019s monstrous. They\u2019re weaponizing our own bodies? We have to stop this.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You clench your fists tightly, jaw set as your outrage simmers beneath your measured voice. The informant gives a quick, approving nod.",
+              "emotional_tone": "furious and resolute",
+              "body_language": "Fists clenched, squared stance, eyes blazing.",
+              "requirements": {
+                "trust_informant": 1
+              },
+              "attributes_gained": [
+                {
+                  "id": "resolve_fight_control",
+                  "type": "status",
+                  "description": "Resolved to actively oppose implant control mechanisms through direct action.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "might": 1
+              },
+              "next_situation_id": "informant_suggests_counterplan_009",
+              "internal_hint": "Player embraces active opposition to corrupted tech during selection.",
+              "internal_justification": "Elevates player agency and frames future conflict."
+            },
+            {
+              "id": "choice_question_implant_mechanics",
+              "text": "Seek technical details on how implants are manipulated during selection.",
+              "dialogue_response": "\"Explain how the implants are controlled and what they do to the test-takers.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You lean in, craving details not just for justice sake, but tactical advantage. The informant hesitates, then explains invasive firmware overrides, forced shutdowns, and sensory overload protocols.",
+              "emotional_tone": "curious and focused",
+              "body_language": "Tilted head, furrowed brow, steady gaze.",
+              "requirements": {
+                "trust_informant": 1
+              },
+              "attributes_gained": [
+                {
+                  "id": "info_implant_manipulation",
+                  "type": "status",
+                  "description": "Understood the technical methods Vextros and Phobos use to control implants in trials.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "expertise": 1
+              },
+              "next_situation_id": "informant_warns_implant_risks_010",
+              "internal_hint": "Advances technical understanding of selection test manipulation.",
+              "internal_justification": "Provides another information branch allowing expertise growth and future strategy."
+            },
+            {
+              "id": "choice_reassure_informant_backup",
+              "text": "Assure the informant you can protect them if things go sideways.",
+              "dialogue_response": "\"Don\u2019t worry. I won\u2019t let them silence you. We\u2019re in this together.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You reach a steadying hand toward their shoulder. Their body jitters but slowly relaxes as they whisper back, \"I wasn\u2019t sure anyone was truly on our side down here.\"",
+              "emotional_tone": "comforting and confident",
+              "body_language": "Open stance, hand resting lightly on arm, warm eyes.",
+              "requirements": {
+                "trust_informant": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "informant_shares_secret_network_011",
+              "internal_hint": "Strengthens alliance feelings and potential support from informant.",
+              "internal_justification": "Builds emotional solidarity enhancing player-NPC dynamics."
+            }
+          ],
+          "stat_requirements": {
+            "trust_informant": 1
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "resolve_fight_control": "Player motivated for direct opposition.",
+            "info_implant_manipulation": "Technical intel unlocks options.",
+            "integrity": "Relationship trust deepens."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Player motivated for direct opposition.",
+            "Technical intel unlocks options.",
+            "Relationship trust deepens."
+          ]
+        },
+        "informant_responds_hostility_004": {
+          "id": "informant_responds_hostility_004",
+          "title": "The informant nods stiffly, voice lowered. \"Outside, they keep eyes peeled for any sign of outsiders poking their noses. Here in the Akropolis, they treat us like we\u2019re expendable. Vextros puppet or not, surviving is about looking tougher than you are.\" They narrow their eyes at you. \"Don\u2019t stick out.\"",
+          "description": "The informant nods stiffly, voice lowered. \"Outside, they keep eyes peeled for any sign of outsiders poking their noses. Here in the Akropolis, they treat us like we\u2019re expendable. Vextros puppet or not, surviving is about looking tougher than you are.\" They narrow their eyes at you. \"Don\u2019t stick out.\"",
+          "choices": [
+            {
+              "id": "choice_silence_respectful",
+              "text": "Stay silent, acknowledging the harsh reality without pressing further.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "You nod slightly, giving a small tight smile that says everything needn't be said. Sometimes silence is the most potent signal.",
+              "emotional_tone": "understanding and cautious",
+              "body_language": "Nods slowly, neutral face, controlled breathing.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "informant_briefs_nextsteps_012",
+              "internal_hint": "Use silence to build nonverbal rapport avoiding retaliation.",
+              "internal_justification": "Grants player option to maintain low profile during tense moment."
+            },
+            {
+              "id": "choice_challenge_anti_outsider_sentiment",
+              "text": "Question the logic of dismissing outsiders as weaker.",
+              "dialogue_response": "\"Saying outsiders are weaker just feeds their divide and conquer. How do you survive thinking like that?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your voice carries a challenge laced with genuine concern. The informant\u2019s eyes flash briefly with frustration, then retreating. \"It\u2019s not about who\u2019s weak, it\u2019s about who\u2019s prepared to do what\u2019s necessary.\"\n",
+              "emotional_tone": "critical and probing",
+              "body_language": "Eyebrows raised, finger tapping chin, stepping slightly forward.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "informant_asks_about_outsider_perspective_013",
+              "internal_hint": "Explores social dynamics and challenges prejudicial mindset.",
+              "internal_justification": "Deepens social conflict and potential character growth."
+            },
+            {
+              "id": "choice_offer_personal_perspective",
+              "text": "Share your own experience as an outsider to build empathy.",
+              "dialogue_response": "\"I\u2019ve been judged the same way. It\u2019s a raw wound to carry. But I\u2019m still standing.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your voice softens, eyes flickering with past pain. The informant\u2019s face tightens, then softens slowly, relating to your hardship.",
+              "emotional_tone": "vulnerable and connective",
+              "body_language": "Relaxed posture, hands loosely at side, steady gaze.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1
+              },
+              "next_situation_id": "informant_shares_hidden_facts_014",
+              "internal_hint": "Utilizes shared vulnerability to advance trust.",
+              "internal_justification": "Fosters NPC empathy and bonds with player."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {
+            "insight": "Increased social awareness.",
+            "integrity": "Deepened connection and trust."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Increased social awareness.",
+            "Deepened connection and trust."
+          ]
+        }
+      },
+      "bridge_nodes": [
+        "root_echoes_beneath_akropolis_001",
+        "informant_whispers_rigged_001",
+        "informant_reacts_enforcers_002",
+        "intel_vextros_connection_005",
+        "informant_deepens_trust_003",
+        "informant_responds_hostility_004"
+      ]
+    },
+    {
+      "id": "Atrium Uprising: Strata and Strife in Crescent Center",
+      "situations": {
+        "atrium_uprising_root": {
+          "id": "atrium_uprising_root",
+          "title": "In the heart of Crescent Center's Level 20 Atrium, the artificial garden buzzes with unrest. A crowd of Open Blocks agitators gather, their chants mixing with the hum of distant surveillance drones. Vextros enforcers stand rigidly near the balconies, eyes scanning for threats. Sierra Violet finds herself caught between these opposing forces, her grudge against Vextros fueling a fire within. Suddenly, a young woman from The Open Blocks, visibly tense but determined, approaches you urgently, whispering about plans to disrupt the oppressive stratum and questioning if you'll stand with them or stay silent. The scene vibrates with a charged atmosphere as both factions prepare to clash over control of this symbolic space.",
+          "description": "In the heart of Crescent Center's Level 20 Atrium, the artificial garden buzzes with unrest. A crowd of Open Blocks agitators gather, their chants mixing with the hum of distant surveillance drones. Vextros enforcers stand rigidly near the balconies, eyes scanning for threats. Sierra Violet finds herself caught between these opposing forces, her grudge against Vextros fueling a fire within. Suddenly, a young woman from The Open Blocks, visibly tense but determined, approaches you urgently, whispering about plans to disrupt the oppressive stratum and questioning if you'll stand with them or stay silent. The scene vibrates with a charged atmosphere as both factions prepare to clash over control of this symbolic space.",
+          "choices": [
+            {
+              "id": "accept_open_blocks_aid",
+              "text": "I stand with you. Let's make them remember who owns this place.",
+              "dialogue_response": "Count me in. They\u2019ve pushed too far for too long.",
+              "choice_type": "dialogue",
+              "player_perspective": "Your resolve sends a flicker of hope across her face. A few others nearby nod in approval, their whispers growing louder with newfound determination. You feel the first step of rebellion pulse beneath your skin.",
+              "emotional_tone": "determined",
+              "body_language": "You square your shoulders, meet her gaze steadily, and clamp your jaw tight.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "ally_open_blocks",
+                  "type": "status",
+                  "description": "Allied with The Open Blocks uprising in Crescent Center.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "savvy": 1
+              },
+              "next_situation_id": "atrium_uprising_planning",
+              "internal_hint": "Player commits to supporting The Open Blocks in the uprising.",
+              "internal_justification": "This choice engages the player directly with the uprising, establishing alliance and giving narrative momentum."
+            },
+            {
+              "id": "refuse_open_blocks_aid",
+              "text": "I can\u2019t risk drawing more attention right now. I\u2019m out.",
+              "dialogue_response": "Not my fight\u2014right now, I need to stay under the radar.",
+              "choice_type": "dialogue",
+              "player_perspective": "The woman\u2019s eyes flicker with disappointment but she nods, understanding the danger. You sense the restless crowd\u2019s tension rising without your involvement; the distance between you and the conflict seems to grow heavier.",
+              "emotional_tone": "cautious",
+              "body_language": "You avoid eye contact, slightly turning away as your jaw tightens in silent warning.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "atrium_uprising_observer",
+              "internal_hint": "Player chooses to stay uninvolved for now, observing the uprising from aside.",
+              "internal_justification": "Offers a non-combat role and allows player to gather more info without immediate commitment."
+            },
+            {
+              "id": "challenge_vextros_enforcer",
+              "text": "Say to the enforcer: 'Your grip on this city tightens, but it will break.'",
+              "dialogue_response": "Your grip on this city tightens, but it will break. People see through your lies.",
+              "choice_type": "dialogue",
+              "player_perspective": "The enforcer\u2019s eyes narrow sharply. A low murmur ripples through the crowd as tension spikes palpably. The standoff feels electric\u2014will words sway or spark violence?",
+              "emotional_tone": "confrontational",
+              "body_language": "You lean forward with a defiant glare, voice low but clear.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "noticed_by_vextros",
+                  "type": "status",
+                  "description": "Marked as a threat by Vextros enforcers.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "allure": -1,
+                "tenacity": 1
+              },
+              "next_situation_id": "atrium_uprising_standoff",
+              "internal_hint": "Player openly challenges Vextros, attracting hostile attention.",
+              "internal_justification": "Heightens conflict and raises stakes through direct provocation, showcasing player's grudge in action."
+            },
+            {
+              "id": "quietly_gather_info",
+              "text": "Eavesdrop on conversations around the Atrium to learn more about The Open Blocks\u2019 plans.",
+              "dialogue_response": null,
+              "choice_type": "investigation",
+              "player_perspective": "You blend into the edges of the crowd, tuning your implants to catch whispered exchanges. Nearby, two Open Blocks members debate strategy, their words fraying with urgency: \"If we don\u2019t control the garden tonight, we lose the symbolic heart of Crescent Center.\" The mention of Vextros\u2019 vulnerabilities sharpens your focus.",
+              "emotional_tone": "curious",
+              "body_language": "You shift subtly, eyes flicking between faces, nodding occasionally as you absorb snippets.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 2,
+                "savvy": 1
+              },
+              "next_situation_id": "atrium_uprising_info_gathered",
+              "internal_hint": "Player gathers tactical intelligence, shaping future options.",
+              "internal_justification": "Encourages player to engage deeply with environment and faction dynamics, allowing informed decisions."
+            },
+            {
+              "id": "show_frustration_with_open_blocks",
+              "text": "Express skepticism: 'Is this just another fight destined to crush the people it claims to save?'",
+              "dialogue_response": "Is this just another fight destined to crush the people it claims to save? I don\u2019t see the difference.",
+              "choice_type": "dialogue",
+              "player_perspective": "Her brows furrow, hurt flickering in her eyes but hardening quickly. Around you, murmurs pulse with both agreement and discomfort. The complexity of rebellion weighs on everyone present.",
+              "emotional_tone": "cynical",
+              "body_language": "You cross your arms tightly, voice rough, gaze distant yet piercing.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "cynical_about_rebellion",
+                  "type": "status",
+                  "description": "Harbors doubts about the effectiveness of The Open Blocks\u2019 uprising.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1,
+                "savvy": -1
+              },
+              "next_situation_id": "atrium_uprising_doubt",
+              "internal_hint": "Player voices doubts on uprising\u2019s impact, increasing narrative nuance.",
+              "internal_justification": "Adds depth to player perspective and fosters potential for internal conflict within the arc."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {
+            "ally_open_blocks": "Player gains allies and active role in uprising; faces greater risks from Vextros.",
+            "noticed_by_vextros": "Player is marked and surveilled by Vextros security, increasing danger.",
+            "cynical_about_rebellion": "Player expresses doubts, creating social friction with more idealistic rebels.",
+            "stat_changes": "Adjust player stats reflecting tension, insight, tenacity, and social standing."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Player gains allies and active role in uprising; faces greater risks from Vextros.",
+            "Player is marked and surveilled by Vextros security, increasing danger.",
+            "Player expresses doubts, creating social friction with more idealistic rebels.",
+            "Adjust player stats reflecting tension, insight, tenacity, and social standing."
+          ]
+        },
+        "atrium_uprising_acceptance_dialogue": {
+          "id": "atrium_uprising_acceptance_dialogue",
+          "title": "The Open Blocks woman leans in closer, her eyes searching yours for a spark of solidarity. Around you, the crowd\u2019s murmurs swell into a chant as the tension thickens. She whispers hurried plans about taking control of the Atrium\u2019s garden tonight and asks: \"Are you ready to be more than a ghost in the shadows?\"",
+          "description": "The Open Blocks woman leans in closer, her eyes searching yours for a spark of solidarity. Around you, the crowd\u2019s murmurs swell into a chant as the tension thickens. She whispers hurried plans about taking control of the Atrium\u2019s garden tonight and asks: \"Are you ready to be more than a ghost in the shadows?\"",
+          "choices": [
+            {
+              "id": "accept_enthusiastically",
+              "text": "Count me in. They\u2019ve pushed too far for too long.",
+              "dialogue_response": "Count me in. They\u2019ve pushed too far for too long.",
+              "choice_type": "dialogue",
+              "player_perspective": "Her face lights with a triumphant smile. Nearby rebels nod approvingly. The air crackles with newfound momentum; your choice is a spark igniting the crowd.",
+              "emotional_tone": "determined",
+              "body_language": "You square your shoulders, meet her gaze steadily, and clamp your jaw tight.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "ally_open_blocks",
+                  "type": "status",
+                  "description": "Allied with The Open Blocks uprising in Crescent Center.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "savvy": 1
+              },
+              "next_situation_id": "atrium_uprising_planning_meeting",
+              "internal_hint": "Player fully commits to joining the uprising and gains trust of Open Blocks.",
+              "internal_justification": "Creates a committed faction alliance, advancing plot and opening new narrative options."
+            },
+            {
+              "id": "hesitate_but_concerned",
+              "text": "I want to help, but is this plan really going to change anything?",
+              "dialogue_response": "I want to help, but is this plan really going to change anything?",
+              "choice_type": "dialogue",
+              "player_perspective": "Her eyes sharpen briefly\u2014challenge met with cautious respect. The crowd\u2019s chant dims into an anxious hum, awaiting reassurance.",
+              "emotional_tone": "cautious",
+              "body_language": "You shift weight between feet, eyes flicking between her and the restless crowd.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "atrium_uprising_planning_meeting",
+              "internal_hint": "Player expresses doubt but remains involved, opening nuanced dialogue.",
+              "internal_justification": "Adds narrative depth by showing inner conflict without rejection."
+            },
+            {
+              "id": "decline_firmly",
+              "text": "I can\u2019t risk this. Too many eyes on me already.",
+              "dialogue_response": "I can\u2019t risk this. Too many eyes on me already.",
+              "choice_type": "dialogue",
+              "player_perspective": "Her lips tighten, a flicker of disappointment in her eyes. Around you, some rebels exchange wary glances. The tension shifts, sensing your withdrawal.",
+              "emotional_tone": "cautious",
+              "body_language": "You avoid eye contact, cross your arms defensively, voice low but resolute.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "atrium_uprising_observer",
+              "internal_hint": "Player refuses to join but stays observant.",
+              "internal_justification": "Allows player to gather info while not committing, preserving options."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {
+            "ally_open_blocks": "Player gains allies and active role in uprising; faces greater risks from Vextros.",
+            "stat_changes": "Reflects player commitment and insight levels."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Player gains allies and active role in uprising; faces greater risks from Vextros.",
+            "Reflects player commitment and insight levels."
+          ]
+        },
+        "atrium_uprising_vextros_standoff": {
+          "id": "atrium_uprising_vextros_standoff",
+          "title": "A tall Vextros enforcer steps forward from the balcony, eyes cold and unblinking as he addresses you with a smirk: \"You\u2019re stirring trouble where none is needed. Step back or face consequences.\" His hand subtly brushes a concealed weapon. The crowd\u2019s roar quiets, tension coiling like a spring.",
+          "description": "A tall Vextros enforcer steps forward from the balcony, eyes cold and unblinking as he addresses you with a smirk: \"You\u2019re stirring trouble where none is needed. Step back or face consequences.\" His hand subtly brushes a concealed weapon. The crowd\u2019s roar quiets, tension coiling like a spring.",
+          "choices": [
+            {
+              "id": "respond_confrontational",
+              "text": "Your grip on this city tightens, but it will break. People see through your lies.",
+              "dialogue_response": "Your grip on this city tightens, but it will break. People see through your lies.",
+              "choice_type": "dialogue",
+              "player_perspective": "His eyes flash with irritation, lips curling into a hostile grin. The crowd murmurs rise\u2014risk balanced on a razor edge.",
+              "emotional_tone": "confrontational",
+              "body_language": "You lean forward with a defiant glare, voice low but clear.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "noticed_by_vextros",
+                  "type": "status",
+                  "description": "Marked as a threat by Vextros enforcers.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "allure": -1,
+                "tenacity": 1
+              },
+              "next_situation_id": "atrium_uprising_standoff_tense",
+              "internal_hint": "Provokes Vextros enforcer into confrontation.",
+              "internal_justification": "Escalates tension and sets up immediate conflict."
+            },
+            {
+              "id": "respond_diplomatic",
+              "text": "There\u2019s no need for violence\u2014let\u2019s find common ground.",
+              "dialogue_response": "There\u2019s no need for violence\u2014let\u2019s find common ground.",
+              "choice_type": "dialogue",
+              "player_perspective": "The enforcer narrows his eyes, evaluating your tone. The crowd quiets cautiously, unsure if this is weakness or strategy.",
+              "emotional_tone": "diplomatic",
+              "body_language": "You raise your hands slightly, voice calm but steady.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1,
+                "tenacity": -1
+              },
+              "next_situation_id": "atrium_uprising_standoff_dialogue",
+              "internal_hint": "Player tries de-escalation with Vextros enforcer.",
+              "internal_justification": "Opens chance for negotiation or gathering info without immediate violence."
+            },
+            {
+              "id": "ignore_and_move",
+              "text": "You dismiss him with a wave and turn back to the crowd.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "The enforcer\u2019s jaw tightens, and he steps closer, fingers twitching near his weapon, but you\u2019ve shifted focus. The tension simmers but doesn\u2019t snap\u2014yet.",
+              "emotional_tone": "defiant",
+              "body_language": "You flick your hand dismissively, shoulders squared away from the threat.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1
+              },
+              "next_situation_id": "atrium_uprising_standoff_ignored",
+              "internal_hint": "Player refuses to engage directly with Vextros enforcer.",
+              "internal_justification": "Subtle choice that risks ire but preserves player agency."
+            }
+          ],
+          "stat_requirements": {
+            "noticed_by_vextros": 1
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "noticed_by_vextros": "Player faces higher surveillance and danger from Vextros security.",
+            "stat_changes": "Adjusts allure, tenacity, and savvy depending on response."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Player faces higher surveillance and danger from Vextros security.",
+            "Adjusts allure, tenacity, and savvy depending on response."
+          ]
+        },
+        "atrium_uprising_planning_meeting": {
+          "id": "atrium_uprising_planning_meeting",
+          "title": "Inside a dim side corridor overlooking the garden, the Open Blocks faction leaders gather around a holographic map flickering faintly. The woman who approached you gestures for you to join. \"We need your eyes and grit,\" she says, voice low but steady. Discussion buzzes about timing, possible infiltrations, and the rally points. You catch fragments of concern about Vextros reinforcements and suspicion of traitors.",
+          "description": "Inside a dim side corridor overlooking the garden, the Open Blocks faction leaders gather around a holographic map flickering faintly. The woman who approached you gestures for you to join. \"We need your eyes and grit,\" she says, voice low but steady. Discussion buzzes about timing, possible infiltrations, and the rally points. You catch fragments of concern about Vextros reinforcements and suspicion of traitors.",
+          "choices": [
+            {
+              "id": "offer_strategy_insight",
+              "text": "We should time the disruption with the shift change. They\u2019ll be weaker, distracted.",
+              "dialogue_response": "We should time the disruption with the shift change. They\u2019ll be weaker, distracted.",
+              "choice_type": "dialogue",
+              "player_perspective": "Heads nod thoughtfully. A grizzled leader claps your shoulder, eyes sharp with newfound respect.",
+              "emotional_tone": "strategic",
+              "body_language": "You lean in, finger tracing points on the map confidently.",
+              "requirements": {
+                "ally_open_blocks": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1,
+                "tenacity": 1
+              },
+              "next_situation_id": "atrium_uprising_preparation",
+              "internal_hint": "Player demonstrates tactical awareness, bolstering trust.",
+              "internal_justification": "Encourages player leadership within uprising, rewarding savvy."
+            },
+            {
+              "id": "express_concerns_about_spies",
+              "text": "How do we know there aren\u2019t Vextros moles in our group?",
+              "dialogue_response": "How do we know there aren\u2019t Vextros moles in our group?",
+              "choice_type": "dialogue",
+              "player_perspective": "Tension tightens. Eyes flicker between rebels, suspicion flashing. The woman who invited you bristles, voice sharp and defensive.",
+              "emotional_tone": "cautious",
+              "body_language": "You fold your arms, gaze scanning faces for signs of deceit.",
+              "requirements": {
+                "ally_open_blocks": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 2,
+                "savvy": -1
+              },
+              "next_situation_id": "atrium_uprising_preparation",
+              "internal_hint": "Player introduces distrust element among rebels.",
+              "internal_justification": "Adds social tension and complexity to faction dynamics."
+            },
+            {
+              "id": "stay_quiet_and_listen",
+              "text": "You listen more than talk, absorbing the plans and undercurrents.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "You nod slowly, your silence a statement amidst the volley of ideas. Whispers reach your implants, and your mind races with possibilities.",
+              "emotional_tone": "thoughtful",
+              "body_language": "You remain still, gaze steady but unreadable.",
+              "requirements": {
+                "ally_open_blocks": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 2
+              },
+              "next_situation_id": "atrium_uprising_preparation",
+              "internal_hint": "Player takes observer role gaining insight.",
+              "internal_justification": "Allows player to build knowledge and trust in faction plans."
+            }
+          ],
+          "stat_requirements": {
+            "ally_open_blocks": 1
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "stat_changes": "Savvy and insight shifted reflecting player input or observation."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Savvy and insight shifted reflecting player input or observation."
+          ]
+        },
+        "atrium_uprising_observer": {
+          "id": "atrium_uprising_observer",
+          "title": "You hang back near a fractured pillar, watching the crowd and listening to snatches of fervent speech and quiet arguments. Nearby, an Open Blocks member eyes you with suspicion but says nothing. Vextros enforcers patrol with practiced vigilance, their presence a constant shadow. You sense the undercurrent of frustration and desperation crackling through the gathering.",
+          "description": "You hang back near a fractured pillar, watching the crowd and listening to snatches of fervent speech and quiet arguments. Nearby, an Open Blocks member eyes you with suspicion but says nothing. Vextros enforcers patrol with practiced vigilance, their presence a constant shadow. You sense the undercurrent of frustration and desperation crackling through the gathering.",
+          "choices": [
+            {
+              "id": "approach_and_request_info",
+              "text": "Quietly approach the woman from Open Blocks to ask more about their plans.",
+              "dialogue_response": "I\u2019m interested. Tell me more about what you hope to accomplish tonight.",
+              "choice_type": "dialogue",
+              "player_perspective": "Her eyes narrow, then soften\u2014a fragile trust forming. She leans in, voice barely above a whisper, words heavy with urgency.",
+              "emotional_tone": "curious",
+              "body_language": "You step forward slowly, hands visible and relaxed.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 2,
+                "savvy": 1
+              },
+              "next_situation_id": "atrium_uprising_info_shared",
+              "internal_hint": "Player opts to build connection despite initial reluctance.",
+              "internal_justification": "Supports narrative depth through relationship building and intelligence gathering."
+            },
+            {
+              "id": "remain_hidden_and_listen",
+              "text": "Keep to the shadows and eavesdrop without revealing yourself.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "You fold into the crowd\u2019s edges, senses sharpening on whispered words and subtle shifts. The tension seems to thicken, waiting to snap.",
+              "emotional_tone": "stealthy",
+              "body_language": "You stay low, expression neutral, eyes scanning.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "atrium_uprising_info_gathered",
+              "internal_hint": "Player chooses intelligence gathering through stealth.",
+              "internal_justification": "Maintains narrative flexibility and fosters information control."
+            },
+            {
+              "id": "leave_area_for_now",
+              "text": "Decide not to get involved and quietly exit the Atrium.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "You slip away from the gathering, footsteps muffled on the concrete. The murmurs fade but the weight of your decision lingers in your chest.",
+              "emotional_tone": "detached",
+              "body_language": "You turn swiftly, shoulders tense as you leave.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": -1
+              },
+              "next_situation_id": "atrium_uprising_aftermath",
+              "internal_hint": "Player avoids immediate action, reducing knowledge.",
+              "internal_justification": "Allows player to defer involvement at cost of insight."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        },
+        "atrium_uprising_cynical_interjection": {
+          "id": "atrium_uprising_cynical_interjection",
+          "title": "In a moment of rising fervor, you voice your doubts about the uprising's prospects. The woman who invited you stiffens, tension flickering across her features as the crowd\u2019s buzz dims into uncertain whispers. Some rebel faces show hardened resolve, others flicker with unease.",
+          "description": "In a moment of rising fervor, you voice your doubts about the uprising's prospects. The woman who invited you stiffens, tension flickering across her features as the crowd\u2019s buzz dims into uncertain whispers. Some rebel faces show hardened resolve, others flicker with unease.",
+          "choices": [
+            {
+              "id": "double_down_on_cynicism",
+              "text": "I\u2019ve seen too many uprisings turn into a cage rather than freedom.",
+              "dialogue_response": "I\u2019ve seen too many uprisings turn into a cage rather than freedom.",
+              "choice_type": "dialogue",
+              "player_perspective": "Whispers ripple through the crowd; some nod in agreement while others narrow their eyes at you. The woman\u2019s jaw tightens, but she doesn\u2019t interrupt.",
+              "emotional_tone": "resigned",
+              "body_language": "You cross your arms, gaze hardening with experience.",
+              "requirements": {
+                "ally_open_blocks": 1
+              },
+              "attributes_gained": [
+                {
+                  "id": "cynical_about_rebellion",
+                  "type": "status",
+                  "description": "Harbors doubts about the effectiveness of The Open Blocks\u2019 uprising.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1,
+                "savvy": -1
+              },
+              "next_situation_id": "atrium_uprising_reaction_to_cynicism",
+              "internal_hint": "Player amplifies skepticism, deepening internal conflict.",
+              "internal_justification": "Creates narrative friction and character complexity."
+            },
+            {
+              "id": "soften_tone",
+              "text": "Maybe I\u2019m just scared of what this all means, but I want to help.",
+              "dialogue_response": "Maybe I\u2019m just scared of what this all means, but I want to help.",
+              "choice_type": "dialogue",
+              "player_perspective": "Her expression softens slightly, a flicker of understanding passing through the tension. The crowd\u2019s whispers quiet to murmurs of empathy.",
+              "emotional_tone": "vulnerable",
+              "body_language": "You lower your gaze briefly, breathing slower.",
+              "requirements": {
+                "ally_open_blocks": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [
+                "cynical_about_rebellion"
+              ],
+              "stat_changes": {
+                "integrity": -1,
+                "tenacity": 1
+              },
+              "next_situation_id": "atrium_uprising_rebuilding_trust",
+              "internal_hint": "Player expresses vulnerability and desire to stay involved.",
+              "internal_justification": "Allows for narrative repair and character growth."
+            },
+            {
+              "id": "redirect_to_action",
+              "text": "Words won't save us. We need to act now, or we lose everything.",
+              "dialogue_response": "Words won't save us. We need to act now, or we lose everything.",
+              "choice_type": "dialogue",
+              "player_perspective": "Murmurs shift back toward urgency. The woman nods sharply. Energy reignites at your challenge.",
+              "emotional_tone": "urgent",
+              "body_language": "You lean in, voice cutting through the doubts.",
+              "requirements": {
+                "ally_open_blocks": 1
+              },
+              "attributes_gained": [],
+              "attributes_lost": [
+                "cynical_about_rebellion"
+              ],
+              "stat_changes": {
+                "tenacity": 2,
+                "insight": -1
+              },
+              "next_situation_id": "atrium_uprising_preparation",
+              "internal_hint": "Player renews commitment, turning skepticism into action.",
+              "internal_justification": "Shifts narrative toward mobilization and momentum."
+            }
+          ],
+          "stat_requirements": {
+            "ally_open_blocks": 1
+          },
+          "attribute_requirements": null,
+          "consequences": {
+            "cynical_about_rebellion": "Creates social friction and internal doubts impacting future interactions.",
+            "stat_changes": "Integrity, tenacity, and savvy affected by player tone."
+          },
+          "is_bridge_node": true,
+          "next_situations": [
+            "Creates social friction and internal doubts impacting future interactions.",
+            "Integrity, tenacity, and savvy affected by player tone."
+          ]
+        }
+      },
+      "bridge_nodes": [
+        "atrium_uprising_root",
+        "atrium_uprising_acceptance_dialogue",
+        "atrium_uprising_vextros_standoff",
+        "atrium_uprising_planning_meeting",
+        "atrium_uprising_observer",
+        "atrium_uprising_cynical_interjection"
+      ]
+    },
+    {
+      "id": "Fissures of Vextros: Sierra's Grudge Reignited",
+      "situations": {
+        "arc1_root_situation": {
+          "id": "arc1_root_situation",
+          "title": "In a dimly lit caf\u00e9 nestled within the labyrinthine alleys of Crescent Center's 20th Atrium, Sierra Violet meets with Roxy, a savvy fixer from The Open Blocks known for her access to contraband PHQ-9 and insider whispers about Vextros corruption. Their whispered conversation balances on a knife-edge as nearby patrons cast wary glances, knowing the caf\u00e9\u2019s open-block patrons harbor more than just stories\u2014they carry grudges. Roxy leans in, voice low. 'Vextros is poisoning more than just Nutrax these days. Got word their PHQ-9 supplies are laced, making users dependent. You sure you want to paw into that hornet\u2019s nest?'",
+          "description": "In a dimly lit caf\u00e9 nestled within the labyrinthine alleys of Crescent Center's 20th Atrium, Sierra Violet meets with Roxy, a savvy fixer from The Open Blocks known for her access to contraband PHQ-9 and insider whispers about Vextros corruption. Their whispered conversation balances on a knife-edge as nearby patrons cast wary glances, knowing the caf\u00e9\u2019s open-block patrons harbor more than just stories\u2014they carry grudges. Roxy leans in, voice low. 'Vextros is poisoning more than just Nutrax these days. Got word their PHQ-9 supplies are laced, making users dependent. You sure you want to paw into that hornet\u2019s nest?'",
+          "choices": [
+            {
+              "id": "choice1_probe_phq9",
+              "text": "Press Roxy for details on Vextros\u2019s PHQ-9 tampering.",
+              "dialogue_response": "\"Tell me exactly what you mean by 'laced'. How deep does their control run?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Roxy\u2019s eyes flash as she lowers her voice. 'It\u2019s subtle\u2014chemical tweaks that increase addiction but lower efficacy. If people don\u2019t get their fix regularly, they crash hard. Vextros keeps \u2019em hooked and desperate. Some say it\u2019s a surveillance tool, too \u2014 monitor dependence, control compliance.'",
+              "emotional_tone": "determined, probing",
+              "body_language": "Leaning forward, eyes locked intently on Roxy\u2019s face.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1,
+                "insight": 1
+              },
+              "next_situation_id": "arc1_investigation_phq9",
+              "internal_hint": "Expands player knowledge on corporate corruption and PHQ-9 addiction.",
+              "internal_justification": "This choice deepens Sierra\u2019s understanding of Vextros\u2019 nefarious reach, providing context for sabotage and resistance."
+            },
+            {
+              "id": "choice2_express_caution",
+              "text": "Caution Roxy about rash moves that might backfire.",
+              "dialogue_response": "\"We have to be smart. Body count and blowback won\u2019t help anyone.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Roxy nods but frowns, \u2018Smart\u2019s good, but slow means they never change. If we don\u2019t shake the system now, the cracks will only deepen.\u2019",
+              "emotional_tone": "measured, wary",
+              "body_language": "Hands folded tightly in lap, face sober.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1,
+                "tenacity": -1
+              },
+              "next_situation_id": "arc1_strategy_discussion",
+              "internal_hint": "Highlights tension between cautious and aggressive approaches to rebellion.",
+              "internal_justification": "This choice sets an alternative path favoring patience and calculation over immediate confrontation."
+            },
+            {
+              "id": "choice3_demand_open_blocks_help",
+              "text": "Push for The Open Blocks to mobilize openly against Vextros.",
+              "dialogue_response": "\"It\u2019s time we rally the Blocks and hit Vextros where it hurts. They\u2019ve bled us long enough.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Roxy\u2019s grin is sharp and brief. \u2018Loud and dirty, huh? Could stir a hornets\u2019 nest, but the Blocks respect guts. You ready for that fire?\u2019",
+              "emotional_tone": "defiant, bold",
+              "body_language": "Slams fist lightly on the tabletop, eyes blazing.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "grudge_mobilized",
+                  "type": "status",
+                  "description": "Sierra\u2019s grudge fuels an incipient alliance with The Open Blocks.",
+                  "stat_mods": null
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "might": 1,
+                "tenacity": 1
+              },
+              "next_situation_id": "arc1_open_blocks_rally",
+              "internal_hint": "Launches potential faction alliance and direct conflict path.",
+              "internal_justification": "This option propels the narrative into factional tensions and grassroots rebellion under Sierra's leadership."
+            },
+            {
+              "id": "choice4_inquire_about_project_sunset",
+              "text": "Ask about Project Sunset\u2019s role in the conflict.",
+              "dialogue_response": "\"What\u2019s Project Sunset got to do with all this chaos?\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Roxy\u2019s face darkens. \u2018They\u2019re the ghost in the machine\u2014Vextros\u2019s rival and secret shadow. Their tech\u2019s wild, and their pushback against Vextros is real, but messy. Getting tangled with their secrets could get us killed or change the game entirely.\u2019",
+              "emotional_tone": "curious, cautious",
+              "body_language": "Eyebrows raised, tilting head slightly.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "expertise": 1,
+                "savvy": 1
+              },
+              "next_situation_id": "arc1_project_sunset_investigation",
+              "internal_hint": "Introduces Project Sunset\u2019s secretive faction into the arc.",
+              "internal_justification": "This choice opens up intrigue regarding faction rivalries and deepens narrative complexity."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        },
+        "arc1_investigation_phq9_1": {
+          "id": "arc1_investigation_phq9_1",
+          "title": "Roxy leans closer, her voice dropping to a wary whisper as the hum of the caf\u00e9 fades into the background. \"You know, the stuff Vextros pumps into their PHQ-9\u2014it's more than just addictive chemicals. They've rigged the dosage to keep people frantic for refills. And the surveillance tags embedded in every cartridge? It's how they track every user, every movement, like a spider\u2019s web.\"",
+          "description": "Roxy leans closer, her voice dropping to a wary whisper as the hum of the caf\u00e9 fades into the background. \"You know, the stuff Vextros pumps into their PHQ-9\u2014it's more than just addictive chemicals. They've rigged the dosage to keep people frantic for refills. And the surveillance tags embedded in every cartridge? It's how they track every user, every movement, like a spider\u2019s web.\"",
+          "choices": [
+            {
+              "id": "arc1_investigation_phq9_1_challenge",
+              "text": "\"That's downright inhuman. How are we supposed to fight something that controls our own bodies?\"",
+              "dialogue_response": "\"Exactly. But knowing their game is step one. Break the supply, disrupt the data. Make their puppets cut their own strings.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your voice barely hides the anger simmering beneath. Roxy nods approvingly, sensing your fire.",
+              "emotional_tone": "defiant, rallying",
+              "body_language": "Clenched fists resting on the table, eyes burning with resolve.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 1,
+                "insight": 1
+              },
+              "next_situation_id": "arc1_investigation_phq9_2",
+              "internal_hint": "Player expresses outrage and desire to resist PHQ-9 control.",
+              "internal_justification": "This choice emphasizes Sierra\u2019s fighting spirit and willingness to take on Vextros\u2019s control mechanisms."
+            },
+            {
+              "id": "arc1_investigation_phq9_1_calm",
+              "text": "\"We\u2019ll have to be smart about this. Catching them off guard means using their own tech against them.\"",
+              "dialogue_response": "\"Yeah. A precise strike, not a storming raid. You\u2019ve got the brains for this; I like that.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your tone is level, signaling calculated purpose. Roxy relaxes a fraction, respecting your pragmatism.",
+              "emotional_tone": "calm, strategic",
+              "body_language": "Fingers lightly tapping on the dataslate, thoughtful expression.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 2
+              },
+              "next_situation_id": "arc1_investigation_phq9_2",
+              "internal_hint": "Player adopts cautious, strategic mindset towards sabotage.",
+              "internal_justification": "Balances the narrative with a calculated alternative to direct confrontation."
+            },
+            {
+              "id": "arc1_investigation_phq9_1_silent",
+              "text": "Remain silent, letting Roxy finish without interruption.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "You stay quiet, absorbing every whispered detail. Roxy\u2019s tension is palpable; your silence offers space for her to trust.",
+              "emotional_tone": "silent, receptive",
+              "body_language": "Leaning back slightly, hands folded, attentive gaze.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc1_investigation_phq9_2",
+              "internal_hint": "Player allows informant to share fully, building trust.",
+              "internal_justification": "Provides a non-verbal choice that deepens relationship via attentive listening."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        },
+        "arc1_strategy_discussion_1": {
+          "id": "arc1_strategy_discussion_1",
+          "title": "Roxy sighs, rolling a cigarette expertly between her fingers. \"You\u2019re right to worry about blowback, Sierra. These blocks can burn fast, but a wildfire swallows everyone if we\u2019re not careful. The shadows are stiff with eyes; any wrong move and the whole neighborhood chokes.\" She taps ash into a cracked glass ashtray.",
+          "description": "Roxy sighs, rolling a cigarette expertly between her fingers. \"You\u2019re right to worry about blowback, Sierra. These blocks can burn fast, but a wildfire swallows everyone if we\u2019re not careful. The shadows are stiff with eyes; any wrong move and the whole neighborhood chokes.\" She taps ash into a cracked glass ashtray.",
+          "choices": [
+            {
+              "id": "arc1_strategy_discussion_1_reassure",
+              "text": "\"I get it. We move like ghosts \u2014 strike quick, vanish faster. No noise, no bodies.\"",
+              "dialogue_response": "\"That\u2019s what keeps the Blocks alive. Ghosts and grit. You\u2019re learning.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your calm assurance steadies the air between you. Roxy\u2019s lips twitch in a half-smile, respect blooming.",
+              "emotional_tone": "reassuring, steady",
+              "body_language": "Slow nod, hands open in a relaxed gesture.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1,
+                "tenacity": -1
+              },
+              "next_situation_id": "arc1_strategy_discussion_2",
+              "internal_hint": "Player adopts stealthy approach to avoid reckless violence.",
+              "internal_justification": "Supports narrative tension between cautious and bold activism."
+            },
+            {
+              "id": "arc1_strategy_discussion_1_argument",
+              "text": "\"Sometimes ghosts have to roar. Waiting lets Vextros tighten its grip.\"",
+              "dialogue_response": "\"And sometimes ghosts get caught in the flames they start. Recklessness can kill more than Vextros ever will.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your words cut through the smoke, carrying raw urgency. Roxy\u2019s eyes narrow\u2014respect tangled with wariness.",
+              "emotional_tone": "aggressive, urgent",
+              "body_language": "Leaning forward, voice low but fierce.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "tenacity": 2,
+                "insight": -1
+              },
+              "next_situation_id": "arc1_strategy_discussion_2",
+              "internal_hint": "Player pushes for immediate bold action at some risk.",
+              "internal_justification": "Emphasizes internal conflict over strategies of rebellion."
+            },
+            {
+              "id": "arc1_strategy_discussion_1_question",
+              "text": "\"What\u2019s the biggest risk we haven\u2019t seen yet?\"",
+              "dialogue_response": "\"That\u2019s the thing\u2014Vextros\u2019s reach feels endless till it snaps all at once. But when it does, it\u2019ll scream louder than any siren.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your question hangs in the air. Roxy\u2019s eyes cloud with memories of scars and failures \u2014 warnings born from experience.",
+              "emotional_tone": "curious, cautious",
+              "body_language": "Furrowed brow, clasping hands nervously.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 2
+              },
+              "next_situation_id": "arc1_strategy_discussion_2",
+              "internal_hint": "Player probes for insight about hidden dangers.",
+              "internal_justification": "Advances narrative by building awareness of unseen threats."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        },
+        "arc1_open_blocks_rally_1": {
+          "id": "arc1_open_blocks_rally_1",
+          "title": "Roxy\u2019s grin sharpens, her usual easy cynicism edged with adrenaline. \"You wanna rattle cages and wake hornets? Alright. The Blocks don\u2019t back down, especially not for folks with guts like you. But it\u2019s a dance on a razorblade, Sierra. They\u2019ll want to hear your pitch, see your spark. You ready to light this up?\"",
+          "description": "Roxy\u2019s grin sharpens, her usual easy cynicism edged with adrenaline. \"You wanna rattle cages and wake hornets? Alright. The Blocks don\u2019t back down, especially not for folks with guts like you. But it\u2019s a dance on a razorblade, Sierra. They\u2019ll want to hear your pitch, see your spark. You ready to light this up?\"",
+          "choices": [
+            {
+              "id": "arc1_open_blocks_rally_1_challenge",
+              "text": "\"I\u2019m not just ready. I\u2019m hungry. Let\u2019s drag their lies into daylight.\"",
+              "dialogue_response": "\"Now that\u2019s the fire I want to see. Let\u2019s bring the Blocks to your side, and watch Vextros choke on their own poison.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your voice cracks like thunder. Roxy\u2019s grin widens into a feral smile, the moment charged with fierce possibility.",
+              "emotional_tone": "bold, aggressive",
+              "body_language": "Slamming a fist on the tabletop, posture upright, blazing eyes.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "open_blocks_ally",
+                  "type": "status",
+                  "description": "Secured tentative alliance with The Open Blocks.",
+                  "stat_mods": {
+                    "might": 1,
+                    "tenacity": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "might": 2,
+                "tenacity": 1
+              },
+              "next_situation_id": "arc1_open_blocks_rally_2",
+              "internal_hint": "Player commits to aggressive mobilization of Open Blocks.",
+              "internal_justification": "Catalyzes faction alliance and escalates conflict with Vextros."
+            },
+            {
+              "id": "arc1_open_blocks_rally_1_reserve",
+              "text": "\"I need more time to earn their trust. We start small, keep it quiet.\"",
+              "dialogue_response": "\"Smart thinking. Even the loudest roar begins as a whisper. We\u2019ll craft our steps, slow and sure.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You soften your tone, scanning Roxy\u2019s face for signs of doubt. Her nod confirms wary support.",
+              "emotional_tone": "cautious, measured",
+              "body_language": "Fingers tracing the rim of your glass, eyes steady but calm.",
+              "requirements": {},
+              "attributes_gained": [
+                {
+                  "id": "open_blocks_caution",
+                  "type": "status",
+                  "description": "Adopted a cautious approach to faction engagement.",
+                  "stat_mods": {
+                    "savvy": 1,
+                    "insight": 1
+                  }
+                }
+              ],
+              "attributes_lost": [],
+              "stat_changes": {
+                "savvy": 1,
+                "insight": 1,
+                "might": -1
+              },
+              "next_situation_id": "arc1_open_blocks_rally_2",
+              "internal_hint": "Player opts for cautious faction involvement.",
+              "internal_justification": "Provides alternative path reflecting careful social maneuvering."
+            },
+            {
+              "id": "arc1_open_blocks_rally_1_question",
+              "text": "\"What do the Blocks expect in return? Nothing\u2019s free in these parts.\"",
+              "dialogue_response": "\"Loyalty, a clear target, and a spark to keep them fighting. Most want the corruption torn down, and they\u2019ll bleed to make it happen, but respect goes both ways.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "Your tone sharpens, mindful of the cost. Roxy\u2019s face grows serious, her gaze steady and frank.",
+              "emotional_tone": "inquisitive, wary",
+              "body_language": "Leaning in, elbows on the table, eyes narrowed.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 2
+              },
+              "next_situation_id": "arc1_open_blocks_rally_2",
+              "internal_hint": "Player probes faction motives and expectations.",
+              "internal_justification": "Builds nuanced faction relationship and narrative tension."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        },
+        "arc1_project_sunset_investigation_1": {
+          "id": "arc1_project_sunset_investigation_1",
+          "title": "Roxy's voice lowers further, darkening as if pulling shadows from a hidden well. \"Project Sunset? They're the real wild card in this mess \u2014 tech wizards and anarchists all rolled in one. Their experiments? Borderline madness. Their secret weapon? Nobody really knows. But Vextros fears them like hell. tangle with them, and you might find yourself caught between two blades.\"",
+          "description": "Roxy's voice lowers further, darkening as if pulling shadows from a hidden well. \"Project Sunset? They're the real wild card in this mess \u2014 tech wizards and anarchists all rolled in one. Their experiments? Borderline madness. Their secret weapon? Nobody really knows. But Vextros fears them like hell. tangle with them, and you might find yourself caught between two blades.\"",
+          "choices": [
+            {
+              "id": "arc1_project_sunset_investigation_1_probe",
+              "text": "\"What kind of experiments? Something that could help us, or just another nightmare?\"",
+              "dialogue_response": "\"A bit of both. They're messing with sentience, pushing implants far beyond what's safe. Some of their tech could dismantle Vextros\u2019s grip \u2014 or wreck us all if it slips loose.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You press for answers, leaning in tight. Roxy\u2019s eyes glitter with both hope and fear, shadows playing in their depths.",
+              "emotional_tone": "curious, concerned",
+              "body_language": "Eyes wide, voice lowered, posture alert.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "expertise": 1,
+                "insight": 1
+              },
+              "next_situation_id": "arc1_project_sunset_investigation_2",
+              "internal_hint": "Player seeks clarity on Project Sunset technology and risks.",
+              "internal_justification": "Expands lore and builds tension about unknown faction capabilities and stakes."
+            },
+            {
+              "id": "arc1_project_sunset_investigation_1_warn",
+              "text": "\"Dealing with a mess like that... can cost more than we can afford. Maybe some lines shouldn't be crossed.\"",
+              "dialogue_response": "\"Yeah, well, Vextros already crossed every damn line. Sometimes you gotta dirty your hands to clean the filth.\"",
+              "choice_type": "dialogue",
+              "player_perspective": "You voice your hesitation with heavy heart. Roxy\u2019s eyes flash, heated but understanding.",
+              "emotional_tone": "warned, conflicted",
+              "body_language": "Fingers tapping nervously on the table, eyes flicking away momentarily.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "integrity": 1,
+                "tenacity": -1
+              },
+              "next_situation_id": "arc1_project_sunset_investigation_2",
+              "internal_hint": "Player hesitates on aggressive engagement with Project Sunset.",
+              "internal_justification": "Reflects character depth facing ethical and practical dangers."
+            },
+            {
+              "id": "arc1_project_sunset_investigation_1_silence",
+              "text": "Stay silent, eyes fixed on Roxy, processing her words.",
+              "dialogue_response": null,
+              "choice_type": "action",
+              "player_perspective": "You stay quiet, every nanosecond stretching taut as you contemplate the dangerous web of faction rivalries. Roxy senses your steady attention.",
+              "emotional_tone": "quiet, contemplative",
+              "body_language": "Still and watchful, hands folded tightly in lap.",
+              "requirements": {},
+              "attributes_gained": [],
+              "attributes_lost": [],
+              "stat_changes": {
+                "insight": 1
+              },
+              "next_situation_id": "arc1_project_sunset_investigation_2",
+              "internal_hint": "Player absorbs heavy faction info silently.",
+              "internal_justification": "Allows for reflection and relationship building via presence."
+            }
+          ],
+          "stat_requirements": {},
+          "attribute_requirements": null,
+          "consequences": {},
+          "is_bridge_node": true,
+          "next_situations": []
+        }
+      },
+      "bridge_nodes": [
+        "arc1_root_situation",
+        "arc1_investigation_phq9_1",
+        "arc1_strategy_discussion_1",
+        "arc1_open_blocks_rally_1",
+        "arc1_project_sunset_investigation_1"
+      ]
+    }
+  ]
+}

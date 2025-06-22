@@ -1,4 +1,5 @@
-from .baml_client.types import NPC, Arc, PlayerAttribute, PlayerProfile, PlayerStats, WorldSeed, District, Faction, Technology, WorldContext, PlayerState
+import copy
+from .baml_client.types import NPC, Arc, Choice, PlayerAttribute, PlayerProfile, PlayerStats, WorldSeed, District, Faction, Technology, WorldContext, PlayerState
 from .baml_client.async_client import b
 import logging
 from typing import List, Dict, Optional
@@ -384,7 +385,7 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
                         "title": situation.description,
                         "description": situation.description,
                         "choices": [choice.dict() for choice in situation.choices],
-                        "stat_requirements": situation.requirements,
+                        "stat_requirements": [stat_requirement.dict() for stat_requirement in situation.stat_requirements],
                         "attribute_requirements": None,  # TODO: Add attribute requirements
                         "consequences": situation.consequences,
                         "is_bridge_node": situation.bridgeable,
@@ -413,7 +414,7 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
                         "title": situation.description,
                         "description": situation.description,
                         "choices": [choice.dict() for choice in situation.choices],
-                        "stat_requirements": situation.requirements,
+                        "stat_requirements": [stat_requirement.dict() for stat_requirement in situation.stat_requirements],
                         "attribute_requirements": None,  # TODO: Add attribute requirements
                         "consequences": situation.consequences,
                         "is_bridge_node": situation.bridgeable,
@@ -435,6 +436,22 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
                 json.dump(situations_data, f, indent=2)
             logger.info(f"Saved situations data to {situations_file}")
 
+    async def advance_generation_step(self, filename_note: str = ""):
+        """Advance the generation step by 1. Also saves the world state to a file."""
+        logger.info(f"Advancing generation step to {filename_note}_{self._generation_step}")
+        self._generation_step += 1
+        self._save_world_state(f"{filename_note}")
+
+    async def apply_choice_diffs(self, new_choice: Choice):
+        """Apply new_npcs, new_factions, new_technologies to the world context whenever a new Choice is created."""
+        new_context = copy.deepcopy(self.world_context)
+        if new_choice.new_npcs:
+            new_context.npcs.extend(new_choice.new_npcs)
+        if new_choice.new_factions:
+            new_context.factions.extend(new_choice.new_factions)
+        if new_choice.new_technologies:
+            new_context.technologies.extend(new_choice.new_technologies)
+        self.update_world_context(new_context, new_choice.id)
     async def generate(self):
         """Generate a new narrative arc for the world.
         
@@ -455,20 +472,21 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
            - Maintain narrative coherence
            - Provide meaningful progression
            - Include appropriate stat requirements
-        5. Identify bridge nodes - Find situations that can connect different arcs
-        6. Validate graph integrity - Ensure all choices and consequences are valid
-        7. Export package - Package the complete narrative structure
+        5. Augment situation choices with more dialogue options
+        6. Identify missing situations
+        7. Identify and generate bridge nodes
+        8. Final validation and export
         """
         logger.info(f"Starting generation process for world {self.seed.name}")
         logger.info("=" * 80)
         
         # Step 1: Generate arc titles
-        logger.info("Step 1: Generating arc titles")
-        self._generation_step = 1
-        self._save_world_state("arc_titles")
+        logger.info(f"Step {self._generation_step}: Generating arc titles")
+        await self.advance_generation_step("arc_titles")
         arc_titles = await b.GenerateArcTitles(
             world_context=self.world_context,
-            player_state=self.player_state
+            player_state=self.player_state,
+            count=1
         )
         logger.info("Generated arc titles:")
         for i, title in enumerate(arc_titles, 1):
@@ -476,9 +494,8 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
         logger.info("-" * 80)
         
         # Step 2: Generate arc seeds
-        logger.info("Step 2: Generating arc seeds")
-        self._generation_step = 2
-        self._save_world_state("arc_seeds")
+        logger.info(f"Step {self._generation_step}: Generating arc seeds")
+        await self.advance_generation_step("arc_seeds")
         arc_seeds = []
         for title in tqdm(arc_titles, desc="Generating arc seeds", unit="arc"):
             logger.info(f"Generating seed for arc: {title}")
@@ -496,9 +513,8 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
         logger.info("-" * 80)
         
         # Step 3: Generate root situations
-        logger.info("Step 3: Generating root situations")
-        self._generation_step = 3
-        self._save_world_state("root_situations")
+        logger.info(f"Step {self._generation_step}: Generating root situations")
+        await self.advance_generation_step("root_situations")
         self.arcs = []  # Initialize arcs list
         for arc_seed in tqdm(arc_seeds, desc="Generating root situations", unit="situation"):
             logger.info(f"Generating root situation for arc: {arc_seed.title}")
@@ -507,6 +523,8 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
                 player_state=self.player_state,
                 arc_seed=arc_seed
             )
+            for choice in root_situation.choices:
+                await self.apply_choice_diffs(choice)
             # Create new arc with seed and root situation
             arc = Arc(
                 seed=arc_seed,
@@ -522,9 +540,8 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
         logger.info("-" * 80)
         
         # Step 4: Expand arc situations
-        logger.info("Step 4: Expanding arc situations")
-        self._generation_step = 4
-        self._save_world_state("expanded_situations")
+        logger.info(f"Step {self._generation_step}: Expanding arc situations")
+        await self.advance_generation_step("expanded_situations")
         logger.info("Expanding situations with additional content and choices")
         for arc in tqdm(self.arcs, desc="Expanding arcs", unit="arc"):
             new_situations = await b.ExpandArcSituations(
@@ -532,29 +549,101 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
                 player_state=self.player_state,
                 arc=arc
             )
+            for choice in new_situations:
+                await self.apply_choice_diffs(choice)
             arc.situations.extend(new_situations)
         logger.info("-" * 80)
         
-        # Step 5: Identify bridge nodes
-        logger.info("Step 5: Identifying bridge nodes")
-        self._generation_step = 5
-        self._save_world_state("bridge_nodes")
-        logger.info("Finding situations that can connect different arcs")
-        # TODO: Add progress bar when implementing bridge node identification
+        # Step 5: Augment situation choices with more dialogue options
+        logger.info(f"Step {self._generation_step}: Augmenting situation choices")
+        await self.advance_generation_step("augmented_choices")
+        logger.info("Adding more granular dialogue choices and micro-interactions")
+        for arc in tqdm(self.arcs, desc="Augmenting choices", unit="arc"):
+            for i, situation in enumerate(arc.situations):
+                logger.info(f"Augmenting choices for situation: {situation.id}")
+                new_choices = await b.AugmentSituationChoices(
+                    world_context=self.world_context,
+                    player_state=self.player_state,
+                    arc=arc,
+                    situation=situation
+                )
+                # Newly generated choices must not reference any choices in the arc
+                for choice in new_choices:
+                    if choice.next_situation_id in [situation.id for situation in arc.situations]:
+                        logger.warning(f"Choice {choice.id} references a situation that already exists in the arc")
+                        new_choices.remove(choice)
+                        continue
+                for choice in new_choices:
+                    await self.apply_choice_diffs(choice)
+                arc.situations[i].choices.extend(new_choices)
         logger.info("-" * 80)
         
-        # Step 6: Validate graph integrity
-        logger.info("Step 6: Validating graph integrity")
-        self._generation_step = 6
-        self._save_world_state("validated_graph")
-        logger.info("Ensuring all choices and consequences are valid")
-        # TODO: Add progress bar when implementing graph validation
+        # Step 6: Identify missing situations
+        logger.info(f"Step {self._generation_step}: Identifying missing situations")
+        await self.advance_generation_step("missing_situations")
+        # first, start by finding any Choices that have been created that go nowhere
+        for arc in self.arcs:
+            situations_to_add = []
+
+            for situation in arc.situations:
+                for choice in situation.choices:
+                    if choice.next_situation_id is None or choice.next_situation_id not in [s.id for s in arc.situations]:
+                        logger.warning(f"Choice {choice.id} has no next_situation_id or points to non-existent situation")
+                        new_situation = await b.GenerateSituationForChoice(
+                            world_context=self.world_context,
+                            player_state=self.player_state,
+                            arc=arc,
+                            choice=choice
+                        )
+                        # Set the next_situation_id on the original choice
+                        choice.next_situation_id = new_situation.id
+                        
+                        for choice in new_situation.choices:
+                            await self.apply_choice_diffs(choice)
+                        situations_to_add.append(new_situation)
+                        await self.advance_generation_step("missing_situations")
+                        logger.info(f"Generated new situation for choice {choice.id}: {new_situation.id}")
+                        # These situations will also not have choices - for now, we're only going to work with a depth of 1
+            arc.situations.extend(situations_to_add)
+            logger.info(f"Added {len(situations_to_add)} new situations to arc {arc.seed.title}")
+
+        logger.info("Finding narrative gaps that need additional situations")
+        missing_situation_descriptions = await b.IdentifyMissingSituations(
+            world_context=self.world_context,
+            arcs=self.arcs
+        )
+        logger.info(f"Identified {len(missing_situation_descriptions)} missing situation types:")
+        for desc in missing_situation_descriptions[:5]:  # Log first 5
+            logger.info(f"- {desc}")
         logger.info("-" * 80)
         
-        # Step 7: Export final package
-        logger.info("Step 7: Exporting final package")
-        self._generation_step = 7
-        self._save_world_state("final_export")
+        # Step 7: Identify and generate bridge nodes
+        logger.info(f"Step {self._generation_step}: Generating bridge connections")
+        await self.advance_generation_step("bridge_generation")
+        logger.info("Finding and creating bridge connections between arcs")
+        bridgeable_situations = await b.IdentifyBridgeableSituations(arcs=self.arcs)
+        bridge_nodes = await b.FindBridgeConnections(bridgeable_situations=bridgeable_situations)
+        validated_bridges = await b.ValidateBridgeConnections(
+            bridge_nodes=bridge_nodes,
+            arcs=self.arcs,
+            world_context=self.world_context
+        )
+        # Generate bridge situations
+        if validated_bridges:
+            bridge_situations = await b.GenerateBridgeSituations(
+                world_context=self.world_context,
+                player_state=self.player_state,
+                bridge_nodes=validated_bridges
+            )
+            logger.info(f"Generated {len(bridge_situations)} bridge situations")
+        logger.info("-" * 80)
+        
+        # Step 8: Final validation and export
+        logger.info(f"Step {self._generation_step}: Final validation and export")
+        await self.advance_generation_step("final_export")
         logger.info("Generation complete!")
+        logger.info(f"Generated {len(self.arcs)} arcs with enhanced dialogue and choices")
+        total_situations = sum(len(arc.situations) for arc in self.arcs)
+        logger.info(f"Total situations created: {total_situations}")
         logger.info("=" * 80)
 

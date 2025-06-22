@@ -1,10 +1,17 @@
 // Learn more about clients at https://docs.boundaryml.com/docs/snippets/clients/overview
-
+// Only use openai for reforged client
+client<llm> ReforgedClient {
+  provider fallback
+  options {
+    strategy [CustomGPT4oMini, CustomGPT41mini, CustomGPT4o, CustomGPT41]
+  }
+}
 client<llm> CustomGPT4o {
   provider openai
   options {
     model "gpt-4o"
     api_key env.OPENAI_API_KEY
+    max_tokens 32768
   }
 }
 
@@ -14,9 +21,25 @@ client<llm> CustomGPT4oMini {
   options {
     model "gpt-4o-mini"
     api_key env.OPENAI_API_KEY
+    max_tokens 32768
   }
 }
-
+client<llm> CustomGPT41mini {
+  provider openai
+  options {
+    model "gpt-4.1-mini"
+    api_key env.OPENAI_API_KEY
+    max_tokens 32768
+  }
+}
+client<llm> CustomGPT41 {
+  provider openai
+  options {
+    model "gpt-4.1"
+    api_key env.OPENAI_API_KEY
+    max_tokens 32768
+  }
+}
 client<llm> CustomSonnet {
   provider anthropic
   options {

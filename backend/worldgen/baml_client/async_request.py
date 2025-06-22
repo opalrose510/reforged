@@ -37,6 +37,32 @@ class AsyncHttpRequest:
       self.__ctx_manager = ctx_manager
 
     
+    async def AugmentSituationChoices(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,situation: types.Situation,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "AugmentSituationChoices",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
+          "situation": situation,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
     async def CheckBridgeAttributeNeeds(
         self,
         bridge_node: types.BridgeNode,world_context: types.WorldContext,
@@ -158,29 +184,6 @@ class AsyncHttpRequest:
         False,
       )
     
-    async def ExtractResume(
-        self,
-        resume: str,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return await self.__runtime.build_request(
-        "ExtractResume",
-        {
-          "resume": resume,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        False,
-      )
-    
     async def FindBridgeConnections(
         self,
         bridgeable_situations: List[types.BridgeableSituation],
@@ -231,7 +234,7 @@ class AsyncHttpRequest:
     
     async def GenerateArcTitles(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,
+        world_context: types.WorldContext,player_state: types.PlayerState,count: Optional[int],
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -246,6 +249,7 @@ class AsyncHttpRequest:
         {
           "world_context": world_context,
           "player_state": player_state,
+          "count": count,
         },
         self.__ctx_manager.get(),
         tb,
@@ -277,6 +281,31 @@ class AsyncHttpRequest:
         False,
       )
     
+    async def GenerateBridgeSituations(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,bridge_nodes: List[types.BridgeNode],
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GenerateBridgeSituations",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "bridge_nodes": bridge_nodes,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
     async def GenerateChoiceAttribute(
         self,
         choice: types.Choice,world_context: types.WorldContext,
@@ -294,6 +323,32 @@ class AsyncHttpRequest:
         {
           "choice": choice,
           "world_context": world_context,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
+    async def GenerateChoiceSituationResult(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GenerateChoiceSituationResult",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
+          "choice": choice,
         },
         self.__ctx_manager.get(),
         tb,
@@ -443,6 +498,32 @@ class AsyncHttpRequest:
         False,
       )
     
+    async def GenerateMissingSituationsForChoice(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GenerateMissingSituationsForChoice",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
+          "choice": choice,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
     async def GenerateNPCsForSituation(
         self,
         world_context: types.WorldContext,situation: types.Situation,
@@ -541,6 +622,32 @@ class AsyncHttpRequest:
         False,
       )
     
+    async def GenerateSituationForChoice(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GenerateSituationForChoice",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
+          "choice": choice,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
     async def GenerateTechnology(
         self,
         context: types.WorldContext,situation_description: str,
@@ -558,6 +665,53 @@ class AsyncHttpRequest:
         {
           "context": context,
           "situation_description": situation_description,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
+    async def GetDefaultStatDescriptors(
+        self,
+        
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GetDefaultStatDescriptors",
+        {
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
+    async def GetStatNarrative(
+        self,
+        stat_name: str,stat_value: int,descriptors: types.StatDescriptors,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GetStatNarrative",
+        {
+          "stat_name": stat_name,
+          "stat_value": stat_value,
+          "descriptors": descriptors,
         },
         self.__ctx_manager.get(),
         tb,
@@ -588,6 +742,30 @@ class AsyncHttpRequest:
         False,
       )
     
+    async def IdentifyMissingSituations(
+        self,
+        world_context: types.WorldContext,arcs: List[types.Arc],
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "IdentifyMissingSituations",
+        {
+          "world_context": world_context,
+          "arcs": arcs,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
     async def InitializePlayerStats(
         self,
         world_context: types.WorldContext,
@@ -604,6 +782,31 @@ class AsyncHttpRequest:
         "InitializePlayerStats",
         {
           "world_context": world_context,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
+    async def SelectGenerationTool(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "SelectGenerationTool",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
         },
         self.__ctx_manager.get(),
         tb,
@@ -647,6 +850,32 @@ class AsyncHttpStreamRequest:
       self.__ctx_manager = ctx_manager
 
     
+    async def AugmentSituationChoices(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,situation: types.Situation,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "AugmentSituationChoices",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
+          "situation": situation,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
     async def CheckBridgeAttributeNeeds(
         self,
         bridge_node: types.BridgeNode,world_context: types.WorldContext,
@@ -768,29 +997,6 @@ class AsyncHttpStreamRequest:
         True,
       )
     
-    async def ExtractResume(
-        self,
-        resume: str,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return await self.__runtime.build_request(
-        "ExtractResume",
-        {
-          "resume": resume,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        True,
-      )
-    
     async def FindBridgeConnections(
         self,
         bridgeable_situations: List[types.BridgeableSituation],
@@ -841,7 +1047,7 @@ class AsyncHttpStreamRequest:
     
     async def GenerateArcTitles(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,
+        world_context: types.WorldContext,player_state: types.PlayerState,count: Optional[int],
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -856,6 +1062,7 @@ class AsyncHttpStreamRequest:
         {
           "world_context": world_context,
           "player_state": player_state,
+          "count": count,
         },
         self.__ctx_manager.get(),
         tb,
@@ -887,6 +1094,31 @@ class AsyncHttpStreamRequest:
         True,
       )
     
+    async def GenerateBridgeSituations(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,bridge_nodes: List[types.BridgeNode],
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GenerateBridgeSituations",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "bridge_nodes": bridge_nodes,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
     async def GenerateChoiceAttribute(
         self,
         choice: types.Choice,world_context: types.WorldContext,
@@ -904,6 +1136,32 @@ class AsyncHttpStreamRequest:
         {
           "choice": choice,
           "world_context": world_context,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
+    async def GenerateChoiceSituationResult(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GenerateChoiceSituationResult",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
+          "choice": choice,
         },
         self.__ctx_manager.get(),
         tb,
@@ -1053,6 +1311,32 @@ class AsyncHttpStreamRequest:
         True,
       )
     
+    async def GenerateMissingSituationsForChoice(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GenerateMissingSituationsForChoice",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
+          "choice": choice,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
     async def GenerateNPCsForSituation(
         self,
         world_context: types.WorldContext,situation: types.Situation,
@@ -1151,6 +1435,32 @@ class AsyncHttpStreamRequest:
         True,
       )
     
+    async def GenerateSituationForChoice(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GenerateSituationForChoice",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
+          "choice": choice,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
     async def GenerateTechnology(
         self,
         context: types.WorldContext,situation_description: str,
@@ -1168,6 +1478,53 @@ class AsyncHttpStreamRequest:
         {
           "context": context,
           "situation_description": situation_description,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
+    async def GetDefaultStatDescriptors(
+        self,
+        
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GetDefaultStatDescriptors",
+        {
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
+    async def GetStatNarrative(
+        self,
+        stat_name: str,stat_value: int,descriptors: types.StatDescriptors,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "GetStatNarrative",
+        {
+          "stat_name": stat_name,
+          "stat_value": stat_value,
+          "descriptors": descriptors,
         },
         self.__ctx_manager.get(),
         tb,
@@ -1198,6 +1555,30 @@ class AsyncHttpStreamRequest:
         True,
       )
     
+    async def IdentifyMissingSituations(
+        self,
+        world_context: types.WorldContext,arcs: List[types.Arc],
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "IdentifyMissingSituations",
+        {
+          "world_context": world_context,
+          "arcs": arcs,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
     async def InitializePlayerStats(
         self,
         world_context: types.WorldContext,
@@ -1214,6 +1595,31 @@ class AsyncHttpStreamRequest:
         "InitializePlayerStats",
         {
           "world_context": world_context,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
+    async def SelectGenerationTool(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "SelectGenerationTool",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
         },
         self.__ctx_manager.get(),
         tb,

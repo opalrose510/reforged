@@ -44,6 +44,15 @@ def all_succeeded(checks: Dict[CheckName, Check]) -> bool:
 class Arc(BaseModel):
     seed: "ArcSeed"
     situations: List["Situation"]
+    outcomes: List["ArcOutcome"]
+
+class ArcOutcome(BaseModel):
+    id: str
+    description: str
+    internal_hint: str
+    internal_justification: str
+    tags: List[str]
+    estimated_duration: int
 
 class ArcSeed(BaseModel):
     title: str
@@ -76,13 +85,21 @@ class BridgeableSituation(BaseModel):
 class Choice(BaseModel):
     id: str
     text: str
+    dialogue_response: Optional[str] = None
+    choice_type: str
+    player_perspective: str
+    emotional_tone: str
+    body_language: Optional[str] = None
     requirements: Dict[str, int]
     attributes_gained: List["PlayerAttribute"]
     attributes_lost: List[str]
     stat_changes: Dict[str, int]
-    next_situation_id: str
+    next_situation_id: Optional[str] = None
     internal_hint: str
     internal_justification: str
+    new_npcs: List["NPC"]
+    new_factions: List["Faction"]
+    new_technologies: List["Technology"]
 
 class District(BaseModel):
     id: str
@@ -204,13 +221,33 @@ class Resume(BaseModel):
 class Situation(BaseModel):
     id: str
     description: str
+    player_perspective_description: str
     choices: List["Choice"]
-    requirements: Dict[str, int]
+    stat_requirements: List["StatRequirement"]
     consequences: Dict[str, str]
     bridgeable: bool
     context_tags: List[str]
     internal_hint: str
     internal_justification: str
+
+class StatDescriptors(BaseModel):
+    might_descriptors: Dict[str, str]
+    insight_descriptors: Dict[str, str]
+    nimbleness_descriptors: Dict[str, str]
+    destiny_descriptors: Dict[str, str]
+    savvy_descriptors: Dict[str, str]
+    expertise_descriptors: Dict[str, str]
+    tenacity_descriptors: Dict[str, str]
+    station_descriptors: Dict[str, str]
+    opulence_descriptors: Dict[str, str]
+    celebrity_descriptors: Dict[str, str]
+    integrity_descriptors: Dict[str, str]
+    allure_descriptors: Dict[str, str]
+    lineage_descriptors: Dict[str, str]
+
+class StatRequirement(BaseModel):
+    attribute_name: Union[Literal["might"], Literal["insight"], Literal["nimbleness"], Literal["destiny"], Literal["savvy"], Literal["expertise"], Literal["tenacity"], Literal["station"], Literal["opulence"], Literal["celebrity"], Literal["integrity"], Literal["allure"], Literal["lineage"]]
+    min_value: int
 
 class Technology(BaseModel):
     name: str

@@ -66,7 +66,7 @@ class Quest {
 
 // Function to generate NPCs for a situation
 function GenerateNPCsForSituation(world_context: WorldContext, situation: Situation) -> NPC[] {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Generate NPCs that would be present in this situation.
     
@@ -88,7 +88,7 @@ function GenerateNPCsForSituation(world_context: WorldContext, situation: Situat
 
 // Function to generate items for a situation
 function GenerateItemsForSituation(world_context: WorldContext, situation: Situation) -> Item[] {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Generate items that would be relevant to this situation.
     
@@ -110,7 +110,7 @@ function GenerateItemsForSituation(world_context: WorldContext, situation: Situa
 
 // Function to generate locations for a situation
 function GenerateLocationsForSituation(world_context: WorldContext, situation: Situation) -> Location[] {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Generate locations that would be relevant to this situation.
     
@@ -132,7 +132,7 @@ function GenerateLocationsForSituation(world_context: WorldContext, situation: S
 
 // Function to generate events for a situation
 function GenerateEventsForSituation(world_context: WorldContext, situation: Situation) -> Event[] {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Generate events that could occur in this situation.
     
@@ -154,7 +154,7 @@ function GenerateEventsForSituation(world_context: WorldContext, situation: Situ
 
 // Function to generate quests for a situation
 function GenerateQuestsForSituation(world_context: WorldContext, situation: Situation) -> Quest[] {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Generate quests that could arise from this situation.
     

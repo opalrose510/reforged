@@ -16,3 +16,9 @@ generator target {
     // This controls what `b.FunctionName()` will be (sync or async).
     default_client_mode sync
 }
+generator target_frontend {
+    output_type "typescript"
+    output_dir "../../../reforged-frontend/"
+    version "0.89.0"
+    default_client_mode sync
+}

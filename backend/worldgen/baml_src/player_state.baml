@@ -18,6 +18,70 @@ class PlayerStats {
   lineage int @description("How much of a legacy the player has.")
 }
 
+// Narrative stat descriptors - 10 is average, each point is 1 standard deviation
+class StatDescriptors {
+  might_descriptors map<string, string>
+  insight_descriptors map<string, string>
+  nimbleness_descriptors map<string, string>
+  destiny_descriptors map<string, string>
+  savvy_descriptors map<string, string>
+  expertise_descriptors map<string, string>
+  tenacity_descriptors map<string, string>
+  station_descriptors map<string, string>
+  opulence_descriptors map<string, string>
+  celebrity_descriptors map<string, string>
+  integrity_descriptors map<string, string>
+  allure_descriptors map<string, string>
+  lineage_descriptors map<string, string>
+}
+
+// Default stat descriptors
+function GetDefaultStatDescriptors() -> StatDescriptors {
+  client ReforgedClient
+  prompt #"
+    Generate narrative descriptors for each stat level. Each stat ranges from 1-20, with 10 being average.
+    Each point represents one standard deviation from the mean.
+    
+    For each stat type, create appropriate descriptors:
+    - Might: Physical strength and prowess
+    - Insight: Mental acuity and understanding  
+    - Nimbleness: Physical dexterity and speed
+    - Destiny: Luck and fortune
+    - Savvy: Street smarts and adaptability
+    - Expertise: Technical knowledge and skill
+    - Tenacity: Mental resilience and determination
+    - Station: Social standing and belonging
+    - Opulence: Wealth and material resources
+    - Celebrity: Fame and recognition
+    - Integrity: Honesty and moral character
+    - Allure: Physical attractiveness and charm
+    - Lineage: Family legacy and connections
+    
+    Create descriptors for values 1-20, with 10 as "average" for each stat.
+    Lower values should be progressively weaker, higher values progressively stronger.
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to get narrative description of a stat value
+function GetStatNarrative(stat_name: string, stat_value: int, descriptors: StatDescriptors) -> string {
+  client ReforgedClient
+  prompt #"
+    Get the narrative description for the given stat and value.
+    
+    Stat Name: {{ stat_name }}
+    Stat Value: {{ stat_value }}
+    
+    Descriptors: {{ descriptors }}
+    
+    Return the appropriate descriptor for this stat and value.
+    Convert the stat_value to a string key to look up in the descriptors map.
+    
+    {{ ctx.output_format }}
+  "#
+}
+
 class PlayerAttribute {
   id string
   type string  // condition, item, status, memory, identity, mod, tag_only
@@ -41,7 +105,7 @@ class PlayerState {
 
 // Function to initialize player stats
 function InitializePlayerStats(world_context: WorldContext) -> PlayerStats {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Initialize player stats based on the world context. All stats start at 10 (population mean).
     
@@ -54,7 +118,7 @@ function InitializePlayerStats(world_context: WorldContext) -> PlayerStats {
 
 // Function to generate initial attributes
 function GenerateInitialAttributes(world_context: WorldContext) -> PlayerAttribute[] {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Generate initial player attributes based on the world context.
     
@@ -72,7 +136,7 @@ function GenerateInitialAttributes(world_context: WorldContext) -> PlayerAttribu
 
 // Function to generate player profile
 function GeneratePlayerProfile(world_context: WorldContext, stats: PlayerStats, attributes: PlayerAttribute[]) -> PlayerProfile {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Generate a narrative player profile based on the world context, stats, and attributes.
     

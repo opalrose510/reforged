@@ -47,7 +47,7 @@ class WorldContext {
 
 // Function to analyze if new technology needs to be created
 function CheckTechnologyNeeds(context: WorldContext, situation_description: string) -> bool {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Given the current world context and a situation description, determine if a new technology needs to be defined. Answer ONLY with 'true' or 'false'. 
     
@@ -68,7 +68,7 @@ function CheckTechnologyNeeds(context: WorldContext, situation_description: stri
 
 // Function to check if a new faction should be created
 function CheckFactionNeeds(context: WorldContext, situation_description: string) -> bool {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Given the current world context and a situation description, determine if a new faction needs to be created. Answer ONLY with 'true' or 'false'.
     
@@ -89,7 +89,7 @@ function CheckFactionNeeds(context: WorldContext, situation_description: string)
 
 // Function to generate new technology
 function GenerateTechnology(context: WorldContext, situation_description: string) -> Technology {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Generate a new technology based on the world context and situation.
     
@@ -110,7 +110,7 @@ function GenerateTechnology(context: WorldContext, situation_description: string
 
 // Function to generate new faction
 function GenerateFaction(context: WorldContext, situation_description: string) -> Faction {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Generate a new faction based on the world context and situation.
     
@@ -131,7 +131,7 @@ function GenerateFaction(context: WorldContext, situation_description: string) -
 
 // Function to generate initial districts
 function GenerateDistricts(context: WorldContext) -> District[] {
-  client "openai/gpt-4o"
+  client ReforgedClient
   prompt #"
     Generate initial districts for the world based on the context.
     

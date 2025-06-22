@@ -22,7 +22,7 @@ from .globals import DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIM
 class TypeBuilder(_TypeBuilder):
     def __init__(self):
         super().__init__(classes=set(
-          ["Arc","ArcSeed","BridgeNode","BridgeableSituation","Choice","District","Event","Faction","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","Technology","WorldContext","WorldSeed",]
+          ["Arc","ArcOutcome","ArcSeed","BridgeNode","BridgeableSituation","Choice","District","Event","Faction","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","StatDescriptors","StatRequirement","Technology","WorldContext","WorldSeed",]
         ), enums=set(
           []
         ), runtime=DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME)
@@ -31,6 +31,10 @@ class TypeBuilder(_TypeBuilder):
     @property
     def Arc(self) -> "ArcAst":
         return ArcAst(self)
+
+    @property
+    def ArcOutcome(self) -> "ArcOutcomeAst":
+        return ArcOutcomeAst(self)
 
     @property
     def ArcSeed(self) -> "ArcSeedAst":
@@ -101,6 +105,14 @@ class TypeBuilder(_TypeBuilder):
         return SituationAst(self)
 
     @property
+    def StatDescriptors(self) -> "StatDescriptorsAst":
+        return StatDescriptorsAst(self)
+
+    @property
+    def StatRequirement(self) -> "StatRequirementAst":
+        return StatRequirementAst(self)
+
+    @property
     def Technology(self) -> "TechnologyAst":
         return TechnologyAst(self)
 
@@ -120,7 +132,7 @@ class ArcAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Arc")
-        self._properties: typing.Set[str] = set([ "seed",  "situations", ])
+        self._properties: typing.Set[str] = set([ "seed",  "situations",  "outcomes", ])
         self._props = ArcProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -155,6 +167,68 @@ class ArcProperties:
     @property
     def situations(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("situations"))
+
+    @property
+    def outcomes(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("outcomes"))
+
+    
+
+class ArcOutcomeAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("ArcOutcome")
+        self._properties: typing.Set[str] = set([ "id",  "description",  "internal_hint",  "internal_justification",  "tags",  "estimated_duration", ])
+        self._props = ArcOutcomeProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "ArcOutcomeProperties":
+        return self._props
+
+
+class ArcOutcomeViewer(ArcOutcomeAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class ArcOutcomeProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def id(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("id"))
+
+    @property
+    def description(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("description"))
+
+    @property
+    def internal_hint(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("internal_hint"))
+
+    @property
+    def internal_justification(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("internal_justification"))
+
+    @property
+    def tags(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tags"))
+
+    @property
+    def estimated_duration(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("estimated_duration"))
 
     
 
@@ -352,7 +426,7 @@ class ChoiceAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Choice")
-        self._properties: typing.Set[str] = set([ "id",  "text",  "requirements",  "attributes_gained",  "attributes_lost",  "stat_changes",  "next_situation_id",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "id",  "text",  "dialogue_response",  "choice_type",  "player_perspective",  "emotional_tone",  "body_language",  "requirements",  "attributes_gained",  "attributes_lost",  "stat_changes",  "next_situation_id",  "internal_hint",  "internal_justification",  "new_npcs",  "new_factions",  "new_technologies", ])
         self._props = ChoiceProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -389,6 +463,26 @@ class ChoiceProperties:
         return ClassPropertyViewer(self.__bldr.property("text"))
 
     @property
+    def dialogue_response(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("dialogue_response"))
+
+    @property
+    def choice_type(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("choice_type"))
+
+    @property
+    def player_perspective(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("player_perspective"))
+
+    @property
+    def emotional_tone(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("emotional_tone"))
+
+    @property
+    def body_language(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("body_language"))
+
+    @property
     def requirements(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("requirements"))
 
@@ -415,6 +509,18 @@ class ChoiceProperties:
     @property
     def internal_justification(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("internal_justification"))
+
+    @property
+    def new_npcs(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("new_npcs"))
+
+    @property
+    def new_factions(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("new_factions"))
+
+    @property
+    def new_technologies(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("new_technologies"))
 
     
 
@@ -1202,7 +1308,7 @@ class SituationAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Situation")
-        self._properties: typing.Set[str] = set([ "id",  "description",  "choices",  "requirements",  "consequences",  "bridgeable",  "context_tags",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "id",  "description",  "player_perspective_description",  "choices",  "stat_requirements",  "consequences",  "bridgeable",  "context_tags",  "internal_hint",  "internal_justification", ])
         self._props = SituationProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -1239,12 +1345,16 @@ class SituationProperties:
         return ClassPropertyViewer(self.__bldr.property("description"))
 
     @property
+    def player_perspective_description(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("player_perspective_description"))
+
+    @property
     def choices(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("choices"))
 
     @property
-    def requirements(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("requirements"))
+    def stat_requirements(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("stat_requirements"))
 
     @property
     def consequences(self) -> ClassPropertyViewer:
@@ -1265,6 +1375,134 @@ class SituationProperties:
     @property
     def internal_justification(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("internal_justification"))
+
+    
+
+class StatDescriptorsAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("StatDescriptors")
+        self._properties: typing.Set[str] = set([ "might_descriptors",  "insight_descriptors",  "nimbleness_descriptors",  "destiny_descriptors",  "savvy_descriptors",  "expertise_descriptors",  "tenacity_descriptors",  "station_descriptors",  "opulence_descriptors",  "celebrity_descriptors",  "integrity_descriptors",  "allure_descriptors",  "lineage_descriptors", ])
+        self._props = StatDescriptorsProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "StatDescriptorsProperties":
+        return self._props
+
+
+class StatDescriptorsViewer(StatDescriptorsAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class StatDescriptorsProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def might_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("might_descriptors"))
+
+    @property
+    def insight_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("insight_descriptors"))
+
+    @property
+    def nimbleness_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("nimbleness_descriptors"))
+
+    @property
+    def destiny_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("destiny_descriptors"))
+
+    @property
+    def savvy_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("savvy_descriptors"))
+
+    @property
+    def expertise_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("expertise_descriptors"))
+
+    @property
+    def tenacity_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tenacity_descriptors"))
+
+    @property
+    def station_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("station_descriptors"))
+
+    @property
+    def opulence_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("opulence_descriptors"))
+
+    @property
+    def celebrity_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("celebrity_descriptors"))
+
+    @property
+    def integrity_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("integrity_descriptors"))
+
+    @property
+    def allure_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("allure_descriptors"))
+
+    @property
+    def lineage_descriptors(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("lineage_descriptors"))
+
+    
+
+class StatRequirementAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("StatRequirement")
+        self._properties: typing.Set[str] = set([ "attribute_name",  "min_value", ])
+        self._props = StatRequirementProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "StatRequirementProperties":
+        return self._props
+
+
+class StatRequirementViewer(StatRequirementAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class StatRequirementProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def attribute_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("attribute_name"))
+
+    @property
+    def min_value(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("min_value"))
 
     
 
