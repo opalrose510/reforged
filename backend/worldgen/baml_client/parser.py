@@ -167,6 +167,84 @@ class LlmResponseParser:
 
       return cast(bool, parsed)
     
+    def CreateFaction(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> types.Faction:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "CreateFaction",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(types.Faction, parsed)
+    
+    def CreateNPC(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> types.NPC:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "CreateNPC",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(types.NPC, parsed)
+    
+    def CreateTechnology(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> types.Technology:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "CreateTechnology",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(types.Technology, parsed)
+    
     def ExpandArcSituations(
         self,
         llm_response: str,
@@ -843,11 +921,37 @@ class LlmResponseParser:
 
       return cast(types.PlayerStats, parsed)
     
-    def SelectGenerationTool(
+    def LegacySelectGenerationTool(
         self,
         llm_response: str,
         baml_options: BamlCallOptions = {},
     ) -> str:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "LegacySelectGenerationTool",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        False,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(str, parsed)
+    
+    def SelectGenerationTool(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> Union[Literal["create_npc"], Literal["create_faction"], Literal["create_technology"], Literal["create_situation"], Literal["create_choices"], Literal["create_arc"], Literal["update_situation"], Literal["update_choice"], Literal["update_arc"], Literal["go_to_situation"], Literal["up_one_level"], Literal["down_one_level"], Literal["go_to_arc_root"], Literal["go_to_world_root"], Literal["get_situation_by_id"], Literal["get_player_state"], Literal["find_missing_situations"], Literal["identify_narrative_gaps"], Literal["story_so_far"]]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -867,7 +971,7 @@ class LlmResponseParser:
         __cr__,
       )
 
-      return cast(str, parsed)
+      return cast(Union[Literal["create_npc"], Literal["create_faction"], Literal["create_technology"], Literal["create_situation"], Literal["create_choices"], Literal["create_arc"], Literal["update_situation"], Literal["update_choice"], Literal["update_arc"], Literal["go_to_situation"], Literal["up_one_level"], Literal["down_one_level"], Literal["go_to_arc_root"], Literal["go_to_world_root"], Literal["get_situation_by_id"], Literal["get_player_state"], Literal["find_missing_situations"], Literal["identify_narrative_gaps"], Literal["story_so_far"]], parsed)
     
     def ValidateBridgeConnections(
         self,
@@ -1035,6 +1139,84 @@ class LlmStreamParser:
       )
 
       return cast(Optional[bool], parsed)
+    
+    def CreateFaction(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> partial_types.Faction:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "CreateFaction",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(partial_types.Faction, parsed)
+    
+    def CreateNPC(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> partial_types.NPC:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "CreateNPC",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(partial_types.NPC, parsed)
+    
+    def CreateTechnology(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> partial_types.Technology:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "CreateTechnology",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(partial_types.Technology, parsed)
     
     def ExpandArcSituations(
         self,
@@ -1712,11 +1894,37 @@ class LlmStreamParser:
 
       return cast(partial_types.PlayerStats, parsed)
     
-    def SelectGenerationTool(
+    def LegacySelectGenerationTool(
         self,
         llm_response: str,
         baml_options: BamlCallOptions = {},
     ) -> Optional[str]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      parsed = self.__runtime.parse_llm_response(
+        "LegacySelectGenerationTool",
+        llm_response,
+        types,
+        types,
+        partial_types,
+        True,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return cast(Optional[str], parsed)
+    
+    def SelectGenerationTool(
+        self,
+        llm_response: str,
+        baml_options: BamlCallOptions = {},
+    ) -> Optional[Union[Optional[Literal["create_npc"]], Optional[Literal["create_faction"]], Optional[Literal["create_technology"]], Optional[Literal["create_situation"]], Optional[Literal["create_choices"]], Optional[Literal["create_arc"]], Optional[Literal["update_situation"]], Optional[Literal["update_choice"]], Optional[Literal["update_arc"]], Optional[Literal["go_to_situation"]], Optional[Literal["up_one_level"]], Optional[Literal["down_one_level"]], Optional[Literal["go_to_arc_root"]], Optional[Literal["go_to_world_root"]], Optional[Literal["get_situation_by_id"]], Optional[Literal["get_player_state"]], Optional[Literal["find_missing_situations"]], Optional[Literal["identify_narrative_gaps"]], Optional[Literal["story_so_far"]]]]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1736,7 +1944,7 @@ class LlmStreamParser:
         __cr__,
       )
 
-      return cast(Optional[str], parsed)
+      return cast(Optional[Union[Optional[Literal["create_npc"]], Optional[Literal["create_faction"]], Optional[Literal["create_technology"]], Optional[Literal["create_situation"]], Optional[Literal["create_choices"]], Optional[Literal["create_arc"]], Optional[Literal["update_situation"]], Optional[Literal["update_choice"]], Optional[Literal["update_arc"]], Optional[Literal["go_to_situation"]], Optional[Literal["up_one_level"]], Optional[Literal["down_one_level"]], Optional[Literal["go_to_arc_root"]], Optional[Literal["go_to_world_root"]], Optional[Literal["get_situation_by_id"]], Optional[Literal["get_player_state"]], Optional[Literal["find_missing_situations"]], Optional[Literal["identify_narrative_gaps"]], Optional[Literal["story_so_far"]]]], parsed)
     
     def ValidateBridgeConnections(
         self,

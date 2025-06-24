@@ -198,6 +198,75 @@ export class BamlAsyncClient {
     }
   }
   
+  async CreateFaction(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: BamlCallOptions
+  ): Promise<Faction> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = await this.runtime.callFunction(
+        "CreateFaction",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return raw.parsed(false) as Faction
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async CreateNPC(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: BamlCallOptions
+  ): Promise<NPC> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = await this.runtime.callFunction(
+        "CreateNPC",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return raw.parsed(false) as NPC
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async CreateTechnology(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: BamlCallOptions
+  ): Promise<Technology> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = await this.runtime.callFunction(
+        "CreateTechnology",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return raw.parsed(false) as Technology
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
   async ExpandArcSituations(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,
       __baml_options__?: BamlCallOptions
@@ -796,7 +865,7 @@ export class BamlAsyncClient {
     }
   }
   
-  async SelectGenerationTool(
+  async LegacySelectGenerationTool(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,
       __baml_options__?: BamlCallOptions
   ): Promise<string> {
@@ -804,7 +873,7 @@ export class BamlAsyncClient {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
       const raw = await this.runtime.callFunction(
-        "SelectGenerationTool",
+        "LegacySelectGenerationTool",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc
         },
@@ -814,6 +883,29 @@ export class BamlAsyncClient {
         collector,
       )
       return raw.parsed(false) as string
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async SelectGenerationTool(
+      world_context: WorldContext,player_state: PlayerState,current_situation: Situation,arc: Arc,distance_from_completed_story: number,
+      __baml_options__?: BamlCallOptions
+  ): Promise<"create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far"> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = await this.runtime.callFunction(
+        "SelectGenerationTool",
+        {
+          "world_context": world_context,"player_state": player_state,"current_situation": current_situation,"arc": arc,"distance_from_completed_story": distance_from_completed_story
+        },
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return raw.parsed(false) as "create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far"
     } catch (error) {
       throw toBamlError(error);
     }
@@ -994,6 +1086,93 @@ class BamlStreamClient {
         raw,
         (a): boolean => a,
         (a): boolean => a,
+        this.ctxManager.cloneContext(),
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateFaction(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+  ): BamlStream<partial_types.Faction, Faction> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = this.runtime.streamFunction(
+        "CreateFaction",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        undefined,
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return new BamlStream<partial_types.Faction, Faction>(
+        raw,
+        (a): partial_types.Faction => a,
+        (a): Faction => a,
+        this.ctxManager.cloneContext(),
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateNPC(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+  ): BamlStream<partial_types.NPC, NPC> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = this.runtime.streamFunction(
+        "CreateNPC",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        undefined,
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return new BamlStream<partial_types.NPC, NPC>(
+        raw,
+        (a): partial_types.NPC => a,
+        (a): NPC => a,
+        this.ctxManager.cloneContext(),
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateTechnology(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+  ): BamlStream<partial_types.Technology, Technology> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = this.runtime.streamFunction(
+        "CreateTechnology",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        undefined,
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return new BamlStream<partial_types.Technology, Technology>(
+        raw,
+        (a): partial_types.Technology => a,
+        (a): Technology => a,
         this.ctxManager.cloneContext(),
       )
     } catch (error) {
@@ -1755,7 +1934,7 @@ class BamlStreamClient {
     }
   }
   
-  SelectGenerationTool(
+  LegacySelectGenerationTool(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
   ): BamlStream<string, string> {
@@ -1763,7 +1942,7 @@ class BamlStreamClient {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
       const raw = this.runtime.streamFunction(
-        "SelectGenerationTool",
+        "LegacySelectGenerationTool",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc
         },
@@ -1777,6 +1956,35 @@ class BamlStreamClient {
         raw,
         (a): string => a,
         (a): string => a,
+        this.ctxManager.cloneContext(),
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  SelectGenerationTool(
+      world_context: WorldContext,player_state: PlayerState,current_situation: Situation,arc: Arc,distance_from_completed_story: number,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+  ): BamlStream<("create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far"), "create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far"> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = this.runtime.streamFunction(
+        "SelectGenerationTool",
+        {
+          "world_context": world_context,"player_state": player_state,"current_situation": current_situation,"arc": arc,"distance_from_completed_story": distance_from_completed_story
+        },
+        undefined,
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return new BamlStream<("create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far"), "create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far">(
+        raw,
+        (a): ("create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far") => a,
+        (a): "create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far" => a,
         this.ctxManager.cloneContext(),
       )
     } catch (error) {

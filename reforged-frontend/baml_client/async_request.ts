@@ -131,6 +131,66 @@ export class AsyncHttpRequest {
     }
   }
   
+  async CreateFaction(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: BamlCallOptions
+  ): Promise<HTTPRequest> {
+    try {
+      return await this.runtime.buildRequest(
+        "CreateFaction",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        false,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async CreateNPC(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: BamlCallOptions
+  ): Promise<HTTPRequest> {
+    try {
+      return await this.runtime.buildRequest(
+        "CreateNPC",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        false,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async CreateTechnology(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: BamlCallOptions
+  ): Promise<HTTPRequest> {
+    try {
+      return await this.runtime.buildRequest(
+        "CreateTechnology",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        false,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
   async ExpandArcSituations(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,
       __baml_options__?: BamlCallOptions
@@ -651,15 +711,35 @@ export class AsyncHttpRequest {
     }
   }
   
-  async SelectGenerationTool(
+  async LegacySelectGenerationTool(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,
+      __baml_options__?: BamlCallOptions
+  ): Promise<HTTPRequest> {
+    try {
+      return await this.runtime.buildRequest(
+        "LegacySelectGenerationTool",
+        {
+          "world_context": world_context,"player_state": player_state,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        false,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async SelectGenerationTool(
+      world_context: WorldContext,player_state: PlayerState,current_situation: Situation,arc: Arc,distance_from_completed_story: number,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
       return await this.runtime.buildRequest(
         "SelectGenerationTool",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc
+          "world_context": world_context,"player_state": player_state,"current_situation": current_situation,"arc": arc,"distance_from_completed_story": distance_from_completed_story
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
@@ -797,6 +877,66 @@ export class AsyncHttpStreamRequest {
     }
   }
   
+  async CreateFaction(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: BamlCallOptions
+  ): Promise<HTTPRequest> {
+    try {
+      return await this.runtime.buildRequest(
+        "CreateFaction",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        true,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async CreateNPC(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: BamlCallOptions
+  ): Promise<HTTPRequest> {
+    try {
+      return await this.runtime.buildRequest(
+        "CreateNPC",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        true,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async CreateTechnology(
+      world_context: WorldContext,current_situation: Situation,arc: Arc,
+      __baml_options__?: BamlCallOptions
+  ): Promise<HTTPRequest> {
+    try {
+      return await this.runtime.buildRequest(
+        "CreateTechnology",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        true,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
   async ExpandArcSituations(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,
       __baml_options__?: BamlCallOptions
@@ -1317,15 +1457,35 @@ export class AsyncHttpStreamRequest {
     }
   }
   
-  async SelectGenerationTool(
+  async LegacySelectGenerationTool(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,
+      __baml_options__?: BamlCallOptions
+  ): Promise<HTTPRequest> {
+    try {
+      return await this.runtime.buildRequest(
+        "LegacySelectGenerationTool",
+        {
+          "world_context": world_context,"player_state": player_state,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        true,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async SelectGenerationTool(
+      world_context: WorldContext,player_state: PlayerState,current_situation: Situation,arc: Arc,distance_from_completed_story: number,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
       return await this.runtime.buildRequest(
         "SelectGenerationTool",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc
+          "world_context": world_context,"player_state": player_state,"current_situation": current_situation,"arc": arc,"distance_from_completed_story": distance_from_completed_story
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),

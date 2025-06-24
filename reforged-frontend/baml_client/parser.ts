@@ -117,6 +117,60 @@ export class LlmResponseParser {
     }
   }
   
+  CreateFaction(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): Faction {
+    try {
+      return this.runtime.parseLlmResponse(
+        "CreateFaction",
+        llmResponse,
+        false,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as Faction
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateNPC(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): NPC {
+    try {
+      return this.runtime.parseLlmResponse(
+        "CreateNPC",
+        llmResponse,
+        false,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as NPC
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateTechnology(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): Technology {
+    try {
+      return this.runtime.parseLlmResponse(
+        "CreateTechnology",
+        llmResponse,
+        false,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as Technology
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
   ExpandArcSituations(
       llmResponse: string,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
@@ -585,10 +639,28 @@ export class LlmResponseParser {
     }
   }
   
-  SelectGenerationTool(
+  LegacySelectGenerationTool(
       llmResponse: string,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): string {
+    try {
+      return this.runtime.parseLlmResponse(
+        "LegacySelectGenerationTool",
+        llmResponse,
+        false,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as string
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  SelectGenerationTool(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): "create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far" {
     try {
       return this.runtime.parseLlmResponse(
         "SelectGenerationTool",
@@ -597,7 +669,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
-      ) as string
+      ) as "create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far"
     } catch (error) {
       throw toBamlError(error);
     }
@@ -712,6 +784,60 @@ export class LlmStreamParser {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
       ) as boolean
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateFaction(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): partial_types.Faction {
+    try {
+      return this.runtime.parseLlmResponse(
+        "CreateFaction",
+        llmResponse,
+        true,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as partial_types.Faction
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateNPC(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): partial_types.NPC {
+    try {
+      return this.runtime.parseLlmResponse(
+        "CreateNPC",
+        llmResponse,
+        true,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as partial_types.NPC
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateTechnology(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): partial_types.Technology {
+    try {
+      return this.runtime.parseLlmResponse(
+        "CreateTechnology",
+        llmResponse,
+        true,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as partial_types.Technology
     } catch (error) {
       throw toBamlError(error);
     }
@@ -1185,10 +1311,28 @@ export class LlmStreamParser {
     }
   }
   
-  SelectGenerationTool(
+  LegacySelectGenerationTool(
       llmResponse: string,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): string {
+    try {
+      return this.runtime.parseLlmResponse(
+        "LegacySelectGenerationTool",
+        llmResponse,
+        true,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as string
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  SelectGenerationTool(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): ("create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far") {
     try {
       return this.runtime.parseLlmResponse(
         "SelectGenerationTool",
@@ -1197,7 +1341,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
-      ) as string
+      ) as ("create_npc" | "create_faction" | "create_technology" | "create_situation" | "create_choices" | "create_arc" | "update_situation" | "update_choice" | "update_arc" | "go_to_situation" | "up_one_level" | "down_one_level" | "go_to_arc_root" | "go_to_world_root" | "get_situation_by_id" | "get_player_state" | "find_missing_situations" | "identify_narrative_gaps" | "story_so_far")
     } catch (error) {
       throw toBamlError(error);
     }

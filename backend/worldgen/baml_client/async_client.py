@@ -235,6 +235,87 @@ class BamlAsyncClient:
       )
       return cast(bool, raw.cast_to(types, types, partial_types, False))
     
+    async def CreateFaction(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> types.Faction:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = await self.__runtime.call_function(
+        "CreateFaction",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+      return cast(types.Faction, raw.cast_to(types, types, partial_types, False))
+    
+    async def CreateNPC(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> types.NPC:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = await self.__runtime.call_function(
+        "CreateNPC",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+      return cast(types.NPC, raw.cast_to(types, types, partial_types, False))
+    
+    async def CreateTechnology(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> types.Technology:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = await self.__runtime.call_function(
+        "CreateTechnology",
+        {
+          "world_context": world_context,"current_situation": current_situation,"arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+      return cast(types.Technology, raw.cast_to(types, types, partial_types, False))
+    
     async def ExpandArcSituations(
         self,
         world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
@@ -937,7 +1018,7 @@ class BamlAsyncClient:
       )
       return cast(types.PlayerStats, raw.cast_to(types, types, partial_types, False))
     
-    async def SelectGenerationTool(
+    async def LegacySelectGenerationTool(
         self,
         world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
         baml_options: BamlCallOptions = {},
@@ -953,7 +1034,7 @@ class BamlAsyncClient:
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
       raw = await self.__runtime.call_function(
-        "SelectGenerationTool",
+        "LegacySelectGenerationTool",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc,
         },
@@ -963,6 +1044,33 @@ class BamlAsyncClient:
         collectors,
       )
       return cast(str, raw.cast_to(types, types, partial_types, False))
+    
+    async def SelectGenerationTool(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,current_situation: types.Situation,arc: types.Arc,distance_from_completed_story: int,
+        baml_options: BamlCallOptions = {},
+    ) -> Union[Literal["create_npc"], Literal["create_faction"], Literal["create_technology"], Literal["create_situation"], Literal["create_choices"], Literal["create_arc"], Literal["update_situation"], Literal["update_choice"], Literal["update_arc"], Literal["go_to_situation"], Literal["up_one_level"], Literal["down_one_level"], Literal["go_to_arc_root"], Literal["go_to_world_root"], Literal["get_situation_by_id"], Literal["get_player_state"], Literal["find_missing_situations"], Literal["identify_narrative_gaps"], Literal["story_so_far"]]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = await self.__runtime.call_function(
+        "SelectGenerationTool",
+        {
+          "world_context": world_context,"player_state": player_state,"current_situation": current_situation,"arc": arc,"distance_from_completed_story": distance_from_completed_story,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+      return cast(Union[Literal["create_npc"], Literal["create_faction"], Literal["create_technology"], Literal["create_situation"], Literal["create_choices"], Literal["create_arc"], Literal["update_situation"], Literal["update_choice"], Literal["update_arc"], Literal["go_to_situation"], Literal["up_one_level"], Literal["down_one_level"], Literal["go_to_arc_root"], Literal["go_to_world_root"], Literal["get_situation_by_id"], Literal["get_player_state"], Literal["find_missing_situations"], Literal["identify_narrative_gaps"], Literal["story_so_far"]], raw.cast_to(types, types, partial_types, False))
     
     async def ValidateBridgeConnections(
         self,
@@ -1172,6 +1280,111 @@ class BamlStreamClient:
         raw,
         lambda x: cast(Optional[bool], x.cast_to(types, types, partial_types, True)),
         lambda x: cast(bool, x.cast_to(types, types, partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
+    def CreateFaction(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlStream[partial_types.Faction, types.Faction]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = self.__runtime.stream_function(
+        "CreateFaction",
+        {
+          "world_context": world_context,
+          "current_situation": current_situation,
+          "arc": arc,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+
+      return baml_py.BamlStream[partial_types.Faction, types.Faction](
+        raw,
+        lambda x: cast(partial_types.Faction, x.cast_to(types, types, partial_types, True)),
+        lambda x: cast(types.Faction, x.cast_to(types, types, partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
+    def CreateNPC(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlStream[partial_types.NPC, types.NPC]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = self.__runtime.stream_function(
+        "CreateNPC",
+        {
+          "world_context": world_context,
+          "current_situation": current_situation,
+          "arc": arc,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+
+      return baml_py.BamlStream[partial_types.NPC, types.NPC](
+        raw,
+        lambda x: cast(partial_types.NPC, x.cast_to(types, types, partial_types, True)),
+        lambda x: cast(types.NPC, x.cast_to(types, types, partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
+    def CreateTechnology(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlStream[partial_types.Technology, types.Technology]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = self.__runtime.stream_function(
+        "CreateTechnology",
+        {
+          "world_context": world_context,
+          "current_situation": current_situation,
+          "arc": arc,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+
+      return baml_py.BamlStream[partial_types.Technology, types.Technology](
+        raw,
+        lambda x: cast(partial_types.Technology, x.cast_to(types, types, partial_types, True)),
+        lambda x: cast(types.Technology, x.cast_to(types, types, partial_types, False)),
         self.__ctx_manager.get(),
       )
     
@@ -2065,7 +2278,7 @@ class BamlStreamClient:
         self.__ctx_manager.get(),
       )
     
-    def SelectGenerationTool(
+    def LegacySelectGenerationTool(
         self,
         world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
         baml_options: BamlCallOptions = {},
@@ -2080,7 +2293,7 @@ class BamlStreamClient:
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
       raw = self.__runtime.stream_function(
-        "SelectGenerationTool",
+        "LegacySelectGenerationTool",
         {
           "world_context": world_context,
           "player_state": player_state,
@@ -2097,6 +2310,43 @@ class BamlStreamClient:
         raw,
         lambda x: cast(Optional[str], x.cast_to(types, types, partial_types, True)),
         lambda x: cast(str, x.cast_to(types, types, partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
+    def SelectGenerationTool(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,current_situation: types.Situation,arc: types.Arc,distance_from_completed_story: int,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlStream[Optional[Union[Optional[Literal["create_npc"]], Optional[Literal["create_faction"]], Optional[Literal["create_technology"]], Optional[Literal["create_situation"]], Optional[Literal["create_choices"]], Optional[Literal["create_arc"]], Optional[Literal["update_situation"]], Optional[Literal["update_choice"]], Optional[Literal["update_arc"]], Optional[Literal["go_to_situation"]], Optional[Literal["up_one_level"]], Optional[Literal["down_one_level"]], Optional[Literal["go_to_arc_root"]], Optional[Literal["go_to_world_root"]], Optional[Literal["get_situation_by_id"]], Optional[Literal["get_player_state"]], Optional[Literal["find_missing_situations"]], Optional[Literal["identify_narrative_gaps"]], Optional[Literal["story_so_far"]]]], Union[Literal["create_npc"], Literal["create_faction"], Literal["create_technology"], Literal["create_situation"], Literal["create_choices"], Literal["create_arc"], Literal["update_situation"], Literal["update_choice"], Literal["update_arc"], Literal["go_to_situation"], Literal["up_one_level"], Literal["down_one_level"], Literal["go_to_arc_root"], Literal["go_to_world_root"], Literal["get_situation_by_id"], Literal["get_player_state"], Literal["find_missing_situations"], Literal["identify_narrative_gaps"], Literal["story_so_far"]]]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = self.__runtime.stream_function(
+        "SelectGenerationTool",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "current_situation": current_situation,
+          "arc": arc,
+          "distance_from_completed_story": distance_from_completed_story,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+
+      return baml_py.BamlStream[Optional[Union[Optional[Literal["create_npc"]], Optional[Literal["create_faction"]], Optional[Literal["create_technology"]], Optional[Literal["create_situation"]], Optional[Literal["create_choices"]], Optional[Literal["create_arc"]], Optional[Literal["update_situation"]], Optional[Literal["update_choice"]], Optional[Literal["update_arc"]], Optional[Literal["go_to_situation"]], Optional[Literal["up_one_level"]], Optional[Literal["down_one_level"]], Optional[Literal["go_to_arc_root"]], Optional[Literal["go_to_world_root"]], Optional[Literal["get_situation_by_id"]], Optional[Literal["get_player_state"]], Optional[Literal["find_missing_situations"]], Optional[Literal["identify_narrative_gaps"]], Optional[Literal["story_so_far"]]]], Union[Literal["create_npc"], Literal["create_faction"], Literal["create_technology"], Literal["create_situation"], Literal["create_choices"], Literal["create_arc"], Literal["update_situation"], Literal["update_choice"], Literal["update_arc"], Literal["go_to_situation"], Literal["up_one_level"], Literal["down_one_level"], Literal["go_to_arc_root"], Literal["go_to_world_root"], Literal["get_situation_by_id"], Literal["get_player_state"], Literal["find_missing_situations"], Literal["identify_narrative_gaps"], Literal["story_so_far"]]](
+        raw,
+        lambda x: cast(Optional[Union[Optional[Literal["create_npc"]], Optional[Literal["create_faction"]], Optional[Literal["create_technology"]], Optional[Literal["create_situation"]], Optional[Literal["create_choices"]], Optional[Literal["create_arc"]], Optional[Literal["update_situation"]], Optional[Literal["update_choice"]], Optional[Literal["update_arc"]], Optional[Literal["go_to_situation"]], Optional[Literal["up_one_level"]], Optional[Literal["down_one_level"]], Optional[Literal["go_to_arc_root"]], Optional[Literal["go_to_world_root"]], Optional[Literal["get_situation_by_id"]], Optional[Literal["get_player_state"]], Optional[Literal["find_missing_situations"]], Optional[Literal["identify_narrative_gaps"]], Optional[Literal["story_so_far"]]]], x.cast_to(types, types, partial_types, True)),
+        lambda x: cast(Union[Literal["create_npc"], Literal["create_faction"], Literal["create_technology"], Literal["create_situation"], Literal["create_choices"], Literal["create_arc"], Literal["update_situation"], Literal["update_choice"], Literal["update_arc"], Literal["go_to_situation"], Literal["up_one_level"], Literal["down_one_level"], Literal["go_to_arc_root"], Literal["go_to_world_root"], Literal["get_situation_by_id"], Literal["get_player_state"], Literal["find_missing_situations"], Literal["identify_narrative_gaps"], Literal["story_so_far"]], x.cast_to(types, types, partial_types, False)),
         self.__ctx_manager.get(),
       )
     

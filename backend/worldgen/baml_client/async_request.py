@@ -159,6 +159,81 @@ class AsyncHttpRequest:
         False,
       )
     
+    async def CreateFaction(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "CreateFaction",
+        {
+          "world_context": world_context,
+          "current_situation": current_situation,
+          "arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
+    async def CreateNPC(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "CreateNPC",
+        {
+          "world_context": world_context,
+          "current_situation": current_situation,
+          "arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
+    async def CreateTechnology(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "CreateTechnology",
+        {
+          "world_context": world_context,
+          "current_situation": current_situation,
+          "arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
     async def ExpandArcSituations(
         self,
         world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
@@ -789,9 +864,34 @@ class AsyncHttpRequest:
         False,
       )
     
-    async def SelectGenerationTool(
+    async def LegacySelectGenerationTool(
         self,
         world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "LegacySelectGenerationTool",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
+    async def SelectGenerationTool(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,current_situation: types.Situation,arc: types.Arc,distance_from_completed_story: int,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -806,7 +906,9 @@ class AsyncHttpRequest:
         {
           "world_context": world_context,
           "player_state": player_state,
+          "current_situation": current_situation,
           "arc": arc,
+          "distance_from_completed_story": distance_from_completed_story,
         },
         self.__ctx_manager.get(),
         tb,
@@ -972,6 +1074,81 @@ class AsyncHttpStreamRequest:
         True,
       )
     
+    async def CreateFaction(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "CreateFaction",
+        {
+          "world_context": world_context,
+          "current_situation": current_situation,
+          "arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
+    async def CreateNPC(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "CreateNPC",
+        {
+          "world_context": world_context,
+          "current_situation": current_situation,
+          "arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
+    async def CreateTechnology(
+        self,
+        world_context: types.WorldContext,current_situation: types.Situation,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "CreateTechnology",
+        {
+          "world_context": world_context,
+          "current_situation": current_situation,
+          "arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
     async def ExpandArcSituations(
         self,
         world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
@@ -1602,9 +1779,34 @@ class AsyncHttpStreamRequest:
         True,
       )
     
-    async def SelectGenerationTool(
+    async def LegacySelectGenerationTool(
         self,
         world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return await self.__runtime.build_request(
+        "LegacySelectGenerationTool",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
+    async def SelectGenerationTool(
+        self,
+        world_context: types.WorldContext,player_state: types.PlayerState,current_situation: types.Situation,arc: types.Arc,distance_from_completed_story: int,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -1619,7 +1821,9 @@ class AsyncHttpStreamRequest:
         {
           "world_context": world_context,
           "player_state": player_state,
+          "current_situation": current_situation,
           "arc": arc,
+          "distance_from_completed_story": distance_from_completed_story,
         },
         self.__ctx_manager.get(),
         tb,
