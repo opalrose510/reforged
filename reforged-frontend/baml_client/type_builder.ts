@@ -34,15 +34,11 @@ export default class TypeBuilder {
     
     Choice: ClassViewer<'Choice', "id" | "text" | "dialogue_response" | "choice_type" | "player_perspective" | "emotional_tone" | "body_language" | "requirements" | "attributes_gained" | "attributes_lost" | "stat_changes" | "next_situation_id" | "internal_hint" | "internal_justification" | "new_npcs" | "new_factions" | "new_technologies">;
     
-    CompressedWorldContext: ClassViewer<'CompressedWorldContext', "seed" | "concept_summaries" | "tension_sliders">;
-    
-    ConceptSummary: ClassViewer<'ConceptSummary', "id" | "name" | "type" | "short_description">;
-    
-    District: ClassViewer<'District', "id" | "traits" | "hazards" | "factions" | "description" | "internal_hint" | "internal_justification">;
+    District: ClassViewer<'District', "id" | "short_description" | "traits" | "hazards" | "factions" | "description" | "internal_hint" | "internal_justification">;
     
     Event: ClassViewer<'Event', "id" | "title" | "description" | "type" | "triggers" | "consequences" | "affected_npcs" | "affected_locations" | "internal_hint" | "internal_justification">;
     
-    Faction: ClassViewer<'Faction', "name" | "ideology" | "territory" | "influence_level" | "relationships" | "internal_hint" | "internal_justification">;
+    Faction: ClassViewer<'Faction', "name" | "short_description" | "ideology" | "territory" | "influence_level" | "relationships" | "internal_hint" | "internal_justification">;
     
     GetDistrictDetails: ClassViewer<'GetDistrictDetails', "tool_name" | "district_name">;
     
@@ -56,7 +52,7 @@ export default class TypeBuilder {
     
     Location: ClassViewer<'Location', "id" | "name" | "type" | "description" | "traits" | "hazards" | "connected_locations" | "npcs_present" | "internal_hint" | "internal_justification">;
     
-    NPC: ClassViewer<'NPC', "id" | "name" | "role" | "description" | "personality_traits" | "relationships" | "faction_affiliations" | "location_id" | "internal_hint" | "internal_justification">;
+    NPC: ClassViewer<'NPC', "id" | "name" | "role" | "short_description" | "description" | "personality_traits" | "relationships" | "faction_affiliations" | "location_id" | "internal_hint" | "internal_justification">;
     
     PlayerAttribute: ClassViewer<'PlayerAttribute', "id" | "type" | "description" | "stat_mods">;
     
@@ -76,7 +72,7 @@ export default class TypeBuilder {
     
     StatRequirement: ClassViewer<'StatRequirement', "attribute_name" | "min_value">;
     
-    Technology: ClassViewer<'Technology', "name" | "description" | "impact" | "limitations" | "internal_hint" | "internal_justification">;
+    Technology: ClassViewer<'Technology', "name" | "description" | "short_description" | "impact" | "limitations" | "internal_hint" | "internal_justification">;
     
     WorldConceptTool: ClassViewer<'WorldConceptTool', "tool_name" | "description" | "parameters">;
     
@@ -89,7 +85,7 @@ export default class TypeBuilder {
     constructor() {
         this.tb = new _TypeBuilder({
           classes: new Set([
-            "Arc","ArcOutcome","ArcSeed","BridgeNode","BridgeableSituation","Choice","CompressedWorldContext","ConceptSummary","District","Event","Faction","GetDistrictDetails","GetFactionDetails","GetNPCDetails","GetTechnologyDetails","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","StatDescriptors","StatRequirement","Technology","WorldConceptTool","WorldContext","WorldSeed",
+            "Arc","ArcOutcome","ArcSeed","BridgeNode","BridgeableSituation","Choice","District","Event","Faction","GetDistrictDetails","GetFactionDetails","GetNPCDetails","GetTechnologyDetails","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","StatDescriptors","StatRequirement","Technology","WorldConceptTool","WorldContext","WorldSeed",
           ]),
           enums: new Set([
             
@@ -121,16 +117,8 @@ export default class TypeBuilder {
           "id","text","dialogue_response","choice_type","player_perspective","emotional_tone","body_language","requirements","attributes_gained","attributes_lost","stat_changes","next_situation_id","internal_hint","internal_justification","new_npcs","new_factions","new_technologies",
         ]);
         
-        this.CompressedWorldContext = this.tb.classViewer("CompressedWorldContext", [
-          "seed","concept_summaries","tension_sliders",
-        ]);
-        
-        this.ConceptSummary = this.tb.classViewer("ConceptSummary", [
-          "id","name","type","short_description",
-        ]);
-        
         this.District = this.tb.classViewer("District", [
-          "id","traits","hazards","factions","description","internal_hint","internal_justification",
+          "id","short_description","traits","hazards","factions","description","internal_hint","internal_justification",
         ]);
         
         this.Event = this.tb.classViewer("Event", [
@@ -138,7 +126,7 @@ export default class TypeBuilder {
         ]);
         
         this.Faction = this.tb.classViewer("Faction", [
-          "name","ideology","territory","influence_level","relationships","internal_hint","internal_justification",
+          "name","short_description","ideology","territory","influence_level","relationships","internal_hint","internal_justification",
         ]);
         
         this.GetDistrictDetails = this.tb.classViewer("GetDistrictDetails", [
@@ -166,7 +154,7 @@ export default class TypeBuilder {
         ]);
         
         this.NPC = this.tb.classViewer("NPC", [
-          "id","name","role","description","personality_traits","relationships","faction_affiliations","location_id","internal_hint","internal_justification",
+          "id","name","role","short_description","description","personality_traits","relationships","faction_affiliations","location_id","internal_hint","internal_justification",
         ]);
         
         this.PlayerAttribute = this.tb.classViewer("PlayerAttribute", [
@@ -206,7 +194,7 @@ export default class TypeBuilder {
         ]);
         
         this.Technology = this.tb.classViewer("Technology", [
-          "name","description","impact","limitations","internal_hint","internal_justification",
+          "name","description","short_description","impact","limitations","internal_hint","internal_justification",
         ]);
         
         this.WorldConceptTool = this.tb.classViewer("WorldConceptTool", [

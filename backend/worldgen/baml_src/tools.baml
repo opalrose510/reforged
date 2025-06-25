@@ -7,12 +7,12 @@ class WorldConceptTool {
   parameters map<string, string>
 }
 
-function SelectWorldTool(compressed_context: CompressedWorldContext, user_message: string) -> (GetTechnologyDetails | GetFactionDetails | GetDistrictDetails | GetNPCDetails)[] {
+function SelectWorldTool(world_context: WorldContext, user_message: string) -> (GetTechnologyDetails | GetFactionDetails | GetDistrictDetails | GetNPCDetails)[] {
   client ReforgedClient
   prompt #"
-    Given a compressed world context and user message, determine which world concept tools to call to get more detailed information.
+    Given a world context and user message, determine which world concept tools to call to get more detailed information.
     
-    {{ CompressedContextTemplate }}
+    {{ CompressedWorldContext }}
     
     User Message:
     {{ user_message }}
@@ -39,12 +39,12 @@ template_string GenerationToolList = #"
     Create a new Arc - Create a new arc, where the root situation is the current situation.
 "#
 
-function SelectGenerationTool(compressed_context: CompressedWorldContext, player_state: PlayerState, arc: Arc) -> string {
+function SelectGenerationTool(world_context: WorldContext, player_state: PlayerState, arc: Arc) -> string {
   client ReforgedClient
   prompt #"
     Given the current world context and player state, select the generation tool to use.
     
-    {{ CompressedContextTemplate }}
+    {{ CompressedWorldContext }}
     
     Player State:
     {{ player_state }}

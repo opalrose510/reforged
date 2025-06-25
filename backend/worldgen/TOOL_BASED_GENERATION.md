@@ -6,28 +6,36 @@ This document describes the new tool-based approach to world generation that add
 
 The new system introduces three key improvements:
 
-1. **Compressed World Context** - Reduces prompt size by providing concept summaries instead of full world data
+1. **Compressed World Context Template** - Uses a template_string to reduce prompt size while maintaining full world data access
 2. **Tool-Based Concept Lookup** - Allows agents to request detailed information only when needed
 3. **Retry Logic & Metrics** - Provides robust error handling and performance tracking
 
 ## Architecture
 
-### Compressed World Context
+### Compressed World Context Template
 
-Instead of passing the entire `WorldContext` (which can be huge), we now use `CompressedWorldContext`:
+Instead of passing the entire `WorldContext` in every prompt, we use a `template_string` called `CompressedWorldContext` that extracts key information:
 
-```python
-class CompressedWorldContext:
-    seed: WorldSeed
-    concept_summaries: ConceptSummary[]  # Short summaries of all concepts
-    tension_sliders: map<string, int>
+```baml
+template_string CompressedWorldContext = #"
+World: {{ seed.name }}
+Themes: {{ seed.themes | join(", ") }}
+High Concept: {{ seed.high_concept }}
+
+Technologies Available:
+{% for tech in technologies -%}
+- {{ tech.name }}: {{ tech.short_description or (tech.description[:100] + "...") }}
+{% endfor %}
+
+Factions Available:
+{% for faction in factions -%}
+- {{ faction.name }}: {{ faction.short_description or (faction.ideology[:100] + "...") }}
+{% endfor %}
+...
+"#
 ```
 
-Each `ConceptSummary` contains:
-- `id`: Unique identifier
-- `name`: Concept name
-- `type`: "technology", "faction", "district", or "npc"
-- `short_description`: 1-2 sentence summary
+The template automatically handles missing `short_description` fields by falling back to truncated descriptions from the full context.
 
 ### Tool System
 
@@ -65,17 +73,17 @@ world = World(world_seed)
 context_manager = WorldContextManager(world.world_context)
 ```
 
-### Using Compressed Context
+### Using the Template-Based Approach
 
 ```python
-# Get compressed context (cached after first call)
-compressed_context = await context_manager.get_compressed_context()
+# Get world context (compression handled by template_string)
+world_context = context_manager.get_world_context()
 
-# Use in generation functions
+# Use in generation functions - compression happens automatically via template
 arc_titles, metrics = await execute_with_retry_and_metrics(
     b.GenerateArcTitles,
     "generate_arc_titles",
-    world_context=compressed_context,
+    world_context=world_context,
     player_state=world.player_state,
     count=3
 )
@@ -86,7 +94,7 @@ arc_titles, metrics = await execute_with_retry_and_metrics(
 ```python
 # Select relevant tools based on user query
 tools = await b.SelectWorldTool(
-    compressed_context=compressed_context,
+    world_context=world_context,
     user_message="Tell me about Vextros and translation implants"
 )
 

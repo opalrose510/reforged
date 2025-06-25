@@ -124,13 +124,13 @@ function GenerateChoiceAttribute(choice: Choice, world_context: WorldContext) ->
 }
 
 // Function to generate arc titles
-function GenerateArcTitles(world_context: CompressedWorldContext, player_state: PlayerState, count: int?) -> string[] {
+function GenerateArcTitles(world_context: WorldContext, player_state: PlayerState, count: int?) -> string[] {
   client ReforgedClient
   prompt #"
     Generate {{ count or 3 }} distinct arc titles based on the world context and player state.
     Return ONLY the titles, one per line.
     
-    {{ CompressedContextTemplate }}
+    {{ CompressedWorldContext }}
     
     Player State:
     {{ player_state }}
@@ -146,7 +146,7 @@ function GenerateArcTitles(world_context: CompressedWorldContext, player_state: 
 }
 
 // Function to generate a single arc seed
-function GenerateArcSeed(world_context: CompressedWorldContext, player_state: PlayerState, title: string) -> ArcSeed {
+function GenerateArcSeed(world_context: WorldContext, player_state: PlayerState, title: string) -> ArcSeed {
   client ReforgedClient
   prompt #"
     Generate a complete arc seed based on the given title, world context, and player state.
@@ -154,7 +154,7 @@ function GenerateArcSeed(world_context: CompressedWorldContext, player_state: Pl
     Title:
     {{ title }}
     
-    {{ CompressedContextTemplate }}
+    {{ CompressedWorldContext }}
     
     Player State:
     {{ player_state }}
@@ -170,12 +170,12 @@ function GenerateArcSeed(world_context: CompressedWorldContext, player_state: Pl
 }
 
 // Function to generate root situation for an arc - uses tools for detailed world info
-function GenerateRootSituation(world_context: CompressedWorldContext, player_state: PlayerState, arc_seed: ArcSeed) -> Situation {
+function GenerateRootSituation(world_context: WorldContext, player_state: PlayerState, arc_seed: ArcSeed) -> Situation {
   client ReforgedClient
   prompt #"
     Generate the root situation for an arc based on the world context, player state, and arc seed.
     
-    {{ CompressedContextTemplate }}
+    {{ CompressedWorldContext }}
     
     Player State:
     {{ player_state }}

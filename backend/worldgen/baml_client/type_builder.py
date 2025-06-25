@@ -22,7 +22,7 @@ from .globals import DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIM
 class TypeBuilder(_TypeBuilder):
     def __init__(self):
         super().__init__(classes=set(
-          ["Arc","ArcOutcome","ArcSeed","BridgeNode","BridgeableSituation","Choice","CompressedWorldContext","ConceptSummary","District","Event","Faction","GetDistrictDetails","GetFactionDetails","GetNPCDetails","GetTechnologyDetails","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","StatDescriptors","StatRequirement","Technology","WorldConceptTool","WorldContext","WorldSeed",]
+          ["Arc","ArcOutcome","ArcSeed","BridgeNode","BridgeableSituation","Choice","District","Event","Faction","GetDistrictDetails","GetFactionDetails","GetNPCDetails","GetTechnologyDetails","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","StatDescriptors","StatRequirement","Technology","WorldConceptTool","WorldContext","WorldSeed",]
         ), enums=set(
           []
         ), runtime=DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME)
@@ -51,14 +51,6 @@ class TypeBuilder(_TypeBuilder):
     @property
     def Choice(self) -> "ChoiceAst":
         return ChoiceAst(self)
-
-    @property
-    def CompressedWorldContext(self) -> "CompressedWorldContextAst":
-        return CompressedWorldContextAst(self)
-
-    @property
-    def ConceptSummary(self) -> "ConceptSummaryAst":
-        return ConceptSummaryAst(self)
 
     @property
     def District(self) -> "DistrictAst":
@@ -552,107 +544,11 @@ class ChoiceProperties:
 
     
 
-class CompressedWorldContextAst:
-    def __init__(self, tb: _TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
-        self._bldr = _tb.class_("CompressedWorldContext")
-        self._properties: typing.Set[str] = set([ "seed",  "concept_summaries",  "tension_sliders", ])
-        self._props = CompressedWorldContextProperties(self._bldr, self._properties)
-
-    def type(self) -> FieldType:
-        return self._bldr.field()
-
-    @property
-    def props(self) -> "CompressedWorldContextProperties":
-        return self._props
-
-
-class CompressedWorldContextViewer(CompressedWorldContextAst):
-    def __init__(self, tb: _TypeBuilder):
-        super().__init__(tb)
-
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
-        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-
-
-
-class CompressedWorldContextProperties:
-    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
-        self.__bldr = bldr
-        self.__properties = properties
-
-    
-
-    @property
-    def seed(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("seed"))
-
-    @property
-    def concept_summaries(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("concept_summaries"))
-
-    @property
-    def tension_sliders(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("tension_sliders"))
-
-    
-
-class ConceptSummaryAst:
-    def __init__(self, tb: _TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
-        self._bldr = _tb.class_("ConceptSummary")
-        self._properties: typing.Set[str] = set([ "id",  "name",  "type",  "short_description", ])
-        self._props = ConceptSummaryProperties(self._bldr, self._properties)
-
-    def type(self) -> FieldType:
-        return self._bldr.field()
-
-    @property
-    def props(self) -> "ConceptSummaryProperties":
-        return self._props
-
-
-class ConceptSummaryViewer(ConceptSummaryAst):
-    def __init__(self, tb: _TypeBuilder):
-        super().__init__(tb)
-
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
-        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-
-
-
-class ConceptSummaryProperties:
-    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
-        self.__bldr = bldr
-        self.__properties = properties
-
-    
-
-    @property
-    def id(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("id"))
-
-    @property
-    def name(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("name"))
-
-    @property
-    def type(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("type"))
-
-    @property
-    def short_description(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("short_description"))
-
-    
-
 class DistrictAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("District")
-        self._properties: typing.Set[str] = set([ "id",  "traits",  "hazards",  "factions",  "description",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "id",  "short_description",  "traits",  "hazards",  "factions",  "description",  "internal_hint",  "internal_justification", ])
         self._props = DistrictProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -683,6 +579,10 @@ class DistrictProperties:
     @property
     def id(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("id"))
+
+    @property
+    def short_description(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("short_description"))
 
     @property
     def traits(self) -> ClassPropertyViewer:
@@ -788,7 +688,7 @@ class FactionAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Faction")
-        self._properties: typing.Set[str] = set([ "name",  "ideology",  "territory",  "influence_level",  "relationships",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "name",  "short_description",  "ideology",  "territory",  "influence_level",  "relationships",  "internal_hint",  "internal_justification", ])
         self._props = FactionProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -819,6 +719,10 @@ class FactionProperties:
     @property
     def name(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("name"))
+
+    @property
+    def short_description(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("short_description"))
 
     @property
     def ideology(self) -> ClassPropertyViewer:
@@ -1162,7 +1066,7 @@ class NPCAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("NPC")
-        self._properties: typing.Set[str] = set([ "id",  "name",  "role",  "description",  "personality_traits",  "relationships",  "faction_affiliations",  "location_id",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "id",  "name",  "role",  "short_description",  "description",  "personality_traits",  "relationships",  "faction_affiliations",  "location_id",  "internal_hint",  "internal_justification", ])
         self._props = NPCProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -1201,6 +1105,10 @@ class NPCProperties:
     @property
     def role(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("role"))
+
+    @property
+    def short_description(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("short_description"))
 
     @property
     def description(self) -> ClassPropertyViewer:
@@ -1802,7 +1710,7 @@ class TechnologyAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Technology")
-        self._properties: typing.Set[str] = set([ "name",  "description",  "impact",  "limitations",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "name",  "description",  "short_description",  "impact",  "limitations",  "internal_hint",  "internal_justification", ])
         self._props = TechnologyProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -1837,6 +1745,10 @@ class TechnologyProperties:
     @property
     def description(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("description"))
+
+    @property
+    def short_description(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("short_description"))
 
     @property
     def impact(self) -> ClassPropertyViewer:

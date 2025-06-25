@@ -19,7 +19,7 @@ import type { BamlRuntime, BamlCtxManager, ClientRegistry, Image, Audio } from "
 import { toBamlError, HTTPRequest } from "@boundaryml/baml"
 import type { Checked, Check } from "./types"
 import type * as types from "./types"
-import type {Arc, ArcOutcome, ArcSeed, BridgeNode, BridgeableSituation, Choice, CompressedWorldContext, ConceptSummary, District, Event, Faction, GetDistrictDetails, GetFactionDetails, GetNPCDetails, GetTechnologyDetails, Item, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, Situation, StatDescriptors, StatRequirement, Technology, WorldConceptTool, WorldContext, WorldSeed} from "./types"
+import type {Arc, ArcOutcome, ArcSeed, BridgeNode, BridgeableSituation, Choice, District, Event, Faction, GetDistrictDetails, GetFactionDetails, GetNPCDetails, GetTechnologyDetails, Item, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, Situation, StatDescriptors, StatRequirement, Technology, WorldConceptTool, WorldContext, WorldSeed} from "./types"
 import type TypeBuilder from "./type_builder"
 
 type BamlCallOptions = {
@@ -99,7 +99,7 @@ export class AsyncHttpRequest {
   }
   
   async CheckFactionNeeds(
-      context: CompressedWorldContext,situation_description: string,
+      context: WorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -121,7 +121,7 @@ export class AsyncHttpRequest {
   }
   
   async CheckTechnologyNeeds(
-      context: CompressedWorldContext,situation_description: string,
+      context: WorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -130,28 +130,6 @@ export class AsyncHttpRequest {
         "CheckTechnologyNeeds",
         {
           "context": context,"situation_description": situation_description
-        },
-        this.ctxManager.cloneContext(),
-        __baml_options__?.tb?.__tb(),
-        __baml_options__?.clientRegistry,
-        false,
-        env
-      )
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
-  async CreateCompressedContext(
-      world_context: WorldContext,
-      __baml_options__?: BamlCallOptions
-  ): Promise<HTTPRequest> {
-    try {
-      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
-      return await this.runtime.buildRequest(
-        "CreateCompressedContext",
-        {
-          "world_context": world_context
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
@@ -209,7 +187,7 @@ export class AsyncHttpRequest {
   }
   
   async GenerateArcSeed(
-      world_context: CompressedWorldContext,player_state: PlayerState,title: string,
+      world_context: WorldContext,player_state: PlayerState,title: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -231,7 +209,7 @@ export class AsyncHttpRequest {
   }
   
   async GenerateArcTitles(
-      world_context: CompressedWorldContext,player_state: PlayerState,count?: number | null,
+      world_context: WorldContext,player_state: PlayerState,count?: number | null,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -341,7 +319,7 @@ export class AsyncHttpRequest {
   }
   
   async GenerateDistricts(
-      context: CompressedWorldContext,
+      context: WorldContext,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -385,7 +363,7 @@ export class AsyncHttpRequest {
   }
   
   async GenerateFaction(
-      context: CompressedWorldContext,situation_description: string,
+      context: WorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -561,7 +539,7 @@ export class AsyncHttpRequest {
   }
   
   async GenerateRootSituation(
-      world_context: CompressedWorldContext,player_state: PlayerState,arc_seed: ArcSeed,
+      world_context: WorldContext,player_state: PlayerState,arc_seed: ArcSeed,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -605,7 +583,7 @@ export class AsyncHttpRequest {
   }
   
   async GenerateTechnology(
-      context: CompressedWorldContext,situation_description: string,
+      context: WorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -737,7 +715,7 @@ export class AsyncHttpRequest {
   }
   
   async SelectGenerationTool(
-      compressed_context: CompressedWorldContext,player_state: PlayerState,arc: Arc,
+      world_context: WorldContext,player_state: PlayerState,arc: Arc,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -745,7 +723,7 @@ export class AsyncHttpRequest {
       return await this.runtime.buildRequest(
         "SelectGenerationTool",
         {
-          "compressed_context": compressed_context,"player_state": player_state,"arc": arc
+          "world_context": world_context,"player_state": player_state,"arc": arc
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
@@ -759,7 +737,7 @@ export class AsyncHttpRequest {
   }
   
   async SelectWorldTool(
-      compressed_context: CompressedWorldContext,user_message: string,
+      world_context: WorldContext,user_message: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -767,7 +745,7 @@ export class AsyncHttpRequest {
       return await this.runtime.buildRequest(
         "SelectWorldTool",
         {
-          "compressed_context": compressed_context,"user_message": user_message
+          "world_context": world_context,"user_message": user_message
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
@@ -875,7 +853,7 @@ export class AsyncHttpStreamRequest {
   }
   
   async CheckFactionNeeds(
-      context: CompressedWorldContext,situation_description: string,
+      context: WorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -897,7 +875,7 @@ export class AsyncHttpStreamRequest {
   }
   
   async CheckTechnologyNeeds(
-      context: CompressedWorldContext,situation_description: string,
+      context: WorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -906,28 +884,6 @@ export class AsyncHttpStreamRequest {
         "CheckTechnologyNeeds",
         {
           "context": context,"situation_description": situation_description
-        },
-        this.ctxManager.cloneContext(),
-        __baml_options__?.tb?.__tb(),
-        __baml_options__?.clientRegistry,
-        true,
-        env
-      )
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
-  async CreateCompressedContext(
-      world_context: WorldContext,
-      __baml_options__?: BamlCallOptions
-  ): Promise<HTTPRequest> {
-    try {
-      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
-      return await this.runtime.buildRequest(
-        "CreateCompressedContext",
-        {
-          "world_context": world_context
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
@@ -985,7 +941,7 @@ export class AsyncHttpStreamRequest {
   }
   
   async GenerateArcSeed(
-      world_context: CompressedWorldContext,player_state: PlayerState,title: string,
+      world_context: WorldContext,player_state: PlayerState,title: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -1007,7 +963,7 @@ export class AsyncHttpStreamRequest {
   }
   
   async GenerateArcTitles(
-      world_context: CompressedWorldContext,player_state: PlayerState,count?: number | null,
+      world_context: WorldContext,player_state: PlayerState,count?: number | null,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -1117,7 +1073,7 @@ export class AsyncHttpStreamRequest {
   }
   
   async GenerateDistricts(
-      context: CompressedWorldContext,
+      context: WorldContext,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -1161,7 +1117,7 @@ export class AsyncHttpStreamRequest {
   }
   
   async GenerateFaction(
-      context: CompressedWorldContext,situation_description: string,
+      context: WorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -1337,7 +1293,7 @@ export class AsyncHttpStreamRequest {
   }
   
   async GenerateRootSituation(
-      world_context: CompressedWorldContext,player_state: PlayerState,arc_seed: ArcSeed,
+      world_context: WorldContext,player_state: PlayerState,arc_seed: ArcSeed,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -1381,7 +1337,7 @@ export class AsyncHttpStreamRequest {
   }
   
   async GenerateTechnology(
-      context: CompressedWorldContext,situation_description: string,
+      context: WorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -1513,7 +1469,7 @@ export class AsyncHttpStreamRequest {
   }
   
   async SelectGenerationTool(
-      compressed_context: CompressedWorldContext,player_state: PlayerState,arc: Arc,
+      world_context: WorldContext,player_state: PlayerState,arc: Arc,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -1521,7 +1477,7 @@ export class AsyncHttpStreamRequest {
       return await this.runtime.buildRequest(
         "SelectGenerationTool",
         {
-          "compressed_context": compressed_context,"player_state": player_state,"arc": arc
+          "world_context": world_context,"player_state": player_state,"arc": arc
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
@@ -1535,7 +1491,7 @@ export class AsyncHttpStreamRequest {
   }
   
   async SelectWorldTool(
-      compressed_context: CompressedWorldContext,user_message: string,
+      world_context: WorldContext,user_message: string,
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
@@ -1543,7 +1499,7 @@ export class AsyncHttpStreamRequest {
       return await this.runtime.buildRequest(
         "SelectWorldTool",
         {
-          "compressed_context": compressed_context,"user_message": user_message
+          "world_context": world_context,"user_message": user_message
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),

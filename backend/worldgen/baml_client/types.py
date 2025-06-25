@@ -101,19 +101,9 @@ class Choice(BaseModel):
     new_factions: List["Faction"]
     new_technologies: List["Technology"]
 
-class CompressedWorldContext(BaseModel):
-    seed: "WorldSeed"
-    concept_summaries: List["ConceptSummary"]
-    tension_sliders: Dict[str, int]
-
-class ConceptSummary(BaseModel):
-    id: str
-    name: str
-    type: str
-    short_description: str
-
 class District(BaseModel):
     id: str
+    short_description: Optional[str] = None
     traits: List[str]
     hazards: List[str]
     factions: List[str]
@@ -135,6 +125,7 @@ class Event(BaseModel):
 
 class Faction(BaseModel):
     name: str
+    short_description: Optional[str] = None
     ideology: Optional[str] = None
     territory: Optional[List[str]] = None
     influence_level: int
@@ -185,6 +176,7 @@ class NPC(BaseModel):
     id: str
     name: str
     role: str
+    short_description: Optional[str] = None
     description: str
     personality_traits: List[str]
     relationships: Dict[str, str]
@@ -279,6 +271,7 @@ class StatRequirement(BaseModel):
 class Technology(BaseModel):
     name: str
     description: str
+    short_description: Optional[str] = None
     impact: str
     limitations: str
     internal_hint: Optional[str] = None

@@ -3,6 +3,7 @@ class NPC {
   id string
   name string
   role string
+  short_description string? @description("1-2 sentence summary of the most important aspects")
   description string
   personality_traits string[]
   relationships map<string, string>  // npc_id -> relationship_type

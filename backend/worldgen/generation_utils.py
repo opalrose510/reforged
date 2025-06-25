@@ -12,8 +12,7 @@ from functools import wraps
 import backoff
 from .baml_client.async_client import b
 from .baml_client.types import (
-    WorldContext, CompressedWorldContext, ConceptSummary,
-    Technology, Faction, District, NPC,
+    WorldContext, Technology, Faction, District, NPC,
     GetTechnologyDetails, GetFactionDetails, GetDistrictDetails, GetNPCDetails
 )
 
@@ -40,80 +39,15 @@ class GenerationMetrics:
         return self.end_time - self.start_time
 
 class WorldContextManager:
-    """Manages world context compression and concept lookups."""
+    """Manages world context and concept lookups."""
     
     def __init__(self, world_context: WorldContext):
-        self.full_context = world_context
-        self._compressed_context: Optional[CompressedWorldContext] = None
+        self.world_context = world_context
         self._concept_cache: Dict[str, Union[Technology, Faction, District, NPC]] = {}
     
-    async def get_compressed_context(self) -> CompressedWorldContext:
-        """Get or create compressed world context."""
-        if self._compressed_context is None:
-            logger.info("Creating compressed world context...")
-            start_time = time.time()
-            
-            try:
-                self._compressed_context, _ = await execute_with_retry_and_metrics(
-                    b.CreateCompressedContext,
-                    "create_compressed_context",
-                    world_context=self.full_context
-                )
-                
-            except Exception as e:
-                logger.error(f"Failed to create compressed context: {e}")
-                # Fallback: create manually
-                self._compressed_context = self._create_manual_compressed_context()
-            
-            logger.info(f"Compressed context created in {time.time() - start_time:.2f}s")
-        
-        return self._compressed_context
-    
-    def _create_manual_compressed_context(self) -> CompressedWorldContext:
-        """Create compressed context manually as fallback."""
-        concept_summaries = []
-        
-        # Add technology summaries
-        for tech in self.full_context.technologies:
-            concept_summaries.append(ConceptSummary(
-                id=f"tech_{tech.name.lower().replace(' ', '_')}",
-                name=tech.name,
-                type="technology",
-                short_description=tech.description[:100] + "..." if len(tech.description) > 100 else tech.description
-            ))
-        
-        # Add faction summaries
-        for faction in self.full_context.factions:
-            concept_summaries.append(ConceptSummary(
-                id=f"faction_{faction.name.lower().replace(' ', '_')}",
-                name=faction.name,
-                type="faction",
-                short_description=faction.ideology[:100] + "..." if faction.ideology and len(faction.ideology) > 100 else (faction.ideology or "A faction in the world.")
-            ))
-        
-        # Add district summaries
-        for district in self.full_context.districts:
-            concept_summaries.append(ConceptSummary(
-                id=f"district_{district.id.lower().replace(' ', '_')}",
-                name=district.id,
-                type="district",
-                short_description=district.description[:100] + "..." if len(district.description) > 100 else district.description
-            ))
-        
-        # Add NPC summaries
-        for npc in self.full_context.npcs:
-            concept_summaries.append(ConceptSummary(
-                id=f"npc_{npc.id.lower().replace(' ', '_')}",
-                name=npc.name,
-                type="npc",
-                short_description=f"{npc.role}: {npc.description[:80]}..." if len(npc.description) > 80 else f"{npc.role}: {npc.description}"
-            ))
-        
-        return CompressedWorldContext(
-            seed=self.full_context.seed,
-            concept_summaries=concept_summaries,
-            tension_sliders=self.full_context.tension_sliders
-        )
+    def get_world_context(self) -> WorldContext:
+        """Get the world context (no compression needed since we use template_string)."""
+        return self.world_context
     
     async def get_concept_details(self, concept_name: str, concept_type: str) -> Optional[Union[Technology, Faction, District, NPC]]:
         """Get detailed information about a specific world concept."""
@@ -122,27 +56,27 @@ class WorldContextManager:
         if cache_key in self._concept_cache:
             return self._concept_cache[cache_key]
         
-        # Find the concept in the full context
+        # Find the concept in the world context
         if concept_type == "technology":
-            for tech in self.full_context.technologies:
+            for tech in self.world_context.technologies:
                 if tech.name.lower() == concept_name.lower():
                     self._concept_cache[cache_key] = tech
                     return tech
                     
         elif concept_type == "faction":
-            for faction in self.full_context.factions:
+            for faction in self.world_context.factions:
                 if faction.name.lower() == concept_name.lower():
                     self._concept_cache[cache_key] = faction
                     return faction
                     
         elif concept_type == "district":
-            for district in self.full_context.districts:
+            for district in self.world_context.districts:
                 if district.id.lower() == concept_name.lower():
                     self._concept_cache[cache_key] = district
                     return district
                     
         elif concept_type == "npc":
-            for npc in self.full_context.npcs:
+            for npc in self.world_context.npcs:
                 if npc.name.lower() == concept_name.lower():
                     self._concept_cache[cache_key] = npc
                     return npc

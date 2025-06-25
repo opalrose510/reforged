@@ -7,21 +7,6 @@ class WorldSeed {
   internal_justification string? @description("Reasoning for this seed's creation and its narrative purpose")
 }
 
-// Compressed concept summaries for efficient context passing
-class ConceptSummary {
-  id string
-  name string
-  type string // "technology", "faction", "district", "npc"
-  short_description string @description("1-2 sentence summary")
-}
-
-// Compressed world context for efficient prompting
-class CompressedWorldContext {
-  seed WorldSeed
-  concept_summaries ConceptSummary[]
-  tension_sliders map<string, int>
-}
-
 // Tool definitions for requesting detailed information
 class GetTechnologyDetails {
   tool_name "get_technology_details" @description("Get detailed information about a specific technology.")
@@ -46,6 +31,7 @@ class GetNPCDetails {
 class Technology {
   name string
   description string
+  short_description string? @description("1-2 sentence summary of the most important aspects")
   impact string  // List of narrative impacts
   limitations string  // List of limitations/rules
   internal_hint string? @description("Clue for future model calls to guide generation")
@@ -54,6 +40,7 @@ class Technology {
 
 class Faction {
   name string
+  short_description string? @description("1-2 sentence summary of the most important aspects")
   ideology string?
   territory string[]?
   influence_level int  // 0-10 scale
@@ -64,6 +51,7 @@ class Faction {
 
 class District {
   id string
+  short_description string? @description("1-2 sentence summary of the most important aspects")
   traits string[]
   hazards string[]
   factions string[]  // List of faction names present
@@ -81,15 +69,30 @@ class WorldContext {
   tension_sliders map<string, int>  // e.g. {"violence": 7, "mystery": 4}
 }
 
-// Template for creating compressed context
-template_string CompressedContextTemplate = #"
+// Template for compressed world context representation
+template_string CompressedWorldContext = #"
 World: {{ seed.name }}
 Themes: {{ seed.themes | join(", ") }}
 High Concept: {{ seed.high_concept }}
 
-Concepts Available:
-{% for concept in concept_summaries -%}
-- {{ concept.type | title }}: {{ concept.name }} - {{ concept.short_description }}
+Technologies Available:
+{% for tech in technologies -%}
+- {{ tech.name }}: {{ tech.short_description or (tech.description[:100] + "..." if tech.description|length > 100 else tech.description) }}
+{% endfor %}
+
+Factions Available:
+{% for faction in factions -%}
+- {{ faction.name }}: {{ faction.short_description or (faction.ideology[:100] + "..." if faction.ideology and faction.ideology|length > 100 else (faction.ideology or "A faction in the world.")) }}
+{% endfor %}
+
+Districts Available:
+{% for district in districts -%}
+- {{ district.id }}: {{ district.short_description or (district.description[:100] + "..." if district.description|length > 100 else district.description) }}
+{% endfor %}
+
+NPCs Available:
+{% for npc in npcs -%}
+- {{ npc.name }} ({{ npc.role }}): {{ npc.short_description or (npc.role + ": " + (npc.description[:80] + "..." if npc.description|length > 80 else npc.description)) }}
 {% endfor %}
 
 Tension Levels:
@@ -98,32 +101,13 @@ Tension Levels:
 {% endfor %}
 "#
 
-// Function to create compressed world context
-function CreateCompressedContext(world_context: WorldContext) -> CompressedWorldContext {
-  client ReforgedClient
-  prompt #"
-    Create a compressed version of the world context with short summaries for each concept.
-    
-    Full World Context:
-    {{ world_context }}
-    
-    For each technology, faction, district, and NPC, create a ConceptSummary with:
-    - id: unique identifier
-    - name: the concept name
-    - type: the concept type ("technology", "faction", "district", "npc")  
-    - short_description: 1-2 sentence summary of the most important aspects
-    
-    {{ ctx.output_format }}
-  "#
-}
-
 // Function to analyze if new technology needs to be created
-function CheckTechnologyNeeds(context: CompressedWorldContext, situation_description: string) -> bool {
+function CheckTechnologyNeeds(context: WorldContext, situation_description: string) -> bool {
   client ReforgedClient
   prompt #"
     Given the current world context and a situation description, determine if a new technology needs to be defined. Answer ONLY with 'true' or 'false'. 
     
-    {{ CompressedContextTemplate }}
+    {{ CompressedWorldContext }}
     
     Situation Description:
     {{ situation_description }}
@@ -138,12 +122,12 @@ function CheckTechnologyNeeds(context: CompressedWorldContext, situation_descrip
 }
 
 // Function to check if a new faction should be created
-function CheckFactionNeeds(context: CompressedWorldContext, situation_description: string) -> bool {
+function CheckFactionNeeds(context: WorldContext, situation_description: string) -> bool {
   client ReforgedClient
   prompt #"
     Given the current world context and a situation description, determine if a new faction needs to be created. Answer ONLY with 'true' or 'false'.
     
-    {{ CompressedContextTemplate }}
+    {{ CompressedWorldContext }}
     
     Situation Description:
     {{ situation_description }}
@@ -158,12 +142,12 @@ function CheckFactionNeeds(context: CompressedWorldContext, situation_descriptio
 }
 
 // Function to generate new technology
-function GenerateTechnology(context: CompressedWorldContext, situation_description: string) -> Technology {
+function GenerateTechnology(context: WorldContext, situation_description: string) -> Technology {
   client ReforgedClient
   prompt #"
     Generate a new technology based on the world context and situation.
     
-    {{ CompressedContextTemplate }}
+    {{ CompressedWorldContext }}
     
     Situation Description:
     {{ situation_description }}
@@ -178,12 +162,12 @@ function GenerateTechnology(context: CompressedWorldContext, situation_descripti
 }
 
 // Function to generate new faction
-function GenerateFaction(context: CompressedWorldContext, situation_description: string) -> Faction {
+function GenerateFaction(context: WorldContext, situation_description: string) -> Faction {
   client ReforgedClient
   prompt #"
     Generate a new faction based on the world context and situation.
     
-    {{ CompressedContextTemplate }}
+    {{ CompressedWorldContext }}
     
     Situation Description:
     {{ situation_description }}
@@ -198,12 +182,12 @@ function GenerateFaction(context: CompressedWorldContext, situation_description:
 }
 
 // Function to generate initial districts
-function GenerateDistricts(context: CompressedWorldContext) -> District[] {
+function GenerateDistricts(context: WorldContext) -> District[] {
   client ReforgedClient
   prompt #"
     Generate initial districts for the world based on the context.
     
-    {{ CompressedContextTemplate }}
+    {{ CompressedWorldContext }}
     
     Each district should:
     1. Have distinct traits and hazards

@@ -118,23 +118,9 @@ export interface Choice {
   
 }
 
-export interface CompressedWorldContext {
-  seed: WorldSeed
-  concept_summaries: ConceptSummary[]
-  tension_sliders: Record<string, number>
-  
-}
-
-export interface ConceptSummary {
-  id: string
-  name: string
-  type: string
-  short_description: string
-  
-}
-
 export interface District {
   id: string
+  short_description?: string | null
   traits: string[]
   hazards: string[]
   factions: string[]
@@ -160,6 +146,7 @@ export interface Event {
 
 export interface Faction {
   name: string
+  short_description?: string | null
   ideology?: string | null
   territory?: string[] | null
   influence_level: number
@@ -224,6 +211,7 @@ export interface NPC {
   id: string
   name: string
   role: string
+  short_description?: string | null
   description: string
   personality_traits: string[]
   relationships: Record<string, string>
@@ -338,6 +326,7 @@ export interface StatRequirement {
 export interface Technology {
   name: string
   description: string
+  short_description?: string | null
   impact: string
   limitations: string
   internal_hint?: string | null

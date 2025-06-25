@@ -41,13 +41,13 @@ async def demo_compressed_context():
     world = World(world_seed)
     context_manager = WorldContextManager(world.world_context)
     
-    # Step 1: Create compressed context
-    logger.info("📦 Creating compressed world context...")
-    compressed_context = await context_manager.get_compressed_context()
+    # Step 1: Get world context (compression is handled by template_string)
+    logger.info("📦 Getting world context...")
+    world_context = context_manager.get_world_context()
     
-    logger.info(f"✅ Compressed context created with {len(compressed_context.concept_summaries)} concept summaries")
-    for concept in compressed_context.concept_summaries[:3]:  # Show first 3
-        logger.info(f"   - {concept.type}: {concept.name} - {concept.short_description}")
+    logger.info(f"✅ World context retrieved with {len(world_context.technologies)} technologies, {len(world_context.factions)} factions")
+    logger.info(f"   Sample technology: {world_context.technologies[0].name}")
+    logger.info(f"   Sample faction: {world_context.factions[0].name}")
     
     # Step 2: Demonstrate tool selection
     logger.info("🔧 Testing tool selection...")
@@ -58,7 +58,7 @@ async def demo_compressed_context():
             b.SelectWorldTool,
             "select_world_tools",
             expected_type=list,
-            compressed_context=compressed_context,
+            world_context=world_context,
             user_message=user_message
         )
         
@@ -88,7 +88,7 @@ async def demo_compressed_context():
             b.GenerateArcTitles,
             "generate_arc_titles_demo",
             expected_type=list,
-            world_context=compressed_context,
+            world_context=world_context,
             player_state=world.player_state,
             count=2
         )
@@ -117,7 +117,7 @@ async def demo_metrics_tracking():
     
     world = World(world_seed)
     context_manager = WorldContextManager(world.world_context)
-    compressed_context = await context_manager.get_compressed_context()
+    world_context = context_manager.get_world_context()
     
     # Collect metrics from multiple operations
     all_metrics = []
@@ -127,7 +127,7 @@ async def demo_metrics_tracking():
         _, metrics1 = await execute_with_retry_and_metrics(
             b.GenerateArcTitles,
             "metrics_demo_titles",
-            world_context=compressed_context,
+            world_context=world_context,
             player_state=world.player_state,
             count=1
         )
@@ -140,7 +140,7 @@ async def demo_metrics_tracking():
         _, metrics2 = await execute_with_retry_and_metrics(
             b.SelectWorldTool,
             "metrics_demo_tools",
-            compressed_context=compressed_context,
+            world_context=world_context,
             user_message="What factions exist in this world?"
         )
         all_metrics.append(metrics2)

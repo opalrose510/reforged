@@ -20,7 +20,7 @@ import { toBamlError } from "@boundaryml/baml"
 import type { Checked, Check } from "./types"
 import type { partial_types } from "./partial_types"
 import type * as types from "./types"
-import type {Arc, ArcOutcome, ArcSeed, BridgeNode, BridgeableSituation, Choice, CompressedWorldContext, ConceptSummary, District, Event, Faction, GetDistrictDetails, GetFactionDetails, GetNPCDetails, GetTechnologyDetails, Item, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, Situation, StatDescriptors, StatRequirement, Technology, WorldConceptTool, WorldContext, WorldSeed} from "./types"
+import type {Arc, ArcOutcome, ArcSeed, BridgeNode, BridgeableSituation, Choice, District, Event, Faction, GetDistrictDetails, GetFactionDetails, GetNPCDetails, GetTechnologyDetails, Item, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, Situation, StatDescriptors, StatRequirement, Technology, WorldConceptTool, WorldContext, WorldSeed} from "./types"
 import type TypeBuilder from "./type_builder"
 
 export class LlmResponseParser {
@@ -122,26 +122,6 @@ export class LlmResponseParser {
         __baml_options__?.clientRegistry,
         env,
       ) as boolean
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
-  CreateCompressedContext(
-      llmResponse: string,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
-  ): CompressedWorldContext {
-    try {
-      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
-      return this.runtime.parseLlmResponse(
-        "CreateCompressedContext",
-        llmResponse,
-        false,
-        this.ctxManager.cloneContext(),
-        __baml_options__?.tb?.__tb(),
-        __baml_options__?.clientRegistry,
-        env,
-      ) as CompressedWorldContext
     } catch (error) {
       throw toBamlError(error);
     }
@@ -828,26 +808,6 @@ export class LlmStreamParser {
         __baml_options__?.clientRegistry,
         env,
       ) as boolean
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
-  CreateCompressedContext(
-      llmResponse: string,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
-  ): partial_types.CompressedWorldContext {
-    try {
-      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
-      return this.runtime.parseLlmResponse(
-        "CreateCompressedContext",
-        llmResponse,
-        true,
-        this.ctxManager.cloneContext(),
-        __baml_options__?.tb?.__tb(),
-        __baml_options__?.clientRegistry,
-        env,
-      ) as partial_types.CompressedWorldContext
     } catch (error) {
       throw toBamlError(error);
     }

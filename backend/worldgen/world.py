@@ -489,14 +489,14 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
         logger.info(f"Step {self._generation_step}: Generating arc titles")
         await self.advance_generation_step("arc_titles")
         
-        # Get compressed context for efficient prompting
-        compressed_context = await self._context_manager.get_compressed_context()
+        # Use world context directly (compression handled by template_string)
+        world_context = self._context_manager.get_world_context()
         
         arc_titles, metrics = await execute_with_retry_and_metrics(
             b.GenerateArcTitles,
             "generate_arc_titles",
             expected_type=list,
-            world_context=compressed_context,
+            world_context=world_context,
             player_state=self.player_state,
             count=1
         )
@@ -516,7 +516,7 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
             arc_seed, metrics = await execute_with_retry_and_metrics(
                 b.GenerateArcSeed,
                 f"generate_arc_seed_{title}",
-                world_context=compressed_context,
+                world_context=world_context,
                 player_state=self.player_state,
                 title=title
             )
