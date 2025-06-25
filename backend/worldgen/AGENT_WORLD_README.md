@@ -62,7 +62,7 @@ await agent_world.generate()
    - Agent analyzes current state (incomplete situations, dead-ends, etc.)
    - Agent selects next action based on priorities
    - Agent executes the action
-   - World state is saved if changes were made
+   - World state is saved after every step (regardless of whether changes were made)
 3. **Completion**: Process ends when agent decides to complete or max steps reached
 
 ### Key Properties

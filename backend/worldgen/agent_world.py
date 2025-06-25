@@ -661,9 +661,11 @@ class AgentWorld:
         
         # Start with creating an initial arc if none exists
         if not self.arcs:
+            logger.info("Creating initial arc...")
             await self._create_arc()
             self._generation_step += 1
             self._save_world_state("initial_arc")
+            logger.info(f"Initial arc created and saved as step {self._generation_step}")
         
         # Main generation loop
         while self._generation_step < self.max_generation_steps:
@@ -679,29 +681,29 @@ class AgentWorld:
             if action == AgentAction.COMPLETE_GENERATION:
                 break
             
-            # If the world state was modified, advance the generation step and save
-            if state_changed:
-                self._generation_step += 1
-                step_name = f"agent_action_{action.name.lower()}"
-                self._save_world_state(step_name)
-                
-                # Log current state
-                incomplete_count = len(self.get_incomplete_situations())
-                dead_end_count = self.get_dead_end_count()
-                distance = self._current_node.distance_to_complete_situation()
-                
-                logger.info(f"State after step {self._generation_step}:")
-                logger.info(f"- Incomplete situations: {incomplete_count}")
-                logger.info(f"- Dead-end choices: {dead_end_count}")
-                logger.info(f"- Distance to complete situation: {distance}")
-                logger.info(f"- Total arcs: {len(self.arcs)}")
-                logger.info(f"- Total situations: {len(self.all_situations)}")
-            else:
-                logger.info("No state change from action, continuing...")
+            # Always advance the generation step and save (regardless of state change)
+            self._generation_step += 1
+            step_name = f"agent_action_{action.name.lower()}"
+            self._save_world_state(step_name)
+            
+            # Log current state
+            incomplete_count = len(self.get_incomplete_situations())
+            dead_end_count = self.get_dead_end_count()
+            distance = self._current_node.distance_to_complete_situation()
+            
+            logger.info(f"State after step {self._generation_step}:")
+            logger.info(f"- Action executed: {action.value}")
+            logger.info(f"- State changed: {state_changed}")
+            logger.info(f"- Incomplete situations: {incomplete_count}")
+            logger.info(f"- Dead-end choices: {dead_end_count}")
+            logger.info(f"- Distance to complete situation: {distance}")
+            logger.info(f"- Total arcs: {len(self.arcs)}")
+            logger.info(f"- Total situations: {len(self.all_situations)}")
             
             logger.info("-" * 40)
         
         # Final save
+        self._generation_step += 1
         self._save_world_state("final_state")
         
         logger.info("Agentic generation complete!")

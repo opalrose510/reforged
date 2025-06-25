@@ -65,6 +65,7 @@ async def test_agent_world():
                 print()
         
         print("Check the saves/ directory for detailed generation output files.")
+        print(f"Files are saved as: saves/{test_seed.name}_agent_{{timestamp}}/step_{{number}}_{{action}}.json")
         
     except Exception as e:
         print(f"Error during generation: {e}")
