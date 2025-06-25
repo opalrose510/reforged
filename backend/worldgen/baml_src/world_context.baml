@@ -71,32 +71,32 @@ class WorldContext {
 
 // Template for compressed world context representation
 template_string CompressedWorldContext = #"
-World: {{ seed.name }}
-Themes: {{ seed.themes | join(", ") }}
-High Concept: {{ seed.high_concept }}
+World: {{ world_context.seed.name }}
+Themes: {{ world_context.seed.themes | join(", ") }}
+High Concept: {{ world_context.seed.high_concept }}
 
 Technologies Available:
-{% for tech in technologies -%}
+{% for tech in world_context.technologies -%}
 - {{ tech.name }}: {{ tech.short_description or (tech.description[:100] + "..." if tech.description|length > 100 else tech.description) }}
 {% endfor %}
 
 Factions Available:
-{% for faction in factions -%}
+{% for faction in world_context.factions -%}
 - {{ faction.name }}: {{ faction.short_description or (faction.ideology[:100] + "..." if faction.ideology and faction.ideology|length > 100 else (faction.ideology or "A faction in the world.")) }}
 {% endfor %}
 
 Districts Available:
-{% for district in districts -%}
+{% for district in world_context.districts -%}
 - {{ district.id }}: {{ district.short_description or (district.description[:100] + "..." if district.description|length > 100 else district.description) }}
 {% endfor %}
 
 NPCs Available:
-{% for npc in npcs -%}
+{% for npc in world_context.npcs -%}
 - {{ npc.name }} ({{ npc.role }}): {{ npc.short_description or (npc.role + ": " + (npc.description[:80] + "..." if npc.description|length > 80 else npc.description)) }}
 {% endfor %}
 
 Tension Levels:
-{% for key, value in tension_sliders -%}
+{% for key, value in world_context.tension_sliders -%}
 - {{ key | title }}: {{ value }}/10
 {% endfor %}
 "#
@@ -107,7 +107,7 @@ function CheckTechnologyNeeds(context: WorldContext, situation_description: stri
   prompt #"
     Given the current world context and a situation description, determine if a new technology needs to be defined. Answer ONLY with 'true' or 'false'. 
     
-    {{ CompressedWorldContext }}
+    {{ CompressedWorldContext(context) }}
     
     Situation Description:
     {{ situation_description }}
@@ -127,7 +127,7 @@ function CheckFactionNeeds(context: WorldContext, situation_description: string)
   prompt #"
     Given the current world context and a situation description, determine if a new faction needs to be created. Answer ONLY with 'true' or 'false'.
     
-    {{ CompressedWorldContext }}
+    {{ CompressedWorldContext(context) }}
     
     Situation Description:
     {{ situation_description }}
@@ -147,7 +147,7 @@ function GenerateTechnology(context: WorldContext, situation_description: string
   prompt #"
     Generate a new technology based on the world context and situation.
     
-    {{ CompressedWorldContext }}
+    {{ CompressedWorldContext(context) }}
     
     Situation Description:
     {{ situation_description }}
@@ -167,7 +167,7 @@ function GenerateFaction(context: WorldContext, situation_description: string) -
   prompt #"
     Generate a new faction based on the world context and situation.
     
-    {{ CompressedWorldContext }}
+    {{ CompressedWorldContext(context) }}
     
     Situation Description:
     {{ situation_description }}
@@ -187,7 +187,7 @@ function GenerateDistricts(context: WorldContext) -> District[] {
   prompt #"
     Generate initial districts for the world based on the context.
     
-    {{ CompressedWorldContext }}
+    {{ CompressedWorldContext(context) }}
     
     Each district should:
     1. Have distinct traits and hazards

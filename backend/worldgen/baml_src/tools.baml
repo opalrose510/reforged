@@ -12,7 +12,7 @@ function SelectWorldTool(world_context: WorldContext, user_message: string) -> (
   prompt #"
     Given a world context and user message, determine which world concept tools to call to get more detailed information.
     
-    {{ CompressedWorldContext }}
+    {{ CompressedWorldContext(world_context) }}
     
     User Message:
     {{ user_message }}
@@ -44,7 +44,7 @@ function SelectGenerationTool(world_context: WorldContext, player_state: PlayerS
   prompt #"
     Given the current world context and player state, select the generation tool to use.
     
-    {{ CompressedWorldContext }}
+    {{ CompressedWorldContext(world_context) }}
     
     Player State:
     {{ player_state }}

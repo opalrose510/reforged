@@ -34,9 +34,9 @@ async def test_basic_functionality():
         context_manager = WorldContextManager(world.world_context)
         logger.info("✅ WorldContextManager created successfully")
         
-        # Test 3: Test manual compressed context creation (fallback)
-        compressed_context = context_manager._create_manual_compressed_context()
-        logger.info(f"✅ Manual compressed context created with {len(compressed_context.concept_summaries)} concepts")
+        # Test 3: Test context manager basic functionality
+        current_context = context_manager.get_world_context()
+        logger.info(f"✅ World context retrieved with {len(current_context.technologies)} technologies, {len(current_context.factions)} factions")
         
         # Test 4: Test concept lookup (should work without API)
         concept = await context_manager.get_concept_details("Vextros", "faction")

@@ -130,7 +130,7 @@ function GenerateArcTitles(world_context: WorldContext, player_state: PlayerStat
     Generate {{ count or 3 }} distinct arc titles based on the world context and player state.
     Return ONLY the titles, one per line.
     
-    {{ CompressedWorldContext }}
+    {{ CompressedWorldContext(world_context) }}
     
     Player State:
     {{ player_state }}
@@ -154,7 +154,7 @@ function GenerateArcSeed(world_context: WorldContext, player_state: PlayerState,
     Title:
     {{ title }}
     
-    {{ CompressedWorldContext }}
+    {{ CompressedWorldContext(world_context) }}
     
     Player State:
     {{ player_state }}
@@ -175,7 +175,7 @@ function GenerateRootSituation(world_context: WorldContext, player_state: Player
   prompt #"
     Generate the root situation for an arc based on the world context, player state, and arc seed.
     
-    {{ CompressedWorldContext }}
+    {{ CompressedWorldContext(world_context) }}
     
     Player State:
     {{ player_state }}
