@@ -318,22 +318,88 @@ class AgentWorld:
             logger.error(f"Error executing action {action}: {e}")
             return False
 
+    async def apply_choice_diffs(self, new_choice: Choice):
+        """Apply new_npcs, new_factions, new_technologies to the world context whenever a new Choice is created."""
+        new_context = copy.deepcopy(self.world_context)
+        context_changed = False
+        
+        if new_choice.new_npcs:
+            new_context.npcs.extend(new_choice.new_npcs)
+            context_changed = True
+            logger.info(f"Added {len(new_choice.new_npcs)} new NPCs to world context")
+            
+        if new_choice.new_factions:
+            new_context.factions.extend(new_choice.new_factions)
+            context_changed = True
+            logger.info(f"Added {len(new_choice.new_factions)} new factions to world context")
+            
+        if new_choice.new_technologies:
+            new_context.technologies.extend(new_choice.new_technologies)
+            context_changed = True
+            logger.info(f"Added {len(new_choice.new_technologies)} new technologies to world context")
+        
+        if context_changed:
+            # Update the current node's context
+            self._current_node.context = new_context
+
     async def _create_npc(self) -> bool:
         """Create a new NPC and add it to the world context."""
-        # TODO: Implement NPC generation using BAML
-        logger.info("Creating new NPC (not yet implemented)")
+        if not self.current_situation:
+            logger.warning("Cannot create NPC without current situation")
+            return False
+            
+        new_npcs = await b.GenerateNPCsForSituation(
+            world_context=self.world_context,
+            situation=self.current_situation
+        )
+        
+        if new_npcs:
+            new_context = copy.deepcopy(self.world_context)
+            new_context.npcs.extend(new_npcs)
+            self._current_node.context = new_context
+            logger.info(f"Created {len(new_npcs)} new NPCs")
+            return True
+        
         return False
 
     async def _create_faction(self) -> bool:
         """Create a new Faction and add it to the world context."""
-        # TODO: Implement Faction generation using BAML
-        logger.info("Creating new Faction (not yet implemented)")
+        if not self.current_situation:
+            logger.warning("Cannot create faction without current situation")
+            return False
+            
+        new_faction = await b.GenerateFaction(
+            context=self.world_context,
+            situation_description=self.current_situation.description
+        )
+        
+        if new_faction:
+            new_context = copy.deepcopy(self.world_context)
+            new_context.factions.append(new_faction)
+            self._current_node.context = new_context
+            logger.info(f"Created new faction: {new_faction.name}")
+            return True
+        
         return False
 
     async def _create_technology(self) -> bool:
         """Create a new Technology and add it to the world context."""
-        # TODO: Implement Technology generation using BAML
-        logger.info("Creating new Technology (not yet implemented)")
+        if not self.current_situation:
+            logger.warning("Cannot create technology without current situation")
+            return False
+            
+        new_technology = await b.GenerateTechnology(
+            context=self.world_context,
+            situation_description=self.current_situation.description
+        )
+        
+        if new_technology:
+            new_context = copy.deepcopy(self.world_context)
+            new_context.technologies.append(new_technology)
+            self._current_node.context = new_context
+            logger.info(f"Created new technology: {new_technology.name}")
+            return True
+        
         return False
 
     async def _create_situation(self) -> bool:
@@ -364,6 +430,10 @@ class AgentWorld:
                         self.current_arc.situations.append(new_situation)
                         self.all_situations[new_situation.id] = new_situation
                         
+                        # Apply choice diffs for any new choices in the situation
+                        for new_choice in new_situation.choices:
+                            await self.apply_choice_diffs(new_choice)
+                        
                         # Create a new child node for this situation
                         new_node = AgentWorldStateNode(
                             context=copy.deepcopy(self.world_context),
@@ -390,6 +460,10 @@ class AgentWorld:
         # Add the situation to the current arc and global tracking
         self.current_arc.situations.append(new_situation)
         self.all_situations[new_situation.id] = new_situation
+        
+        # Apply choice diffs for any new choices in the situation
+        for new_choice in new_situation.choices:
+            await self.apply_choice_diffs(new_choice)
         
         # Update the current node to reference this situation
         self._current_node.current_situation = new_situation
@@ -428,6 +502,10 @@ class AgentWorld:
         )
         
         if new_choices:
+            # Apply choice diffs for the new choices
+            for new_choice in new_choices:
+                await self.apply_choice_diffs(new_choice)
+            
             # Add the new choices to the current situation
             self.current_situation.choices.extend(new_choices)
             logger.info(f"Added {len(new_choices)} new choices to situation {self.current_situation.id}")
@@ -468,6 +546,10 @@ class AgentWorld:
             situations=[root_situation],
             outcomes=[]
         )
+        
+        # Apply choice diffs for any choices in the root situation
+        for new_choice in root_situation.choices:
+            await self.apply_choice_diffs(new_choice)
         
         # Add to global tracking
         self.arcs.append(new_arc)
@@ -555,9 +637,9 @@ class AgentWorld:
                         "description": situation.description,
                         "choices": [choice.dict() for choice in situation.choices],
                         "stat_requirements": [stat_requirement.dict() for stat_requirement in situation.stat_requirements],
-                        "consequences": situation.consequences,
                         "is_bridge_node": situation.bridgeable,
-                        "next_situations": [choice.next_situation_id for choice in situation.choices if choice.next_situation_id]
+                        "next_situations": [choice.next_situation_id for choice in situation.choices if choice.next_situation_id],
+                        "choice_to_situation_mapping": {choice.id: choice.next_situation_id for choice in situation.choices if choice.next_situation_id}
                     } for situation in arc.situations
                 },
                 "bridge_nodes": [

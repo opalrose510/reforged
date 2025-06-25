@@ -83,9 +83,12 @@ await agent_world.generate()
 - **`_create_arc()`**: Generate a new narrative arc with root situation
 - **`_create_situation()`**: Generate a new situation (prioritizes filling gaps)
 - **`_create_choice()`**: Add new choices to current situation
-- **`_create_npc()`**: Add new NPCs (placeholder - needs implementation)
-- **`_create_faction()`**: Add new factions (placeholder - needs implementation)
-- **`_create_technology()`**: Add new technologies (placeholder - needs implementation)
+- **`_create_npc()`**: Generate and add new NPCs to the world context
+- **`_create_faction()`**: Generate and add new factions to the world context
+- **`_create_technology()`**: Generate and add new technologies to the world context
+
+#### World Context Management
+- **`apply_choice_diffs()`**: Apply new NPCs, factions, and technologies from choices to world context
 
 #### Analysis
 - **`get_incomplete_situations()`**: Find situations with dead-end choices
@@ -147,7 +150,7 @@ The system is designed to be extensible:
 
 1. **Add new agent actions** by extending the `AgentAction` enum
 2. **Improve decision making** by enhancing the `ask_agent_for_action()` method
-3. **Add content generators** by implementing the placeholder creation methods
+3. **Add specialized content generators** by creating new BAML functions and corresponding creation methods
 4. **Customize priorities** by modifying the action selection logic
 
 ## Notes
