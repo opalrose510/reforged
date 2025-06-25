@@ -97,6 +97,17 @@ class Choice(BaseModel):
     new_factions: List["Faction"]
     new_technologies: List["Technology"]
 
+class CompressedWorldContext(BaseModel):
+    seed: Optional["WorldSeed"] = None
+    concept_summaries: List["ConceptSummary"]
+    tension_sliders: Dict[str, Optional[int]]
+
+class ConceptSummary(BaseModel):
+    id: Optional[str] = None
+    name: Optional[str] = None
+    type: Optional[str] = None
+    short_description: Optional[str] = None
+
 class District(BaseModel):
     id: Optional[str] = None
     traits: List[str]
@@ -126,6 +137,22 @@ class Faction(BaseModel):
     relationships: Optional[Dict[str, Optional[str]]] = None
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class GetDistrictDetails(BaseModel):
+    tool_name: Optional[Literal["get_district_details"]] = None
+    district_name: Optional[str] = None
+
+class GetFactionDetails(BaseModel):
+    tool_name: Optional[Literal["get_faction_details"]] = None
+    faction_name: Optional[str] = None
+
+class GetNPCDetails(BaseModel):
+    tool_name: Optional[Literal["get_npc_details"]] = None
+    npc_name: Optional[str] = None
+
+class GetTechnologyDetails(BaseModel):
+    tool_name: Optional[Literal["get_technology_details"]] = None
+    technology_name: Optional[str] = None
 
 class Item(BaseModel):
     id: Optional[str] = None
@@ -252,6 +279,11 @@ class Technology(BaseModel):
     limitations: Optional[str] = None
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class WorldConceptTool(BaseModel):
+    tool_name: Optional[str] = None
+    description: Optional[str] = None
+    parameters: Dict[str, Optional[str]]
 
 class WorldContext(BaseModel):
     seed: Optional["WorldSeed"] = None

@@ -7,6 +7,42 @@ class WorldSeed {
   internal_justification string? @description("Reasoning for this seed's creation and its narrative purpose")
 }
 
+// Compressed concept summaries for efficient context passing
+class ConceptSummary {
+  id string
+  name string
+  type string // "technology", "faction", "district", "npc"
+  short_description string @description("1-2 sentence summary")
+}
+
+// Compressed world context for efficient prompting
+class CompressedWorldContext {
+  seed WorldSeed
+  concept_summaries ConceptSummary[]
+  tension_sliders map<string, int>
+}
+
+// Tool definitions for requesting detailed information
+class GetTechnologyDetails {
+  tool_name "get_technology_details" @description("Get detailed information about a specific technology.")
+  technology_name string @description("The name of the technology to get details for.")
+}
+
+class GetFactionDetails {
+  tool_name "get_faction_details" @description("Get detailed information about a specific faction.")
+  faction_name string @description("The name of the faction to get details for.")
+}
+
+class GetDistrictDetails {
+  tool_name "get_district_details" @description("Get detailed information about a specific district.")
+  district_name string @description("The name of the district to get details for.")
+}
+
+class GetNPCDetails {
+  tool_name "get_npc_details" @description("Get detailed information about a specific NPC.")
+  npc_name string @description("The name of the NPC to get details for.")
+}
+
 class Technology {
   name string
   description string
@@ -45,14 +81,49 @@ class WorldContext {
   tension_sliders map<string, int>  // e.g. {"violence": 7, "mystery": 4}
 }
 
+// Template for creating compressed context
+template_string CompressedContextTemplate = #"
+World: {{ seed.name }}
+Themes: {{ seed.themes | join(", ") }}
+High Concept: {{ seed.high_concept }}
+
+Concepts Available:
+{% for concept in concept_summaries -%}
+- {{ concept.type | title }}: {{ concept.name }} - {{ concept.short_description }}
+{% endfor %}
+
+Tension Levels:
+{% for key, value in tension_sliders -%}
+- {{ key | title }}: {{ value }}/10
+{% endfor %}
+"#
+
+// Function to create compressed world context
+function CreateCompressedContext(world_context: WorldContext) -> CompressedWorldContext {
+  client ReforgedClient
+  prompt #"
+    Create a compressed version of the world context with short summaries for each concept.
+    
+    Full World Context:
+    {{ world_context }}
+    
+    For each technology, faction, district, and NPC, create a ConceptSummary with:
+    - id: unique identifier
+    - name: the concept name
+    - type: the concept type ("technology", "faction", "district", "npc")  
+    - short_description: 1-2 sentence summary of the most important aspects
+    
+    {{ ctx.output_format }}
+  "#
+}
+
 // Function to analyze if new technology needs to be created
-function CheckTechnologyNeeds(context: WorldContext, situation_description: string) -> bool {
+function CheckTechnologyNeeds(context: CompressedWorldContext, situation_description: string) -> bool {
   client ReforgedClient
   prompt #"
     Given the current world context and a situation description, determine if a new technology needs to be defined. Answer ONLY with 'true' or 'false'. 
     
-    World Context:
-    {{ context }}
+    {{ CompressedContextTemplate }}
     
     Situation Description:
     {{ situation_description }}
@@ -67,13 +138,12 @@ function CheckTechnologyNeeds(context: WorldContext, situation_description: stri
 }
 
 // Function to check if a new faction should be created
-function CheckFactionNeeds(context: WorldContext, situation_description: string) -> bool {
+function CheckFactionNeeds(context: CompressedWorldContext, situation_description: string) -> bool {
   client ReforgedClient
   prompt #"
     Given the current world context and a situation description, determine if a new faction needs to be created. Answer ONLY with 'true' or 'false'.
     
-    World Context:
-    {{ context }}
+    {{ CompressedContextTemplate }}
     
     Situation Description:
     {{ situation_description }}
@@ -88,13 +158,12 @@ function CheckFactionNeeds(context: WorldContext, situation_description: string)
 }
 
 // Function to generate new technology
-function GenerateTechnology(context: WorldContext, situation_description: string) -> Technology {
+function GenerateTechnology(context: CompressedWorldContext, situation_description: string) -> Technology {
   client ReforgedClient
   prompt #"
     Generate a new technology based on the world context and situation.
     
-    World Context:
-    {{ context }}
+    {{ CompressedContextTemplate }}
     
     Situation Description:
     {{ situation_description }}
@@ -109,13 +178,12 @@ function GenerateTechnology(context: WorldContext, situation_description: string
 }
 
 // Function to generate new faction
-function GenerateFaction(context: WorldContext, situation_description: string) -> Faction {
+function GenerateFaction(context: CompressedWorldContext, situation_description: string) -> Faction {
   client ReforgedClient
   prompt #"
     Generate a new faction based on the world context and situation.
     
-    World Context:
-    {{ context }}
+    {{ CompressedContextTemplate }}
     
     Situation Description:
     {{ situation_description }}
@@ -130,13 +198,12 @@ function GenerateFaction(context: WorldContext, situation_description: string) -
 }
 
 // Function to generate initial districts
-function GenerateDistricts(context: WorldContext) -> District[] {
+function GenerateDistricts(context: CompressedWorldContext) -> District[] {
   client ReforgedClient
   prompt #"
     Generate initial districts for the world based on the context.
     
-    World Context:
-    {{ context }}
+    {{ CompressedContextTemplate }}
     
     Each district should:
     1. Have distinct traits and hazards
@@ -159,9 +226,14 @@ test world_context_generation {
         internal_hint "Memory manipulation is the core technological and social driver"
         internal_justification "This concept allows for exploration of identity, trust, and power dynamics in a cyberpunk setting"
       }
-      technologies []
-      factions []
-      districts []
+      concept_summaries [
+        {
+          id "memory_trading_tech"
+          name "Memory Trading Technology"
+          type "technology"
+          short_description "Allows extraction and implantation of memories, but with dangerous side effects."
+        }
+      ]
       tension_sliders {
         "violence" 6
         "mystery" 8

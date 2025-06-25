@@ -124,14 +124,13 @@ function GenerateChoiceAttribute(choice: Choice, world_context: WorldContext) ->
 }
 
 // Function to generate arc titles
-function GenerateArcTitles(world_context: WorldContext, player_state: PlayerState, count: int?) -> string[] {
+function GenerateArcTitles(world_context: CompressedWorldContext, player_state: PlayerState, count: int?) -> string[] {
   client ReforgedClient
   prompt #"
     Generate {{ count or 3 }} distinct arc titles based on the world context and player state.
     Return ONLY the titles, one per line.
     
-    World Context:
-    {{ world_context }}
+    {{ CompressedContextTemplate }}
     
     Player State:
     {{ player_state }}
@@ -147,7 +146,7 @@ function GenerateArcTitles(world_context: WorldContext, player_state: PlayerStat
 }
 
 // Function to generate a single arc seed
-function GenerateArcSeed(world_context: WorldContext, player_state: PlayerState, title: string) -> ArcSeed {
+function GenerateArcSeed(world_context: CompressedWorldContext, player_state: PlayerState, title: string) -> ArcSeed {
   client ReforgedClient
   prompt #"
     Generate a complete arc seed based on the given title, world context, and player state.
@@ -155,8 +154,7 @@ function GenerateArcSeed(world_context: WorldContext, player_state: PlayerState,
     Title:
     {{ title }}
     
-    World Context:
-    {{ world_context }}
+    {{ CompressedContextTemplate }}
     
     Player State:
     {{ player_state }}
@@ -171,20 +169,23 @@ function GenerateArcSeed(world_context: WorldContext, player_state: PlayerState,
   "#
 }
 
-// Function to generate root situation for an arc
-function GenerateRootSituation(world_context: WorldContext, player_state: PlayerState, arc_seed: ArcSeed) -> Situation {
+// Function to generate root situation for an arc - uses tools for detailed world info
+function GenerateRootSituation(world_context: CompressedWorldContext, player_state: PlayerState, arc_seed: ArcSeed) -> Situation {
   client ReforgedClient
   prompt #"
     Generate the root situation for an arc based on the world context, player state, and arc seed.
     
-    World Context:
-    {{ world_context }}
+    {{ CompressedContextTemplate }}
     
     Player State:
     {{ player_state }}
     
     Arc Seed:
     {{ arc_seed }}
+    
+    If you need detailed information about any world concepts (technologies, factions, districts, NPCs) mentioned in the arc seed, you can use the available tools to get more details.
+    
+    {{ ctx.output_format }}
     
     The root situation should:
     1. Introduce the core conflict through dialogue and direct interaction
@@ -202,8 +203,6 @@ function GenerateRootSituation(world_context: WorldContext, player_state: Player
     - Social interactions and relationships
     
     Avoid generic "investigate" or "explore" choices. Instead focus on specific character moments and interactions.
-    
-    {{ ctx.output_format }}
   "#
 }
 function GenerateMissingSituationsForChoice(world_context: WorldContext, player_state: PlayerState, arc: Arc, choice: Choice) -> Situation {

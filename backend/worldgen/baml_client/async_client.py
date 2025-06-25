@@ -183,7 +183,7 @@ class BamlAsyncClient:
     
     async def CheckFactionNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> bool:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -210,7 +210,7 @@ class BamlAsyncClient:
     
     async def CheckTechnologyNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> bool:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -234,6 +234,33 @@ class BamlAsyncClient:
         collectors,
       )
       return cast(bool, raw.cast_to(types, types, partial_types, False))
+    
+    async def CreateCompressedContext(
+        self,
+        world_context: types.WorldContext,
+        baml_options: BamlCallOptions = {},
+    ) -> types.CompressedWorldContext:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = await self.__runtime.call_function(
+        "CreateCompressedContext",
+        {
+          "world_context": world_context,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+      return cast(types.CompressedWorldContext, raw.cast_to(types, types, partial_types, False))
     
     async def ExpandArcSituations(
         self,
@@ -291,7 +318,7 @@ class BamlAsyncClient:
     
     async def GenerateArcSeed(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,title: str,
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,title: str,
         baml_options: BamlCallOptions = {},
     ) -> types.ArcSeed:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -318,7 +345,7 @@ class BamlAsyncClient:
     
     async def GenerateArcTitles(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,count: Optional[int],
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,count: Optional[int],
         baml_options: BamlCallOptions = {},
     ) -> List[str]:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -453,7 +480,7 @@ class BamlAsyncClient:
     
     async def GenerateDistricts(
         self,
-        context: types.WorldContext,
+        context: types.CompressedWorldContext,
         baml_options: BamlCallOptions = {},
     ) -> List[types.District]:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -507,7 +534,7 @@ class BamlAsyncClient:
     
     async def GenerateFaction(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> types.Faction:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -723,7 +750,7 @@ class BamlAsyncClient:
     
     async def GenerateRootSituation(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
         baml_options: BamlCallOptions = {},
     ) -> types.Situation:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -777,7 +804,7 @@ class BamlAsyncClient:
     
     async def GenerateTechnology(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> types.Technology:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -939,7 +966,7 @@ class BamlAsyncClient:
     
     async def SelectGenerationTool(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
+        compressed_context: types.CompressedWorldContext,player_state: types.PlayerState,arc: types.Arc,
         baml_options: BamlCallOptions = {},
     ) -> str:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -955,7 +982,7 @@ class BamlAsyncClient:
       raw = await self.__runtime.call_function(
         "SelectGenerationTool",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc,
+          "compressed_context": compressed_context,"player_state": player_state,"arc": arc,
         },
         self.__ctx_manager.get(),
         tb,
@@ -963,6 +990,33 @@ class BamlAsyncClient:
         collectors,
       )
       return cast(str, raw.cast_to(types, types, partial_types, False))
+    
+    async def SelectWorldTool(
+        self,
+        compressed_context: types.CompressedWorldContext,user_message: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[Union[types.GetTechnologyDetails, types.GetFactionDetails, types.GetDistrictDetails, types.GetNPCDetails]]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = await self.__runtime.call_function(
+        "SelectWorldTool",
+        {
+          "compressed_context": compressed_context,"user_message": user_message,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+      return cast(List[Union[types.GetTechnologyDetails, types.GetFactionDetails, types.GetDistrictDetails, types.GetNPCDetails]], raw.cast_to(types, types, partial_types, False))
     
     async def ValidateBridgeConnections(
         self,
@@ -1109,7 +1163,7 @@ class BamlStreamClient:
     
     def CheckFactionNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[Optional[bool], bool]:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -1143,7 +1197,7 @@ class BamlStreamClient:
     
     def CheckTechnologyNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[Optional[bool], bool]:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -1172,6 +1226,39 @@ class BamlStreamClient:
         raw,
         lambda x: cast(Optional[bool], x.cast_to(types, types, partial_types, True)),
         lambda x: cast(bool, x.cast_to(types, types, partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
+    def CreateCompressedContext(
+        self,
+        world_context: types.WorldContext,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlStream[partial_types.CompressedWorldContext, types.CompressedWorldContext]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = self.__runtime.stream_function(
+        "CreateCompressedContext",
+        {
+          "world_context": world_context,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+
+      return baml_py.BamlStream[partial_types.CompressedWorldContext, types.CompressedWorldContext](
+        raw,
+        lambda x: cast(partial_types.CompressedWorldContext, x.cast_to(types, types, partial_types, True)),
+        lambda x: cast(types.CompressedWorldContext, x.cast_to(types, types, partial_types, False)),
         self.__ctx_manager.get(),
       )
     
@@ -1245,7 +1332,7 @@ class BamlStreamClient:
     
     def GenerateArcSeed(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,title: str,
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,title: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[partial_types.ArcSeed, types.ArcSeed]:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -1280,7 +1367,7 @@ class BamlStreamClient:
     
     def GenerateArcTitles(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,count: Optional[int],
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,count: Optional[int],
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[List[Optional[str]], List[str]]:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -1454,7 +1541,7 @@ class BamlStreamClient:
     
     def GenerateDistricts(
         self,
-        context: types.WorldContext,
+        context: types.CompressedWorldContext,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[List[partial_types.District], List[types.District]]:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -1521,7 +1608,7 @@ class BamlStreamClient:
     
     def GenerateFaction(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[partial_types.Faction, types.Faction]:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -1795,7 +1882,7 @@ class BamlStreamClient:
     
     def GenerateRootSituation(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[partial_types.Situation, types.Situation]:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -1866,7 +1953,7 @@ class BamlStreamClient:
     
     def GenerateTechnology(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[partial_types.Technology, types.Technology]:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -2067,7 +2154,7 @@ class BamlStreamClient:
     
     def SelectGenerationTool(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
+        compressed_context: types.CompressedWorldContext,player_state: types.PlayerState,arc: types.Arc,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[Optional[str], str]:
       options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
@@ -2082,7 +2169,7 @@ class BamlStreamClient:
       raw = self.__runtime.stream_function(
         "SelectGenerationTool",
         {
-          "world_context": world_context,
+          "compressed_context": compressed_context,
           "player_state": player_state,
           "arc": arc,
         },
@@ -2097,6 +2184,40 @@ class BamlStreamClient:
         raw,
         lambda x: cast(Optional[str], x.cast_to(types, types, partial_types, True)),
         lambda x: cast(str, x.cast_to(types, types, partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
+    def SelectWorldTool(
+        self,
+        compressed_context: types.CompressedWorldContext,user_message: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[Optional[Union[partial_types.GetTechnologyDetails, partial_types.GetFactionDetails, partial_types.GetDistrictDetails, partial_types.GetNPCDetails]]], List[Union[types.GetTechnologyDetails, types.GetFactionDetails, types.GetDistrictDetails, types.GetNPCDetails]]]:
+      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      raw = self.__runtime.stream_function(
+        "SelectWorldTool",
+        {
+          "compressed_context": compressed_context,
+          "user_message": user_message,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+      )
+
+      return baml_py.BamlStream[List[Optional[Union[partial_types.GetTechnologyDetails, partial_types.GetFactionDetails, partial_types.GetDistrictDetails, partial_types.GetNPCDetails]]], List[Union[types.GetTechnologyDetails, types.GetFactionDetails, types.GetDistrictDetails, types.GetNPCDetails]]](
+        raw,
+        lambda x: cast(List[Optional[Union[partial_types.GetTechnologyDetails, partial_types.GetFactionDetails, partial_types.GetDistrictDetails, partial_types.GetNPCDetails]]], x.cast_to(types, types, partial_types, True)),
+        lambda x: cast(List[Union[types.GetTechnologyDetails, types.GetFactionDetails, types.GetDistrictDetails, types.GetNPCDetails]], x.cast_to(types, types, partial_types, False)),
         self.__ctx_manager.get(),
       )
     

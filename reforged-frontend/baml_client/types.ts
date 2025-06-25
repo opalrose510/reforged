@@ -118,6 +118,21 @@ export interface Choice {
   
 }
 
+export interface CompressedWorldContext {
+  seed: WorldSeed
+  concept_summaries: ConceptSummary[]
+  tension_sliders: Record<string, number>
+  
+}
+
+export interface ConceptSummary {
+  id: string
+  name: string
+  type: string
+  short_description: string
+  
+}
+
 export interface District {
   id: string
   traits: string[]
@@ -151,6 +166,30 @@ export interface Faction {
   relationships?: Record<string, string> | null
   internal_hint?: string | null
   internal_justification?: string | null
+  
+}
+
+export interface GetDistrictDetails {
+  tool_name: "get_district_details"
+  district_name: string
+  
+}
+
+export interface GetFactionDetails {
+  tool_name: "get_faction_details"
+  faction_name: string
+  
+}
+
+export interface GetNPCDetails {
+  tool_name: "get_npc_details"
+  npc_name: string
+  
+}
+
+export interface GetTechnologyDetails {
+  tool_name: "get_technology_details"
+  technology_name: string
   
 }
 
@@ -303,6 +342,13 @@ export interface Technology {
   limitations: string
   internal_hint?: string | null
   internal_justification?: string | null
+  
+}
+
+export interface WorldConceptTool {
+  tool_name: string
+  description: string
+  parameters: Record<string, string>
   
 }
 

@@ -20,7 +20,7 @@ import { toBamlError, BamlStream, type HTTPRequest } from "@boundaryml/baml"
 import type { Checked, Check, RecursivePartialNull as MovedRecursivePartialNull } from "./types"
 import type { partial_types } from "./partial_types"
 import type * as types from "./types"
-import type {Arc, ArcOutcome, ArcSeed, BridgeNode, BridgeableSituation, Choice, District, Event, Faction, Item, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, Situation, StatDescriptors, StatRequirement, Technology, WorldContext, WorldSeed} from "./types"
+import type {Arc, ArcOutcome, ArcSeed, BridgeNode, BridgeableSituation, Choice, CompressedWorldContext, ConceptSummary, District, Event, Faction, GetDistrictDetails, GetFactionDetails, GetNPCDetails, GetTechnologyDetails, Item, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, Situation, StatDescriptors, StatRequirement, Technology, WorldConceptTool, WorldContext, WorldSeed} from "./types"
 import type TypeBuilder from "./type_builder"
 import { AsyncHttpRequest, AsyncHttpStreamRequest } from "./async_request"
 import { LlmResponseParser, LlmStreamParser } from "./parser"
@@ -153,7 +153,7 @@ export class BamlAsyncClient {
   }
   
   async CheckFactionNeeds(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<boolean> {
     try {
@@ -176,7 +176,7 @@ export class BamlAsyncClient {
   }
   
   async CheckTechnologyNeeds(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<boolean> {
     try {
@@ -193,6 +193,29 @@ export class BamlAsyncClient {
         collector,
       )
       return raw.parsed(false) as boolean
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async CreateCompressedContext(
+      world_context: WorldContext,
+      __baml_options__?: BamlCallOptions
+  ): Promise<CompressedWorldContext> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = await this.runtime.callFunction(
+        "CreateCompressedContext",
+        {
+          "world_context": world_context
+        },
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return raw.parsed(false) as CompressedWorldContext
     } catch (error) {
       throw toBamlError(error);
     }
@@ -245,7 +268,7 @@ export class BamlAsyncClient {
   }
   
   async GenerateArcSeed(
-      world_context: WorldContext,player_state: PlayerState,title: string,
+      world_context: CompressedWorldContext,player_state: PlayerState,title: string,
       __baml_options__?: BamlCallOptions
   ): Promise<ArcSeed> {
     try {
@@ -268,7 +291,7 @@ export class BamlAsyncClient {
   }
   
   async GenerateArcTitles(
-      world_context: WorldContext,player_state: PlayerState,count?: number | null,
+      world_context: CompressedWorldContext,player_state: PlayerState,count?: number | null,
       __baml_options__?: BamlCallOptions
   ): Promise<string[]> {
     try {
@@ -383,7 +406,7 @@ export class BamlAsyncClient {
   }
   
   async GenerateDistricts(
-      context: WorldContext,
+      context: CompressedWorldContext,
       __baml_options__?: BamlCallOptions
   ): Promise<District[]> {
     try {
@@ -429,7 +452,7 @@ export class BamlAsyncClient {
   }
   
   async GenerateFaction(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<Faction> {
     try {
@@ -613,7 +636,7 @@ export class BamlAsyncClient {
   }
   
   async GenerateRootSituation(
-      world_context: WorldContext,player_state: PlayerState,arc_seed: ArcSeed,
+      world_context: CompressedWorldContext,player_state: PlayerState,arc_seed: ArcSeed,
       __baml_options__?: BamlCallOptions
   ): Promise<Situation> {
     try {
@@ -659,7 +682,7 @@ export class BamlAsyncClient {
   }
   
   async GenerateTechnology(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): Promise<Technology> {
     try {
@@ -797,7 +820,7 @@ export class BamlAsyncClient {
   }
   
   async SelectGenerationTool(
-      world_context: WorldContext,player_state: PlayerState,arc: Arc,
+      compressed_context: CompressedWorldContext,player_state: PlayerState,arc: Arc,
       __baml_options__?: BamlCallOptions
   ): Promise<string> {
     try {
@@ -806,7 +829,7 @@ export class BamlAsyncClient {
       const raw = await this.runtime.callFunction(
         "SelectGenerationTool",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc
+          "compressed_context": compressed_context,"player_state": player_state,"arc": arc
         },
         this.ctxManager.cloneContext(),
         options.tb?.__tb(),
@@ -814,6 +837,29 @@ export class BamlAsyncClient {
         collector,
       )
       return raw.parsed(false) as string
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async SelectWorldTool(
+      compressed_context: CompressedWorldContext,user_message: string,
+      __baml_options__?: BamlCallOptions
+  ): Promise<(GetTechnologyDetails | GetFactionDetails | GetDistrictDetails | GetNPCDetails)[]> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = await this.runtime.callFunction(
+        "SelectWorldTool",
+        {
+          "compressed_context": compressed_context,"user_message": user_message
+        },
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return raw.parsed(false) as (GetTechnologyDetails | GetFactionDetails | GetDistrictDetails | GetNPCDetails)[]
     } catch (error) {
       throw toBamlError(error);
     }
@@ -944,7 +990,7 @@ class BamlStreamClient {
   }
   
   CheckFactionNeeds(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
   ): BamlStream<boolean, boolean> {
     try {
@@ -973,7 +1019,7 @@ class BamlStreamClient {
   }
   
   CheckTechnologyNeeds(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
   ): BamlStream<boolean, boolean> {
     try {
@@ -994,6 +1040,35 @@ class BamlStreamClient {
         raw,
         (a): boolean => a,
         (a): boolean => a,
+        this.ctxManager.cloneContext(),
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateCompressedContext(
+      world_context: WorldContext,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+  ): BamlStream<partial_types.CompressedWorldContext, CompressedWorldContext> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = this.runtime.streamFunction(
+        "CreateCompressedContext",
+        {
+          "world_context": world_context
+        },
+        undefined,
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return new BamlStream<partial_types.CompressedWorldContext, CompressedWorldContext>(
+        raw,
+        (a): partial_types.CompressedWorldContext => a,
+        (a): CompressedWorldContext => a,
         this.ctxManager.cloneContext(),
       )
     } catch (error) {
@@ -1060,7 +1135,7 @@ class BamlStreamClient {
   }
   
   GenerateArcSeed(
-      world_context: WorldContext,player_state: PlayerState,title: string,
+      world_context: CompressedWorldContext,player_state: PlayerState,title: string,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
   ): BamlStream<partial_types.ArcSeed, ArcSeed> {
     try {
@@ -1089,7 +1164,7 @@ class BamlStreamClient {
   }
   
   GenerateArcTitles(
-      world_context: WorldContext,player_state: PlayerState,count?: number | null,
+      world_context: CompressedWorldContext,player_state: PlayerState,count?: number | null,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
   ): BamlStream<(string | null)[], string[]> {
     try {
@@ -1234,7 +1309,7 @@ class BamlStreamClient {
   }
   
   GenerateDistricts(
-      context: WorldContext,
+      context: CompressedWorldContext,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
   ): BamlStream<(partial_types.District | null)[], District[]> {
     try {
@@ -1292,7 +1367,7 @@ class BamlStreamClient {
   }
   
   GenerateFaction(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
   ): BamlStream<partial_types.Faction, Faction> {
     try {
@@ -1524,7 +1599,7 @@ class BamlStreamClient {
   }
   
   GenerateRootSituation(
-      world_context: WorldContext,player_state: PlayerState,arc_seed: ArcSeed,
+      world_context: CompressedWorldContext,player_state: PlayerState,arc_seed: ArcSeed,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
   ): BamlStream<partial_types.Situation, Situation> {
     try {
@@ -1582,7 +1657,7 @@ class BamlStreamClient {
   }
   
   GenerateTechnology(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
   ): BamlStream<partial_types.Technology, Technology> {
     try {
@@ -1756,7 +1831,7 @@ class BamlStreamClient {
   }
   
   SelectGenerationTool(
-      world_context: WorldContext,player_state: PlayerState,arc: Arc,
+      compressed_context: CompressedWorldContext,player_state: PlayerState,arc: Arc,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
   ): BamlStream<string, string> {
     try {
@@ -1765,7 +1840,7 @@ class BamlStreamClient {
       const raw = this.runtime.streamFunction(
         "SelectGenerationTool",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc
+          "compressed_context": compressed_context,"player_state": player_state,"arc": arc
         },
         undefined,
         this.ctxManager.cloneContext(),
@@ -1777,6 +1852,35 @@ class BamlStreamClient {
         raw,
         (a): string => a,
         (a): string => a,
+        this.ctxManager.cloneContext(),
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  SelectWorldTool(
+      compressed_context: CompressedWorldContext,user_message: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+  ): BamlStream<((partial_types.GetTechnologyDetails | null) | (partial_types.GetFactionDetails | null) | (partial_types.GetDistrictDetails | null) | (partial_types.GetNPCDetails | null) | null)[], (GetTechnologyDetails | GetFactionDetails | GetDistrictDetails | GetNPCDetails)[]> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const raw = this.runtime.streamFunction(
+        "SelectWorldTool",
+        {
+          "compressed_context": compressed_context,"user_message": user_message
+        },
+        undefined,
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+      )
+      return new BamlStream<((partial_types.GetTechnologyDetails | null) | (partial_types.GetFactionDetails | null) | (partial_types.GetDistrictDetails | null) | (partial_types.GetNPCDetails | null) | null)[], (GetTechnologyDetails | GetFactionDetails | GetDistrictDetails | GetNPCDetails)[]>(
+        raw,
+        (a): ((partial_types.GetTechnologyDetails | null) | (partial_types.GetFactionDetails | null) | (partial_types.GetDistrictDetails | null) | (partial_types.GetNPCDetails | null) | null)[] => a,
+        (a): (GetTechnologyDetails | GetFactionDetails | GetDistrictDetails | GetNPCDetails)[] => a,
         this.ctxManager.cloneContext(),
       )
     } catch (error) {

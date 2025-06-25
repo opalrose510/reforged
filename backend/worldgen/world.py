@@ -1,6 +1,7 @@
 import copy
 from .baml_client.types import NPC, Arc, Choice, PlayerAttribute, PlayerProfile, PlayerStats, WorldSeed, District, Faction, Technology, WorldContext, PlayerState
 from .baml_client.async_client import b
+from .generation_utils import WorldContextManager, execute_with_retry_and_metrics, log_generation_summary, GenerationMetrics
 import logging
 from typing import List, Dict, Optional
 from dataclasses import dataclass
@@ -270,6 +271,10 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
         self._current_node = self._root_node
         # Track generation steps
         self._generation_step = 0
+        # Track generation metrics
+        self._generation_metrics: List[GenerationMetrics] = []
+        # Initialize the world context manager
+        self._context_manager = WorldContextManager(self.initial_world_context)
         # Create saves directory if it doesn't exist
         os.makedirs("saves", exist_ok=True)
         logger.info("World initialization complete")
@@ -483,11 +488,19 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
         # Step 1: Generate arc titles
         logger.info(f"Step {self._generation_step}: Generating arc titles")
         await self.advance_generation_step("arc_titles")
-        arc_titles = await b.GenerateArcTitles(
-            world_context=self.world_context,
+        
+        # Get compressed context for efficient prompting
+        compressed_context = await self._context_manager.get_compressed_context()
+        
+        arc_titles, metrics = await execute_with_retry_and_metrics(
+            b.GenerateArcTitles,
+            "generate_arc_titles",
+            expected_type=list,
+            world_context=compressed_context,
             player_state=self.player_state,
             count=1
         )
+        self._generation_metrics.append(metrics)
         logger.info("Generated arc titles:")
         for i, title in enumerate(arc_titles, 1):
             logger.info(f"{i}. {title}")
@@ -499,12 +512,17 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
         arc_seeds = []
         for title in tqdm(arc_titles, desc="Generating arc seeds", unit="arc"):
             logger.info(f"Generating seed for arc: {title}")
-            arc_seed = await b.GenerateArcSeed(
-                world_context=self.world_context,
+            
+            arc_seed, metrics = await execute_with_retry_and_metrics(
+                b.GenerateArcSeed,
+                f"generate_arc_seed_{title}",
+                world_context=compressed_context,
                 player_state=self.player_state,
                 title=title
             )
+            self._generation_metrics.append(metrics)
             arc_seeds.append(arc_seed)
+            
             logger.info(f"Arc seed generated:")
             logger.info(f"- Core conflict: {arc_seed.core_conflict}")
             logger.info(f"- Theme tags: {', '.join(arc_seed.theme_tags)}")
@@ -645,5 +663,8 @@ People that are born in the city are referred to as "Lifers", i.e they will be t
         logger.info(f"Generated {len(self.arcs)} arcs with enhanced dialogue and choices")
         total_situations = sum(len(arc.situations) for arc in self.arcs)
         logger.info(f"Total situations created: {total_situations}")
+        
+        # Log generation summary with metrics
+        log_generation_summary(self._generation_metrics)
         logger.info("=" * 80)
 

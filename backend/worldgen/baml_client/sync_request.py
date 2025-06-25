@@ -108,7 +108,7 @@ class HttpRequest:
     
     def CheckFactionNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -131,7 +131,7 @@ class HttpRequest:
     
     def CheckTechnologyNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -145,6 +145,29 @@ class HttpRequest:
         "CheckTechnologyNeeds",
         {
           "context": context,"situation_description": situation_description,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
+    def CreateCompressedContext(
+        self,
+        world_context: types.WorldContext,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return self.__runtime.build_request_sync(
+        "CreateCompressedContext",
+        {
+          "world_context": world_context,
         },
         self.__ctx_manager.get(),
         tb,
@@ -200,7 +223,7 @@ class HttpRequest:
     
     def GenerateArcSeed(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,title: str,
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,title: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -223,7 +246,7 @@ class HttpRequest:
     
     def GenerateArcTitles(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,count: Optional[int],
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,count: Optional[int],
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -338,7 +361,7 @@ class HttpRequest:
     
     def GenerateDistricts(
         self,
-        context: types.WorldContext,
+        context: types.CompressedWorldContext,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -384,7 +407,7 @@ class HttpRequest:
     
     def GenerateFaction(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -568,7 +591,7 @@ class HttpRequest:
     
     def GenerateRootSituation(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -614,7 +637,7 @@ class HttpRequest:
     
     def GenerateTechnology(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -752,7 +775,7 @@ class HttpRequest:
     
     def SelectGenerationTool(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
+        compressed_context: types.CompressedWorldContext,player_state: types.PlayerState,arc: types.Arc,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -765,7 +788,30 @@ class HttpRequest:
       return self.__runtime.build_request_sync(
         "SelectGenerationTool",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc,
+          "compressed_context": compressed_context,"player_state": player_state,"arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        False,
+      )
+    
+    def SelectWorldTool(
+        self,
+        compressed_context: types.CompressedWorldContext,user_message: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return self.__runtime.build_request_sync(
+        "SelectWorldTool",
+        {
+          "compressed_context": compressed_context,"user_message": user_message,
         },
         self.__ctx_manager.get(),
         tb,
@@ -878,7 +924,7 @@ class HttpStreamRequest:
     
     def CheckFactionNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -901,7 +947,7 @@ class HttpStreamRequest:
     
     def CheckTechnologyNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -915,6 +961,29 @@ class HttpStreamRequest:
         "CheckTechnologyNeeds",
         {
           "context": context,"situation_description": situation_description,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
+    def CreateCompressedContext(
+        self,
+        world_context: types.WorldContext,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return self.__runtime.build_request_sync(
+        "CreateCompressedContext",
+        {
+          "world_context": world_context,
         },
         self.__ctx_manager.get(),
         tb,
@@ -970,7 +1039,7 @@ class HttpStreamRequest:
     
     def GenerateArcSeed(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,title: str,
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,title: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -993,7 +1062,7 @@ class HttpStreamRequest:
     
     def GenerateArcTitles(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,count: Optional[int],
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,count: Optional[int],
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -1108,7 +1177,7 @@ class HttpStreamRequest:
     
     def GenerateDistricts(
         self,
-        context: types.WorldContext,
+        context: types.CompressedWorldContext,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -1154,7 +1223,7 @@ class HttpStreamRequest:
     
     def GenerateFaction(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -1338,7 +1407,7 @@ class HttpStreamRequest:
     
     def GenerateRootSituation(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
+        world_context: types.CompressedWorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -1384,7 +1453,7 @@ class HttpStreamRequest:
     
     def GenerateTechnology(
         self,
-        context: types.WorldContext,situation_description: str,
+        context: types.CompressedWorldContext,situation_description: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -1522,7 +1591,7 @@ class HttpStreamRequest:
     
     def SelectGenerationTool(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
+        compressed_context: types.CompressedWorldContext,player_state: types.PlayerState,arc: types.Arc,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
@@ -1535,7 +1604,30 @@ class HttpStreamRequest:
       return self.__runtime.build_request_sync(
         "SelectGenerationTool",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc,
+          "compressed_context": compressed_context,"player_state": player_state,"arc": arc,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        True,
+      )
+    
+    def SelectWorldTool(
+        self,
+        compressed_context: types.CompressedWorldContext,user_message: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      return self.__runtime.build_request_sync(
+        "SelectWorldTool",
+        {
+          "compressed_context": compressed_context,"user_message": user_message,
         },
         self.__ctx_manager.get(),
         tb,

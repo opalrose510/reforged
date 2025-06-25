@@ -20,7 +20,7 @@ import { toBamlError } from "@boundaryml/baml"
 import type { Checked, Check } from "./types"
 import type { partial_types } from "./partial_types"
 import type * as types from "./types"
-import type {Arc, ArcOutcome, ArcSeed, BridgeNode, BridgeableSituation, Choice, District, Event, Faction, Item, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, Situation, StatDescriptors, StatRequirement, Technology, WorldContext, WorldSeed} from "./types"
+import type {Arc, ArcOutcome, ArcSeed, BridgeNode, BridgeableSituation, Choice, CompressedWorldContext, ConceptSummary, District, Event, Faction, GetDistrictDetails, GetFactionDetails, GetNPCDetails, GetTechnologyDetails, Item, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, Situation, StatDescriptors, StatRequirement, Technology, WorldConceptTool, WorldContext, WorldSeed} from "./types"
 import type TypeBuilder from "./type_builder"
 
 export class LlmResponseParser {
@@ -112,6 +112,24 @@ export class LlmResponseParser {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
       ) as boolean
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateCompressedContext(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): CompressedWorldContext {
+    try {
+      return this.runtime.parseLlmResponse(
+        "CreateCompressedContext",
+        llmResponse,
+        false,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as CompressedWorldContext
     } catch (error) {
       throw toBamlError(error);
     }
@@ -603,6 +621,24 @@ export class LlmResponseParser {
     }
   }
   
+  SelectWorldTool(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): (GetTechnologyDetails | GetFactionDetails | GetDistrictDetails | GetNPCDetails)[] {
+    try {
+      return this.runtime.parseLlmResponse(
+        "SelectWorldTool",
+        llmResponse,
+        false,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as (GetTechnologyDetails | GetFactionDetails | GetDistrictDetails | GetNPCDetails)[]
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
   ValidateBridgeConnections(
       llmResponse: string,
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
@@ -712,6 +748,24 @@ export class LlmStreamParser {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
       ) as boolean
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateCompressedContext(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): partial_types.CompressedWorldContext {
+    try {
+      return this.runtime.parseLlmResponse(
+        "CreateCompressedContext",
+        llmResponse,
+        true,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as partial_types.CompressedWorldContext
     } catch (error) {
       throw toBamlError(error);
     }
@@ -1198,6 +1252,24 @@ export class LlmStreamParser {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
       ) as string
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  SelectWorldTool(
+      llmResponse: string,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
+  ): ((partial_types.GetTechnologyDetails | null) | (partial_types.GetFactionDetails | null) | (partial_types.GetDistrictDetails | null) | (partial_types.GetNPCDetails | null) | null)[] {
+    try {
+      return this.runtime.parseLlmResponse(
+        "SelectWorldTool",
+        llmResponse,
+        true,
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+      ) as ((partial_types.GetTechnologyDetails | null) | (partial_types.GetFactionDetails | null) | (partial_types.GetDistrictDetails | null) | (partial_types.GetNPCDetails | null) | null)[]
     } catch (error) {
       throw toBamlError(error);
     }

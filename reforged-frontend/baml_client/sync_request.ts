@@ -19,7 +19,7 @@ import type { BamlRuntime, BamlCtxManager, ClientRegistry, Image, Audio } from "
 import { toBamlError, HTTPRequest } from "@boundaryml/baml"
 import type { Checked, Check } from "./types"
 import type * as types from "./types"
-import type {Arc, ArcOutcome, ArcSeed, BridgeNode, BridgeableSituation, Choice, District, Event, Faction, Item, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, Situation, StatDescriptors, StatRequirement, Technology, WorldContext, WorldSeed} from "./types"
+import type {Arc, ArcOutcome, ArcSeed, BridgeNode, BridgeableSituation, Choice, CompressedWorldContext, ConceptSummary, District, Event, Faction, GetDistrictDetails, GetFactionDetails, GetNPCDetails, GetTechnologyDetails, Item, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, Situation, StatDescriptors, StatRequirement, Technology, WorldConceptTool, WorldContext, WorldSeed} from "./types"
 import type TypeBuilder from "./type_builder"
 
 type BamlCallOptions = {
@@ -92,7 +92,7 @@ export class HttpRequest {
   }
   
   CheckFactionNeeds(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -112,7 +112,7 @@ export class HttpRequest {
   }
   
   CheckTechnologyNeeds(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -120,6 +120,26 @@ export class HttpRequest {
         "CheckTechnologyNeeds",
         {
           "context": context,"situation_description": situation_description
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        false,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateCompressedContext(
+      world_context: WorldContext,
+      __baml_options__?: BamlCallOptions
+  ): HTTPRequest {
+    try {
+      return this.runtime.buildRequestSync(
+        "CreateCompressedContext",
+        {
+          "world_context": world_context
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
@@ -172,7 +192,7 @@ export class HttpRequest {
   }
   
   GenerateArcSeed(
-      world_context: WorldContext,player_state: PlayerState,title: string,
+      world_context: CompressedWorldContext,player_state: PlayerState,title: string,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -192,7 +212,7 @@ export class HttpRequest {
   }
   
   GenerateArcTitles(
-      world_context: WorldContext,player_state: PlayerState,count?: number | null,
+      world_context: CompressedWorldContext,player_state: PlayerState,count?: number | null,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -292,7 +312,7 @@ export class HttpRequest {
   }
   
   GenerateDistricts(
-      context: WorldContext,
+      context: CompressedWorldContext,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -332,7 +352,7 @@ export class HttpRequest {
   }
   
   GenerateFaction(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -492,7 +512,7 @@ export class HttpRequest {
   }
   
   GenerateRootSituation(
-      world_context: WorldContext,player_state: PlayerState,arc_seed: ArcSeed,
+      world_context: CompressedWorldContext,player_state: PlayerState,arc_seed: ArcSeed,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -532,7 +552,7 @@ export class HttpRequest {
   }
   
   GenerateTechnology(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -652,14 +672,34 @@ export class HttpRequest {
   }
   
   SelectGenerationTool(
-      world_context: WorldContext,player_state: PlayerState,arc: Arc,
+      compressed_context: CompressedWorldContext,player_state: PlayerState,arc: Arc,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
       return this.runtime.buildRequestSync(
         "SelectGenerationTool",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc
+          "compressed_context": compressed_context,"player_state": player_state,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        false,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  SelectWorldTool(
+      compressed_context: CompressedWorldContext,user_message: string,
+      __baml_options__?: BamlCallOptions
+  ): HTTPRequest {
+    try {
+      return this.runtime.buildRequestSync(
+        "SelectWorldTool",
+        {
+          "compressed_context": compressed_context,"user_message": user_message
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
@@ -758,7 +798,7 @@ export class HttpStreamRequest {
   }
   
   CheckFactionNeeds(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -778,7 +818,7 @@ export class HttpStreamRequest {
   }
   
   CheckTechnologyNeeds(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -786,6 +826,26 @@ export class HttpStreamRequest {
         "CheckTechnologyNeeds",
         {
           "context": context,"situation_description": situation_description
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        true,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  CreateCompressedContext(
+      world_context: WorldContext,
+      __baml_options__?: BamlCallOptions
+  ): HTTPRequest {
+    try {
+      return this.runtime.buildRequestSync(
+        "CreateCompressedContext",
+        {
+          "world_context": world_context
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
@@ -838,7 +898,7 @@ export class HttpStreamRequest {
   }
   
   GenerateArcSeed(
-      world_context: WorldContext,player_state: PlayerState,title: string,
+      world_context: CompressedWorldContext,player_state: PlayerState,title: string,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -858,7 +918,7 @@ export class HttpStreamRequest {
   }
   
   GenerateArcTitles(
-      world_context: WorldContext,player_state: PlayerState,count?: number | null,
+      world_context: CompressedWorldContext,player_state: PlayerState,count?: number | null,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -958,7 +1018,7 @@ export class HttpStreamRequest {
   }
   
   GenerateDistricts(
-      context: WorldContext,
+      context: CompressedWorldContext,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -998,7 +1058,7 @@ export class HttpStreamRequest {
   }
   
   GenerateFaction(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -1158,7 +1218,7 @@ export class HttpStreamRequest {
   }
   
   GenerateRootSituation(
-      world_context: WorldContext,player_state: PlayerState,arc_seed: ArcSeed,
+      world_context: CompressedWorldContext,player_state: PlayerState,arc_seed: ArcSeed,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -1198,7 +1258,7 @@ export class HttpStreamRequest {
   }
   
   GenerateTechnology(
-      context: WorldContext,situation_description: string,
+      context: CompressedWorldContext,situation_description: string,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
@@ -1318,14 +1378,34 @@ export class HttpStreamRequest {
   }
   
   SelectGenerationTool(
-      world_context: WorldContext,player_state: PlayerState,arc: Arc,
+      compressed_context: CompressedWorldContext,player_state: PlayerState,arc: Arc,
       __baml_options__?: BamlCallOptions
   ): HTTPRequest {
     try {
       return this.runtime.buildRequestSync(
         "SelectGenerationTool",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc
+          "compressed_context": compressed_context,"player_state": player_state,"arc": arc
+        },
+        this.ctxManager.cloneContext(),
+        __baml_options__?.tb?.__tb(),
+        __baml_options__?.clientRegistry,
+        true,
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  SelectWorldTool(
+      compressed_context: CompressedWorldContext,user_message: string,
+      __baml_options__?: BamlCallOptions
+  ): HTTPRequest {
+    try {
+      return this.runtime.buildRequestSync(
+        "SelectWorldTool",
+        {
+          "compressed_context": compressed_context,"user_message": user_message
         },
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
