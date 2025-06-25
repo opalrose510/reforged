@@ -25,6 +25,7 @@ import type TypeBuilder from "./type_builder"
 type BamlCallOptions = {
   tb?: TypeBuilder
   clientRegistry?: ClientRegistry
+  env?: Record<string, string | undefined>
 }
 
 export class AsyncHttpRequest {
@@ -36,6 +37,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "AugmentSituationChoices",
         {
@@ -45,6 +47,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -56,6 +59,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "CheckBridgeAttributeNeeds",
         {
@@ -65,6 +69,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -76,6 +81,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "CheckChoiceAttributeNeeds",
         {
@@ -85,6 +91,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -96,6 +103,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "CheckFactionNeeds",
         {
@@ -105,6 +113,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -116,6 +125,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "CheckTechnologyNeeds",
         {
@@ -125,6 +135,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -136,6 +147,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "CreateCompressedContext",
         {
@@ -145,6 +157,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -156,6 +169,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "ExpandArcSituations",
         {
@@ -165,6 +179,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -176,6 +191,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "FindBridgeConnections",
         {
@@ -185,6 +201,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -196,6 +213,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateArcSeed",
         {
@@ -205,6 +223,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -216,6 +235,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateArcTitles",
         {
@@ -225,6 +245,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -236,6 +257,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateBridgeAttribute",
         {
@@ -245,6 +267,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -256,6 +279,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateBridgeSituations",
         {
@@ -265,6 +289,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -276,6 +301,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateChoiceAttribute",
         {
@@ -285,6 +311,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -296,6 +323,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateChoiceSituationResult",
         {
@@ -305,6 +333,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -316,6 +345,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateDistricts",
         {
@@ -325,6 +355,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -336,6 +367,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateEventsForSituation",
         {
@@ -345,6 +377,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -356,6 +389,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateFaction",
         {
@@ -365,6 +399,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -376,6 +411,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateInitialAttributes",
         {
@@ -385,6 +421,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -396,6 +433,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateItemsForSituation",
         {
@@ -405,6 +443,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -416,6 +455,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateLocationsForSituation",
         {
@@ -425,6 +465,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -436,6 +477,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateMissingSituationsForChoice",
         {
@@ -445,6 +487,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -456,6 +499,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateNPCsForSituation",
         {
@@ -465,6 +509,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -476,6 +521,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GeneratePlayerProfile",
         {
@@ -485,6 +531,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -496,6 +543,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateQuestsForSituation",
         {
@@ -505,6 +553,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -516,6 +565,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateRootSituation",
         {
@@ -525,6 +575,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -536,6 +587,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateSituationForChoice",
         {
@@ -545,6 +597,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -556,6 +609,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateTechnology",
         {
@@ -565,6 +619,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -576,6 +631,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GetDefaultStatDescriptors",
         {
@@ -585,6 +641,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -596,6 +653,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GetStatNarrative",
         {
@@ -605,6 +663,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -616,6 +675,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "IdentifyBridgeableSituations",
         {
@@ -625,6 +685,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -636,6 +697,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "IdentifyMissingSituations",
         {
@@ -645,6 +707,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -656,6 +719,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "InitializePlayerStats",
         {
@@ -665,6 +729,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -676,6 +741,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "SelectGenerationTool",
         {
@@ -685,6 +751,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -696,6 +763,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "SelectWorldTool",
         {
@@ -705,6 +773,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -716,6 +785,7 @@ export class AsyncHttpRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "ValidateBridgeConnections",
         {
@@ -725,6 +795,7 @@ export class AsyncHttpRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         false,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -742,6 +813,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "AugmentSituationChoices",
         {
@@ -751,6 +823,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -762,6 +835,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "CheckBridgeAttributeNeeds",
         {
@@ -771,6 +845,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -782,6 +857,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "CheckChoiceAttributeNeeds",
         {
@@ -791,6 +867,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -802,6 +879,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "CheckFactionNeeds",
         {
@@ -811,6 +889,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -822,6 +901,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "CheckTechnologyNeeds",
         {
@@ -831,6 +911,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -842,6 +923,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "CreateCompressedContext",
         {
@@ -851,6 +933,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -862,6 +945,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "ExpandArcSituations",
         {
@@ -871,6 +955,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -882,6 +967,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "FindBridgeConnections",
         {
@@ -891,6 +977,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -902,6 +989,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateArcSeed",
         {
@@ -911,6 +999,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -922,6 +1011,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateArcTitles",
         {
@@ -931,6 +1021,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -942,6 +1033,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateBridgeAttribute",
         {
@@ -951,6 +1043,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -962,6 +1055,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateBridgeSituations",
         {
@@ -971,6 +1065,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -982,6 +1077,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateChoiceAttribute",
         {
@@ -991,6 +1087,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1002,6 +1099,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateChoiceSituationResult",
         {
@@ -1011,6 +1109,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1022,6 +1121,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateDistricts",
         {
@@ -1031,6 +1131,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1042,6 +1143,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateEventsForSituation",
         {
@@ -1051,6 +1153,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1062,6 +1165,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateFaction",
         {
@@ -1071,6 +1175,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1082,6 +1187,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateInitialAttributes",
         {
@@ -1091,6 +1197,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1102,6 +1209,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateItemsForSituation",
         {
@@ -1111,6 +1219,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1122,6 +1231,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateLocationsForSituation",
         {
@@ -1131,6 +1241,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1142,6 +1253,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateMissingSituationsForChoice",
         {
@@ -1151,6 +1263,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1162,6 +1275,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateNPCsForSituation",
         {
@@ -1171,6 +1285,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1182,6 +1297,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GeneratePlayerProfile",
         {
@@ -1191,6 +1307,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1202,6 +1319,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateQuestsForSituation",
         {
@@ -1211,6 +1329,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1222,6 +1341,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateRootSituation",
         {
@@ -1231,6 +1351,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1242,6 +1363,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateSituationForChoice",
         {
@@ -1251,6 +1373,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1262,6 +1385,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GenerateTechnology",
         {
@@ -1271,6 +1395,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1282,6 +1407,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GetDefaultStatDescriptors",
         {
@@ -1291,6 +1417,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1302,6 +1429,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "GetStatNarrative",
         {
@@ -1311,6 +1439,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1322,6 +1451,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "IdentifyBridgeableSituations",
         {
@@ -1331,6 +1461,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1342,6 +1473,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "IdentifyMissingSituations",
         {
@@ -1351,6 +1483,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1362,6 +1495,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "InitializePlayerStats",
         {
@@ -1371,6 +1505,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1382,6 +1517,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "SelectGenerationTool",
         {
@@ -1391,6 +1527,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1402,6 +1539,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "SelectWorldTool",
         {
@@ -1411,6 +1549,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);
@@ -1422,6 +1561,7 @@ export class AsyncHttpStreamRequest {
       __baml_options__?: BamlCallOptions
   ): Promise<HTTPRequest> {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return await this.runtime.buildRequest(
         "ValidateBridgeConnections",
         {
@@ -1431,6 +1571,7 @@ export class AsyncHttpStreamRequest {
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
         true,
+        env
       )
     } catch (error) {
       throw toBamlError(error);

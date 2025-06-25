@@ -13,19 +13,13 @@
 # flake8: noqa: E501,F401
 # pylint: disable=unused-import,line-too-long
 # fmt: off
-from typing import Any, Dict, List, Optional, Union, TypedDict, Type, cast
-from typing_extensions import NotRequired, Literal
+from typing import Dict, List, Optional, Union, cast
+from typing_extensions import Literal
 
 import baml_py
 
-from . import types, partial_types
+from . import _baml
 from .types import Checked, Check
-from .type_builder import TypeBuilder
-
-
-class BamlCallOptions(TypedDict, total=False):
-    tb: NotRequired[TypeBuilder]
-    client_registry: NotRequired[baml_py.baml_py.ClientRegistry]
 
 
 class LlmResponseParser:
@@ -40,8 +34,8 @@ class LlmResponseParser:
     def AugmentSituationChoices(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Choice]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.Choice]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -49,24 +43,27 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "AugmentSituationChoices",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.Choice], parsed)
+      return cast(List[_baml.types.Choice], parsed)
     
     def CheckBridgeAttributeNeeds(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> bool:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -75,16 +72,19 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "CheckBridgeAttributeNeeds",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(bool, parsed)
@@ -92,7 +92,7 @@ class LlmResponseParser:
     def CheckChoiceAttributeNeeds(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> bool:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -101,16 +101,19 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "CheckChoiceAttributeNeeds",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(bool, parsed)
@@ -118,7 +121,7 @@ class LlmResponseParser:
     def CheckFactionNeeds(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> bool:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -127,16 +130,19 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "CheckFactionNeeds",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(bool, parsed)
@@ -144,7 +150,7 @@ class LlmResponseParser:
     def CheckTechnologyNeeds(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> bool:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -153,16 +159,19 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "CheckTechnologyNeeds",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(bool, parsed)
@@ -170,86 +179,95 @@ class LlmResponseParser:
     def CreateCompressedContext(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.CompressedWorldContext:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.CompressedWorldContext:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "CreateCompressedContext",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.CompressedWorldContext, parsed)
+      return cast(_baml.types.CompressedWorldContext, parsed)
     
     def ExpandArcSituations(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Situation]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.Situation]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "ExpandArcSituations",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.Situation], parsed)
+      return cast(List[_baml.types.Situation], parsed)
     
     def FindBridgeConnections(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.BridgeNode]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.BridgeNode]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "FindBridgeConnections",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.BridgeNode], parsed)
+      return cast(List[_baml.types.BridgeNode], parsed)
     
     def GenerateArcSeed(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.ArcSeed:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.ArcSeed:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -257,24 +275,27 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "GenerateArcSeed",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.ArcSeed, parsed)
+      return cast(_baml.types.ArcSeed, parsed)
     
     def GenerateArcTitles(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> List[str]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -283,16 +304,19 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "GenerateArcTitles",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(List[str], parsed)
@@ -300,450 +324,501 @@ class LlmResponseParser:
     def GenerateBridgeAttribute(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.PlayerAttribute:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.PlayerAttribute:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateBridgeAttribute",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.PlayerAttribute, parsed)
+      return cast(_baml.types.PlayerAttribute, parsed)
     
     def GenerateBridgeSituations(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Situation]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.Situation]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateBridgeSituations",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.Situation], parsed)
+      return cast(List[_baml.types.Situation], parsed)
     
     def GenerateChoiceAttribute(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.PlayerAttribute:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.PlayerAttribute:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateChoiceAttribute",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.PlayerAttribute, parsed)
+      return cast(_baml.types.PlayerAttribute, parsed)
     
     def GenerateChoiceSituationResult(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Situation:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.Situation:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateChoiceSituationResult",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.Situation, parsed)
+      return cast(_baml.types.Situation, parsed)
     
     def GenerateDistricts(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.District]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.District]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateDistricts",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.District], parsed)
+      return cast(List[_baml.types.District], parsed)
     
     def GenerateEventsForSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Event]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.Event]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateEventsForSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.Event], parsed)
+      return cast(List[_baml.types.Event], parsed)
     
     def GenerateFaction(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Faction:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.Faction:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateFaction",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.Faction, parsed)
+      return cast(_baml.types.Faction, parsed)
     
     def GenerateInitialAttributes(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.PlayerAttribute]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.PlayerAttribute]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateInitialAttributes",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.PlayerAttribute], parsed)
+      return cast(List[_baml.types.PlayerAttribute], parsed)
     
     def GenerateItemsForSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Item]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.Item]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateItemsForSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.Item], parsed)
+      return cast(List[_baml.types.Item], parsed)
     
     def GenerateLocationsForSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Location]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.Location]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateLocationsForSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.Location], parsed)
+      return cast(List[_baml.types.Location], parsed)
     
     def GenerateMissingSituationsForChoice(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Situation:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.Situation:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateMissingSituationsForChoice",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.Situation, parsed)
+      return cast(_baml.types.Situation, parsed)
     
     def GenerateNPCsForSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.NPC]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.NPC]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateNPCsForSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.NPC], parsed)
+      return cast(List[_baml.types.NPC], parsed)
     
     def GeneratePlayerProfile(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.PlayerProfile:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.PlayerProfile:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GeneratePlayerProfile",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.PlayerProfile, parsed)
+      return cast(_baml.types.PlayerProfile, parsed)
     
     def GenerateQuestsForSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Quest]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.Quest]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateQuestsForSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.Quest], parsed)
+      return cast(List[_baml.types.Quest], parsed)
     
     def GenerateRootSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Situation:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.Situation:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateRootSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.Situation, parsed)
+      return cast(_baml.types.Situation, parsed)
     
     def GenerateSituationForChoice(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Situation:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.Situation:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateSituationForChoice",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.Situation, parsed)
+      return cast(_baml.types.Situation, parsed)
     
     def GenerateTechnology(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Technology:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.Technology:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateTechnology",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.Technology, parsed)
+      return cast(_baml.types.Technology, parsed)
     
     def GetDefaultStatDescriptors(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.StatDescriptors:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.StatDescriptors:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -751,24 +826,27 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "GetDefaultStatDescriptors",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.StatDescriptors, parsed)
+      return cast(_baml.types.StatDescriptors, parsed)
     
     def GetStatNarrative(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> str:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -777,16 +855,19 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "GetStatNarrative",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(str, parsed)
@@ -794,8 +875,8 @@ class LlmResponseParser:
     def IdentifyBridgeableSituations(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.BridgeableSituation]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.BridgeableSituation]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -803,24 +884,27 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "IdentifyBridgeableSituations",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.BridgeableSituation], parsed)
+      return cast(List[_baml.types.BridgeableSituation], parsed)
     
     def IdentifyMissingSituations(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> List[str]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -829,16 +913,19 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "IdentifyMissingSituations",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(List[str], parsed)
@@ -846,8 +933,8 @@ class LlmResponseParser:
     def InitializePlayerStats(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.PlayerStats:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.types.PlayerStats:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -855,24 +942,27 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "InitializePlayerStats",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(types.PlayerStats, parsed)
+      return cast(_baml.types.PlayerStats, parsed)
     
     def SelectGenerationTool(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> str:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -881,16 +971,19 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "SelectGenerationTool",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(str, parsed)
@@ -898,34 +991,37 @@ class LlmResponseParser:
     def SelectWorldTool(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[Union[types.GetTechnologyDetails, types.GetFactionDetails, types.GetDistrictDetails, types.GetNPCDetails]]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[Union[_baml.types.GetTechnologyDetails, _baml.types.GetFactionDetails, _baml.types.GetDistrictDetails, _baml.types.GetNPCDetails]]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "SelectWorldTool",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[Union[types.GetTechnologyDetails, types.GetFactionDetails, types.GetDistrictDetails, types.GetNPCDetails]], parsed)
+      return cast(List[Union[_baml.types.GetTechnologyDetails, _baml.types.GetFactionDetails, _baml.types.GetDistrictDetails, _baml.types.GetNPCDetails]], parsed)
     
     def ValidateBridgeConnections(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.BridgeNode]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.types.BridgeNode]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -933,19 +1029,22 @@ class LlmResponseParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "ValidateBridgeConnections",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         False,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[types.BridgeNode], parsed)
+      return cast(List[_baml.types.BridgeNode], parsed)
     
 
 
@@ -961,8 +1060,8 @@ class LlmStreamParser:
     def AugmentSituationChoices(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.Choice]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.Choice]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -970,24 +1069,27 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "AugmentSituationChoices",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.Choice], parsed)
+      return cast(List[_baml.partial_types.Choice], parsed)
     
     def CheckBridgeAttributeNeeds(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> Optional[bool]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -996,16 +1098,19 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "CheckBridgeAttributeNeeds",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(Optional[bool], parsed)
@@ -1013,7 +1118,7 @@ class LlmStreamParser:
     def CheckChoiceAttributeNeeds(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> Optional[bool]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1022,16 +1127,19 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "CheckChoiceAttributeNeeds",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(Optional[bool], parsed)
@@ -1039,7 +1147,7 @@ class LlmStreamParser:
     def CheckFactionNeeds(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> Optional[bool]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1048,16 +1156,19 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "CheckFactionNeeds",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(Optional[bool], parsed)
@@ -1065,7 +1176,7 @@ class LlmStreamParser:
     def CheckTechnologyNeeds(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> Optional[bool]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1074,16 +1185,19 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "CheckTechnologyNeeds",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(Optional[bool], parsed)
@@ -1091,86 +1205,95 @@ class LlmStreamParser:
     def CreateCompressedContext(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.CompressedWorldContext:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.CompressedWorldContext:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "CreateCompressedContext",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.CompressedWorldContext, parsed)
+      return cast(_baml.partial_types.CompressedWorldContext, parsed)
     
     def ExpandArcSituations(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.Situation]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.Situation]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "ExpandArcSituations",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.Situation], parsed)
+      return cast(List[_baml.partial_types.Situation], parsed)
     
     def FindBridgeConnections(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.BridgeNode]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.BridgeNode]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "FindBridgeConnections",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.BridgeNode], parsed)
+      return cast(List[_baml.partial_types.BridgeNode], parsed)
     
     def GenerateArcSeed(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.ArcSeed:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.ArcSeed:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1178,24 +1301,27 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "GenerateArcSeed",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.ArcSeed, parsed)
+      return cast(_baml.partial_types.ArcSeed, parsed)
     
     def GenerateArcTitles(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> List[Optional[str]]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1204,16 +1330,19 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "GenerateArcTitles",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(List[Optional[str]], parsed)
@@ -1221,450 +1350,501 @@ class LlmStreamParser:
     def GenerateBridgeAttribute(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.PlayerAttribute:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.PlayerAttribute:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateBridgeAttribute",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.PlayerAttribute, parsed)
+      return cast(_baml.partial_types.PlayerAttribute, parsed)
     
     def GenerateBridgeSituations(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.Situation]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.Situation]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateBridgeSituations",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.Situation], parsed)
+      return cast(List[_baml.partial_types.Situation], parsed)
     
     def GenerateChoiceAttribute(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.PlayerAttribute:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.PlayerAttribute:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateChoiceAttribute",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.PlayerAttribute, parsed)
+      return cast(_baml.partial_types.PlayerAttribute, parsed)
     
     def GenerateChoiceSituationResult(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.Situation:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.Situation:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateChoiceSituationResult",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.Situation, parsed)
+      return cast(_baml.partial_types.Situation, parsed)
     
     def GenerateDistricts(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.District]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.District]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateDistricts",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.District], parsed)
+      return cast(List[_baml.partial_types.District], parsed)
     
     def GenerateEventsForSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.Event]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.Event]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateEventsForSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.Event], parsed)
+      return cast(List[_baml.partial_types.Event], parsed)
     
     def GenerateFaction(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.Faction:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.Faction:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateFaction",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.Faction, parsed)
+      return cast(_baml.partial_types.Faction, parsed)
     
     def GenerateInitialAttributes(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.PlayerAttribute]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.PlayerAttribute]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateInitialAttributes",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.PlayerAttribute], parsed)
+      return cast(List[_baml.partial_types.PlayerAttribute], parsed)
     
     def GenerateItemsForSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.Item]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.Item]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateItemsForSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.Item], parsed)
+      return cast(List[_baml.partial_types.Item], parsed)
     
     def GenerateLocationsForSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.Location]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.Location]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateLocationsForSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.Location], parsed)
+      return cast(List[_baml.partial_types.Location], parsed)
     
     def GenerateMissingSituationsForChoice(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.Situation:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.Situation:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateMissingSituationsForChoice",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.Situation, parsed)
+      return cast(_baml.partial_types.Situation, parsed)
     
     def GenerateNPCsForSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.NPC]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.NPC]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateNPCsForSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.NPC], parsed)
+      return cast(List[_baml.partial_types.NPC], parsed)
     
     def GeneratePlayerProfile(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.PlayerProfile:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.PlayerProfile:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GeneratePlayerProfile",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.PlayerProfile, parsed)
+      return cast(_baml.partial_types.PlayerProfile, parsed)
     
     def GenerateQuestsForSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.Quest]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.Quest]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateQuestsForSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.Quest], parsed)
+      return cast(List[_baml.partial_types.Quest], parsed)
     
     def GenerateRootSituation(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.Situation:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.Situation:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateRootSituation",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.Situation, parsed)
+      return cast(_baml.partial_types.Situation, parsed)
     
     def GenerateSituationForChoice(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.Situation:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.Situation:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateSituationForChoice",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.Situation, parsed)
+      return cast(_baml.partial_types.Situation, parsed)
     
     def GenerateTechnology(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.Technology:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.Technology:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "GenerateTechnology",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.Technology, parsed)
+      return cast(_baml.partial_types.Technology, parsed)
     
     def GetDefaultStatDescriptors(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.StatDescriptors:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.StatDescriptors:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1672,24 +1852,27 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "GetDefaultStatDescriptors",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.StatDescriptors, parsed)
+      return cast(_baml.partial_types.StatDescriptors, parsed)
     
     def GetStatNarrative(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> Optional[str]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1698,16 +1881,19 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "GetStatNarrative",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(Optional[str], parsed)
@@ -1715,8 +1901,8 @@ class LlmStreamParser:
     def IdentifyBridgeableSituations(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.BridgeableSituation]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.BridgeableSituation]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1724,24 +1910,27 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "IdentifyBridgeableSituations",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.BridgeableSituation], parsed)
+      return cast(List[_baml.partial_types.BridgeableSituation], parsed)
     
     def IdentifyMissingSituations(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> List[Optional[str]]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1750,16 +1939,19 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "IdentifyMissingSituations",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(List[Optional[str]], parsed)
@@ -1767,8 +1959,8 @@ class LlmStreamParser:
     def InitializePlayerStats(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> partial_types.PlayerStats:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> _baml.partial_types.PlayerStats:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1776,24 +1968,27 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "InitializePlayerStats",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(partial_types.PlayerStats, parsed)
+      return cast(_baml.partial_types.PlayerStats, parsed)
     
     def SelectGenerationTool(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> Optional[str]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1802,16 +1997,19 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "SelectGenerationTool",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
       return cast(Optional[str], parsed)
@@ -1819,34 +2017,37 @@ class LlmStreamParser:
     def SelectWorldTool(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[Optional[Union[partial_types.GetTechnologyDetails, partial_types.GetFactionDetails, partial_types.GetDistrictDetails, partial_types.GetNPCDetails]]]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[Optional[Union[_baml.partial_types.GetTechnologyDetails, _baml.partial_types.GetFactionDetails, _baml.partial_types.GetDistrictDetails, _baml.partial_types.GetNPCDetails]]]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       parsed = self.__runtime.parse_llm_response(
         "SelectWorldTool",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[Optional[Union[partial_types.GetTechnologyDetails, partial_types.GetFactionDetails, partial_types.GetDistrictDetails, partial_types.GetNPCDetails]]], parsed)
+      return cast(List[Optional[Union[_baml.partial_types.GetTechnologyDetails, _baml.partial_types.GetFactionDetails, _baml.partial_types.GetDistrictDetails, _baml.partial_types.GetNPCDetails]]], parsed)
     
     def ValidateBridgeConnections(
         self,
         llm_response: str,
-        baml_options: BamlCallOptions = {},
-    ) -> List[partial_types.BridgeNode]:
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> List[_baml.partial_types.BridgeNode]:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1854,19 +2055,22 @@ class LlmStreamParser:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
 
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
       parsed = self.__runtime.parse_llm_response(
         "ValidateBridgeConnections",
         llm_response,
-        types,
-        types,
-        partial_types,
+        _baml.types,
+        _baml.types,
+        _baml.partial_types,
         True,
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
       )
 
-      return cast(List[partial_types.BridgeNode], parsed)
+      return cast(List[_baml.partial_types.BridgeNode], parsed)
     
 
 

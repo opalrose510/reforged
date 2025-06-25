@@ -32,6 +32,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Choice[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "AugmentSituationChoices",
         llmResponse,
@@ -39,6 +40,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Choice[]
     } catch (error) {
       throw toBamlError(error);
@@ -50,6 +52,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): boolean {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "CheckBridgeAttributeNeeds",
         llmResponse,
@@ -57,6 +60,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as boolean
     } catch (error) {
       throw toBamlError(error);
@@ -68,6 +72,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): boolean {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "CheckChoiceAttributeNeeds",
         llmResponse,
@@ -75,6 +80,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as boolean
     } catch (error) {
       throw toBamlError(error);
@@ -86,6 +92,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): boolean {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "CheckFactionNeeds",
         llmResponse,
@@ -93,6 +100,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as boolean
     } catch (error) {
       throw toBamlError(error);
@@ -104,6 +112,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): boolean {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "CheckTechnologyNeeds",
         llmResponse,
@@ -111,6 +120,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as boolean
     } catch (error) {
       throw toBamlError(error);
@@ -122,6 +132,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): CompressedWorldContext {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "CreateCompressedContext",
         llmResponse,
@@ -129,6 +140,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as CompressedWorldContext
     } catch (error) {
       throw toBamlError(error);
@@ -140,6 +152,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Situation[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "ExpandArcSituations",
         llmResponse,
@@ -147,6 +160,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Situation[]
     } catch (error) {
       throw toBamlError(error);
@@ -158,6 +172,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): BridgeNode[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "FindBridgeConnections",
         llmResponse,
@@ -165,6 +180,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as BridgeNode[]
     } catch (error) {
       throw toBamlError(error);
@@ -176,6 +192,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): ArcSeed {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateArcSeed",
         llmResponse,
@@ -183,6 +200,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as ArcSeed
     } catch (error) {
       throw toBamlError(error);
@@ -194,6 +212,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): string[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateArcTitles",
         llmResponse,
@@ -201,6 +220,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as string[]
     } catch (error) {
       throw toBamlError(error);
@@ -212,6 +232,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): PlayerAttribute {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateBridgeAttribute",
         llmResponse,
@@ -219,6 +240,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as PlayerAttribute
     } catch (error) {
       throw toBamlError(error);
@@ -230,6 +252,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Situation[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateBridgeSituations",
         llmResponse,
@@ -237,6 +260,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Situation[]
     } catch (error) {
       throw toBamlError(error);
@@ -248,6 +272,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): PlayerAttribute {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateChoiceAttribute",
         llmResponse,
@@ -255,6 +280,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as PlayerAttribute
     } catch (error) {
       throw toBamlError(error);
@@ -266,6 +292,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Situation {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateChoiceSituationResult",
         llmResponse,
@@ -273,6 +300,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Situation
     } catch (error) {
       throw toBamlError(error);
@@ -284,6 +312,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): District[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateDistricts",
         llmResponse,
@@ -291,6 +320,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as District[]
     } catch (error) {
       throw toBamlError(error);
@@ -302,6 +332,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Event[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateEventsForSituation",
         llmResponse,
@@ -309,6 +340,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Event[]
     } catch (error) {
       throw toBamlError(error);
@@ -320,6 +352,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Faction {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateFaction",
         llmResponse,
@@ -327,6 +360,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Faction
     } catch (error) {
       throw toBamlError(error);
@@ -338,6 +372,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): PlayerAttribute[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateInitialAttributes",
         llmResponse,
@@ -345,6 +380,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as PlayerAttribute[]
     } catch (error) {
       throw toBamlError(error);
@@ -356,6 +392,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Item[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateItemsForSituation",
         llmResponse,
@@ -363,6 +400,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Item[]
     } catch (error) {
       throw toBamlError(error);
@@ -374,6 +412,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Location[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateLocationsForSituation",
         llmResponse,
@@ -381,6 +420,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Location[]
     } catch (error) {
       throw toBamlError(error);
@@ -392,6 +432,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Situation {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateMissingSituationsForChoice",
         llmResponse,
@@ -399,6 +440,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Situation
     } catch (error) {
       throw toBamlError(error);
@@ -410,6 +452,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): NPC[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateNPCsForSituation",
         llmResponse,
@@ -417,6 +460,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as NPC[]
     } catch (error) {
       throw toBamlError(error);
@@ -428,6 +472,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): PlayerProfile {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GeneratePlayerProfile",
         llmResponse,
@@ -435,6 +480,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as PlayerProfile
     } catch (error) {
       throw toBamlError(error);
@@ -446,6 +492,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Quest[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateQuestsForSituation",
         llmResponse,
@@ -453,6 +500,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Quest[]
     } catch (error) {
       throw toBamlError(error);
@@ -464,6 +512,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Situation {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateRootSituation",
         llmResponse,
@@ -471,6 +520,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Situation
     } catch (error) {
       throw toBamlError(error);
@@ -482,6 +532,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Situation {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateSituationForChoice",
         llmResponse,
@@ -489,6 +540,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Situation
     } catch (error) {
       throw toBamlError(error);
@@ -500,6 +552,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): Technology {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateTechnology",
         llmResponse,
@@ -507,6 +560,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as Technology
     } catch (error) {
       throw toBamlError(error);
@@ -518,6 +572,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): StatDescriptors {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GetDefaultStatDescriptors",
         llmResponse,
@@ -525,6 +580,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as StatDescriptors
     } catch (error) {
       throw toBamlError(error);
@@ -536,6 +592,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): string {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GetStatNarrative",
         llmResponse,
@@ -543,6 +600,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as string
     } catch (error) {
       throw toBamlError(error);
@@ -554,6 +612,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): BridgeableSituation[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "IdentifyBridgeableSituations",
         llmResponse,
@@ -561,6 +620,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as BridgeableSituation[]
     } catch (error) {
       throw toBamlError(error);
@@ -572,6 +632,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): string[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "IdentifyMissingSituations",
         llmResponse,
@@ -579,6 +640,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as string[]
     } catch (error) {
       throw toBamlError(error);
@@ -590,6 +652,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): PlayerStats {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "InitializePlayerStats",
         llmResponse,
@@ -597,6 +660,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as PlayerStats
     } catch (error) {
       throw toBamlError(error);
@@ -608,6 +672,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): string {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "SelectGenerationTool",
         llmResponse,
@@ -615,6 +680,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as string
     } catch (error) {
       throw toBamlError(error);
@@ -626,6 +692,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (GetTechnologyDetails | GetFactionDetails | GetDistrictDetails | GetNPCDetails)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "SelectWorldTool",
         llmResponse,
@@ -633,6 +700,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (GetTechnologyDetails | GetFactionDetails | GetDistrictDetails | GetNPCDetails)[]
     } catch (error) {
       throw toBamlError(error);
@@ -644,6 +712,7 @@ export class LlmResponseParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): BridgeNode[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "ValidateBridgeConnections",
         llmResponse,
@@ -651,6 +720,7 @@ export class LlmResponseParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as BridgeNode[]
     } catch (error) {
       throw toBamlError(error);
@@ -668,6 +738,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.Choice | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "AugmentSituationChoices",
         llmResponse,
@@ -675,6 +746,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.Choice | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -686,6 +758,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): boolean {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "CheckBridgeAttributeNeeds",
         llmResponse,
@@ -693,6 +766,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as boolean
     } catch (error) {
       throw toBamlError(error);
@@ -704,6 +778,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): boolean {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "CheckChoiceAttributeNeeds",
         llmResponse,
@@ -711,6 +786,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as boolean
     } catch (error) {
       throw toBamlError(error);
@@ -722,6 +798,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): boolean {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "CheckFactionNeeds",
         llmResponse,
@@ -729,6 +806,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as boolean
     } catch (error) {
       throw toBamlError(error);
@@ -740,6 +818,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): boolean {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "CheckTechnologyNeeds",
         llmResponse,
@@ -747,6 +826,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as boolean
     } catch (error) {
       throw toBamlError(error);
@@ -758,6 +838,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.CompressedWorldContext {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "CreateCompressedContext",
         llmResponse,
@@ -765,6 +846,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.CompressedWorldContext
     } catch (error) {
       throw toBamlError(error);
@@ -776,6 +858,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.Situation | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "ExpandArcSituations",
         llmResponse,
@@ -783,6 +866,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.Situation | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -794,6 +878,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.BridgeNode | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "FindBridgeConnections",
         llmResponse,
@@ -801,6 +886,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.BridgeNode | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -812,6 +898,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.ArcSeed {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateArcSeed",
         llmResponse,
@@ -819,6 +906,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.ArcSeed
     } catch (error) {
       throw toBamlError(error);
@@ -830,6 +918,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (string | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateArcTitles",
         llmResponse,
@@ -837,6 +926,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (string | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -848,6 +938,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.PlayerAttribute {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateBridgeAttribute",
         llmResponse,
@@ -855,6 +946,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.PlayerAttribute
     } catch (error) {
       throw toBamlError(error);
@@ -866,6 +958,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.Situation | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateBridgeSituations",
         llmResponse,
@@ -873,6 +966,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.Situation | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -884,6 +978,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.PlayerAttribute {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateChoiceAttribute",
         llmResponse,
@@ -891,6 +986,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.PlayerAttribute
     } catch (error) {
       throw toBamlError(error);
@@ -902,6 +998,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.Situation {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateChoiceSituationResult",
         llmResponse,
@@ -909,6 +1006,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.Situation
     } catch (error) {
       throw toBamlError(error);
@@ -920,6 +1018,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.District | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateDistricts",
         llmResponse,
@@ -927,6 +1026,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.District | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -938,6 +1038,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.Event | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateEventsForSituation",
         llmResponse,
@@ -945,6 +1046,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.Event | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -956,6 +1058,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.Faction {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateFaction",
         llmResponse,
@@ -963,6 +1066,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.Faction
     } catch (error) {
       throw toBamlError(error);
@@ -974,6 +1078,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.PlayerAttribute | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateInitialAttributes",
         llmResponse,
@@ -981,6 +1086,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.PlayerAttribute | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -992,6 +1098,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.Item | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateItemsForSituation",
         llmResponse,
@@ -999,6 +1106,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.Item | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -1010,6 +1118,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.Location | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateLocationsForSituation",
         llmResponse,
@@ -1017,6 +1126,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.Location | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -1028,6 +1138,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.Situation {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateMissingSituationsForChoice",
         llmResponse,
@@ -1035,6 +1146,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.Situation
     } catch (error) {
       throw toBamlError(error);
@@ -1046,6 +1158,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.NPC | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateNPCsForSituation",
         llmResponse,
@@ -1053,6 +1166,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.NPC | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -1064,6 +1178,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.PlayerProfile {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GeneratePlayerProfile",
         llmResponse,
@@ -1071,6 +1186,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.PlayerProfile
     } catch (error) {
       throw toBamlError(error);
@@ -1082,6 +1198,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.Quest | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateQuestsForSituation",
         llmResponse,
@@ -1089,6 +1206,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.Quest | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -1100,6 +1218,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.Situation {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateRootSituation",
         llmResponse,
@@ -1107,6 +1226,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.Situation
     } catch (error) {
       throw toBamlError(error);
@@ -1118,6 +1238,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.Situation {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateSituationForChoice",
         llmResponse,
@@ -1125,6 +1246,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.Situation
     } catch (error) {
       throw toBamlError(error);
@@ -1136,6 +1258,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.Technology {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GenerateTechnology",
         llmResponse,
@@ -1143,6 +1266,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.Technology
     } catch (error) {
       throw toBamlError(error);
@@ -1154,6 +1278,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.StatDescriptors {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GetDefaultStatDescriptors",
         llmResponse,
@@ -1161,6 +1286,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.StatDescriptors
     } catch (error) {
       throw toBamlError(error);
@@ -1172,6 +1298,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): string {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "GetStatNarrative",
         llmResponse,
@@ -1179,6 +1306,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as string
     } catch (error) {
       throw toBamlError(error);
@@ -1190,6 +1318,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.BridgeableSituation | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "IdentifyBridgeableSituations",
         llmResponse,
@@ -1197,6 +1326,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.BridgeableSituation | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -1208,6 +1338,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (string | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "IdentifyMissingSituations",
         llmResponse,
@@ -1215,6 +1346,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (string | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -1226,6 +1358,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): partial_types.PlayerStats {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "InitializePlayerStats",
         llmResponse,
@@ -1233,6 +1366,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as partial_types.PlayerStats
     } catch (error) {
       throw toBamlError(error);
@@ -1244,6 +1378,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): string {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "SelectGenerationTool",
         llmResponse,
@@ -1251,6 +1386,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as string
     } catch (error) {
       throw toBamlError(error);
@@ -1262,6 +1398,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): ((partial_types.GetTechnologyDetails | null) | (partial_types.GetFactionDetails | null) | (partial_types.GetDistrictDetails | null) | (partial_types.GetNPCDetails | null) | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "SelectWorldTool",
         llmResponse,
@@ -1269,6 +1406,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as ((partial_types.GetTechnologyDetails | null) | (partial_types.GetFactionDetails | null) | (partial_types.GetDistrictDetails | null) | (partial_types.GetNPCDetails | null) | null)[]
     } catch (error) {
       throw toBamlError(error);
@@ -1280,6 +1418,7 @@ export class LlmStreamParser {
       __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry }
   ): (partial_types.BridgeNode | null)[] {
     try {
+      const env = __baml_options__?.env ? { ...process.env, ...__baml_options__.env } : { ...process.env };
       return this.runtime.parseLlmResponse(
         "ValidateBridgeConnections",
         llmResponse,
@@ -1287,6 +1426,7 @@ export class LlmStreamParser {
         this.ctxManager.cloneContext(),
         __baml_options__?.tb?.__tb(),
         __baml_options__?.clientRegistry,
+        env,
       ) as (partial_types.BridgeNode | null)[]
     } catch (error) {
       throw toBamlError(error);
