@@ -46,6 +46,13 @@ export function all_succeeded<CheckName extends string>(checks: Record<CheckName
 export function get_checks<CheckName extends string>(checks: Record<CheckName, Check>): Check[] {
     return Object.values(checks)
 }
+export interface ActionAndReasoning {
+  action: CreateNPC | CreateFaction | CreateTechnology | CreateSituation | CreateMultipleSituations | CreateChoices | CreateArc | CreateArcOutcome | GoToSituation | UpOneLevel | DownOneLevel | GoToArcRoot | GoToWorldRoot | GetSituationById | FindMissingSituations | IdentifyNarrativeGaps
+  generated_description: string
+  reasoning: string
+  
+}
+
 export interface Arc {
   seed: ArcSeed
   situations: Situation[]
@@ -74,38 +81,14 @@ export interface ArcSeed {
   
 }
 
-export interface BridgeNode {
-  source_situation_id: string
-  target_situation_id: string
-  shared_context_tags: string[]
-  shared_factions: string[]
-  shared_locations: string[]
-  shared_themes: string[]
-  internal_hint?: string | null
-  internal_justification?: string | null
-  
-}
-
-export interface BridgeableSituation {
-  id: string
-  context_tags: string[]
-  factions: string[]
-  locations: string[]
-  themes: string[]
-  internal_hint?: string | null
-  internal_justification?: string | null
-  
-}
-
 export interface Choice {
   id: string
   text: string
   dialogue_response?: string | null
   choice_type: string
-  player_perspective: string
   emotional_tone: string
   body_language?: string | null
-  requirements: Record<string, number>
+  requirements?: Record<string, number> | null
   attributes_gained: PlayerAttribute[]
   attributes_lost: string[]
   stat_changes: Record<string, number>
@@ -118,6 +101,62 @@ export interface Choice {
   
 }
 
+export interface CreateArc {
+  tool_name: "create_arc"
+  reason: string
+  generated_arc: Arc
+  
+}
+
+export interface CreateArcOutcome {
+  tool_name: "create_arc_outcome"
+  reason: string
+  generated_arc_outcome: ArcOutcome
+  
+}
+
+export interface CreateChoices {
+  tool_name: "create_choices"
+  reason: string
+  generated_choices: Choice[]
+  
+}
+
+export interface CreateFaction {
+  tool_name: "create_faction"
+  reason: string
+  generated_faction: Faction
+  
+}
+
+export interface CreateMultipleSituations {
+  tool_name: "create_multiple_situations"
+  reason: string
+  generated_situations: Situation[]
+  
+}
+
+export interface CreateNPC {
+  tool_name: "create_npc"
+  reason: string
+  generated_npc: NPC
+  
+}
+
+export interface CreateSituation {
+  tool_name: "create_situation"
+  reason: string
+  generated_situation: Situation
+  
+}
+
+export interface CreateTechnology {
+  tool_name: "create_technology"
+  reason: string
+  generated_technology: Technology
+  
+}
+
 export interface District {
   id: string
   traits: string[]
@@ -126,6 +165,12 @@ export interface District {
   description: string
   internal_hint?: string | null
   internal_justification?: string | null
+  
+}
+
+export interface DownOneLevel {
+  tool_name: "down_one_level"
+  reason: string
   
 }
 
@@ -145,12 +190,54 @@ export interface Event {
 
 export interface Faction {
   name: string
+  description: string
   ideology?: string | null
-  territory?: string[] | null
+  location?: string | null
   influence_level: number
   relationships?: Record<string, string> | null
+  hazards?: string[] | null
   internal_hint?: string | null
   internal_justification?: string | null
+  
+}
+
+export interface FindMissingSituations {
+  tool_name: "find_missing_situations"
+  reason: string
+  missing_situations: Situation[]
+  
+}
+
+export interface GetSituationById {
+  tool_name: "get_situation_by_id"
+  reason: string
+  situation_id: string
+  
+}
+
+export interface GoToArcRoot {
+  tool_name: "go_to_arc_root"
+  reason: string
+  
+}
+
+export interface GoToSituation {
+  tool_name: "go_to_situation"
+  reason: string
+  situation_id: string
+  
+}
+
+export interface GoToWorldRoot {
+  tool_name: "go_to_world_root"
+  reason: string
+  
+}
+
+export interface IdentifyNarrativeGaps {
+  tool_name: "identify_narrative_gaps"
+  reason: string
+  narrative_gaps: string[]
   
 }
 
@@ -164,6 +251,14 @@ export interface Item {
   rarity: string
   internal_hint?: string | null
   internal_justification?: string | null
+  
+}
+
+export interface JoinSituationOutput {
+  from_situation_id: string
+  to_situation_id: string
+  reason: string
+  choice: Choice
   
 }
 
@@ -259,13 +354,19 @@ export interface Resume {
   
 }
 
+export interface ShortActionAndReasoning {
+  action: string
+  generated_description: string
+  reasoning: string
+  
+}
+
 export interface Situation {
   id: string
   description: string
   player_perspective_description: string
   choices: Choice[]
   stat_requirements: StatRequirement[]
-  consequences: Record<string, string>
   bridgeable: boolean
   context_tags: string[]
   internal_hint: string
@@ -301,8 +402,17 @@ export interface Technology {
   description: string
   impact: string
   limitations: string
+  hazards?: string[] | null
+  factions?: string[] | null
+  traits?: string[] | null
   internal_hint?: string | null
   internal_justification?: string | null
+  
+}
+
+export interface UpOneLevel {
+  tool_name: "up_one_level"
+  reason: string
   
 }
 
@@ -313,6 +423,7 @@ export interface WorldContext {
   districts: District[]
   npcs: NPC[]
   tension_sliders: Record<string, number>
+  world_root: Situation
   
 }
 

@@ -22,25 +22,55 @@ import { DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME } from "./
 export default class TypeBuilder {
     private tb: _TypeBuilder;
     
+    ActionAndReasoning: ClassViewer<'ActionAndReasoning', "action" | "generated_description" | "reasoning">;
+    
     Arc: ClassViewer<'Arc', "seed" | "situations" | "outcomes">;
     
     ArcOutcome: ClassViewer<'ArcOutcome', "id" | "description" | "internal_hint" | "internal_justification" | "tags" | "estimated_duration">;
     
     ArcSeed: ClassViewer<'ArcSeed', "title" | "core_conflict" | "theme_tags" | "tone" | "factions_involved" | "internal_hint" | "internal_justification">;
     
-    BridgeNode: ClassViewer<'BridgeNode', "source_situation_id" | "target_situation_id" | "shared_context_tags" | "shared_factions" | "shared_locations" | "shared_themes" | "internal_hint" | "internal_justification">;
+    Choice: ClassViewer<'Choice', "id" | "text" | "dialogue_response" | "choice_type" | "emotional_tone" | "body_language" | "requirements" | "attributes_gained" | "attributes_lost" | "stat_changes" | "next_situation_id" | "internal_hint" | "internal_justification" | "new_npcs" | "new_factions" | "new_technologies">;
     
-    BridgeableSituation: ClassViewer<'BridgeableSituation', "id" | "context_tags" | "factions" | "locations" | "themes" | "internal_hint" | "internal_justification">;
+    CreateArc: ClassViewer<'CreateArc', "tool_name" | "reason" | "generated_arc">;
     
-    Choice: ClassViewer<'Choice', "id" | "text" | "dialogue_response" | "choice_type" | "player_perspective" | "emotional_tone" | "body_language" | "requirements" | "attributes_gained" | "attributes_lost" | "stat_changes" | "next_situation_id" | "internal_hint" | "internal_justification" | "new_npcs" | "new_factions" | "new_technologies">;
+    CreateArcOutcome: ClassViewer<'CreateArcOutcome', "tool_name" | "reason" | "generated_arc_outcome">;
+    
+    CreateChoices: ClassViewer<'CreateChoices', "tool_name" | "reason" | "generated_choices">;
+    
+    CreateFaction: ClassViewer<'CreateFaction', "tool_name" | "reason" | "generated_faction">;
+    
+    CreateMultipleSituations: ClassViewer<'CreateMultipleSituations', "tool_name" | "reason" | "generated_situations">;
+    
+    CreateNPC: ClassViewer<'CreateNPC', "tool_name" | "reason" | "generated_npc">;
+    
+    CreateSituation: ClassViewer<'CreateSituation', "tool_name" | "reason" | "generated_situation">;
+    
+    CreateTechnology: ClassViewer<'CreateTechnology', "tool_name" | "reason" | "generated_technology">;
     
     District: ClassViewer<'District', "id" | "traits" | "hazards" | "factions" | "description" | "internal_hint" | "internal_justification">;
     
+    DownOneLevel: ClassViewer<'DownOneLevel', "tool_name" | "reason">;
+    
     Event: ClassViewer<'Event', "id" | "title" | "description" | "type" | "triggers" | "consequences" | "affected_npcs" | "affected_locations" | "internal_hint" | "internal_justification">;
     
-    Faction: ClassViewer<'Faction', "name" | "ideology" | "territory" | "influence_level" | "relationships" | "internal_hint" | "internal_justification">;
+    Faction: ClassViewer<'Faction', "name" | "description" | "ideology" | "location" | "influence_level" | "relationships" | "hazards" | "internal_hint" | "internal_justification">;
+    
+    FindMissingSituations: ClassViewer<'FindMissingSituations', "tool_name" | "reason" | "missing_situations">;
+    
+    GetSituationById: ClassViewer<'GetSituationById', "tool_name" | "reason" | "situation_id">;
+    
+    GoToArcRoot: ClassViewer<'GoToArcRoot', "tool_name" | "reason">;
+    
+    GoToSituation: ClassViewer<'GoToSituation', "tool_name" | "reason" | "situation_id">;
+    
+    GoToWorldRoot: ClassViewer<'GoToWorldRoot', "tool_name" | "reason">;
+    
+    IdentifyNarrativeGaps: ClassViewer<'IdentifyNarrativeGaps', "tool_name" | "reason" | "narrative_gaps">;
     
     Item: ClassViewer<'Item', "id" | "name" | "type" | "description" | "effects" | "requirements" | "rarity" | "internal_hint" | "internal_justification">;
+    
+    JoinSituationOutput: ClassViewer<'JoinSituationOutput', "from_situation_id" | "to_situation_id" | "reason" | "choice">;
     
     Location: ClassViewer<'Location', "id" | "name" | "type" | "description" | "traits" | "hazards" | "connected_locations" | "npcs_present" | "internal_hint" | "internal_justification">;
     
@@ -58,15 +88,19 @@ export default class TypeBuilder {
     
     Resume: ClassViewer<'Resume', "name" | "email" | "experience" | "skills">;
     
-    Situation: ClassViewer<'Situation', "id" | "description" | "player_perspective_description" | "choices" | "stat_requirements" | "consequences" | "bridgeable" | "context_tags" | "internal_hint" | "internal_justification">;
+    ShortActionAndReasoning: ClassViewer<'ShortActionAndReasoning', "action" | "generated_description" | "reasoning">;
+    
+    Situation: ClassViewer<'Situation', "id" | "description" | "player_perspective_description" | "choices" | "stat_requirements" | "bridgeable" | "context_tags" | "internal_hint" | "internal_justification">;
     
     StatDescriptors: ClassViewer<'StatDescriptors', "might_descriptors" | "insight_descriptors" | "nimbleness_descriptors" | "destiny_descriptors" | "savvy_descriptors" | "expertise_descriptors" | "tenacity_descriptors" | "station_descriptors" | "opulence_descriptors" | "celebrity_descriptors" | "integrity_descriptors" | "allure_descriptors" | "lineage_descriptors">;
     
     StatRequirement: ClassViewer<'StatRequirement', "attribute_name" | "min_value">;
     
-    Technology: ClassViewer<'Technology', "name" | "description" | "impact" | "limitations" | "internal_hint" | "internal_justification">;
+    Technology: ClassViewer<'Technology', "name" | "description" | "impact" | "limitations" | "hazards" | "factions" | "traits" | "internal_hint" | "internal_justification">;
     
-    WorldContext: ClassViewer<'WorldContext', "seed" | "technologies" | "factions" | "districts" | "npcs" | "tension_sliders">;
+    UpOneLevel: ClassViewer<'UpOneLevel', "tool_name" | "reason">;
+    
+    WorldContext: ClassViewer<'WorldContext', "seed" | "technologies" | "factions" | "districts" | "npcs" | "tension_sliders" | "world_root">;
     
     WorldSeed: ClassViewer<'WorldSeed', "name" | "themes" | "high_concept" | "internal_hint" | "internal_justification">;
     
@@ -75,13 +109,17 @@ export default class TypeBuilder {
     constructor() {
         this.tb = new _TypeBuilder({
           classes: new Set([
-            "Arc","ArcOutcome","ArcSeed","BridgeNode","BridgeableSituation","Choice","District","Event","Faction","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","StatDescriptors","StatRequirement","Technology","WorldContext","WorldSeed",
+            "ActionAndReasoning","Arc","ArcOutcome","ArcSeed","Choice","CreateArc","CreateArcOutcome","CreateChoices","CreateFaction","CreateMultipleSituations","CreateNPC","CreateSituation","CreateTechnology","District","DownOneLevel","Event","Faction","FindMissingSituations","GetSituationById","GoToArcRoot","GoToSituation","GoToWorldRoot","IdentifyNarrativeGaps","Item","JoinSituationOutput","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","ShortActionAndReasoning","Situation","StatDescriptors","StatRequirement","Technology","UpOneLevel","WorldContext","WorldSeed",
           ]),
           enums: new Set([
             
           ]),
           runtime: DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME
         });
+        
+        this.ActionAndReasoning = this.tb.classViewer("ActionAndReasoning", [
+          "action","generated_description","reasoning",
+        ]);
         
         this.Arc = this.tb.classViewer("Arc", [
           "seed","situations","outcomes",
@@ -95,20 +133,48 @@ export default class TypeBuilder {
           "title","core_conflict","theme_tags","tone","factions_involved","internal_hint","internal_justification",
         ]);
         
-        this.BridgeNode = this.tb.classViewer("BridgeNode", [
-          "source_situation_id","target_situation_id","shared_context_tags","shared_factions","shared_locations","shared_themes","internal_hint","internal_justification",
-        ]);
-        
-        this.BridgeableSituation = this.tb.classViewer("BridgeableSituation", [
-          "id","context_tags","factions","locations","themes","internal_hint","internal_justification",
-        ]);
-        
         this.Choice = this.tb.classViewer("Choice", [
-          "id","text","dialogue_response","choice_type","player_perspective","emotional_tone","body_language","requirements","attributes_gained","attributes_lost","stat_changes","next_situation_id","internal_hint","internal_justification","new_npcs","new_factions","new_technologies",
+          "id","text","dialogue_response","choice_type","emotional_tone","body_language","requirements","attributes_gained","attributes_lost","stat_changes","next_situation_id","internal_hint","internal_justification","new_npcs","new_factions","new_technologies",
+        ]);
+        
+        this.CreateArc = this.tb.classViewer("CreateArc", [
+          "tool_name","reason","generated_arc",
+        ]);
+        
+        this.CreateArcOutcome = this.tb.classViewer("CreateArcOutcome", [
+          "tool_name","reason","generated_arc_outcome",
+        ]);
+        
+        this.CreateChoices = this.tb.classViewer("CreateChoices", [
+          "tool_name","reason","generated_choices",
+        ]);
+        
+        this.CreateFaction = this.tb.classViewer("CreateFaction", [
+          "tool_name","reason","generated_faction",
+        ]);
+        
+        this.CreateMultipleSituations = this.tb.classViewer("CreateMultipleSituations", [
+          "tool_name","reason","generated_situations",
+        ]);
+        
+        this.CreateNPC = this.tb.classViewer("CreateNPC", [
+          "tool_name","reason","generated_npc",
+        ]);
+        
+        this.CreateSituation = this.tb.classViewer("CreateSituation", [
+          "tool_name","reason","generated_situation",
+        ]);
+        
+        this.CreateTechnology = this.tb.classViewer("CreateTechnology", [
+          "tool_name","reason","generated_technology",
         ]);
         
         this.District = this.tb.classViewer("District", [
           "id","traits","hazards","factions","description","internal_hint","internal_justification",
+        ]);
+        
+        this.DownOneLevel = this.tb.classViewer("DownOneLevel", [
+          "tool_name","reason",
         ]);
         
         this.Event = this.tb.classViewer("Event", [
@@ -116,11 +182,39 @@ export default class TypeBuilder {
         ]);
         
         this.Faction = this.tb.classViewer("Faction", [
-          "name","ideology","territory","influence_level","relationships","internal_hint","internal_justification",
+          "name","description","ideology","location","influence_level","relationships","hazards","internal_hint","internal_justification",
+        ]);
+        
+        this.FindMissingSituations = this.tb.classViewer("FindMissingSituations", [
+          "tool_name","reason","missing_situations",
+        ]);
+        
+        this.GetSituationById = this.tb.classViewer("GetSituationById", [
+          "tool_name","reason","situation_id",
+        ]);
+        
+        this.GoToArcRoot = this.tb.classViewer("GoToArcRoot", [
+          "tool_name","reason",
+        ]);
+        
+        this.GoToSituation = this.tb.classViewer("GoToSituation", [
+          "tool_name","reason","situation_id",
+        ]);
+        
+        this.GoToWorldRoot = this.tb.classViewer("GoToWorldRoot", [
+          "tool_name","reason",
+        ]);
+        
+        this.IdentifyNarrativeGaps = this.tb.classViewer("IdentifyNarrativeGaps", [
+          "tool_name","reason","narrative_gaps",
         ]);
         
         this.Item = this.tb.classViewer("Item", [
           "id","name","type","description","effects","requirements","rarity","internal_hint","internal_justification",
+        ]);
+        
+        this.JoinSituationOutput = this.tb.classViewer("JoinSituationOutput", [
+          "from_situation_id","to_situation_id","reason","choice",
         ]);
         
         this.Location = this.tb.classViewer("Location", [
@@ -155,8 +249,12 @@ export default class TypeBuilder {
           "name","email","experience","skills",
         ]);
         
+        this.ShortActionAndReasoning = this.tb.classViewer("ShortActionAndReasoning", [
+          "action","generated_description","reasoning",
+        ]);
+        
         this.Situation = this.tb.classViewer("Situation", [
-          "id","description","player_perspective_description","choices","stat_requirements","consequences","bridgeable","context_tags","internal_hint","internal_justification",
+          "id","description","player_perspective_description","choices","stat_requirements","bridgeable","context_tags","internal_hint","internal_justification",
         ]);
         
         this.StatDescriptors = this.tb.classViewer("StatDescriptors", [
@@ -168,11 +266,15 @@ export default class TypeBuilder {
         ]);
         
         this.Technology = this.tb.classViewer("Technology", [
-          "name","description","impact","limitations","internal_hint","internal_justification",
+          "name","description","impact","limitations","hazards","factions","traits","internal_hint","internal_justification",
+        ]);
+        
+        this.UpOneLevel = this.tb.classViewer("UpOneLevel", [
+          "tool_name","reason",
         ]);
         
         this.WorldContext = this.tb.classViewer("WorldContext", [
-          "seed","technologies","factions","districts","npcs","tension_sliders",
+          "seed","technologies","factions","districts","npcs","tension_sliders","world_root",
         ]);
         
         this.WorldSeed = this.tb.classViewer("WorldSeed", [

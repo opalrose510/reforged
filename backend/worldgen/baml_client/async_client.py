@@ -13,41 +13,33 @@
 # flake8: noqa: E501,F401
 # pylint: disable=unused-import,line-too-long
 # fmt: off
-from typing import Any, Dict, List, Optional, TypeVar, Union, TypedDict, Type, cast
-from typing_extensions import NotRequired, Literal
-import pprint
+from typing import Dict, List, Optional, TypeVar, Union, cast
+from typing_extensions import Literal
 
 import baml_py
-from pydantic import BaseModel, ValidationError, create_model
 
-from . import partial_types, types
+from . import _baml
+from ._baml import BamlCallOptions
 from .types import Checked, Check
-from .type_builder import TypeBuilder
 from .parser import LlmResponseParser, LlmStreamParser
 from .async_request import AsyncHttpRequest, AsyncHttpStreamRequest
 from .globals import DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_CTX, DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME
 
+
 OutputType = TypeVar('OutputType')
-
-
-# Define the TypedDict with optional parameters having default values
-class BamlCallOptions(TypedDict, total=False):
-    tb: NotRequired[TypeBuilder]
-    client_registry: NotRequired[baml_py.baml_py.ClientRegistry]
-    collector: NotRequired[Union[baml_py.baml_py.Collector, List[baml_py.baml_py.Collector]]]
 
 
 class BamlAsyncClient:
     __runtime: baml_py.BamlRuntime
     __ctx_manager: baml_py.BamlCtxManager
     __stream_client: "BamlStreamClient"
-    __http_request: "AsyncHttpRequest"
-    __http_stream_request: "AsyncHttpStreamRequest"
+    __http_request: AsyncHttpRequest
+    __http_stream_request: AsyncHttpStreamRequest
     __llm_response_parser: LlmResponseParser
     __llm_stream_parser: LlmStreamParser
-    __baml_options: BamlCallOptions
+    __baml_options: _baml.BamlCallOptions
 
-    def __init__(self, runtime: baml_py.BamlRuntime, ctx_manager: baml_py.BamlCtxManager, baml_options: Optional[BamlCallOptions] = None):
+    def __init__(self, runtime: baml_py.BamlRuntime, ctx_manager: baml_py.BamlCtxManager, baml_options: Optional[_baml.BamlCallOptions] = None):
       self.__runtime = runtime
       self.__ctx_manager = ctx_manager
       self.__stream_client = BamlStreamClient(self.__runtime, self.__ctx_manager, baml_options)
@@ -59,9 +51,10 @@ class BamlAsyncClient:
 
     def with_options(
       self,
-      tb: Optional[TypeBuilder] = None,
+      tb: Optional[_baml.type_builder.TypeBuilder] = None,
       client_registry: Optional[baml_py.baml_py.ClientRegistry] = None,
       collector: Optional[Union[baml_py.baml_py.Collector, List[baml_py.baml_py.Collector]]] = None,
+      env: Optional[Dict[str, Optional[str]]] = None,
     ) -> "BamlAsyncClient":
       """
       Returns a new instance of BamlAsyncClient with explicitly typed baml options
@@ -76,6 +69,8 @@ class BamlAsyncClient:
           new_options["client_registry"] = client_registry
       if collector is not None:
           new_options["collector"] = collector
+      if env is not None:
+          new_options["env"] = env
 
       return BamlAsyncClient(self.__runtime, self.__ctx_manager, new_options)
 
@@ -102,10 +97,10 @@ class BamlAsyncClient:
     
     async def AugmentSituationChoices(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Choice]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> List[_baml.types.Choice]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -115,51 +110,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "AugmentSituationChoices",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc,"situation": situation,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[types.Choice], raw.cast_to(types, types, partial_types, False))
-    
-    async def CheckBridgeAttributeNeeds(
-        self,
-        bridge_node: types.BridgeNode,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> bool:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
-
-      __tb__ = options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = options.get("client_registry", None)
-      collector = options.get("collector", None)
-      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
-      raw = await self.__runtime.call_function(
-        "CheckBridgeAttributeNeeds",
-        {
-          "bridge_node": bridge_node,"world_context": world_context,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        collectors,
-      )
-      return cast(bool, raw.cast_to(types, types, partial_types, False))
+      return cast(List[_baml.types.Choice], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def CheckChoiceAttributeNeeds(
         self,
-        choice: types.Choice,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        choice: _baml.types.Choice,world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptions = {},
     ) -> bool:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -169,24 +139,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "CheckChoiceAttributeNeeds",
         {
           "choice": choice,"world_context": world_context,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(bool, raw.cast_to(types, types, partial_types, False))
+      return cast(bool, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def CheckFactionNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptions = {},
     ) -> bool:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -196,24 +168,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "CheckFactionNeeds",
         {
           "context": context,"situation_description": situation_description,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(bool, raw.cast_to(types, types, partial_types, False))
+      return cast(bool, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def CheckTechnologyNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptions = {},
     ) -> bool:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -223,24 +197,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "CheckTechnologyNeeds",
         {
           "context": context,"situation_description": situation_description,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(bool, raw.cast_to(types, types, partial_types, False))
+      return cast(bool, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def ExpandArcSituations(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Situation]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> List[_baml.types.Situation]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -250,24 +226,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "ExpandArcSituations",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[types.Situation], raw.cast_to(types, types, partial_types, False))
+      return cast(List[_baml.types.Situation], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
-    async def FindBridgeConnections(
+    async def GenerateArcOutcomes(
         self,
-        bridgeable_situations: List[types.BridgeableSituation],
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.BridgeNode]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc_seed: _baml.types.ArcSeed,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> List[_baml.types.ArcOutcome]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -277,24 +255,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
-        "FindBridgeConnections",
+        "GenerateArcOutcomes",
         {
-          "bridgeable_situations": bridgeable_situations,
+          "world_context": world_context,"player_state": player_state,"arc_seed": arc_seed,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[types.BridgeNode], raw.cast_to(types, types, partial_types, False))
+      return cast(List[_baml.types.ArcOutcome], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateArcSeed(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,title: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.ArcSeed:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,title: str,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.ArcSeed:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -304,24 +284,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateArcSeed",
         {
           "world_context": world_context,"player_state": player_state,"title": title,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(types.ArcSeed, raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.ArcSeed, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateArcTitles(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,count: Optional[int],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,count: Optional[int],
+        baml_options: _baml.BamlCallOptions = {},
     ) -> List[str]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -331,78 +313,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateArcTitles",
         {
           "world_context": world_context,"player_state": player_state,"count": count,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[str], raw.cast_to(types, types, partial_types, False))
-    
-    async def GenerateBridgeAttribute(
-        self,
-        bridge_node: types.BridgeNode,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> types.PlayerAttribute:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
-
-      __tb__ = options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = options.get("client_registry", None)
-      collector = options.get("collector", None)
-      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
-      raw = await self.__runtime.call_function(
-        "GenerateBridgeAttribute",
-        {
-          "bridge_node": bridge_node,"world_context": world_context,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        collectors,
-      )
-      return cast(types.PlayerAttribute, raw.cast_to(types, types, partial_types, False))
-    
-    async def GenerateBridgeSituations(
-        self,
-        world_context: types.WorldContext,player_state: types.PlayerState,bridge_nodes: List[types.BridgeNode],
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Situation]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
-
-      __tb__ = options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = options.get("client_registry", None)
-      collector = options.get("collector", None)
-      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
-      raw = await self.__runtime.call_function(
-        "GenerateBridgeSituations",
-        {
-          "world_context": world_context,"player_state": player_state,"bridge_nodes": bridge_nodes,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        collectors,
-      )
-      return cast(List[types.Situation], raw.cast_to(types, types, partial_types, False))
+      return cast(List[str], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateChoiceAttribute(
         self,
-        choice: types.Choice,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> types.PlayerAttribute:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        choice: _baml.types.Choice,world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.PlayerAttribute:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -412,24 +342,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateChoiceAttribute",
         {
           "choice": choice,"world_context": world_context,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(types.PlayerAttribute, raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.PlayerAttribute, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateChoiceSituationResult(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Situation:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.Situation:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -439,24 +371,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateChoiceSituationResult",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc,"choice": choice,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(types.Situation, raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.Situation, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateDistricts(
         self,
-        context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.District]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> List[_baml.types.District]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -466,24 +400,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateDistricts",
         {
           "context": context,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[types.District], raw.cast_to(types, types, partial_types, False))
+      return cast(List[_baml.types.District], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateEventsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Event]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> List[_baml.types.Event]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -493,24 +429,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateEventsForSituation",
         {
           "world_context": world_context,"situation": situation,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[types.Event], raw.cast_to(types, types, partial_types, False))
+      return cast(List[_baml.types.Event], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateFaction(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Faction:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.Faction:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -520,24 +458,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateFaction",
         {
           "context": context,"situation_description": situation_description,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(types.Faction, raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.Faction, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateInitialAttributes(
         self,
-        world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.PlayerAttribute]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> List[_baml.types.PlayerAttribute]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -547,24 +487,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateInitialAttributes",
         {
           "world_context": world_context,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[types.PlayerAttribute], raw.cast_to(types, types, partial_types, False))
+      return cast(List[_baml.types.PlayerAttribute], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateItemsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Item]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> List[_baml.types.Item]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -574,24 +516,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateItemsForSituation",
         {
           "world_context": world_context,"situation": situation,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[types.Item], raw.cast_to(types, types, partial_types, False))
+      return cast(List[_baml.types.Item], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
-    async def GenerateLocationsForSituation(
+    async def GenerateJoinChoices(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Location]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,arcs: List[_baml.types.Arc],
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> List[_baml.types.JoinSituationOutput]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -601,24 +545,55 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
+      raw = await self.__runtime.call_function(
+        "GenerateJoinChoices",
+        {
+          "world_context": world_context,"arcs": arcs,
+        },
+        self.__ctx_manager.clone_context(),
+        tb,
+        __cr__,
+        collectors,
+        env,
+      )
+      return cast(List[_baml.types.JoinSituationOutput], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
+    
+    async def GenerateLocationsForSituation(
+        self,
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> List[_baml.types.Location]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateLocationsForSituation",
         {
           "world_context": world_context,"situation": situation,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[types.Location], raw.cast_to(types, types, partial_types, False))
+      return cast(List[_baml.types.Location], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
-    async def GenerateMissingSituationsForChoice(
+    async def GenerateMissingSituationForChoice(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Situation:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.Situation:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -628,24 +603,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
-        "GenerateMissingSituationsForChoice",
+        "GenerateMissingSituationForChoice",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc,"choice": choice,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(types.Situation, raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.Situation, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateNPCsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.NPC]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> List[_baml.types.NPC]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -655,24 +632,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateNPCsForSituation",
         {
           "world_context": world_context,"situation": situation,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[types.NPC], raw.cast_to(types, types, partial_types, False))
+      return cast(List[_baml.types.NPC], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GeneratePlayerProfile(
         self,
-        world_context: types.WorldContext,stats: types.PlayerStats,attributes: List[types.PlayerAttribute],
-        baml_options: BamlCallOptions = {},
-    ) -> types.PlayerProfile:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,stats: _baml.types.PlayerStats,attributes: List[_baml.types.PlayerAttribute],
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.PlayerProfile:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -682,24 +661,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GeneratePlayerProfile",
         {
           "world_context": world_context,"stats": stats,"attributes": attributes,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(types.PlayerProfile, raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.PlayerProfile, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateQuestsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.Quest]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> List[_baml.types.Quest]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -709,24 +690,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateQuestsForSituation",
         {
           "world_context": world_context,"situation": situation,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[types.Quest], raw.cast_to(types, types, partial_types, False))
+      return cast(List[_baml.types.Quest], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateRootSituation(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Situation:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc_seed: _baml.types.ArcSeed,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.Situation:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -736,24 +719,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateRootSituation",
         {
           "world_context": world_context,"player_state": player_state,"arc_seed": arc_seed,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(types.Situation, raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.Situation, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateSituationForChoice(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Situation:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.Situation:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -763,24 +748,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateSituationForChoice",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc,"choice": choice,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(types.Situation, raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.Situation, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GenerateTechnology(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.Technology:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.Technology:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -790,24 +777,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GenerateTechnology",
         {
           "context": context,"situation_description": situation_description,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(types.Technology, raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.Technology, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
-    async def GetDefaultStatDescriptors(
+    async def GenerateWorldRootSituation(
         self,
-        
-        baml_options: BamlCallOptions = {},
-    ) -> types.StatDescriptors:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.Situation:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -817,24 +806,55 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
+      raw = await self.__runtime.call_function(
+        "GenerateWorldRootSituation",
+        {
+          "world_context": world_context,"player_state": player_state,
+        },
+        self.__ctx_manager.clone_context(),
+        tb,
+        __cr__,
+        collectors,
+        env,
+      )
+      return cast(_baml.types.Situation, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
+    
+    async def GetDefaultStatDescriptors(
+        self,
+        
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.StatDescriptors:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GetDefaultStatDescriptors",
         {
           
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(types.StatDescriptors, raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.StatDescriptors, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def GetStatNarrative(
         self,
-        stat_name: str,stat_value: int,descriptors: types.StatDescriptors,
-        baml_options: BamlCallOptions = {},
+        stat_name: str,stat_value: int,descriptors: _baml.types.StatDescriptors,
+        baml_options: _baml.BamlCallOptions = {},
     ) -> str:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -844,51 +864,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "GetStatNarrative",
         {
           "stat_name": stat_name,"stat_value": stat_value,"descriptors": descriptors,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(str, raw.cast_to(types, types, partial_types, False))
-    
-    async def IdentifyBridgeableSituations(
-        self,
-        arcs: List[types.Arc],
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.BridgeableSituation]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
-
-      __tb__ = options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = options.get("client_registry", None)
-      collector = options.get("collector", None)
-      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
-      raw = await self.__runtime.call_function(
-        "IdentifyBridgeableSituations",
-        {
-          "arcs": arcs,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        collectors,
-      )
-      return cast(List[types.BridgeableSituation], raw.cast_to(types, types, partial_types, False))
+      return cast(str, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def IdentifyMissingSituations(
         self,
-        world_context: types.WorldContext,arcs: List[types.Arc],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,arcs: List[_baml.types.Arc],
+        baml_options: _baml.BamlCallOptions = {},
     ) -> List[str]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -898,24 +893,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "IdentifyMissingSituations",
         {
           "world_context": world_context,"arcs": arcs,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(List[str], raw.cast_to(types, types, partial_types, False))
+      return cast(List[str], raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
     async def InitializePlayerStats(
         self,
-        world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> types.PlayerStats:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.PlayerStats:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -925,24 +922,26 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
         "InitializePlayerStats",
         {
           "world_context": world_context,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(types.PlayerStats, raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.PlayerStats, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
-    async def SelectGenerationTool(
+    async def SelectGenerationToolAndGenerate(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
-        baml_options: BamlCallOptions = {},
-    ) -> str:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        previous_actions_and_reasoning: List[_baml.types.ShortActionAndReasoning],world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,current_situation: _baml.types.Situation,arcs_at_this_situation: List[_baml.types.Arc],distance_from_completed_story: int,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> _baml.types.ActionAndReasoning:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
 
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
@@ -952,52 +951,27 @@ class BamlAsyncClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = await self.__runtime.call_function(
-        "SelectGenerationTool",
+        "SelectGenerationToolAndGenerate",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc,
+          "previous_actions_and_reasoning": previous_actions_and_reasoning,"world_context": world_context,"player_state": player_state,"current_situation": current_situation,"arcs_at_this_situation": arcs_at_this_situation,"distance_from_completed_story": distance_from_completed_story,
         },
-        self.__ctx_manager.get(),
+        self.__ctx_manager.clone_context(),
         tb,
         __cr__,
         collectors,
+        env,
       )
-      return cast(str, raw.cast_to(types, types, partial_types, False))
-    
-    async def ValidateBridgeConnections(
-        self,
-        bridge_nodes: List[types.BridgeNode],arcs: List[types.Arc],world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> List[types.BridgeNode]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
-
-      __tb__ = options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = options.get("client_registry", None)
-      collector = options.get("collector", None)
-      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
-      raw = await self.__runtime.call_function(
-        "ValidateBridgeConnections",
-        {
-          "bridge_nodes": bridge_nodes,"arcs": arcs,"world_context": world_context,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        collectors,
-      )
-      return cast(List[types.BridgeNode], raw.cast_to(types, types, partial_types, False))
+      return cast(_baml.types.ActionAndReasoning, raw.cast_to(_baml.types, _baml.types, _baml.partial_types, False))
     
 
 
 class BamlStreamClient:
     __runtime: baml_py.BamlRuntime
     __ctx_manager: baml_py.BamlCtxManager
-    __baml_options: BamlCallOptions
-    def __init__(self, runtime: baml_py.BamlRuntime, ctx_manager: baml_py.BamlCtxManager, baml_options: Optional[BamlCallOptions] = None):
+    __baml_options: _baml.BamlCallOptions
+    def __init__(self, runtime: baml_py.BamlRuntime, ctx_manager: baml_py.BamlCtxManager, baml_options: Optional[_baml.BamlCallOptions] = None):
       self.__runtime = runtime
       self.__ctx_manager = ctx_manager
       self.__baml_options = baml_options or {}
@@ -1005,10 +979,10 @@ class BamlStreamClient:
     
     def AugmentSituationChoices(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.Choice], List[types.Choice]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[_baml.partial_types.Choice], List[_baml.types.Choice]]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1017,6 +991,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "AugmentSituationChoices",
         {
@@ -1030,55 +1005,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[List[partial_types.Choice], List[types.Choice]](
+      return baml_py.BamlStream[List[_baml.partial_types.Choice], List[_baml.types.Choice]](
         raw,
-        lambda x: cast(List[partial_types.Choice], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.Choice], x.cast_to(types, types, partial_types, False)),
-        self.__ctx_manager.get(),
-      )
-    
-    def CheckBridgeAttributeNeeds(
-        self,
-        bridge_node: types.BridgeNode,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[Optional[bool], bool]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
-      __tb__ = options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = options.get("client_registry", None)
-      collector = options.get("collector", None)
-      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
-      raw = self.__runtime.stream_function(
-        "CheckBridgeAttributeNeeds",
-        {
-          "bridge_node": bridge_node,
-          "world_context": world_context,
-        },
-        None,
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        collectors,
-      )
-
-      return baml_py.BamlStream[Optional[bool], bool](
-        raw,
-        lambda x: cast(Optional[bool], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(bool, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[_baml.partial_types.Choice], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[_baml.types.Choice], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def CheckChoiceAttributeNeeds(
         self,
-        choice: types.Choice,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        choice: _baml.types.Choice,world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptions = {},
     ) -> baml_py.BamlStream[Optional[bool], bool]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1087,6 +1029,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "CheckChoiceAttributeNeeds",
         {
@@ -1098,21 +1041,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
       return baml_py.BamlStream[Optional[bool], bool](
         raw,
-        lambda x: cast(Optional[bool], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(bool, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(Optional[bool], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(bool, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def CheckFactionNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptions = {},
     ) -> baml_py.BamlStream[Optional[bool], bool]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1121,6 +1065,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "CheckFactionNeeds",
         {
@@ -1132,21 +1077,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
       return baml_py.BamlStream[Optional[bool], bool](
         raw,
-        lambda x: cast(Optional[bool], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(bool, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(Optional[bool], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(bool, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def CheckTechnologyNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptions = {},
     ) -> baml_py.BamlStream[Optional[bool], bool]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1155,6 +1101,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "CheckTechnologyNeeds",
         {
@@ -1166,21 +1113,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
       return baml_py.BamlStream[Optional[bool], bool](
         raw,
-        lambda x: cast(Optional[bool], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(bool, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(Optional[bool], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(bool, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def ExpandArcSituations(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.Situation], List[types.Situation]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[_baml.partial_types.Situation], List[_baml.types.Situation]]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1189,6 +1137,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "ExpandArcSituations",
         {
@@ -1201,21 +1150,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[List[partial_types.Situation], List[types.Situation]](
+      return baml_py.BamlStream[List[_baml.partial_types.Situation], List[_baml.types.Situation]](
         raw,
-        lambda x: cast(List[partial_types.Situation], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.Situation], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[_baml.partial_types.Situation], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[_baml.types.Situation], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
-    def FindBridgeConnections(
+    def GenerateArcOutcomes(
         self,
-        bridgeable_situations: List[types.BridgeableSituation],
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.BridgeNode], List[types.BridgeNode]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc_seed: _baml.types.ArcSeed,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[_baml.partial_types.ArcOutcome], List[_baml.types.ArcOutcome]]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1224,31 +1174,35 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
-        "FindBridgeConnections",
+        "GenerateArcOutcomes",
         {
-          "bridgeable_situations": bridgeable_situations,
+          "world_context": world_context,
+          "player_state": player_state,
+          "arc_seed": arc_seed,
         },
         None,
         self.__ctx_manager.get(),
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[List[partial_types.BridgeNode], List[types.BridgeNode]](
+      return baml_py.BamlStream[List[_baml.partial_types.ArcOutcome], List[_baml.types.ArcOutcome]](
         raw,
-        lambda x: cast(List[partial_types.BridgeNode], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.BridgeNode], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[_baml.partial_types.ArcOutcome], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[_baml.types.ArcOutcome], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateArcSeed(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,title: str,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.ArcSeed, types.ArcSeed]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,title: str,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.ArcSeed, _baml.types.ArcSeed]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1257,6 +1211,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateArcSeed",
         {
@@ -1269,21 +1224,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[partial_types.ArcSeed, types.ArcSeed](
+      return baml_py.BamlStream[_baml.partial_types.ArcSeed, _baml.types.ArcSeed](
         raw,
-        lambda x: cast(partial_types.ArcSeed, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.ArcSeed, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.ArcSeed, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.ArcSeed, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateArcTitles(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,count: Optional[int],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,count: Optional[int],
+        baml_options: _baml.BamlCallOptions = {},
     ) -> baml_py.BamlStream[List[Optional[str]], List[str]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1292,6 +1248,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateArcTitles",
         {
@@ -1304,90 +1261,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
       return baml_py.BamlStream[List[Optional[str]], List[str]](
         raw,
-        lambda x: cast(List[Optional[str]], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[str], x.cast_to(types, types, partial_types, False)),
-        self.__ctx_manager.get(),
-      )
-    
-    def GenerateBridgeAttribute(
-        self,
-        bridge_node: types.BridgeNode,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.PlayerAttribute, types.PlayerAttribute]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
-      __tb__ = options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = options.get("client_registry", None)
-      collector = options.get("collector", None)
-      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
-      raw = self.__runtime.stream_function(
-        "GenerateBridgeAttribute",
-        {
-          "bridge_node": bridge_node,
-          "world_context": world_context,
-        },
-        None,
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        collectors,
-      )
-
-      return baml_py.BamlStream[partial_types.PlayerAttribute, types.PlayerAttribute](
-        raw,
-        lambda x: cast(partial_types.PlayerAttribute, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.PlayerAttribute, x.cast_to(types, types, partial_types, False)),
-        self.__ctx_manager.get(),
-      )
-    
-    def GenerateBridgeSituations(
-        self,
-        world_context: types.WorldContext,player_state: types.PlayerState,bridge_nodes: List[types.BridgeNode],
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.Situation], List[types.Situation]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
-      __tb__ = options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = options.get("client_registry", None)
-      collector = options.get("collector", None)
-      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
-      raw = self.__runtime.stream_function(
-        "GenerateBridgeSituations",
-        {
-          "world_context": world_context,
-          "player_state": player_state,
-          "bridge_nodes": bridge_nodes,
-        },
-        None,
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        collectors,
-      )
-
-      return baml_py.BamlStream[List[partial_types.Situation], List[types.Situation]](
-        raw,
-        lambda x: cast(List[partial_types.Situation], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.Situation], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[Optional[str]], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[str], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateChoiceAttribute(
         self,
-        choice: types.Choice,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.PlayerAttribute, types.PlayerAttribute]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        choice: _baml.types.Choice,world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.PlayerAttribute, _baml.types.PlayerAttribute]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1396,6 +1285,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateChoiceAttribute",
         {
@@ -1407,21 +1297,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[partial_types.PlayerAttribute, types.PlayerAttribute](
+      return baml_py.BamlStream[_baml.partial_types.PlayerAttribute, _baml.types.PlayerAttribute](
         raw,
-        lambda x: cast(partial_types.PlayerAttribute, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.PlayerAttribute, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.PlayerAttribute, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.PlayerAttribute, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateChoiceSituationResult(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.Situation, types.Situation]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.Situation, _baml.types.Situation]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1430,6 +1321,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateChoiceSituationResult",
         {
@@ -1443,21 +1335,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[partial_types.Situation, types.Situation](
+      return baml_py.BamlStream[_baml.partial_types.Situation, _baml.types.Situation](
         raw,
-        lambda x: cast(partial_types.Situation, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.Situation, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.Situation, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.Situation, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateDistricts(
         self,
-        context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.District], List[types.District]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[_baml.partial_types.District], List[_baml.types.District]]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1466,6 +1359,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateDistricts",
         {
@@ -1476,21 +1370,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[List[partial_types.District], List[types.District]](
+      return baml_py.BamlStream[List[_baml.partial_types.District], List[_baml.types.District]](
         raw,
-        lambda x: cast(List[partial_types.District], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.District], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[_baml.partial_types.District], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[_baml.types.District], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateEventsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.Event], List[types.Event]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[_baml.partial_types.Event], List[_baml.types.Event]]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1499,6 +1394,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateEventsForSituation",
         {
@@ -1510,21 +1406,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[List[partial_types.Event], List[types.Event]](
+      return baml_py.BamlStream[List[_baml.partial_types.Event], List[_baml.types.Event]](
         raw,
-        lambda x: cast(List[partial_types.Event], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.Event], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[_baml.partial_types.Event], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[_baml.types.Event], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateFaction(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.Faction, types.Faction]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.Faction, _baml.types.Faction]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1533,6 +1430,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateFaction",
         {
@@ -1544,21 +1442,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[partial_types.Faction, types.Faction](
+      return baml_py.BamlStream[_baml.partial_types.Faction, _baml.types.Faction](
         raw,
-        lambda x: cast(partial_types.Faction, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.Faction, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.Faction, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.Faction, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateInitialAttributes(
         self,
-        world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.PlayerAttribute], List[types.PlayerAttribute]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[_baml.partial_types.PlayerAttribute], List[_baml.types.PlayerAttribute]]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1567,6 +1466,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateInitialAttributes",
         {
@@ -1577,21 +1477,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[List[partial_types.PlayerAttribute], List[types.PlayerAttribute]](
+      return baml_py.BamlStream[List[_baml.partial_types.PlayerAttribute], List[_baml.types.PlayerAttribute]](
         raw,
-        lambda x: cast(List[partial_types.PlayerAttribute], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.PlayerAttribute], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[_baml.partial_types.PlayerAttribute], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[_baml.types.PlayerAttribute], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateItemsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.Item], List[types.Item]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[_baml.partial_types.Item], List[_baml.types.Item]]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1600,6 +1501,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateItemsForSituation",
         {
@@ -1611,21 +1513,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[List[partial_types.Item], List[types.Item]](
+      return baml_py.BamlStream[List[_baml.partial_types.Item], List[_baml.types.Item]](
         raw,
-        lambda x: cast(List[partial_types.Item], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.Item], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[_baml.partial_types.Item], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[_baml.types.Item], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
-    def GenerateLocationsForSituation(
+    def GenerateJoinChoices(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.Location], List[types.Location]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,arcs: List[_baml.types.Arc],
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[_baml.partial_types.JoinSituationOutput], List[_baml.types.JoinSituationOutput]]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1634,6 +1537,43 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
+      raw = self.__runtime.stream_function(
+        "GenerateJoinChoices",
+        {
+          "world_context": world_context,
+          "arcs": arcs,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+        env,
+      )
+
+      return baml_py.BamlStream[List[_baml.partial_types.JoinSituationOutput], List[_baml.types.JoinSituationOutput]](
+        raw,
+        lambda x: cast(List[_baml.partial_types.JoinSituationOutput], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[_baml.types.JoinSituationOutput], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
+    def GenerateLocationsForSituation(
+        self,
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[_baml.partial_types.Location], List[_baml.types.Location]]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateLocationsForSituation",
         {
@@ -1645,21 +1585,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[List[partial_types.Location], List[types.Location]](
+      return baml_py.BamlStream[List[_baml.partial_types.Location], List[_baml.types.Location]](
         raw,
-        lambda x: cast(List[partial_types.Location], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.Location], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[_baml.partial_types.Location], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[_baml.types.Location], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
-    def GenerateMissingSituationsForChoice(
+    def GenerateMissingSituationForChoice(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.Situation, types.Situation]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.Situation, _baml.types.Situation]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1668,8 +1609,9 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
-        "GenerateMissingSituationsForChoice",
+        "GenerateMissingSituationForChoice",
         {
           "world_context": world_context,
           "player_state": player_state,
@@ -1681,21 +1623,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[partial_types.Situation, types.Situation](
+      return baml_py.BamlStream[_baml.partial_types.Situation, _baml.types.Situation](
         raw,
-        lambda x: cast(partial_types.Situation, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.Situation, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.Situation, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.Situation, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateNPCsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.NPC], List[types.NPC]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[_baml.partial_types.NPC], List[_baml.types.NPC]]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1704,6 +1647,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateNPCsForSituation",
         {
@@ -1715,21 +1659,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[List[partial_types.NPC], List[types.NPC]](
+      return baml_py.BamlStream[List[_baml.partial_types.NPC], List[_baml.types.NPC]](
         raw,
-        lambda x: cast(List[partial_types.NPC], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.NPC], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[_baml.partial_types.NPC], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[_baml.types.NPC], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GeneratePlayerProfile(
         self,
-        world_context: types.WorldContext,stats: types.PlayerStats,attributes: List[types.PlayerAttribute],
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.PlayerProfile, types.PlayerProfile]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,stats: _baml.types.PlayerStats,attributes: List[_baml.types.PlayerAttribute],
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.PlayerProfile, _baml.types.PlayerProfile]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1738,6 +1683,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GeneratePlayerProfile",
         {
@@ -1750,21 +1696,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[partial_types.PlayerProfile, types.PlayerProfile](
+      return baml_py.BamlStream[_baml.partial_types.PlayerProfile, _baml.types.PlayerProfile](
         raw,
-        lambda x: cast(partial_types.PlayerProfile, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.PlayerProfile, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.PlayerProfile, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.PlayerProfile, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateQuestsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.Quest], List[types.Quest]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[List[_baml.partial_types.Quest], List[_baml.types.Quest]]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1773,6 +1720,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateQuestsForSituation",
         {
@@ -1784,21 +1732,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[List[partial_types.Quest], List[types.Quest]](
+      return baml_py.BamlStream[List[_baml.partial_types.Quest], List[_baml.types.Quest]](
         raw,
-        lambda x: cast(List[partial_types.Quest], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.Quest], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[_baml.partial_types.Quest], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[_baml.types.Quest], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateRootSituation(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.Situation, types.Situation]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc_seed: _baml.types.ArcSeed,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.Situation, _baml.types.Situation]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1807,6 +1756,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateRootSituation",
         {
@@ -1819,21 +1769,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[partial_types.Situation, types.Situation](
+      return baml_py.BamlStream[_baml.partial_types.Situation, _baml.types.Situation](
         raw,
-        lambda x: cast(partial_types.Situation, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.Situation, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.Situation, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.Situation, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateSituationForChoice(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.Situation, types.Situation]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.Situation, _baml.types.Situation]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1842,6 +1793,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateSituationForChoice",
         {
@@ -1855,21 +1807,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[partial_types.Situation, types.Situation](
+      return baml_py.BamlStream[_baml.partial_types.Situation, _baml.types.Situation](
         raw,
-        lambda x: cast(partial_types.Situation, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.Situation, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.Situation, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.Situation, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GenerateTechnology(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.Technology, types.Technology]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.Technology, _baml.types.Technology]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1878,6 +1831,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GenerateTechnology",
         {
@@ -1889,21 +1843,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[partial_types.Technology, types.Technology](
+      return baml_py.BamlStream[_baml.partial_types.Technology, _baml.types.Technology](
         raw,
-        lambda x: cast(partial_types.Technology, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.Technology, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.Technology, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.Technology, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
-    def GetDefaultStatDescriptors(
+    def GenerateWorldRootSituation(
         self,
-        
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.StatDescriptors, types.StatDescriptors]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.Situation, _baml.types.Situation]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1912,6 +1867,43 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
+      raw = self.__runtime.stream_function(
+        "GenerateWorldRootSituation",
+        {
+          "world_context": world_context,
+          "player_state": player_state,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        collectors,
+        env,
+      )
+
+      return baml_py.BamlStream[_baml.partial_types.Situation, _baml.types.Situation](
+        raw,
+        lambda x: cast(_baml.partial_types.Situation, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.Situation, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
+        self.__ctx_manager.get(),
+      )
+    
+    def GetDefaultStatDescriptors(
+        self,
+        
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.StatDescriptors, _baml.types.StatDescriptors]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      __tb__ = options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = options.get("client_registry", None)
+      collector = options.get("collector", None)
+      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GetDefaultStatDescriptors",
         {
@@ -1921,21 +1913,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[partial_types.StatDescriptors, types.StatDescriptors](
+      return baml_py.BamlStream[_baml.partial_types.StatDescriptors, _baml.types.StatDescriptors](
         raw,
-        lambda x: cast(partial_types.StatDescriptors, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.StatDescriptors, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.StatDescriptors, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.StatDescriptors, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def GetStatNarrative(
         self,
-        stat_name: str,stat_value: int,descriptors: types.StatDescriptors,
-        baml_options: BamlCallOptions = {},
+        stat_name: str,stat_value: int,descriptors: _baml.types.StatDescriptors,
+        baml_options: _baml.BamlCallOptions = {},
     ) -> baml_py.BamlStream[Optional[str], str]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -1944,6 +1937,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "GetStatNarrative",
         {
@@ -1956,54 +1950,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
       return baml_py.BamlStream[Optional[str], str](
         raw,
-        lambda x: cast(Optional[str], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(str, x.cast_to(types, types, partial_types, False)),
-        self.__ctx_manager.get(),
-      )
-    
-    def IdentifyBridgeableSituations(
-        self,
-        arcs: List[types.Arc],
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.BridgeableSituation], List[types.BridgeableSituation]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
-      __tb__ = options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = options.get("client_registry", None)
-      collector = options.get("collector", None)
-      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
-      raw = self.__runtime.stream_function(
-        "IdentifyBridgeableSituations",
-        {
-          "arcs": arcs,
-        },
-        None,
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        collectors,
-      )
-
-      return baml_py.BamlStream[List[partial_types.BridgeableSituation], List[types.BridgeableSituation]](
-        raw,
-        lambda x: cast(List[partial_types.BridgeableSituation], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.BridgeableSituation], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(Optional[str], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(str, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def IdentifyMissingSituations(
         self,
-        world_context: types.WorldContext,arcs: List[types.Arc],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,arcs: List[_baml.types.Arc],
+        baml_options: _baml.BamlCallOptions = {},
     ) -> baml_py.BamlStream[List[Optional[str]], List[str]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -2012,6 +1974,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "IdentifyMissingSituations",
         {
@@ -2023,21 +1986,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
       return baml_py.BamlStream[List[Optional[str]], List[str]](
         raw,
-        lambda x: cast(List[Optional[str]], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[str], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(List[Optional[str]], x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(List[str], x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
     def InitializePlayerStats(
         self,
-        world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.PlayerStats, types.PlayerStats]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.PlayerStats, _baml.types.PlayerStats]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -2046,6 +2010,7 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
         "InitializePlayerStats",
         {
@@ -2056,21 +2021,22 @@ class BamlStreamClient:
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[partial_types.PlayerStats, types.PlayerStats](
+      return baml_py.BamlStream[_baml.partial_types.PlayerStats, _baml.types.PlayerStats](
         raw,
-        lambda x: cast(partial_types.PlayerStats, x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(types.PlayerStats, x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.PlayerStats, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.PlayerStats, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
-    def SelectGenerationTool(
+    def SelectGenerationToolAndGenerate(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[Optional[str], str]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
+        previous_actions_and_reasoning: List[_baml.types.ShortActionAndReasoning],world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,current_situation: _baml.types.Situation,arcs_at_this_situation: List[_baml.types.Arc],distance_from_completed_story: int,
+        baml_options: _baml.BamlCallOptions = {},
+    ) -> baml_py.BamlStream[_baml.partial_types.ActionAndReasoning, _baml.types.ActionAndReasoning]:
+      options: _baml.BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
       __tb__ = options.get("tb", None)
       if __tb__ is not None:
         tb = __tb__._tb # type: ignore (we know how to use this private attribute)
@@ -2079,59 +2045,29 @@ class BamlStreamClient:
       __cr__ = options.get("client_registry", None)
       collector = options.get("collector", None)
       collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
+      env = _baml.env_vars_to_dict(options.get("env", {}))
       raw = self.__runtime.stream_function(
-        "SelectGenerationTool",
+        "SelectGenerationToolAndGenerate",
         {
+          "previous_actions_and_reasoning": previous_actions_and_reasoning,
           "world_context": world_context,
           "player_state": player_state,
-          "arc": arc,
+          "current_situation": current_situation,
+          "arcs_at_this_situation": arcs_at_this_situation,
+          "distance_from_completed_story": distance_from_completed_story,
         },
         None,
         self.__ctx_manager.get(),
         tb,
         __cr__,
         collectors,
+        env,
       )
 
-      return baml_py.BamlStream[Optional[str], str](
+      return baml_py.BamlStream[_baml.partial_types.ActionAndReasoning, _baml.types.ActionAndReasoning](
         raw,
-        lambda x: cast(Optional[str], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(str, x.cast_to(types, types, partial_types, False)),
-        self.__ctx_manager.get(),
-      )
-    
-    def ValidateBridgeConnections(
-        self,
-        bridge_nodes: List[types.BridgeNode],arcs: List[types.Arc],world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[List[partial_types.BridgeNode], List[types.BridgeNode]]:
-      options: BamlCallOptions = {**self.__baml_options, **(baml_options or {})}
-      __tb__ = options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = options.get("client_registry", None)
-      collector = options.get("collector", None)
-      collectors = collector if isinstance(collector, list) else [collector] if collector is not None else []
-      raw = self.__runtime.stream_function(
-        "ValidateBridgeConnections",
-        {
-          "bridge_nodes": bridge_nodes,
-          "arcs": arcs,
-          "world_context": world_context,
-        },
-        None,
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        collectors,
-      )
-
-      return baml_py.BamlStream[List[partial_types.BridgeNode], List[types.BridgeNode]](
-        raw,
-        lambda x: cast(List[partial_types.BridgeNode], x.cast_to(types, types, partial_types, True)),
-        lambda x: cast(List[types.BridgeNode], x.cast_to(types, types, partial_types, False)),
+        lambda x: cast(_baml.partial_types.ActionAndReasoning, x.cast_to(_baml.types, _baml.types, _baml.partial_types, True)),
+        lambda x: cast(_baml.types.ActionAndReasoning, x.cast_to(_baml.types, _baml.types, _baml.partial_types, False)),
         self.__ctx_manager.get(),
       )
     
@@ -2139,4 +2075,4 @@ class BamlStreamClient:
 
 b = BamlAsyncClient(DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME, DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_CTX)
 
-__all__ = ["b"]
+__all__ = ["b", "BamlCallOptions"]

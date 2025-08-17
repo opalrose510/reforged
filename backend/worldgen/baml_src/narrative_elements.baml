@@ -71,7 +71,7 @@ function GenerateNPCsForSituation(world_context: WorldContext, situation: Situat
     Generate NPCs that would be present in this situation.
     
     World Context:
-    {{ world_context }}
+    {{ CompressedWorldContext(world_context) }}
     
     Situation:
     {{ situation }}
@@ -93,7 +93,7 @@ function GenerateItemsForSituation(world_context: WorldContext, situation: Situa
     Generate items that would be relevant to this situation.
     
     World Context:
-    {{ world_context }}
+    {{ CompressedWorldContext(world_context) }}
     
     Situation:
     {{ situation }}
@@ -115,7 +115,7 @@ function GenerateLocationsForSituation(world_context: WorldContext, situation: S
     Generate locations that would be relevant to this situation.
     
     World Context:
-    {{ world_context }}
+    {{ CompressedWorldContext(world_context) }}
     
     Situation:
     {{ situation }}
@@ -137,7 +137,7 @@ function GenerateEventsForSituation(world_context: WorldContext, situation: Situ
     Generate events that could occur in this situation.
     
     World Context:
-    {{ world_context }}
+    {{ CompressedWorldContext(world_context) }}
     
     Situation:
     {{ situation }}
@@ -159,7 +159,7 @@ function GenerateQuestsForSituation(world_context: WorldContext, situation: Situ
     Generate quests that could arise from this situation.
     
     World Context:
-    {{ world_context }}
+    {{ CompressedWorldContext(world_context) }}
     
     Situation:
     {{ situation }}

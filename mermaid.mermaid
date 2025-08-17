@@ -4,25 +4,58 @@ flowchart TD
 Sierra arrives in Crescent Center's Level 10 Atrium, confronted by Open Blocks' leaders rallying against Vextros' resource control.']
     uprisingplanningmeeting['uprising_planning_meeting
 
-Open Blocks leaders gather to discuss resistance strategy; Sierra must define her role and approach to mobilizing Crescent Center.']
+The faction turns uneasy as the question exposes their secrets; a quiet figure tentatively steps forward, claiming a connection.']
     reactiontosabotageplan['reaction_to_sabotage_plan
 
-Mixed reactions from Open Blocks leaders to Sierra’s sabotage proposal, debating risks versus the desperate need to act.']
+The group reflects on the raised finger's silent warning; tensions cool as leaders reconsider their aggressive plans.']
     reactiontoinfowarfareplan['reaction_to_info_warfare_plan
 
 Open Blocks debate the effectiveness of spreading counter-propaganda under heavy surveillance.']
     reactiontonegotiationplan['reaction_to_negotiation_plan
 
-Open Blocks leaders debate trust and practicality of negotiating with Vextros officials.']
+Open Blocks deliberate cautiously on negotiating with Vextros, weighing risks of betrayal and potential gains.']
     reactiontoconcern['reaction_to_concern
 
-Responses to Sierra’s plea to consider civilian costs bring emotional and ideological debate.']
+Open Blocks leaders respond to Sierra's worries, debating the costly balance between rebellion and civilian safety.']
+    vextrosinfiltrationprep['vextros_infiltration_prep
+
+Sierra plans covert infiltration inside Vextros, assembling trusted insiders and mapping out security gaps.']
+    infowarfareplanning['info_warfare_planning
+
+The team plans a covert campaign to spread counter-propaganda and hack Vextros' controlled broadcasts.']
+    uprisingplanningmeetingfollowup['uprising_planning_meeting_followup
+
+Sierra's whispered warning ignites quiet tension; leaders debate identifying potential Vextros sympathizers within their ranks.']
+    planningsabotagedetails['planning_sabotage_details
+
+The group discusses the logistics and timing of their sabotage plan against Vextros supply lines.']
+    intelgatheringstep['intel_gathering_step
+
+Sierra coordinates with trusted informants to plant spies within Vextros and prepare for clandestine information gathering.']
+    infowarfareriskdiscussion['info_warfare_risk_discussion
+
+The group grapples with the risks of exposing truths under Vextros' harsh surveillance.']
+    phobosalliancenegotiation['phobos_alliance_negotiation
+
+Sierra meets with a Phobos Consultancy operative to negotiate a risky alliance.']
+    negotiationattemptprep['negotiation_attempt_prep
+
+Sierra helps organize the team for a delicate negotiation with moderate Vextros officials, balancing trust, espionage, and faction unity.']
+    heateddebate['heated_debate
+
+Faction members react strongly to the suspected mole reveal, fracturing trust and intensifying internal conflict.']
+    planningcontinues['planning_continues
+
+The group processes your hesitation, demanding clarity on next steps in the uprising; tensions rise as difficult decisions loom.']
     rootsituationshadowsovercrescentcenter -->|choice_accept_leadership
 
 Accept the call to lead the resistance, ready to challenge Vextros head-on.| uprisingplanningmeeting
     rootsituationshadowsovercrescentcenter -->|choice_question_opportunism
 
 Question the leaders about possible hidden motives before committing.| uprisingplanningmeeting
+    rootsituationshadowsovercrescentcenter -->|choice_infiltrate_vextros
+
+Suggest infiltrating Vextros to gather intel instead of open rebellion now.| vextrosinfiltrationprep
     rootsituationshadowsovercrescentcenter -->|choice_replay_grudge
 
 Vocalize your personal grudge against Vextros as fuel for revolt.| uprisingplanningmeeting
@@ -35,33 +68,75 @@ Carefully question a skeptical leader about their loyalty to the movement.| upri
     rootsituationshadowsovercrescentcenter -->|choice_glance_at_surveillance
 
 Cast a quick glance upward toward the hovering surveillance drones before speaking.| uprisingplanningmeeting
-    uprisingplanningmeeting -->|choice_plan_direct_action
+    uprisingplanningmeeting -->|choice_investigate_phobos_contact
 
-Propose coordinated sabotage on Nutrax and PHQ-9 distribution centers.| reactiontosabotageplan
-    uprisingplanningmeeting -->|choice_plan_information_warfare
+Press for details about the Phobos contact and their reliability.| phobosalliancenegotiation
+    uprisingplanningmeeting -->|choice_accept_phobos_ally
 
-Suggest spreading counter-propaganda to expose Vextros's corruption.| reactiontoinfowarfareplan
-    uprisingplanningmeeting -->|choice_plan_negotiation_attempt
+Advocate seizing the opportunity to use Phobos Consultancy's tech skills despite the risks.| phobosalliancenegotiation
+    reactiontosabotageplan -->|choice_propose_precise_targeting
 
-Propose attempting backchannel talks with moderate Vextros officials.| reactiontonegotiationplan
-    uprisingplanningmeeting -->|choice_express_doubts
+Advocate for precise strikes to minimize harm to innocents while crippling Vextros.| planningsabotagedetails
+    reactiontosabotageplan -->|choice_challenge_urgency_again
 
-Voice concerns about potential rebellion fallout on innocent Open Blocks residents.| reactiontoconcern
-    uprisingplanningmeeting -->|choice_interrupt_with_direct_question
+Insist rapid action is essential despite risks, warning delay worsens conditions.| planningsabotagedetails
+    reactiontosabotageplan -->|choice_silently_observe_paranoia
 
-Cut in sharply to demand, “Who among you has a trusted informant inside Vextros?”| uprisingplanningmeeting
-    uprisingplanningmeeting -->|choice_sharpen_tone_with_firm_hand_gesture
+Quietly scan the room for signs of corporate spies, spreading subtle caution.| planningsabotagedetails
+    reactiontosabotageplan -->|choice_gently_reassure_faction
 
-With a sharp gesture, say firmly, “We either act or we perish under their yoke. Indecision is death.”| reactiontosabotageplan
-    uprisingplanningmeeting -->|choice_whisper_to_a_trusted_ally
+Offer a calm, reassuring smile, restoring group morale after heated exchanges.| planningsabotagedetails
+    reactiontoinfowarfareplan -->|choice_emphasize_stealth
 
-Lean in and quietly suggest to a known ally, “We should watch who edges too close to Vextros sympathizers.”| uprisingplanningmeeting
-    reactiontosabotageplan -->|choice_silently_scan_for_spies
+Insist that anonymity and distributed nodes protect the message’s spread.| infowarfareplanning
+    reactiontoinfowarfareplan -->|choice_warn_of_repercussions
 
-Quietly observe the group, eyes flicking to nervous glances and fabricating alliances.| reactiontosabotageplan
-    reactiontosabotageplan -->|choice_raise_firm_finger_in_warning
+Caution about likely brutal corporate retaliation through surveillance and crackdown.| infowarfareriskdiscussion
+    reactiontoinfowarfareplan -->|choice_propose_alliance_with_phobos
 
-Silently raise a finger and shake your head when others speak recklessly.| reactiontosabotageplan
-    reactiontosabotageplan -->|choice_softly_quip_to_break_fatigue
+Suggest seeking covert assistance from Phobos Consultancy specialists familiar with corporate tech.| phobosalliancenegotiation
+    reactiontoinfowarfareplan -->|choice_interrupt_with_firm_concern
 
-Lightly joke about the endless meetings, easing fatigue in the room.| reactiontosabotageplan
+Interrupt the meeting sharply to highlight the risk of surveillance leaks.| infowarfareriskdiscussion
+    reactiontoinfowarfareplan -->|choice_softly_encourage_hacker
+
+Offer a quiet nod and encouraging smile to the faction’s tech specialist.| infowarfareplanning
+    reactiontoinfowarfareplan -->|choice_raise_eyebrow_skeptically
+
+Raise an eyebrow skeptically without speaking, signaling doubt at the plan’s feasibility.| infowarfareriskdiscussion
+    reactiontoinfowarfareplan -->|choice_probe_lira_for_doubts
+
+Directly ask Lira if she has reservations about the plan, fostering openness.| infowarfareriskdiscussion
+    reactiontoinfowarfareplan -->|choice_scan_room_for_suspected_infiltrators
+
+Discreetly observe the group to detect potential corporate spies.| infowarfareriskdiscussion
+    reactiontoinfowarfareplan -->|choice_share_quiet_personal_anecdote
+
+Quietly share a brief personal story illustrating the stakes of the information warfare.| infowarfareriskdiscussion
+    reactiontonegotiationplan -->|choice_reaffirm_willingness
+
+Emphasize diplomacy as a tool alongside other tactics, not a surrender.| negotiationattemptprep
+    reactiontonegotiationplan -->|choice_challenge_cynics
+
+Call out cynics for risking destruction by refusing dialogue.| heateddebate
+    reactiontonegotiationplan -->|choice_suggest_spying_on_negotiators
+
+Propose planting moles to monitor Vextros officials for leverage.| intelgatheringstep
+    reactiontonegotiationplan -->|choice_raise_hand_to_pause_discussion
+
+Raise a hand calmly to pause heated arguments and regain control.| negotiationattemptprep
+    reactiontoconcern -->|choice_reassure_commitment_to_protection
+
+Pledge to prioritize minimizing civilian harm in all plans.| planningcontinues
+    reactiontoconcern -->|choice_accept_harsh_realities
+
+Acknowledge tough sacrifices but stress the necessity to act.| planningcontinues
+    reactiontoconcern -->|choice_seek_collective_guidance
+
+Confess fears and ask the group for support.| planningcontinues
+    reactiontoconcern -->|choice_call_for_patience_and_precision
+
+Urge the group to move carefully, avoiding reckless actions.| planningcontinues
+    reactiontoconcern -->|choice_seed_paranoia_about_infiltrators
+
+Warn quietly about possible corporate spies within the group.| planningcontinues

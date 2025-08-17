@@ -1,3 +1,5 @@
+// Core narrative elements are imported from other BAML files
+
 // Core data models for world generation
 class WorldSeed {
   name string
@@ -12,16 +14,22 @@ class Technology {
   description string
   impact string  // List of narrative impacts
   limitations string  // List of limitations/rules
+
+  hazards string[]? @description("Hazards that are associated with this technology, i.e downsides, side effects or problems caused by it.")
+  factions string[]? @description("Factions that are associated with this technology, i.e the ones that use it or are affected by it.")
+  traits string[]? @description("Traits that are associated with this technology, e.g 'cybernetics', 'language', etc.")
   internal_hint string? @description("Clue for future model calls to guide generation")
   internal_justification string? @description("Reasoning for this technology's creation and its narrative purpose")
 }
 
 class Faction {
   name string
+  description string
   ideology string?
-  territory string[]?
+  location string? @description("The location of the faction, e.g 'Libertas', 'The Akropolis', etc.")
   influence_level int  // 0-10 scale
   relationships map<string, string>?  // faction_name -> relationship_type
+  hazards string[]? @description("Existential threats to this faction.")
   internal_hint string? @description("Clue for future model calls to guide generation")
   internal_justification string? @description("Reasoning for this faction's creation and its narrative purpose")
 }
@@ -43,6 +51,7 @@ class WorldContext {
   districts District[]
   npcs NPC[]
   tension_sliders map<string, int>  // e.g. {"violence": 7, "mystery": 4}
+  world_root Situation @description("The root situation from which all other situations must be reachable")
 }
 
 // Function to analyze if new technology needs to be created
@@ -142,6 +151,30 @@ function GenerateDistricts(context: WorldContext) -> District[] {
     1. Have distinct traits and hazards
     2. Include relevant factions
     3. Support the world's themes
+    
+    {{ ctx.output_format }}
+  "#
+}
+
+// Function to generate the world root situation
+function GenerateWorldRootSituation(world_context: WorldContext, player_state: PlayerState) -> Situation {
+  client "openai/gpt-4o"
+  prompt #"
+    Generate the world root situation that serves as the starting point for all narrative paths.
+    
+    World Context:
+    {{ world_context }}
+    
+    Player State:
+    {{ player_state }}
+    
+    The world root situation should:
+    1. Introduce the player to the world setting
+    2. Provide meaningful initial choices that can lead to different arcs
+    3. Set the tone and atmosphere of the world
+    4. Be broad enough to connect to various storylines
+    5. Include context tags that facilitate bridging to other situations
+    6. NOT have an arc_outcome (this is never a leaf node)
     
     {{ ctx.output_format }}
   "#

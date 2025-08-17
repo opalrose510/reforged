@@ -37,6 +37,11 @@ class StreamState(BaseModel, Generic[T]):
     state: Literal["Pending", "Incomplete", "Complete"]
 
 
+class ActionAndReasoning(BaseModel):
+    action: Optional[Union["CreateNPC", "CreateFaction", "CreateTechnology", "CreateSituation", "CreateMultipleSituations", "CreateChoices", "CreateArc", "CreateArcOutcome", "GoToSituation", "UpOneLevel", "DownOneLevel", "GoToArcRoot", "GoToWorldRoot", "GetSituationById", "FindMissingSituations", "IdentifyNarrativeGaps"]] = None
+    generated_description: Optional[str] = None
+    reasoning: Optional[str] = None
+
 class Arc(BaseModel):
     seed: Optional["ArcSeed"] = None
     situations: List["Situation"]
@@ -59,34 +64,14 @@ class ArcSeed(BaseModel):
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
 
-class BridgeNode(BaseModel):
-    source_situation_id: Optional[str] = None
-    target_situation_id: Optional[str] = None
-    shared_context_tags: List[str]
-    shared_factions: List[str]
-    shared_locations: List[str]
-    shared_themes: List[str]
-    internal_hint: Optional[str] = None
-    internal_justification: Optional[str] = None
-
-class BridgeableSituation(BaseModel):
-    id: Optional[str] = None
-    context_tags: List[str]
-    factions: List[str]
-    locations: List[str]
-    themes: List[str]
-    internal_hint: Optional[str] = None
-    internal_justification: Optional[str] = None
-
 class Choice(BaseModel):
     id: Optional[str] = None
     text: Optional[str] = None
     dialogue_response: Optional[str] = None
     choice_type: Optional[str] = None
-    player_perspective: Optional[str] = None
     emotional_tone: Optional[str] = None
     body_language: Optional[str] = None
-    requirements: Dict[str, Optional[int]]
+    requirements: Optional[Dict[str, Optional[int]]] = None
     attributes_gained: List["PlayerAttribute"]
     attributes_lost: List[str]
     stat_changes: Dict[str, Optional[int]]
@@ -97,6 +82,46 @@ class Choice(BaseModel):
     new_factions: List["Faction"]
     new_technologies: List["Technology"]
 
+class CreateArc(BaseModel):
+    tool_name: Optional[Literal["create_arc"]] = None
+    reason: Optional[str] = None
+    generated_arc: Optional["Arc"] = None
+
+class CreateArcOutcome(BaseModel):
+    tool_name: Optional[Literal["create_arc_outcome"]] = None
+    reason: Optional[str] = None
+    generated_arc_outcome: Optional["ArcOutcome"] = None
+
+class CreateChoices(BaseModel):
+    tool_name: Optional[Literal["create_choices"]] = None
+    reason: Optional[str] = None
+    generated_choices: List["Choice"]
+
+class CreateFaction(BaseModel):
+    tool_name: Optional[Literal["create_faction"]] = None
+    reason: Optional[str] = None
+    generated_faction: Optional["Faction"] = None
+
+class CreateMultipleSituations(BaseModel):
+    tool_name: Optional[Literal["create_multiple_situations"]] = None
+    reason: Optional[str] = None
+    generated_situations: List["Situation"]
+
+class CreateNPC(BaseModel):
+    tool_name: Optional[Literal["create_npc"]] = None
+    reason: Optional[str] = None
+    generated_npc: Optional["NPC"] = None
+
+class CreateSituation(BaseModel):
+    tool_name: Optional[Literal["create_situation"]] = None
+    reason: Optional[str] = None
+    generated_situation: Optional["Situation"] = None
+
+class CreateTechnology(BaseModel):
+    tool_name: Optional[Literal["create_technology"]] = None
+    reason: Optional[str] = None
+    generated_technology: Optional["Technology"] = None
+
 class District(BaseModel):
     id: Optional[str] = None
     traits: List[str]
@@ -105,6 +130,10 @@ class District(BaseModel):
     description: Optional[str] = None
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class DownOneLevel(BaseModel):
+    tool_name: Optional[Literal["down_one_level"]] = None
+    reason: Optional[str] = None
 
 class Event(BaseModel):
     id: Optional[str] = None
@@ -120,12 +149,42 @@ class Event(BaseModel):
 
 class Faction(BaseModel):
     name: Optional[str] = None
+    description: Optional[str] = None
     ideology: Optional[str] = None
-    territory: Optional[List[str]] = None
+    location: Optional[str] = None
     influence_level: Optional[int] = None
     relationships: Optional[Dict[str, Optional[str]]] = None
+    hazards: Optional[List[str]] = None
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class FindMissingSituations(BaseModel):
+    tool_name: Optional[Literal["find_missing_situations"]] = None
+    reason: Optional[str] = None
+    missing_situations: List["Situation"]
+
+class GetSituationById(BaseModel):
+    tool_name: Optional[Literal["get_situation_by_id"]] = None
+    reason: Optional[str] = None
+    situation_id: Optional[str] = None
+
+class GoToArcRoot(BaseModel):
+    tool_name: Optional[Literal["go_to_arc_root"]] = None
+    reason: Optional[str] = None
+
+class GoToSituation(BaseModel):
+    tool_name: Optional[Literal["go_to_situation"]] = None
+    reason: Optional[str] = None
+    situation_id: Optional[str] = None
+
+class GoToWorldRoot(BaseModel):
+    tool_name: Optional[Literal["go_to_world_root"]] = None
+    reason: Optional[str] = None
+
+class IdentifyNarrativeGaps(BaseModel):
+    tool_name: Optional[Literal["identify_narrative_gaps"]] = None
+    reason: Optional[str] = None
+    narrative_gaps: List[str]
 
 class Item(BaseModel):
     id: Optional[str] = None
@@ -137,6 +196,12 @@ class Item(BaseModel):
     rarity: Optional[str] = None
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class JoinSituationOutput(BaseModel):
+    from_situation_id: Optional[str] = None
+    to_situation_id: Optional[str] = None
+    reason: Optional[str] = None
+    choice: Optional["Choice"] = None
 
 class Location(BaseModel):
     id: Optional[str] = None
@@ -214,13 +279,17 @@ class Resume(BaseModel):
     experience: List[str]
     skills: List[str]
 
+class ShortActionAndReasoning(BaseModel):
+    action: Optional[str] = None
+    generated_description: Optional[str] = None
+    reasoning: Optional[str] = None
+
 class Situation(BaseModel):
     id: Optional[str] = None
     description: Optional[str] = None
     player_perspective_description: Optional[str] = None
     choices: List["Choice"]
     stat_requirements: List["StatRequirement"]
-    consequences: Dict[str, Optional[str]]
     bridgeable: Optional[bool] = None
     context_tags: List[str]
     internal_hint: Optional[str] = None
@@ -250,8 +319,15 @@ class Technology(BaseModel):
     description: Optional[str] = None
     impact: Optional[str] = None
     limitations: Optional[str] = None
+    hazards: Optional[List[str]] = None
+    factions: Optional[List[str]] = None
+    traits: Optional[List[str]] = None
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class UpOneLevel(BaseModel):
+    tool_name: Optional[Literal["up_one_level"]] = None
+    reason: Optional[str] = None
 
 class WorldContext(BaseModel):
     seed: Optional["WorldSeed"] = None
@@ -260,6 +336,7 @@ class WorldContext(BaseModel):
     districts: List["District"]
     npcs: List["NPC"]
     tension_sliders: Dict[str, Optional[int]]
+    world_root: Optional["Situation"] = None
 
 class WorldSeed(BaseModel):
     name: Optional[str] = None

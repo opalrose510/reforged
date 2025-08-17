@@ -20,7 +20,7 @@ import { toBamlError, BamlStream, type HTTPRequest } from "@boundaryml/baml"
 import type { Checked, Check, RecursivePartialNull as MovedRecursivePartialNull } from "./types"
 import type { partial_types } from "./partial_types"
 import type * as types from "./types"
-import type {Arc, ArcOutcome, ArcSeed, BridgeNode, BridgeableSituation, Choice, District, Event, Faction, Item, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, Situation, StatDescriptors, StatRequirement, Technology, WorldContext, WorldSeed} from "./types"
+import type {ActionAndReasoning, Arc, ArcOutcome, ArcSeed, Choice, CreateArc, CreateArcOutcome, CreateChoices, CreateFaction, CreateMultipleSituations, CreateNPC, CreateSituation, CreateTechnology, District, DownOneLevel, Event, Faction, FindMissingSituations, GetSituationById, GoToArcRoot, GoToSituation, GoToWorldRoot, IdentifyNarrativeGaps, Item, JoinSituationOutput, Location, NPC, PlayerAttribute, PlayerProfile, PlayerState, PlayerStats, Quest, Resume, ShortActionAndReasoning, Situation, StatDescriptors, StatRequirement, Technology, UpOneLevel, WorldContext, WorldSeed} from "./types"
 import type TypeBuilder from "./type_builder"
 import { AsyncHttpRequest, AsyncHttpStreamRequest } from "./async_request"
 import { LlmResponseParser, LlmStreamParser } from "./parser"
@@ -35,6 +35,7 @@ type BamlCallOptions = {
   tb?: TypeBuilder
   clientRegistry?: ClientRegistry
   collector?: Collector | Collector[]
+  env?: Record<string, string | undefined>
 }
 
 export class BamlAsyncClient {
@@ -90,6 +91,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "AugmentSituationChoices",
         {
@@ -99,31 +101,9 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Choice[]
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
-  async CheckBridgeAttributeNeeds(
-      bridge_node: BridgeNode,world_context: WorldContext,
-      __baml_options__?: BamlCallOptions
-  ): Promise<boolean> {
-    try {
-      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
-      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
-      const raw = await this.runtime.callFunction(
-        "CheckBridgeAttributeNeeds",
-        {
-          "bridge_node": bridge_node,"world_context": world_context
-        },
-        this.ctxManager.cloneContext(),
-        options.tb?.__tb(),
-        options.clientRegistry,
-        collector,
-      )
-      return raw.parsed(false) as boolean
     } catch (error) {
       throw toBamlError(error);
     }
@@ -136,6 +116,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "CheckChoiceAttributeNeeds",
         {
@@ -145,6 +126,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as boolean
     } catch (error) {
@@ -159,6 +141,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "CheckFactionNeeds",
         {
@@ -168,6 +151,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as boolean
     } catch (error) {
@@ -182,6 +166,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "CheckTechnologyNeeds",
         {
@@ -191,6 +176,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as boolean
     } catch (error) {
@@ -205,6 +191,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "ExpandArcSituations",
         {
@@ -214,6 +201,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Situation[]
     } catch (error) {
@@ -221,24 +209,26 @@ export class BamlAsyncClient {
     }
   }
   
-  async FindBridgeConnections(
-      bridgeable_situations: BridgeableSituation[],
+  async GenerateArcOutcomes(
+      world_context: WorldContext,player_state: PlayerState,arc_seed: ArcSeed,
       __baml_options__?: BamlCallOptions
-  ): Promise<BridgeNode[]> {
+  ): Promise<ArcOutcome[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
-        "FindBridgeConnections",
+        "GenerateArcOutcomes",
         {
-          "bridgeable_situations": bridgeable_situations
+          "world_context": world_context,"player_state": player_state,"arc_seed": arc_seed
         },
         this.ctxManager.cloneContext(),
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
-      return raw.parsed(false) as BridgeNode[]
+      return raw.parsed(false) as ArcOutcome[]
     } catch (error) {
       throw toBamlError(error);
     }
@@ -251,6 +241,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateArcSeed",
         {
@@ -260,6 +251,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as ArcSeed
     } catch (error) {
@@ -274,6 +266,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateArcTitles",
         {
@@ -283,54 +276,9 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as string[]
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
-  async GenerateBridgeAttribute(
-      bridge_node: BridgeNode,world_context: WorldContext,
-      __baml_options__?: BamlCallOptions
-  ): Promise<PlayerAttribute> {
-    try {
-      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
-      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
-      const raw = await this.runtime.callFunction(
-        "GenerateBridgeAttribute",
-        {
-          "bridge_node": bridge_node,"world_context": world_context
-        },
-        this.ctxManager.cloneContext(),
-        options.tb?.__tb(),
-        options.clientRegistry,
-        collector,
-      )
-      return raw.parsed(false) as PlayerAttribute
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
-  async GenerateBridgeSituations(
-      world_context: WorldContext,player_state: PlayerState,bridge_nodes: BridgeNode[],
-      __baml_options__?: BamlCallOptions
-  ): Promise<Situation[]> {
-    try {
-      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
-      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
-      const raw = await this.runtime.callFunction(
-        "GenerateBridgeSituations",
-        {
-          "world_context": world_context,"player_state": player_state,"bridge_nodes": bridge_nodes
-        },
-        this.ctxManager.cloneContext(),
-        options.tb?.__tb(),
-        options.clientRegistry,
-        collector,
-      )
-      return raw.parsed(false) as Situation[]
     } catch (error) {
       throw toBamlError(error);
     }
@@ -343,6 +291,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateChoiceAttribute",
         {
@@ -352,6 +301,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as PlayerAttribute
     } catch (error) {
@@ -366,6 +316,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateChoiceSituationResult",
         {
@@ -375,6 +326,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Situation
     } catch (error) {
@@ -389,6 +341,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateDistricts",
         {
@@ -398,6 +351,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as District[]
     } catch (error) {
@@ -412,6 +366,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateEventsForSituation",
         {
@@ -421,6 +376,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Event[]
     } catch (error) {
@@ -435,6 +391,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateFaction",
         {
@@ -444,6 +401,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Faction
     } catch (error) {
@@ -458,6 +416,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateInitialAttributes",
         {
@@ -467,6 +426,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as PlayerAttribute[]
     } catch (error) {
@@ -481,6 +441,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateItemsForSituation",
         {
@@ -490,8 +451,34 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Item[]
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async GenerateJoinChoices(
+      world_context: WorldContext,arcs: Arc[],
+      __baml_options__?: BamlCallOptions
+  ): Promise<JoinSituationOutput[]> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
+      const raw = await this.runtime.callFunction(
+        "GenerateJoinChoices",
+        {
+          "world_context": world_context,"arcs": arcs
+        },
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+        env,
+      )
+      return raw.parsed(false) as JoinSituationOutput[]
     } catch (error) {
       throw toBamlError(error);
     }
@@ -504,6 +491,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateLocationsForSituation",
         {
@@ -513,6 +501,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Location[]
     } catch (error) {
@@ -520,15 +509,16 @@ export class BamlAsyncClient {
     }
   }
   
-  async GenerateMissingSituationsForChoice(
+  async GenerateMissingSituationForChoice(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,choice: Choice,
       __baml_options__?: BamlCallOptions
   ): Promise<Situation> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
-        "GenerateMissingSituationsForChoice",
+        "GenerateMissingSituationForChoice",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc,"choice": choice
         },
@@ -536,6 +526,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Situation
     } catch (error) {
@@ -550,6 +541,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateNPCsForSituation",
         {
@@ -559,6 +551,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as NPC[]
     } catch (error) {
@@ -573,6 +566,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GeneratePlayerProfile",
         {
@@ -582,6 +576,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as PlayerProfile
     } catch (error) {
@@ -596,6 +591,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateQuestsForSituation",
         {
@@ -605,6 +601,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Quest[]
     } catch (error) {
@@ -619,6 +616,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateRootSituation",
         {
@@ -628,6 +626,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Situation
     } catch (error) {
@@ -642,6 +641,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateSituationForChoice",
         {
@@ -651,6 +651,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Situation
     } catch (error) {
@@ -665,6 +666,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GenerateTechnology",
         {
@@ -674,8 +676,34 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as Technology
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
+  async GenerateWorldRootSituation(
+      world_context: WorldContext,player_state: PlayerState,
+      __baml_options__?: BamlCallOptions
+  ): Promise<Situation> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
+      const raw = await this.runtime.callFunction(
+        "GenerateWorldRootSituation",
+        {
+          "world_context": world_context,"player_state": player_state
+        },
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+        env,
+      )
+      return raw.parsed(false) as Situation
     } catch (error) {
       throw toBamlError(error);
     }
@@ -688,6 +716,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GetDefaultStatDescriptors",
         {
@@ -697,6 +726,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as StatDescriptors
     } catch (error) {
@@ -711,6 +741,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "GetStatNarrative",
         {
@@ -720,31 +751,9 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as string
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
-  async IdentifyBridgeableSituations(
-      arcs: Arc[],
-      __baml_options__?: BamlCallOptions
-  ): Promise<BridgeableSituation[]> {
-    try {
-      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
-      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
-      const raw = await this.runtime.callFunction(
-        "IdentifyBridgeableSituations",
-        {
-          "arcs": arcs
-        },
-        this.ctxManager.cloneContext(),
-        options.tb?.__tb(),
-        options.clientRegistry,
-        collector,
-      )
-      return raw.parsed(false) as BridgeableSituation[]
     } catch (error) {
       throw toBamlError(error);
     }
@@ -757,6 +766,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "IdentifyMissingSituations",
         {
@@ -766,6 +776,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as string[]
     } catch (error) {
@@ -780,6 +791,7 @@ export class BamlAsyncClient {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
         "InitializePlayerStats",
         {
@@ -789,6 +801,7 @@ export class BamlAsyncClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return raw.parsed(false) as PlayerStats
     } catch (error) {
@@ -796,47 +809,26 @@ export class BamlAsyncClient {
     }
   }
   
-  async SelectGenerationTool(
-      world_context: WorldContext,player_state: PlayerState,arc: Arc,
+  async SelectGenerationToolAndGenerate(
+      previous_actions_and_reasoning: ShortActionAndReasoning[],world_context: WorldContext,player_state: PlayerState,current_situation: Situation,arcs_at_this_situation: Arc[],distance_from_completed_story: number,
       __baml_options__?: BamlCallOptions
-  ): Promise<string> {
+  ): Promise<ActionAndReasoning> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = await this.runtime.callFunction(
-        "SelectGenerationTool",
+        "SelectGenerationToolAndGenerate",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc
+          "previous_actions_and_reasoning": previous_actions_and_reasoning,"world_context": world_context,"player_state": player_state,"current_situation": current_situation,"arcs_at_this_situation": arcs_at_this_situation,"distance_from_completed_story": distance_from_completed_story
         },
         this.ctxManager.cloneContext(),
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
-      return raw.parsed(false) as string
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
-  async ValidateBridgeConnections(
-      bridge_nodes: BridgeNode[],arcs: Arc[],world_context: WorldContext,
-      __baml_options__?: BamlCallOptions
-  ): Promise<BridgeNode[]> {
-    try {
-      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
-      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
-      const raw = await this.runtime.callFunction(
-        "ValidateBridgeConnections",
-        {
-          "bridge_nodes": bridge_nodes,"arcs": arcs,"world_context": world_context
-        },
-        this.ctxManager.cloneContext(),
-        options.tb?.__tb(),
-        options.clientRegistry,
-        collector,
-      )
-      return raw.parsed(false) as BridgeNode[]
+      return raw.parsed(false) as ActionAndReasoning
     } catch (error) {
       throw toBamlError(error);
     }
@@ -852,17 +844,18 @@ class BamlStreamClient {
   constructor(runtime: BamlRuntime, ctxManager: BamlCtxManager, bamlOptions?: BamlCallOptions) {
     this.runtime = runtime
     this.ctxManager = ctxManager
-    this.bamlOptions = bamlOptions || {}
+    this.bamlOptions = bamlOptions || { env: { ...process.env } }
   }
 
   
   AugmentSituationChoices(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,situation: Situation,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<(partial_types.Choice | null)[], Choice[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "AugmentSituationChoices",
         {
@@ -873,6 +866,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<(partial_types.Choice | null)[], Choice[]>(
         raw,
@@ -885,42 +879,14 @@ class BamlStreamClient {
     }
   }
   
-  CheckBridgeAttributeNeeds(
-      bridge_node: BridgeNode,world_context: WorldContext,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
-  ): BamlStream<boolean, boolean> {
-    try {
-      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
-      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
-      const raw = this.runtime.streamFunction(
-        "CheckBridgeAttributeNeeds",
-        {
-          "bridge_node": bridge_node,"world_context": world_context
-        },
-        undefined,
-        this.ctxManager.cloneContext(),
-        options.tb?.__tb(),
-        options.clientRegistry,
-        collector,
-      )
-      return new BamlStream<boolean, boolean>(
-        raw,
-        (a): boolean => a,
-        (a): boolean => a,
-        this.ctxManager.cloneContext(),
-      )
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
   CheckChoiceAttributeNeeds(
       choice: Choice,world_context: WorldContext,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<boolean, boolean> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "CheckChoiceAttributeNeeds",
         {
@@ -931,6 +897,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<boolean, boolean>(
         raw,
@@ -945,11 +912,12 @@ class BamlStreamClient {
   
   CheckFactionNeeds(
       context: WorldContext,situation_description: string,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<boolean, boolean> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "CheckFactionNeeds",
         {
@@ -960,6 +928,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<boolean, boolean>(
         raw,
@@ -974,11 +943,12 @@ class BamlStreamClient {
   
   CheckTechnologyNeeds(
       context: WorldContext,situation_description: string,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<boolean, boolean> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "CheckTechnologyNeeds",
         {
@@ -989,6 +959,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<boolean, boolean>(
         raw,
@@ -1003,11 +974,12 @@ class BamlStreamClient {
   
   ExpandArcSituations(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<(partial_types.Situation | null)[], Situation[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "ExpandArcSituations",
         {
@@ -1018,6 +990,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<(partial_types.Situation | null)[], Situation[]>(
         raw,
@@ -1030,28 +1003,30 @@ class BamlStreamClient {
     }
   }
   
-  FindBridgeConnections(
-      bridgeable_situations: BridgeableSituation[],
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
-  ): BamlStream<(partial_types.BridgeNode | null)[], BridgeNode[]> {
+  GenerateArcOutcomes(
+      world_context: WorldContext,player_state: PlayerState,arc_seed: ArcSeed,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
+  ): BamlStream<(partial_types.ArcOutcome | null)[], ArcOutcome[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
-        "FindBridgeConnections",
+        "GenerateArcOutcomes",
         {
-          "bridgeable_situations": bridgeable_situations
+          "world_context": world_context,"player_state": player_state,"arc_seed": arc_seed
         },
         undefined,
         this.ctxManager.cloneContext(),
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
-      return new BamlStream<(partial_types.BridgeNode | null)[], BridgeNode[]>(
+      return new BamlStream<(partial_types.ArcOutcome | null)[], ArcOutcome[]>(
         raw,
-        (a): (partial_types.BridgeNode | null)[] => a,
-        (a): BridgeNode[] => a,
+        (a): (partial_types.ArcOutcome | null)[] => a,
+        (a): ArcOutcome[] => a,
         this.ctxManager.cloneContext(),
       )
     } catch (error) {
@@ -1061,11 +1036,12 @@ class BamlStreamClient {
   
   GenerateArcSeed(
       world_context: WorldContext,player_state: PlayerState,title: string,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<partial_types.ArcSeed, ArcSeed> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateArcSeed",
         {
@@ -1076,6 +1052,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<partial_types.ArcSeed, ArcSeed>(
         raw,
@@ -1090,11 +1067,12 @@ class BamlStreamClient {
   
   GenerateArcTitles(
       world_context: WorldContext,player_state: PlayerState,count?: number | null,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<(string | null)[], string[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateArcTitles",
         {
@@ -1105,6 +1083,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<(string | null)[], string[]>(
         raw,
@@ -1117,71 +1096,14 @@ class BamlStreamClient {
     }
   }
   
-  GenerateBridgeAttribute(
-      bridge_node: BridgeNode,world_context: WorldContext,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
-  ): BamlStream<partial_types.PlayerAttribute, PlayerAttribute> {
-    try {
-      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
-      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
-      const raw = this.runtime.streamFunction(
-        "GenerateBridgeAttribute",
-        {
-          "bridge_node": bridge_node,"world_context": world_context
-        },
-        undefined,
-        this.ctxManager.cloneContext(),
-        options.tb?.__tb(),
-        options.clientRegistry,
-        collector,
-      )
-      return new BamlStream<partial_types.PlayerAttribute, PlayerAttribute>(
-        raw,
-        (a): partial_types.PlayerAttribute => a,
-        (a): PlayerAttribute => a,
-        this.ctxManager.cloneContext(),
-      )
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
-  GenerateBridgeSituations(
-      world_context: WorldContext,player_state: PlayerState,bridge_nodes: BridgeNode[],
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
-  ): BamlStream<(partial_types.Situation | null)[], Situation[]> {
-    try {
-      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
-      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
-      const raw = this.runtime.streamFunction(
-        "GenerateBridgeSituations",
-        {
-          "world_context": world_context,"player_state": player_state,"bridge_nodes": bridge_nodes
-        },
-        undefined,
-        this.ctxManager.cloneContext(),
-        options.tb?.__tb(),
-        options.clientRegistry,
-        collector,
-      )
-      return new BamlStream<(partial_types.Situation | null)[], Situation[]>(
-        raw,
-        (a): (partial_types.Situation | null)[] => a,
-        (a): Situation[] => a,
-        this.ctxManager.cloneContext(),
-      )
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
   GenerateChoiceAttribute(
       choice: Choice,world_context: WorldContext,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<partial_types.PlayerAttribute, PlayerAttribute> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateChoiceAttribute",
         {
@@ -1192,6 +1114,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<partial_types.PlayerAttribute, PlayerAttribute>(
         raw,
@@ -1206,11 +1129,12 @@ class BamlStreamClient {
   
   GenerateChoiceSituationResult(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,choice: Choice,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<partial_types.Situation, Situation> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateChoiceSituationResult",
         {
@@ -1221,6 +1145,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<partial_types.Situation, Situation>(
         raw,
@@ -1235,11 +1160,12 @@ class BamlStreamClient {
   
   GenerateDistricts(
       context: WorldContext,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<(partial_types.District | null)[], District[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateDistricts",
         {
@@ -1250,6 +1176,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<(partial_types.District | null)[], District[]>(
         raw,
@@ -1264,11 +1191,12 @@ class BamlStreamClient {
   
   GenerateEventsForSituation(
       world_context: WorldContext,situation: Situation,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<(partial_types.Event | null)[], Event[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateEventsForSituation",
         {
@@ -1279,6 +1207,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<(partial_types.Event | null)[], Event[]>(
         raw,
@@ -1293,11 +1222,12 @@ class BamlStreamClient {
   
   GenerateFaction(
       context: WorldContext,situation_description: string,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<partial_types.Faction, Faction> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateFaction",
         {
@@ -1308,6 +1238,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<partial_types.Faction, Faction>(
         raw,
@@ -1322,11 +1253,12 @@ class BamlStreamClient {
   
   GenerateInitialAttributes(
       world_context: WorldContext,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<(partial_types.PlayerAttribute | null)[], PlayerAttribute[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateInitialAttributes",
         {
@@ -1337,6 +1269,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<(partial_types.PlayerAttribute | null)[], PlayerAttribute[]>(
         raw,
@@ -1351,11 +1284,12 @@ class BamlStreamClient {
   
   GenerateItemsForSituation(
       world_context: WorldContext,situation: Situation,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<(partial_types.Item | null)[], Item[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateItemsForSituation",
         {
@@ -1366,6 +1300,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<(partial_types.Item | null)[], Item[]>(
         raw,
@@ -1378,13 +1313,45 @@ class BamlStreamClient {
     }
   }
   
+  GenerateJoinChoices(
+      world_context: WorldContext,arcs: Arc[],
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
+  ): BamlStream<(partial_types.JoinSituationOutput | null)[], JoinSituationOutput[]> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
+      const raw = this.runtime.streamFunction(
+        "GenerateJoinChoices",
+        {
+          "world_context": world_context,"arcs": arcs
+        },
+        undefined,
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+        env,
+      )
+      return new BamlStream<(partial_types.JoinSituationOutput | null)[], JoinSituationOutput[]>(
+        raw,
+        (a): (partial_types.JoinSituationOutput | null)[] => a,
+        (a): JoinSituationOutput[] => a,
+        this.ctxManager.cloneContext(),
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
   GenerateLocationsForSituation(
       world_context: WorldContext,situation: Situation,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<(partial_types.Location | null)[], Location[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateLocationsForSituation",
         {
@@ -1395,6 +1362,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<(partial_types.Location | null)[], Location[]>(
         raw,
@@ -1407,15 +1375,16 @@ class BamlStreamClient {
     }
   }
   
-  GenerateMissingSituationsForChoice(
+  GenerateMissingSituationForChoice(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,choice: Choice,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<partial_types.Situation, Situation> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
-        "GenerateMissingSituationsForChoice",
+        "GenerateMissingSituationForChoice",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc,"choice": choice
         },
@@ -1424,6 +1393,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<partial_types.Situation, Situation>(
         raw,
@@ -1438,11 +1408,12 @@ class BamlStreamClient {
   
   GenerateNPCsForSituation(
       world_context: WorldContext,situation: Situation,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<(partial_types.NPC | null)[], NPC[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateNPCsForSituation",
         {
@@ -1453,6 +1424,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<(partial_types.NPC | null)[], NPC[]>(
         raw,
@@ -1467,11 +1439,12 @@ class BamlStreamClient {
   
   GeneratePlayerProfile(
       world_context: WorldContext,stats: PlayerStats,attributes: PlayerAttribute[],
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<partial_types.PlayerProfile, PlayerProfile> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GeneratePlayerProfile",
         {
@@ -1482,6 +1455,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<partial_types.PlayerProfile, PlayerProfile>(
         raw,
@@ -1496,11 +1470,12 @@ class BamlStreamClient {
   
   GenerateQuestsForSituation(
       world_context: WorldContext,situation: Situation,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<(partial_types.Quest | null)[], Quest[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateQuestsForSituation",
         {
@@ -1511,6 +1486,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<(partial_types.Quest | null)[], Quest[]>(
         raw,
@@ -1525,11 +1501,12 @@ class BamlStreamClient {
   
   GenerateRootSituation(
       world_context: WorldContext,player_state: PlayerState,arc_seed: ArcSeed,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<partial_types.Situation, Situation> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateRootSituation",
         {
@@ -1540,6 +1517,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<partial_types.Situation, Situation>(
         raw,
@@ -1554,11 +1532,12 @@ class BamlStreamClient {
   
   GenerateSituationForChoice(
       world_context: WorldContext,player_state: PlayerState,arc: Arc,choice: Choice,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<partial_types.Situation, Situation> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateSituationForChoice",
         {
@@ -1569,6 +1548,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<partial_types.Situation, Situation>(
         raw,
@@ -1583,11 +1563,12 @@ class BamlStreamClient {
   
   GenerateTechnology(
       context: WorldContext,situation_description: string,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<partial_types.Technology, Technology> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GenerateTechnology",
         {
@@ -1598,6 +1579,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<partial_types.Technology, Technology>(
         raw,
@@ -1610,13 +1592,45 @@ class BamlStreamClient {
     }
   }
   
+  GenerateWorldRootSituation(
+      world_context: WorldContext,player_state: PlayerState,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
+  ): BamlStream<partial_types.Situation, Situation> {
+    try {
+      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
+      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
+      const raw = this.runtime.streamFunction(
+        "GenerateWorldRootSituation",
+        {
+          "world_context": world_context,"player_state": player_state
+        },
+        undefined,
+        this.ctxManager.cloneContext(),
+        options.tb?.__tb(),
+        options.clientRegistry,
+        collector,
+        env,
+      )
+      return new BamlStream<partial_types.Situation, Situation>(
+        raw,
+        (a): partial_types.Situation => a,
+        (a): Situation => a,
+        this.ctxManager.cloneContext(),
+      )
+    } catch (error) {
+      throw toBamlError(error);
+    }
+  }
+  
   GetDefaultStatDescriptors(
       
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<partial_types.StatDescriptors, StatDescriptors> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GetDefaultStatDescriptors",
         {
@@ -1627,6 +1641,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<partial_types.StatDescriptors, StatDescriptors>(
         raw,
@@ -1641,11 +1656,12 @@ class BamlStreamClient {
   
   GetStatNarrative(
       stat_name: string,stat_value: number,descriptors: StatDescriptors,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<string, string> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "GetStatNarrative",
         {
@@ -1656,6 +1672,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<string, string>(
         raw,
@@ -1668,42 +1685,14 @@ class BamlStreamClient {
     }
   }
   
-  IdentifyBridgeableSituations(
-      arcs: Arc[],
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
-  ): BamlStream<(partial_types.BridgeableSituation | null)[], BridgeableSituation[]> {
-    try {
-      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
-      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
-      const raw = this.runtime.streamFunction(
-        "IdentifyBridgeableSituations",
-        {
-          "arcs": arcs
-        },
-        undefined,
-        this.ctxManager.cloneContext(),
-        options.tb?.__tb(),
-        options.clientRegistry,
-        collector,
-      )
-      return new BamlStream<(partial_types.BridgeableSituation | null)[], BridgeableSituation[]>(
-        raw,
-        (a): (partial_types.BridgeableSituation | null)[] => a,
-        (a): BridgeableSituation[] => a,
-        this.ctxManager.cloneContext(),
-      )
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
   IdentifyMissingSituations(
       world_context: WorldContext,arcs: Arc[],
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<(string | null)[], string[]> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "IdentifyMissingSituations",
         {
@@ -1714,6 +1703,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<(string | null)[], string[]>(
         raw,
@@ -1728,11 +1718,12 @@ class BamlStreamClient {
   
   InitializePlayerStats(
       world_context: WorldContext,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
   ): BamlStream<partial_types.PlayerStats, PlayerStats> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
         "InitializePlayerStats",
         {
@@ -1743,6 +1734,7 @@ class BamlStreamClient {
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
       return new BamlStream<partial_types.PlayerStats, PlayerStats>(
         raw,
@@ -1755,57 +1747,30 @@ class BamlStreamClient {
     }
   }
   
-  SelectGenerationTool(
-      world_context: WorldContext,player_state: PlayerState,arc: Arc,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
-  ): BamlStream<string, string> {
+  SelectGenerationToolAndGenerate(
+      previous_actions_and_reasoning: ShortActionAndReasoning[],world_context: WorldContext,player_state: PlayerState,current_situation: Situation,arcs_at_this_situation: Arc[],distance_from_completed_story: number,
+      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[], env?: Record<string, string | undefined> }
+  ): BamlStream<partial_types.ActionAndReasoning, ActionAndReasoning> {
     try {
       const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
       const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
+      const env = options.env ? { ...process.env, ...options.env } : { ...process.env };
       const raw = this.runtime.streamFunction(
-        "SelectGenerationTool",
+        "SelectGenerationToolAndGenerate",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc
+          "previous_actions_and_reasoning": previous_actions_and_reasoning,"world_context": world_context,"player_state": player_state,"current_situation": current_situation,"arcs_at_this_situation": arcs_at_this_situation,"distance_from_completed_story": distance_from_completed_story
         },
         undefined,
         this.ctxManager.cloneContext(),
         options.tb?.__tb(),
         options.clientRegistry,
         collector,
+        env,
       )
-      return new BamlStream<string, string>(
+      return new BamlStream<partial_types.ActionAndReasoning, ActionAndReasoning>(
         raw,
-        (a): string => a,
-        (a): string => a,
-        this.ctxManager.cloneContext(),
-      )
-    } catch (error) {
-      throw toBamlError(error);
-    }
-  }
-  
-  ValidateBridgeConnections(
-      bridge_nodes: BridgeNode[],arcs: Arc[],world_context: WorldContext,
-      __baml_options__?: { tb?: TypeBuilder, clientRegistry?: ClientRegistry, collector?: Collector | Collector[] }
-  ): BamlStream<(partial_types.BridgeNode | null)[], BridgeNode[]> {
-    try {
-      const options = { ...this.bamlOptions, ...(__baml_options__ || {}) }
-      const collector = options.collector ? (Array.isArray(options.collector) ? options.collector : [options.collector]) : [];
-      const raw = this.runtime.streamFunction(
-        "ValidateBridgeConnections",
-        {
-          "bridge_nodes": bridge_nodes,"arcs": arcs,"world_context": world_context
-        },
-        undefined,
-        this.ctxManager.cloneContext(),
-        options.tb?.__tb(),
-        options.clientRegistry,
-        collector,
-      )
-      return new BamlStream<(partial_types.BridgeNode | null)[], BridgeNode[]>(
-        raw,
-        (a): (partial_types.BridgeNode | null)[] => a,
-        (a): BridgeNode[] => a,
+        (a): partial_types.ActionAndReasoning => a,
+        (a): ActionAndReasoning => a,
         this.ctxManager.cloneContext(),
       )
     } catch (error) {

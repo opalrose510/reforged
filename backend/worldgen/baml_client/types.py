@@ -41,6 +41,11 @@ def all_succeeded(checks: Dict[CheckName, Check]) -> bool:
 
 
 
+class ActionAndReasoning(BaseModel):
+    action: Union["CreateNPC", "CreateFaction", "CreateTechnology", "CreateSituation", "CreateMultipleSituations", "CreateChoices", "CreateArc", "CreateArcOutcome", "GoToSituation", "UpOneLevel", "DownOneLevel", "GoToArcRoot", "GoToWorldRoot", "GetSituationById", "FindMissingSituations", "IdentifyNarrativeGaps"]
+    generated_description: str
+    reasoning: str
+
 class Arc(BaseModel):
     seed: "ArcSeed"
     situations: List["Situation"]
@@ -63,34 +68,14 @@ class ArcSeed(BaseModel):
     internal_hint: str
     internal_justification: str
 
-class BridgeNode(BaseModel):
-    source_situation_id: str
-    target_situation_id: str
-    shared_context_tags: List[str]
-    shared_factions: List[str]
-    shared_locations: List[str]
-    shared_themes: List[str]
-    internal_hint: Optional[str] = None
-    internal_justification: Optional[str] = None
-
-class BridgeableSituation(BaseModel):
-    id: str
-    context_tags: List[str]
-    factions: List[str]
-    locations: List[str]
-    themes: List[str]
-    internal_hint: Optional[str] = None
-    internal_justification: Optional[str] = None
-
 class Choice(BaseModel):
     id: str
     text: str
     dialogue_response: Optional[str] = None
     choice_type: str
-    player_perspective: str
     emotional_tone: str
     body_language: Optional[str] = None
-    requirements: Dict[str, int]
+    requirements: Optional[Dict[str, int]] = None
     attributes_gained: List["PlayerAttribute"]
     attributes_lost: List[str]
     stat_changes: Dict[str, int]
@@ -101,6 +86,46 @@ class Choice(BaseModel):
     new_factions: List["Faction"]
     new_technologies: List["Technology"]
 
+class CreateArc(BaseModel):
+    tool_name: Literal["create_arc"]
+    reason: str
+    generated_arc: "Arc"
+
+class CreateArcOutcome(BaseModel):
+    tool_name: Literal["create_arc_outcome"]
+    reason: str
+    generated_arc_outcome: "ArcOutcome"
+
+class CreateChoices(BaseModel):
+    tool_name: Literal["create_choices"]
+    reason: str
+    generated_choices: List["Choice"]
+
+class CreateFaction(BaseModel):
+    tool_name: Literal["create_faction"]
+    reason: str
+    generated_faction: "Faction"
+
+class CreateMultipleSituations(BaseModel):
+    tool_name: Literal["create_multiple_situations"]
+    reason: str
+    generated_situations: List["Situation"]
+
+class CreateNPC(BaseModel):
+    tool_name: Literal["create_npc"]
+    reason: str
+    generated_npc: "NPC"
+
+class CreateSituation(BaseModel):
+    tool_name: Literal["create_situation"]
+    reason: str
+    generated_situation: "Situation"
+
+class CreateTechnology(BaseModel):
+    tool_name: Literal["create_technology"]
+    reason: str
+    generated_technology: "Technology"
+
 class District(BaseModel):
     id: str
     traits: List[str]
@@ -109,6 +134,10 @@ class District(BaseModel):
     description: str
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class DownOneLevel(BaseModel):
+    tool_name: Literal["down_one_level"]
+    reason: str
 
 class Event(BaseModel):
     id: str
@@ -124,12 +153,42 @@ class Event(BaseModel):
 
 class Faction(BaseModel):
     name: str
+    description: str
     ideology: Optional[str] = None
-    territory: Optional[List[str]] = None
+    location: Optional[str] = None
     influence_level: int
     relationships: Optional[Dict[str, str]] = None
+    hazards: Optional[List[str]] = None
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class FindMissingSituations(BaseModel):
+    tool_name: Literal["find_missing_situations"]
+    reason: str
+    missing_situations: List["Situation"]
+
+class GetSituationById(BaseModel):
+    tool_name: Literal["get_situation_by_id"]
+    reason: str
+    situation_id: str
+
+class GoToArcRoot(BaseModel):
+    tool_name: Literal["go_to_arc_root"]
+    reason: str
+
+class GoToSituation(BaseModel):
+    tool_name: Literal["go_to_situation"]
+    reason: str
+    situation_id: str
+
+class GoToWorldRoot(BaseModel):
+    tool_name: Literal["go_to_world_root"]
+    reason: str
+
+class IdentifyNarrativeGaps(BaseModel):
+    tool_name: Literal["identify_narrative_gaps"]
+    reason: str
+    narrative_gaps: List[str]
 
 class Item(BaseModel):
     id: str
@@ -141,6 +200,12 @@ class Item(BaseModel):
     rarity: str
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class JoinSituationOutput(BaseModel):
+    from_situation_id: str
+    to_situation_id: str
+    reason: str
+    choice: "Choice"
 
 class Location(BaseModel):
     id: str
@@ -218,13 +283,17 @@ class Resume(BaseModel):
     experience: List[str]
     skills: List[str]
 
+class ShortActionAndReasoning(BaseModel):
+    action: str
+    generated_description: str
+    reasoning: str
+
 class Situation(BaseModel):
     id: str
     description: str
     player_perspective_description: str
     choices: List["Choice"]
     stat_requirements: List["StatRequirement"]
-    consequences: Dict[str, str]
     bridgeable: bool
     context_tags: List[str]
     internal_hint: str
@@ -254,8 +323,15 @@ class Technology(BaseModel):
     description: str
     impact: str
     limitations: str
+    hazards: Optional[List[str]] = None
+    factions: Optional[List[str]] = None
+    traits: Optional[List[str]] = None
     internal_hint: Optional[str] = None
     internal_justification: Optional[str] = None
+
+class UpOneLevel(BaseModel):
+    tool_name: Literal["up_one_level"]
+    reason: str
 
 class WorldContext(BaseModel):
     seed: "WorldSeed"
@@ -264,6 +340,7 @@ class WorldContext(BaseModel):
     districts: List["District"]
     npcs: List["NPC"]
     tension_sliders: Dict[str, int]
+    world_root: "Situation"
 
 class WorldSeed(BaseModel):
     name: str

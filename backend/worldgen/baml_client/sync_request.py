@@ -13,19 +13,12 @@
 # flake8: noqa: E501,F401
 # pylint: disable=unused-import,line-too-long
 # fmt: off
-from typing import Any, Dict, List, Optional, Union, TypedDict, Type
-from typing_extensions import NotRequired, Literal
+from typing import Dict, List, Optional, Union
+from typing_extensions import Literal
 
 import baml_py
 
-from . import types
-from .types import Checked, Check
-from .type_builder import TypeBuilder
-
-
-class BamlCallOptions(TypedDict, total=False):
-    tb: NotRequired[TypeBuilder]
-    client_registry: NotRequired[baml_py.baml_py.ClientRegistry]
+from . import _baml
 
 
 class HttpRequest:
@@ -39,8 +32,8 @@ class HttpRequest:
     
     def AugmentSituationChoices(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -48,6 +41,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "AugmentSituationChoices",
@@ -57,36 +51,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
-        False,
-      )
-    
-    def CheckBridgeAttributeNeeds(
-        self,
-        bridge_node: types.BridgeNode,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return self.__runtime.build_request_sync(
-        "CheckBridgeAttributeNeeds",
-        {
-          "bridge_node": bridge_node,"world_context": world_context,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
+        env,
         False,
       )
     
     def CheckChoiceAttributeNeeds(
         self,
-        choice: types.Choice,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        choice: _baml.types.Choice,world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -94,6 +66,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "CheckChoiceAttributeNeeds",
@@ -103,13 +76,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def CheckFactionNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -117,6 +91,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "CheckFactionNeeds",
@@ -126,13 +101,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def CheckTechnologyNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -140,6 +116,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "CheckTechnologyNeeds",
@@ -149,13 +126,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def ExpandArcSituations(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -163,6 +141,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "ExpandArcSituations",
@@ -172,13 +151,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
-    def FindBridgeConnections(
+    def GenerateArcOutcomes(
         self,
-        bridgeable_situations: List[types.BridgeableSituation],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc_seed: _baml.types.ArcSeed,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -186,22 +166,24 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
-        "FindBridgeConnections",
+        "GenerateArcOutcomes",
         {
-          "bridgeable_situations": bridgeable_situations,
+          "world_context": world_context,"player_state": player_state,"arc_seed": arc_seed,
         },
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateArcSeed(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,title: str,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,title: str,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -209,6 +191,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateArcSeed",
@@ -218,13 +201,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateArcTitles(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,count: Optional[int],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,count: Optional[int],
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -232,6 +216,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateArcTitles",
@@ -241,59 +226,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
-        False,
-      )
-    
-    def GenerateBridgeAttribute(
-        self,
-        bridge_node: types.BridgeNode,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return self.__runtime.build_request_sync(
-        "GenerateBridgeAttribute",
-        {
-          "bridge_node": bridge_node,"world_context": world_context,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        False,
-      )
-    
-    def GenerateBridgeSituations(
-        self,
-        world_context: types.WorldContext,player_state: types.PlayerState,bridge_nodes: List[types.BridgeNode],
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return self.__runtime.build_request_sync(
-        "GenerateBridgeSituations",
-        {
-          "world_context": world_context,"player_state": player_state,"bridge_nodes": bridge_nodes,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
+        env,
         False,
       )
     
     def GenerateChoiceAttribute(
         self,
-        choice: types.Choice,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        choice: _baml.types.Choice,world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -301,6 +241,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateChoiceAttribute",
@@ -310,13 +251,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateChoiceSituationResult(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -324,6 +266,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateChoiceSituationResult",
@@ -333,13 +276,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateDistricts(
         self,
-        context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -347,6 +291,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateDistricts",
@@ -356,13 +301,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateEventsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -370,6 +316,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateEventsForSituation",
@@ -379,13 +326,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateFaction(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -393,6 +341,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateFaction",
@@ -402,13 +351,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateInitialAttributes(
         self,
-        world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -416,6 +366,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateInitialAttributes",
@@ -425,13 +376,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateItemsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -439,6 +391,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateItemsForSituation",
@@ -448,13 +401,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
-    def GenerateLocationsForSituation(
+    def GenerateJoinChoices(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,arcs: List[_baml.types.Arc],
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -462,6 +416,32 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
+      return self.__runtime.build_request_sync(
+        "GenerateJoinChoices",
+        {
+          "world_context": world_context,"arcs": arcs,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        env,
+        False,
+      )
+    
+    def GenerateLocationsForSituation(
+        self,
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateLocationsForSituation",
@@ -471,13 +451,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
-    def GenerateMissingSituationsForChoice(
+    def GenerateMissingSituationForChoice(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -485,22 +466,24 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
-        "GenerateMissingSituationsForChoice",
+        "GenerateMissingSituationForChoice",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc,"choice": choice,
         },
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateNPCsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -508,6 +491,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateNPCsForSituation",
@@ -517,13 +501,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GeneratePlayerProfile(
         self,
-        world_context: types.WorldContext,stats: types.PlayerStats,attributes: List[types.PlayerAttribute],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,stats: _baml.types.PlayerStats,attributes: List[_baml.types.PlayerAttribute],
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -531,6 +516,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GeneratePlayerProfile",
@@ -540,13 +526,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateQuestsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -554,6 +541,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateQuestsForSituation",
@@ -563,13 +551,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateRootSituation(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc_seed: _baml.types.ArcSeed,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -577,6 +566,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateRootSituation",
@@ -586,13 +576,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateSituationForChoice(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -600,6 +591,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateSituationForChoice",
@@ -609,13 +601,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GenerateTechnology(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -623,6 +616,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateTechnology",
@@ -632,13 +626,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
-    def GetDefaultStatDescriptors(
+    def GenerateWorldRootSituation(
         self,
-        
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -646,6 +641,32 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
+      return self.__runtime.build_request_sync(
+        "GenerateWorldRootSituation",
+        {
+          "world_context": world_context,"player_state": player_state,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        env,
+        False,
+      )
+    
+    def GetDefaultStatDescriptors(
+        self,
+        
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GetDefaultStatDescriptors",
@@ -655,13 +676,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def GetStatNarrative(
         self,
-        stat_name: str,stat_value: int,descriptors: types.StatDescriptors,
-        baml_options: BamlCallOptions = {},
+        stat_name: str,stat_value: int,descriptors: _baml.types.StatDescriptors,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -669,6 +691,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GetStatNarrative",
@@ -678,36 +701,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
-        False,
-      )
-    
-    def IdentifyBridgeableSituations(
-        self,
-        arcs: List[types.Arc],
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return self.__runtime.build_request_sync(
-        "IdentifyBridgeableSituations",
-        {
-          "arcs": arcs,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
+        env,
         False,
       )
     
     def IdentifyMissingSituations(
         self,
-        world_context: types.WorldContext,arcs: List[types.Arc],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,arcs: List[_baml.types.Arc],
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -715,6 +716,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "IdentifyMissingSituations",
@@ -724,13 +726,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
     def InitializePlayerStats(
         self,
-        world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -738,6 +741,7 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "InitializePlayerStats",
@@ -747,13 +751,14 @@ class HttpRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         False,
       )
     
-    def SelectGenerationTool(
+    def SelectGenerationToolAndGenerate(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
-        baml_options: BamlCallOptions = {},
+        previous_actions_and_reasoning: List[_baml.types.ShortActionAndReasoning],world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,current_situation: _baml.types.Situation,arcs_at_this_situation: List[_baml.types.Arc],distance_from_completed_story: int,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -761,38 +766,17 @@ class HttpRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
-        "SelectGenerationTool",
+        "SelectGenerationToolAndGenerate",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc,
+          "previous_actions_and_reasoning": previous_actions_and_reasoning,"world_context": world_context,"player_state": player_state,"current_situation": current_situation,"arcs_at_this_situation": arcs_at_this_situation,"distance_from_completed_story": distance_from_completed_story,
         },
         self.__ctx_manager.get(),
         tb,
         __cr__,
-        False,
-      )
-    
-    def ValidateBridgeConnections(
-        self,
-        bridge_nodes: List[types.BridgeNode],arcs: List[types.Arc],world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return self.__runtime.build_request_sync(
-        "ValidateBridgeConnections",
-        {
-          "bridge_nodes": bridge_nodes,"arcs": arcs,"world_context": world_context,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
+        env,
         False,
       )
     
@@ -809,8 +793,8 @@ class HttpStreamRequest:
     
     def AugmentSituationChoices(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -818,6 +802,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "AugmentSituationChoices",
@@ -827,36 +812,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
-        True,
-      )
-    
-    def CheckBridgeAttributeNeeds(
-        self,
-        bridge_node: types.BridgeNode,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return self.__runtime.build_request_sync(
-        "CheckBridgeAttributeNeeds",
-        {
-          "bridge_node": bridge_node,"world_context": world_context,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
+        env,
         True,
       )
     
     def CheckChoiceAttributeNeeds(
         self,
-        choice: types.Choice,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        choice: _baml.types.Choice,world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -864,6 +827,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "CheckChoiceAttributeNeeds",
@@ -873,13 +837,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def CheckFactionNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -887,6 +852,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "CheckFactionNeeds",
@@ -896,13 +862,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def CheckTechnologyNeeds(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -910,6 +877,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "CheckTechnologyNeeds",
@@ -919,13 +887,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def ExpandArcSituations(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -933,6 +902,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "ExpandArcSituations",
@@ -942,13 +912,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
-    def FindBridgeConnections(
+    def GenerateArcOutcomes(
         self,
-        bridgeable_situations: List[types.BridgeableSituation],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc_seed: _baml.types.ArcSeed,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -956,22 +927,24 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
-        "FindBridgeConnections",
+        "GenerateArcOutcomes",
         {
-          "bridgeable_situations": bridgeable_situations,
+          "world_context": world_context,"player_state": player_state,"arc_seed": arc_seed,
         },
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateArcSeed(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,title: str,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,title: str,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -979,6 +952,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateArcSeed",
@@ -988,13 +962,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateArcTitles(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,count: Optional[int],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,count: Optional[int],
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1002,6 +977,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateArcTitles",
@@ -1011,59 +987,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
-        True,
-      )
-    
-    def GenerateBridgeAttribute(
-        self,
-        bridge_node: types.BridgeNode,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return self.__runtime.build_request_sync(
-        "GenerateBridgeAttribute",
-        {
-          "bridge_node": bridge_node,"world_context": world_context,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-        True,
-      )
-    
-    def GenerateBridgeSituations(
-        self,
-        world_context: types.WorldContext,player_state: types.PlayerState,bridge_nodes: List[types.BridgeNode],
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return self.__runtime.build_request_sync(
-        "GenerateBridgeSituations",
-        {
-          "world_context": world_context,"player_state": player_state,"bridge_nodes": bridge_nodes,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
+        env,
         True,
       )
     
     def GenerateChoiceAttribute(
         self,
-        choice: types.Choice,world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        choice: _baml.types.Choice,world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1071,6 +1002,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateChoiceAttribute",
@@ -1080,13 +1012,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateChoiceSituationResult(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1094,6 +1027,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateChoiceSituationResult",
@@ -1103,13 +1037,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateDistricts(
         self,
-        context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1117,6 +1052,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateDistricts",
@@ -1126,13 +1062,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateEventsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1140,6 +1077,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateEventsForSituation",
@@ -1149,13 +1087,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateFaction(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1163,6 +1102,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateFaction",
@@ -1172,13 +1112,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateInitialAttributes(
         self,
-        world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1186,6 +1127,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateInitialAttributes",
@@ -1195,13 +1137,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateItemsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1209,6 +1152,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateItemsForSituation",
@@ -1218,13 +1162,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
-    def GenerateLocationsForSituation(
+    def GenerateJoinChoices(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,arcs: List[_baml.types.Arc],
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1232,6 +1177,32 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
+      return self.__runtime.build_request_sync(
+        "GenerateJoinChoices",
+        {
+          "world_context": world_context,"arcs": arcs,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        env,
+        True,
+      )
+    
+    def GenerateLocationsForSituation(
+        self,
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateLocationsForSituation",
@@ -1241,13 +1212,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
-    def GenerateMissingSituationsForChoice(
+    def GenerateMissingSituationForChoice(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1255,22 +1227,24 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
-        "GenerateMissingSituationsForChoice",
+        "GenerateMissingSituationForChoice",
         {
           "world_context": world_context,"player_state": player_state,"arc": arc,"choice": choice,
         },
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateNPCsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1278,6 +1252,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateNPCsForSituation",
@@ -1287,13 +1262,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GeneratePlayerProfile(
         self,
-        world_context: types.WorldContext,stats: types.PlayerStats,attributes: List[types.PlayerAttribute],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,stats: _baml.types.PlayerStats,attributes: List[_baml.types.PlayerAttribute],
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1301,6 +1277,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GeneratePlayerProfile",
@@ -1310,13 +1287,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateQuestsForSituation(
         self,
-        world_context: types.WorldContext,situation: types.Situation,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,situation: _baml.types.Situation,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1324,6 +1302,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateQuestsForSituation",
@@ -1333,13 +1312,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateRootSituation(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc_seed: types.ArcSeed,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc_seed: _baml.types.ArcSeed,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1347,6 +1327,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateRootSituation",
@@ -1356,13 +1337,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateSituationForChoice(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,choice: types.Choice,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,arc: _baml.types.Arc,choice: _baml.types.Choice,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1370,6 +1352,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateSituationForChoice",
@@ -1379,13 +1362,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GenerateTechnology(
         self,
-        context: types.WorldContext,situation_description: str,
-        baml_options: BamlCallOptions = {},
+        context: _baml.types.WorldContext,situation_description: str,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1393,6 +1377,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GenerateTechnology",
@@ -1402,13 +1387,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
-    def GetDefaultStatDescriptors(
+    def GenerateWorldRootSituation(
         self,
-        
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1416,6 +1402,32 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
+
+      return self.__runtime.build_request_sync(
+        "GenerateWorldRootSituation",
+        {
+          "world_context": world_context,"player_state": player_state,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+        env,
+        True,
+      )
+    
+    def GetDefaultStatDescriptors(
+        self,
+        
+        baml_options: _baml.BamlCallOptionsModApi = {},
+    ) -> baml_py.HTTPRequest:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GetDefaultStatDescriptors",
@@ -1425,13 +1437,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def GetStatNarrative(
         self,
-        stat_name: str,stat_value: int,descriptors: types.StatDescriptors,
-        baml_options: BamlCallOptions = {},
+        stat_name: str,stat_value: int,descriptors: _baml.types.StatDescriptors,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1439,6 +1452,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "GetStatNarrative",
@@ -1448,36 +1462,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
-        True,
-      )
-    
-    def IdentifyBridgeableSituations(
-        self,
-        arcs: List[types.Arc],
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return self.__runtime.build_request_sync(
-        "IdentifyBridgeableSituations",
-        {
-          "arcs": arcs,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
+        env,
         True,
       )
     
     def IdentifyMissingSituations(
         self,
-        world_context: types.WorldContext,arcs: List[types.Arc],
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,arcs: List[_baml.types.Arc],
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1485,6 +1477,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "IdentifyMissingSituations",
@@ -1494,13 +1487,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
     def InitializePlayerStats(
         self,
-        world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
+        world_context: _baml.types.WorldContext,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1508,6 +1502,7 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
         "InitializePlayerStats",
@@ -1517,13 +1512,14 @@ class HttpStreamRequest:
         self.__ctx_manager.get(),
         tb,
         __cr__,
+        env,
         True,
       )
     
-    def SelectGenerationTool(
+    def SelectGenerationToolAndGenerate(
         self,
-        world_context: types.WorldContext,player_state: types.PlayerState,arc: types.Arc,
-        baml_options: BamlCallOptions = {},
+        previous_actions_and_reasoning: List[_baml.types.ShortActionAndReasoning],world_context: _baml.types.WorldContext,player_state: _baml.types.PlayerState,current_situation: _baml.types.Situation,arcs_at_this_situation: List[_baml.types.Arc],distance_from_completed_story: int,
+        baml_options: _baml.BamlCallOptionsModApi = {},
     ) -> baml_py.HTTPRequest:
       __tb__ = baml_options.get("tb", None)
       if __tb__ is not None:
@@ -1531,38 +1527,17 @@ class HttpStreamRequest:
       else:
         tb = None
       __cr__ = baml_options.get("client_registry", None)
+      env = _baml.env_vars_to_dict(baml_options.get("env", {}))
 
       return self.__runtime.build_request_sync(
-        "SelectGenerationTool",
+        "SelectGenerationToolAndGenerate",
         {
-          "world_context": world_context,"player_state": player_state,"arc": arc,
+          "previous_actions_and_reasoning": previous_actions_and_reasoning,"world_context": world_context,"player_state": player_state,"current_situation": current_situation,"arcs_at_this_situation": arcs_at_this_situation,"distance_from_completed_story": distance_from_completed_story,
         },
         self.__ctx_manager.get(),
         tb,
         __cr__,
-        True,
-      )
-    
-    def ValidateBridgeConnections(
-        self,
-        bridge_nodes: List[types.BridgeNode],arcs: List[types.Arc],world_context: types.WorldContext,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.HTTPRequest:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      return self.__runtime.build_request_sync(
-        "ValidateBridgeConnections",
-        {
-          "bridge_nodes": bridge_nodes,"arcs": arcs,"world_context": world_context,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
+        env,
         True,
       )
     

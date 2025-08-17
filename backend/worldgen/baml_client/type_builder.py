@@ -22,11 +22,15 @@ from .globals import DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIM
 class TypeBuilder(_TypeBuilder):
     def __init__(self):
         super().__init__(classes=set(
-          ["Arc","ArcOutcome","ArcSeed","BridgeNode","BridgeableSituation","Choice","District","Event","Faction","Item","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","Situation","StatDescriptors","StatRequirement","Technology","WorldContext","WorldSeed",]
+          ["ActionAndReasoning","Arc","ArcOutcome","ArcSeed","Choice","CreateArc","CreateArcOutcome","CreateChoices","CreateFaction","CreateMultipleSituations","CreateNPC","CreateSituation","CreateTechnology","District","DownOneLevel","Event","Faction","FindMissingSituations","GetSituationById","GoToArcRoot","GoToSituation","GoToWorldRoot","IdentifyNarrativeGaps","Item","JoinSituationOutput","Location","NPC","PlayerAttribute","PlayerProfile","PlayerState","PlayerStats","Quest","Resume","ShortActionAndReasoning","Situation","StatDescriptors","StatRequirement","Technology","UpOneLevel","WorldContext","WorldSeed",]
         ), enums=set(
           []
         ), runtime=DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME)
 
+
+    @property
+    def ActionAndReasoning(self) -> "ActionAndReasoningAst":
+        return ActionAndReasoningAst(self)
 
     @property
     def Arc(self) -> "ArcAst":
@@ -41,20 +45,48 @@ class TypeBuilder(_TypeBuilder):
         return ArcSeedAst(self)
 
     @property
-    def BridgeNode(self) -> "BridgeNodeAst":
-        return BridgeNodeAst(self)
-
-    @property
-    def BridgeableSituation(self) -> "BridgeableSituationAst":
-        return BridgeableSituationAst(self)
-
-    @property
     def Choice(self) -> "ChoiceAst":
         return ChoiceAst(self)
 
     @property
+    def CreateArc(self) -> "CreateArcAst":
+        return CreateArcAst(self)
+
+    @property
+    def CreateArcOutcome(self) -> "CreateArcOutcomeAst":
+        return CreateArcOutcomeAst(self)
+
+    @property
+    def CreateChoices(self) -> "CreateChoicesAst":
+        return CreateChoicesAst(self)
+
+    @property
+    def CreateFaction(self) -> "CreateFactionAst":
+        return CreateFactionAst(self)
+
+    @property
+    def CreateMultipleSituations(self) -> "CreateMultipleSituationsAst":
+        return CreateMultipleSituationsAst(self)
+
+    @property
+    def CreateNPC(self) -> "CreateNPCAst":
+        return CreateNPCAst(self)
+
+    @property
+    def CreateSituation(self) -> "CreateSituationAst":
+        return CreateSituationAst(self)
+
+    @property
+    def CreateTechnology(self) -> "CreateTechnologyAst":
+        return CreateTechnologyAst(self)
+
+    @property
     def District(self) -> "DistrictAst":
         return DistrictAst(self)
+
+    @property
+    def DownOneLevel(self) -> "DownOneLevelAst":
+        return DownOneLevelAst(self)
 
     @property
     def Event(self) -> "EventAst":
@@ -65,8 +97,36 @@ class TypeBuilder(_TypeBuilder):
         return FactionAst(self)
 
     @property
+    def FindMissingSituations(self) -> "FindMissingSituationsAst":
+        return FindMissingSituationsAst(self)
+
+    @property
+    def GetSituationById(self) -> "GetSituationByIdAst":
+        return GetSituationByIdAst(self)
+
+    @property
+    def GoToArcRoot(self) -> "GoToArcRootAst":
+        return GoToArcRootAst(self)
+
+    @property
+    def GoToSituation(self) -> "GoToSituationAst":
+        return GoToSituationAst(self)
+
+    @property
+    def GoToWorldRoot(self) -> "GoToWorldRootAst":
+        return GoToWorldRootAst(self)
+
+    @property
+    def IdentifyNarrativeGaps(self) -> "IdentifyNarrativeGapsAst":
+        return IdentifyNarrativeGapsAst(self)
+
+    @property
     def Item(self) -> "ItemAst":
         return ItemAst(self)
+
+    @property
+    def JoinSituationOutput(self) -> "JoinSituationOutputAst":
+        return JoinSituationOutputAst(self)
 
     @property
     def Location(self) -> "LocationAst":
@@ -101,6 +161,10 @@ class TypeBuilder(_TypeBuilder):
         return ResumeAst(self)
 
     @property
+    def ShortActionAndReasoning(self) -> "ShortActionAndReasoningAst":
+        return ShortActionAndReasoningAst(self)
+
+    @property
     def Situation(self) -> "SituationAst":
         return SituationAst(self)
 
@@ -117,6 +181,10 @@ class TypeBuilder(_TypeBuilder):
         return TechnologyAst(self)
 
     @property
+    def UpOneLevel(self) -> "UpOneLevelAst":
+        return UpOneLevelAst(self)
+
+    @property
     def WorldContext(self) -> "WorldContextAst":
         return WorldContextAst(self)
 
@@ -127,6 +195,52 @@ class TypeBuilder(_TypeBuilder):
 
 
 
+
+class ActionAndReasoningAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("ActionAndReasoning")
+        self._properties: typing.Set[str] = set([ "action",  "generated_description",  "reasoning", ])
+        self._props = ActionAndReasoningProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "ActionAndReasoningProperties":
+        return self._props
+
+
+class ActionAndReasoningViewer(ActionAndReasoningAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class ActionAndReasoningProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def action(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("action"))
+
+    @property
+    def generated_description(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("generated_description"))
+
+    @property
+    def reasoning(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reasoning"))
+
+    
 
 class ArcAst:
     def __init__(self, tb: _TypeBuilder):
@@ -294,139 +408,11 @@ class ArcSeedProperties:
 
     
 
-class BridgeNodeAst:
-    def __init__(self, tb: _TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
-        self._bldr = _tb.class_("BridgeNode")
-        self._properties: typing.Set[str] = set([ "source_situation_id",  "target_situation_id",  "shared_context_tags",  "shared_factions",  "shared_locations",  "shared_themes",  "internal_hint",  "internal_justification", ])
-        self._props = BridgeNodeProperties(self._bldr, self._properties)
-
-    def type(self) -> FieldType:
-        return self._bldr.field()
-
-    @property
-    def props(self) -> "BridgeNodeProperties":
-        return self._props
-
-
-class BridgeNodeViewer(BridgeNodeAst):
-    def __init__(self, tb: _TypeBuilder):
-        super().__init__(tb)
-
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
-        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-
-
-
-class BridgeNodeProperties:
-    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
-        self.__bldr = bldr
-        self.__properties = properties
-
-    
-
-    @property
-    def source_situation_id(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("source_situation_id"))
-
-    @property
-    def target_situation_id(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("target_situation_id"))
-
-    @property
-    def shared_context_tags(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("shared_context_tags"))
-
-    @property
-    def shared_factions(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("shared_factions"))
-
-    @property
-    def shared_locations(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("shared_locations"))
-
-    @property
-    def shared_themes(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("shared_themes"))
-
-    @property
-    def internal_hint(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("internal_hint"))
-
-    @property
-    def internal_justification(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("internal_justification"))
-
-    
-
-class BridgeableSituationAst:
-    def __init__(self, tb: _TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
-        self._bldr = _tb.class_("BridgeableSituation")
-        self._properties: typing.Set[str] = set([ "id",  "context_tags",  "factions",  "locations",  "themes",  "internal_hint",  "internal_justification", ])
-        self._props = BridgeableSituationProperties(self._bldr, self._properties)
-
-    def type(self) -> FieldType:
-        return self._bldr.field()
-
-    @property
-    def props(self) -> "BridgeableSituationProperties":
-        return self._props
-
-
-class BridgeableSituationViewer(BridgeableSituationAst):
-    def __init__(self, tb: _TypeBuilder):
-        super().__init__(tb)
-
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
-        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-
-
-
-class BridgeableSituationProperties:
-    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
-        self.__bldr = bldr
-        self.__properties = properties
-
-    
-
-    @property
-    def id(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("id"))
-
-    @property
-    def context_tags(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("context_tags"))
-
-    @property
-    def factions(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("factions"))
-
-    @property
-    def locations(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("locations"))
-
-    @property
-    def themes(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("themes"))
-
-    @property
-    def internal_hint(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("internal_hint"))
-
-    @property
-    def internal_justification(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("internal_justification"))
-
-    
-
 class ChoiceAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Choice")
-        self._properties: typing.Set[str] = set([ "id",  "text",  "dialogue_response",  "choice_type",  "player_perspective",  "emotional_tone",  "body_language",  "requirements",  "attributes_gained",  "attributes_lost",  "stat_changes",  "next_situation_id",  "internal_hint",  "internal_justification",  "new_npcs",  "new_factions",  "new_technologies", ])
+        self._properties: typing.Set[str] = set([ "id",  "text",  "dialogue_response",  "choice_type",  "emotional_tone",  "body_language",  "requirements",  "attributes_gained",  "attributes_lost",  "stat_changes",  "next_situation_id",  "internal_hint",  "internal_justification",  "new_npcs",  "new_factions",  "new_technologies", ])
         self._props = ChoiceProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -469,10 +455,6 @@ class ChoiceProperties:
     @property
     def choice_type(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("choice_type"))
-
-    @property
-    def player_perspective(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("player_perspective"))
 
     @property
     def emotional_tone(self) -> ClassPropertyViewer:
@@ -521,6 +503,374 @@ class ChoiceProperties:
     @property
     def new_technologies(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("new_technologies"))
+
+    
+
+class CreateArcAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("CreateArc")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "generated_arc", ])
+        self._props = CreateArcProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "CreateArcProperties":
+        return self._props
+
+
+class CreateArcViewer(CreateArcAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class CreateArcProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def generated_arc(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("generated_arc"))
+
+    
+
+class CreateArcOutcomeAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("CreateArcOutcome")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "generated_arc_outcome", ])
+        self._props = CreateArcOutcomeProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "CreateArcOutcomeProperties":
+        return self._props
+
+
+class CreateArcOutcomeViewer(CreateArcOutcomeAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class CreateArcOutcomeProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def generated_arc_outcome(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("generated_arc_outcome"))
+
+    
+
+class CreateChoicesAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("CreateChoices")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "generated_choices", ])
+        self._props = CreateChoicesProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "CreateChoicesProperties":
+        return self._props
+
+
+class CreateChoicesViewer(CreateChoicesAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class CreateChoicesProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def generated_choices(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("generated_choices"))
+
+    
+
+class CreateFactionAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("CreateFaction")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "generated_faction", ])
+        self._props = CreateFactionProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "CreateFactionProperties":
+        return self._props
+
+
+class CreateFactionViewer(CreateFactionAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class CreateFactionProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def generated_faction(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("generated_faction"))
+
+    
+
+class CreateMultipleSituationsAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("CreateMultipleSituations")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "generated_situations", ])
+        self._props = CreateMultipleSituationsProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "CreateMultipleSituationsProperties":
+        return self._props
+
+
+class CreateMultipleSituationsViewer(CreateMultipleSituationsAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class CreateMultipleSituationsProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def generated_situations(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("generated_situations"))
+
+    
+
+class CreateNPCAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("CreateNPC")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "generated_npc", ])
+        self._props = CreateNPCProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "CreateNPCProperties":
+        return self._props
+
+
+class CreateNPCViewer(CreateNPCAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class CreateNPCProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def generated_npc(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("generated_npc"))
+
+    
+
+class CreateSituationAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("CreateSituation")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "generated_situation", ])
+        self._props = CreateSituationProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "CreateSituationProperties":
+        return self._props
+
+
+class CreateSituationViewer(CreateSituationAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class CreateSituationProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def generated_situation(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("generated_situation"))
+
+    
+
+class CreateTechnologyAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("CreateTechnology")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "generated_technology", ])
+        self._props = CreateTechnologyProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "CreateTechnologyProperties":
+        return self._props
+
+
+class CreateTechnologyViewer(CreateTechnologyAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class CreateTechnologyProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def generated_technology(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("generated_technology"))
 
     
 
@@ -583,6 +933,48 @@ class DistrictProperties:
     @property
     def internal_justification(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("internal_justification"))
+
+    
+
+class DownOneLevelAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("DownOneLevel")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason", ])
+        self._props = DownOneLevelProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "DownOneLevelProperties":
+        return self._props
+
+
+class DownOneLevelViewer(DownOneLevelAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class DownOneLevelProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
 
     
 
@@ -664,7 +1056,7 @@ class FactionAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Faction")
-        self._properties: typing.Set[str] = set([ "name",  "ideology",  "territory",  "influence_level",  "relationships",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "name",  "description",  "ideology",  "location",  "influence_level",  "relationships",  "hazards",  "internal_hint",  "internal_justification", ])
         self._props = FactionProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -697,12 +1089,16 @@ class FactionProperties:
         return ClassPropertyViewer(self.__bldr.property("name"))
 
     @property
+    def description(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("description"))
+
+    @property
     def ideology(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("ideology"))
 
     @property
-    def territory(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("territory"))
+    def location(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("location"))
 
     @property
     def influence_level(self) -> ClassPropertyViewer:
@@ -713,12 +1109,284 @@ class FactionProperties:
         return ClassPropertyViewer(self.__bldr.property("relationships"))
 
     @property
+    def hazards(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("hazards"))
+
+    @property
     def internal_hint(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("internal_hint"))
 
     @property
     def internal_justification(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("internal_justification"))
+
+    
+
+class FindMissingSituationsAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("FindMissingSituations")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "missing_situations", ])
+        self._props = FindMissingSituationsProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "FindMissingSituationsProperties":
+        return self._props
+
+
+class FindMissingSituationsViewer(FindMissingSituationsAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class FindMissingSituationsProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def missing_situations(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("missing_situations"))
+
+    
+
+class GetSituationByIdAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("GetSituationById")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "situation_id", ])
+        self._props = GetSituationByIdProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "GetSituationByIdProperties":
+        return self._props
+
+
+class GetSituationByIdViewer(GetSituationByIdAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class GetSituationByIdProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def situation_id(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("situation_id"))
+
+    
+
+class GoToArcRootAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("GoToArcRoot")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason", ])
+        self._props = GoToArcRootProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "GoToArcRootProperties":
+        return self._props
+
+
+class GoToArcRootViewer(GoToArcRootAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class GoToArcRootProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    
+
+class GoToSituationAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("GoToSituation")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "situation_id", ])
+        self._props = GoToSituationProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "GoToSituationProperties":
+        return self._props
+
+
+class GoToSituationViewer(GoToSituationAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class GoToSituationProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def situation_id(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("situation_id"))
+
+    
+
+class GoToWorldRootAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("GoToWorldRoot")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason", ])
+        self._props = GoToWorldRootProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "GoToWorldRootProperties":
+        return self._props
+
+
+class GoToWorldRootViewer(GoToWorldRootAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class GoToWorldRootProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    
+
+class IdentifyNarrativeGapsAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("IdentifyNarrativeGaps")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason",  "narrative_gaps", ])
+        self._props = IdentifyNarrativeGapsProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "IdentifyNarrativeGapsProperties":
+        return self._props
+
+
+class IdentifyNarrativeGapsViewer(IdentifyNarrativeGapsAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class IdentifyNarrativeGapsProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def narrative_gaps(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("narrative_gaps"))
 
     
 
@@ -789,6 +1457,56 @@ class ItemProperties:
     @property
     def internal_justification(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("internal_justification"))
+
+    
+
+class JoinSituationOutputAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("JoinSituationOutput")
+        self._properties: typing.Set[str] = set([ "from_situation_id",  "to_situation_id",  "reason",  "choice", ])
+        self._props = JoinSituationOutputProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "JoinSituationOutputProperties":
+        return self._props
+
+
+class JoinSituationOutputViewer(JoinSituationOutputAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class JoinSituationOutputProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def from_situation_id(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("from_situation_id"))
+
+    @property
+    def to_situation_id(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("to_situation_id"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    @property
+    def choice(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("choice"))
 
     
 
@@ -1304,11 +2022,57 @@ class ResumeProperties:
 
     
 
+class ShortActionAndReasoningAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("ShortActionAndReasoning")
+        self._properties: typing.Set[str] = set([ "action",  "generated_description",  "reasoning", ])
+        self._props = ShortActionAndReasoningProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "ShortActionAndReasoningProperties":
+        return self._props
+
+
+class ShortActionAndReasoningViewer(ShortActionAndReasoningAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class ShortActionAndReasoningProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def action(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("action"))
+
+    @property
+    def generated_description(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("generated_description"))
+
+    @property
+    def reasoning(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reasoning"))
+
+    
+
 class SituationAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Situation")
-        self._properties: typing.Set[str] = set([ "id",  "description",  "player_perspective_description",  "choices",  "stat_requirements",  "consequences",  "bridgeable",  "context_tags",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "id",  "description",  "player_perspective_description",  "choices",  "stat_requirements",  "bridgeable",  "context_tags",  "internal_hint",  "internal_justification", ])
         self._props = SituationProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -1355,10 +2119,6 @@ class SituationProperties:
     @property
     def stat_requirements(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("stat_requirements"))
-
-    @property
-    def consequences(self) -> ClassPropertyViewer:
-        return ClassPropertyViewer(self.__bldr.property("consequences"))
 
     @property
     def bridgeable(self) -> ClassPropertyViewer:
@@ -1510,7 +2270,7 @@ class TechnologyAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("Technology")
-        self._properties: typing.Set[str] = set([ "name",  "description",  "impact",  "limitations",  "internal_hint",  "internal_justification", ])
+        self._properties: typing.Set[str] = set([ "name",  "description",  "impact",  "limitations",  "hazards",  "factions",  "traits",  "internal_hint",  "internal_justification", ])
         self._props = TechnologyProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -1555,6 +2315,18 @@ class TechnologyProperties:
         return ClassPropertyViewer(self.__bldr.property("limitations"))
 
     @property
+    def hazards(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("hazards"))
+
+    @property
+    def factions(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("factions"))
+
+    @property
+    def traits(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("traits"))
+
+    @property
     def internal_hint(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("internal_hint"))
 
@@ -1564,11 +2336,53 @@ class TechnologyProperties:
 
     
 
+class UpOneLevelAst:
+    def __init__(self, tb: _TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("UpOneLevel")
+        self._properties: typing.Set[str] = set([ "tool_name",  "reason", ])
+        self._props = UpOneLevelProperties(self._bldr, self._properties)
+
+    def type(self) -> FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "UpOneLevelProperties":
+        return self._props
+
+
+class UpOneLevelViewer(UpOneLevelAst):
+    def __init__(self, tb: _TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, ClassPropertyViewer]]:
+        return [(name, ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+
+
+
+class UpOneLevelProperties:
+    def __init__(self, bldr: ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties
+
+    
+
+    @property
+    def tool_name(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("tool_name"))
+
+    @property
+    def reason(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("reason"))
+
+    
+
 class WorldContextAst:
     def __init__(self, tb: _TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("WorldContext")
-        self._properties: typing.Set[str] = set([ "seed",  "technologies",  "factions",  "districts",  "npcs",  "tension_sliders", ])
+        self._properties: typing.Set[str] = set([ "seed",  "technologies",  "factions",  "districts",  "npcs",  "tension_sliders",  "world_root", ])
         self._props = WorldContextProperties(self._bldr, self._properties)
 
     def type(self) -> FieldType:
@@ -1619,6 +2433,10 @@ class WorldContextProperties:
     @property
     def tension_sliders(self) -> ClassPropertyViewer:
         return ClassPropertyViewer(self.__bldr.property("tension_sliders"))
+
+    @property
+    def world_root(self) -> ClassPropertyViewer:
+        return ClassPropertyViewer(self.__bldr.property("world_root"))
 
     
 
